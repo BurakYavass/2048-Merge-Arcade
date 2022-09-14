@@ -99,7 +99,7 @@ Animator:
   m_GameObject: {fileID: 191034823877584429}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0089696eaf307754e98222b7ff91e700, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -123,20 +123,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _MainObje: {fileID: 2927836862621071230}
   _CreatBall: {fileID: 3802715413599442534, guid: 0e0b952b6270b8d4fa9c22f09459ade7, type: 3}
-  _CreatValue: 4
-  _CreatCount: 4
   _ClosePart:
   - {fileID: 191034823877584429}
   - {fileID: 2511821336193077460}
   - {fileID: 4010802773484295530}
   _OpenPart:
   - {fileID: 2235390167278318273}
-  _ChestHealthValue: 110
-  _Hit: {fileID: 9100000, guid: 0089696eaf307754e98222b7ff91e700, type: 2}
+  animator: {fileID: 6215473402993453442}
   _HealthBar: {fileID: 2511821336193077460}
   _FullHealth: {fileID: 4822441935863256179}
   _CurrentHealth: {fileID: 7710191862479782402}
   _SliderValue: {fileID: 7468534621296969563}
+  playerTransform: {fileID: 0}
+  _CreatValue: 4
+  _CreatCount: 4
+  _ChestHealthValue: 110
 --- !u!65 &4876488456519774557
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -148,8 +149,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.7, y: 1.7, z: 3.9}
-  m_Center: {x: 0.17100242, y: 0.68350995, z: 0.0740533}
+  m_Size: {x: 2.5, y: 2.5, z: 2.852723}
+  m_Center: {x: 0.17100239, y: 0.6835102, z: -0.2632963}
 --- !u!1 &2927836862621071230
 GameObject:
   m_ObjectHideFlags: 0
@@ -174,9 +175,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2927836862621071230}
-  m_LocalRotation: {x: -0.70316523, y: 0.07455736, z: 0.074557364, w: 0.7031651}
+  m_LocalRotation: {x: -0.7031652, y: 0.07455713, z: 0.07455713, w: 0.7031652}
   m_LocalPosition: {x: -83.65, y: 2.11, z: -45.47}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7470925470018307390}
@@ -185,7 +186,7 @@ Transform:
   - {fileID: 2511821336193077461}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 12.105}
 --- !u!114 &6648125687189219231
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CloseDelay : MonoBehaviour
 {
-   
     public void CloseObje()
     {
         StartCoroutine(DelayClose());

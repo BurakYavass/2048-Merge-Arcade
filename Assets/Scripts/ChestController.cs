@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -20,7 +21,7 @@ public class ChestController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _CurrentHealth;
     [SerializeField] private Image _SliderValue;
 
-    [SerializeField] private Transform playerTransform;
+    private Transform playerTransform;
     
     [SerializeField] private float _CreatValue;
     [SerializeField] private float _CreatCount;
@@ -35,6 +36,7 @@ public class ChestController : MonoBehaviour
         _ChestHealthValueCurrent = _ChestHealthValue;
         _FullHealth.text = (Mathf.Round(_ChestHealthValue)).ToString();
         _CurrentHealth.text = (Mathf.Round(_ChestHealthValueCurrent)).ToString();
+        playerTransform = PlayerStackList.Current.stackPoint;
     }
 
  
@@ -65,6 +67,16 @@ public class ChestController : MonoBehaviour
                 }
             }
         }
+
+        var distance = Vector3.Distance(transform.position, playerTransform.position);
+        if (distance < 5f)
+        {
+            _HealthBar.SetActive(true);
+        }
+        else
+        {
+            _HealthBar.SetActive(false);
+        }
     }
     public void Hit(float damage)
     {
@@ -73,7 +85,7 @@ public class ChestController : MonoBehaviour
             _TempDamage = damage;
             _ChestHealthValueCurrentTemp = _ChestHealthValueCurrent - _TempDamage;
             _Hitting = true;
-            _HealthBar.SetActive(true);
+            //_HealthBar.SetActive(true);
             StartCoroutine(HitClose());
         }
     }
@@ -81,10 +93,10 @@ public class ChestController : MonoBehaviour
     IEnumerator HitClose()
     {
         animator.SetBool("Hit",true);
-        yield return new WaitForSeconds(7);
+        yield return new WaitForSeconds(0.5f);
         animator.SetBool("Hit",false);
         _Hitting = false;
-        _HealthBar.SetActive(false);
+        //_HealthBar.SetActive(false);
     }
 
     IEnumerator CloseDelay()
@@ -99,7 +111,7 @@ public class ChestController : MonoBehaviour
         {
           //  GameObject go = Instantiate(_CreatBall, transform.position + new Vector3(Random.Range(0, 2), Random.Range(0, 2), Random.Range(0, 2)), Quaternion.Euler(0,180,0));
             GameObject go = Instantiate(_CreatBall, transform.position, Quaternion.Euler(0,0,0));
-            //go.GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(.5f,5), Random.Range(0.5f, 5), Random.Range(0.5f, 5))) ;
+            //go.GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(.5f,5), Random.Range(0.5f, 5), Random.Range(0.5f, 5)));
             go.transform.DOJump(playerTransform.position,1,1,1);
         }
         _MainObje.GetComponent<CloseDelay>().CloseObje();
