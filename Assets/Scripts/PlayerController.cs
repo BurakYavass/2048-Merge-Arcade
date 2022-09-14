@@ -1,191 +1,91 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
+using Cinemachine;
 using UnityEngine;
+
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField]
-    float _Speed;
-    [SerializeField]
-    float _SpeedTemp;
+    public static PlayerController current;
+    [SerializeField] private CinemachineVirtualCamera virtualCamera;
+    [SerializeField] private Joystick joystick;
+    [SerializeField] private RectTransform handle;
+    private CharacterController _characterController;
 
-    Rigidbody _Rb;
-    Animator _Animator;
+    [SerializeField]private float turnSpeed;
 
-    [SerializeField]
-    RuntimeAnimatorController _Run;
-    [SerializeField]
-    RuntimeAnimatorController _Idle;
-    [SerializeField]
-    RuntimeAnimatorController _MergeBallMove;
-    [SerializeField]
-    RuntimeAnimatorController _Hit;
-
-    RuntimeAnimatorController _None;
-    GameObject _BallController;
-    GameObject _Cameras;
-    bool _Stop=true;
-    bool _Hitting;
-    float _JoystickValue;
-    bool _OnMergeMachine;
-    bool _OnUpgrade;
-     void Start()
+    public bool walking = false;
+    private bool once = false;
+    
+    private void Awake()
     {
-        _BallController = GameObject.FindGameObjectWithTag("BallController");
-        _Cameras = GameObject.FindGameObjectWithTag("Cameras");
-           _Rb = GetComponent<Rigidbody>();
-        _Animator = transform.GetChild(0).gameObject.GetComponent<Animator>();
-        _SpeedTemp = _Speed;
-    }
-
-
-    private void Update()
-    {
-        
-    }
-    void FixedUpdate()
-    {
-      
-        Vector3 direction = new Vector3(GetComponent<InputController>().GetJoystick().x, 0f, GetComponent<InputController>().GetJoystick().y) * _SpeedTemp * 4;
-
-         direction = Vector3.ClampMagnitude(direction, _SpeedTemp);
-        if (direction != Vector3.zero)
+        if (current == null)
         {
-            Vector3 temp = transform.position + direction * (Time.deltaTime);
-            UnityEngine.AI.NavMeshHit hit;
-            bool isvalid = UnityEngine.AI.NavMesh.SamplePosition(temp, out hit, .3f, UnityEngine.AI.NavMesh.AllAreas);
-            if (isvalid)
-            {
+            current = this;
+        }
+        
+        _characterController = GetComponent<CharacterController>();
+    }
 
-                if ((transform.position - hit.position).magnitude >= 0.1f)
-                {
-                    _JoystickValue = (transform.position - hit.position).magnitude;
-
-
-                    _Rb.MovePosition(temp);
-                    _Rb.MoveRotation(Quaternion.LookRotation(-direction));
-
-
-
-                    
-                        _Animator.runtimeAnimatorController = _Run;
-                    _Stop = false;
-                }
-                 
-            }
-            else
-            {
-                _Stop = true;
-                _Animator.runtimeAnimatorController = _Idle;
-           
-            }
-
+    void Update()
+    {
+        if (joystick.isActiveAndEnabled)
+        {
+            Movement();
         }
         else
         {
-            _Stop = true;
-            if (_Hitting)
-            {
-                _Animator.runtimeAnimatorController = _Hit;
-            }
-            else
-            {
-                _Animator.runtimeAnimatorController = _Idle;
-
-            }
-         
+            walking = false;
+            handle.anchoredPosition = Vector2.zero;
         }
-
     }
 
-    public bool GetStop()
+    private void Movement()
     {
-        return _Stop;
-    }
-    public bool GetHitting()
-    {
-        return _Hitting;
-    }
-    public float GetJoystickValue()
-    {
-        return _JoystickValue;
-    }
+        var inputVector = new Vector3(joystick.Horizontal, 0f, joystick.Vertical);
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("MergeMachine"))
+        if (joystick.Horizontal != 0f || joystick.Vertical != 0f)
         {
-            if (!_OnMergeMachine)
+            if (!once)
             {
-                _OnMergeMachine = true;
-                _BallController.GetComponent<BallController>().GoMerge();
-                // other.gameObject.transform.parent.GetComponent<Animator>().runtimeAnimatorController = _None;
-                // other.gameObject.transform.parent.GetComponent<Animator>().runtimeAnimatorController = _MergeBallMove;
-
+                walking = true;
+                once = true;
             }
         }
-
-        if (other.CompareTag("UpgradeTrigger"))
+        else
         {
-            if (!_OnUpgrade)
-            {
-                _OnUpgrade = true;
-                _BallController.GetComponent<BallController>().GoUpgrade();
-           
-            }
+            walking = false;
+            once = false;
         }
+
+        var cameraTransform = virtualCamera.transform;
+        var forward = cameraTransform.forward;
+        var cameraForwardHorizontal =
+            new Vector3(forward.x, 0f, forward.z).normalized;
+
+        var right = cameraTransform.right;
+        var cameraRightHorizontal =
+            new Vector3(right.x, 0f, right.z).normalized;
+
+        var movementVector = inputVector.x * cameraRightHorizontal + inputVector.z * cameraForwardHorizontal;
+
+        var speed = GameManager.current.playerSpeed;
+        //var dot = Mathf.Clamp(Vector3.Dot(transform.forward, inputVector),0,1);
+
+        //_currentMoveMultiplier = Mathf.Lerp(_currentMoveMultiplier, dot, _acceleration * Time.fixedDeltaTime);
         
-        if (other.CompareTag("HitArea"))
-        {
-             _SpeedTemp = 5;
-            _Hitting = true;
-           
-        }
+        //var position = transform.position + transform.forward.normalized * (speed * dot * Time.fixedDeltaTime);
 
-        if (other.CompareTag("EmptyBall"))
-        {
-            //  _BallController.GetComponent<BallController>().SetNewBall(other.gameObject);
+        //transform.position += movementVector.normalized * (speed * Time.deltaTime);
+        _characterController.Move(movementVector.normalized * (speed * Time.deltaTime));
 
-            other.gameObject.GetComponent<Ball>().SetGoTarget(_BallController.GetComponent<BallController>().LastObje());
-            other.tag = "StackBall";
-        }
-    }
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.CompareTag("MergeArea"))
+        if (inputVector.magnitude > 0)
         {
-            _Cameras.GetComponent<CameraFollow>().SetMerge();
-        }
-
-        if (other.CompareTag("PortalArea"))
-        {
-            _Cameras.GetComponent<CameraFollow>().SetPortal();
-
-        }
-
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("MergeMachine")  )
-        {
-            _OnMergeMachine = false;
-          }
-
-        if (other.CompareTag("HitArea"))
-        {
-            //_Rb.AddRelativeForce(-GetComponent<Rigidbody>().velocity, ForceMode.Impulse);
-            _SpeedTemp = _Speed;
-            _Hitting = false;
-
-        }
-        if (other.CompareTag("MergeArea"))
-        {
-            _Cameras.GetComponent<CameraFollow>().SetOriginal();
-        }
-        if (other.CompareTag("PortalArea"))
-        {
-            _Cameras.GetComponent<CameraFollow>().SetOriginal();
-
+            var newRotation = Quaternion.LookRotation(movementVector, Vector3.up);
+        
+            var rotation = Quaternion.Lerp(transform.rotation, newRotation, turnSpeed * Time.fixedDeltaTime);
+            
+            transform.rotation = rotation;
         }
     }
+    
 }
