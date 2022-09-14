@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager current;
 
     public float playerSpeed;
+    public float playerDamage;
 
     private void Awake()
     {

@@ -14,16 +14,16 @@ public class WeaponHit : MonoBehaviour
         _Player = GameObject.FindGameObjectWithTag("Player");
     }
     
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Chest"))
-        {
-            other.gameObject.GetComponent<ChestController>().Hit(_DamageValue);
-           // GetComponent<Collider>().enabled = false;
-          //  StartCoroutine(HitDelay());
-            _HitDelay = true;
-        }
-    }
+    // private void OnTriggerEnter(Collider other)
+    // {
+    //     if (other.CompareTag("Chest"))
+    //     {
+    //         other.gameObject.GetComponent<ChestController>().Hit(_DamageValue);
+    //        // GetComponent<Collider>().enabled = false;
+    //       //  StartCoroutine(HitDelay());
+    //         _HitDelay = true;
+    //     }
+    // }
 
     IEnumerator HitDelay()
     {

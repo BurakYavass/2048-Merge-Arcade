@@ -25,13 +25,11 @@ public class ChestController : MonoBehaviour
     float _ChestHealthValueCurrent;
 
     float _ChestHealthValueCurrentTemp;
-    [SerializeField]
-    RuntimeAnimatorController _Hit;
+    [SerializeField] private Animator animator;
     RuntimeAnimatorController _None;
  
     float _TempDamage;
-    [SerializeField]
-    GameObject _HealthBar;
+    [SerializeField] GameObject _HealthBar;
     [SerializeField]
     TextMeshProUGUI _FullHealth;
     [SerializeField]
@@ -87,10 +85,9 @@ public class ChestController : MonoBehaviour
 
     IEnumerator HitClose()
     {
-        GetComponent<Animator>().runtimeAnimatorController = _None;
-        GetComponent<Animator>().runtimeAnimatorController = _Hit;
+        animator.SetBool("Hit",true);
         yield return new WaitForSeconds(7);
-        GetComponent<Animator>().runtimeAnimatorController = _None;
+        animator.SetBool("Hit",false);
         _Hitting = false;
         _HealthBar.SetActive(false);
     }
@@ -98,7 +95,7 @@ public class ChestController : MonoBehaviour
     IEnumerator CloseDelay()
     {
         _MainObje.GetComponent<CloseDelay>().CloseObje();
-        GetComponent<Animator>().runtimeAnimatorController = _None;
+        animator.SetBool("Hit",false);
         yield return new WaitForSeconds(.1f);
         for (int i = 0; i < _ClosePart.Length; i++)
         {
