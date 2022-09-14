@@ -5,23 +5,23 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public static PlayerController current;
+    public static PlayerController Current;
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
     [SerializeField] private Joystick joystick;
     [SerializeField] private RectTransform handle;
-    [SerializeField] private PlayerAnimationHandler _playerAnimationHandler;
     private CharacterController _characterController;
 
-    [SerializeField]private float turnSpeed;
+    private float _gravity = -7.5f;
+    private Vector3 _velocity;
 
     public bool walking = false;
     private bool once = false;
     
     private void Awake()
     {
-        if (current == null)
+        if (Current == null)
         {
-            current = this;
+            Current = this;
         }
         
         _characterController = GetComponent<CharacterController>();
@@ -37,6 +37,12 @@ public class PlayerController : MonoBehaviour
         {
             walking = false;
             handle.anchoredPosition = Vector2.zero;
+        }
+
+        if (!_characterController.isGrounded)
+        {
+            _velocity.y += _gravity * Time.deltaTime;
+            _characterController.Move(_velocity);
         }
     }
 

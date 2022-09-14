@@ -28,6 +28,14 @@ public class PlayerCollisionHandler : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("EmptyBall"))
+        {
+            Debug.Log("Ball");
+        }
+    }
+
     private void WeaponHit()
     {
         _chestController.Hit(_weaponsHit._DamageValue);

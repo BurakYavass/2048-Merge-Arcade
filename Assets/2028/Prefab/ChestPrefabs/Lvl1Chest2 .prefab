@@ -27,13 +27,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3469132838090080217}
-  m_LocalRotation: {x: 0.000000014901161, y: -0.000000029802322, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: -0.1187}
-  m_LocalScale: {x: 1.7509636, y: 1.8300961, z: 1.721462}
+  m_LocalRotation: {x: 0.000000022351742, y: -0.000000022351742, z: 0.000000029802322, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.11869982}
+  m_LocalScale: {x: 1.7509637, y: 1.8300962, z: 1.7214619}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8196671434637389583}
-  m_RootOrder: 3
+  m_Father: {fileID: 2594492123033113118}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4423773746497589380
 MeshFilter:
@@ -146,7 +146,6 @@ Transform:
   - {fileID: 2594492123033113118}
   - {fileID: 4715319328057258356}
   - {fileID: 1468260189916560934}
-  - {fileID: 2843521667262603146}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 27.506, z: 90}
@@ -284,19 +283,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _MainObje: {fileID: 4759583007022332123}
   _CreatBall: {fileID: 3802715413599442534, guid: 0e0b952b6270b8d4fa9c22f09459ade7, type: 3}
-  _CreatValue: 2
-  _CreatCount: 3
   _ClosePart:
   - {fileID: 1468260189916560935}
-  - {fileID: 4759583007022332123}
+  - {fileID: 6958094918265991490}
+  - {fileID: 3469132838090080217}
   _OpenPart:
   - {fileID: 4715319328057577654}
-  _ChestHealthValue: 30
-  _Hit: {fileID: 9100000, guid: 0089696eaf307754e98222b7ff91e700, type: 2}
+  animator: {fileID: 7633444843680717402}
   _HealthBar: {fileID: 1468260189916560935}
   _FullHealth: {fileID: 8383247900339632768}
   _CurrentHealth: {fileID: 6754163905329425649}
   _SliderValue: {fileID: 5845133849394620840}
+  playerTransform: {fileID: 0}
+  _CreatValue: 2
+  _CreatCount: 3
+  _ChestHealthValue: 30
 --- !u!1001 &5489751534412539153
 PrefabInstance:
   m_ObjectHideFlags: 0

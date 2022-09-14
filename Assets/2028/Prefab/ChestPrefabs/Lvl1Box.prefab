@@ -115,20 +115,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _MainObje: {fileID: 5165058940928004866}
   _CreatBall: {fileID: 3802715413599442534, guid: 0e0b952b6270b8d4fa9c22f09459ade7, type: 3}
-  _CreatValue: 2
-  _CreatCount: 2
   _ClosePart:
   - {fileID: 3595257437724797892}
   - {fileID: 1730847586632730168}
   - {fileID: 6585889938406903764}
   _OpenPart:
   - {fileID: 3985093878464985370}
-  _ChestHealthValue: 20
   animator: {fileID: 1413927957}
   _HealthBar: {fileID: 6585889938406903764}
   _FullHealth: {fileID: 4274691549940058995}
   _CurrentHealth: {fileID: 1350546166024903938}
   _SliderValue: {fileID: 2169486628295661659}
+  playerTransform: {fileID: 0}
+  _CreatValue: 2
+  _CreatCount: 2
+  _ChestHealthValue: 20
 --- !u!208 &1413927956
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -464,6 +465,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4704370139685902565}
     m_Modifications:
+    - target: {fileID: 4495525202183280355, guid: 20926bcdb8c5a21419f68cf9e2d8961c, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4495525202198444309, guid: 20926bcdb8c5a21419f68cf9e2d8961c, type: 3}
       propertyPath: m_RootOrder
       value: 2

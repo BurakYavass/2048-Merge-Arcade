@@ -1,41 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ChestController : MonoBehaviour
 {
-    [SerializeField]
-    GameObject _MainObje;
+    [SerializeField] private GameObject _MainObje;
 
-    [SerializeField]
-    GameObject _CreatBall;
-    [SerializeField]
-    float _CreatValue;
-    [SerializeField]
-    float _CreatCount;
-    [SerializeField]
-    GameObject[] _ClosePart; 
-    [SerializeField]
-    GameObject[] _OpenPart;
-    [SerializeField]
-    float _ChestHealthValue; 
-   
-    float _ChestHealthValueCurrent;
-
-    float _ChestHealthValueCurrentTemp;
+    [SerializeField] private GameObject _CreatBall;
+    [SerializeField] private GameObject[] _ClosePart; 
+    [SerializeField] private GameObject[] _OpenPart;
+    
     [SerializeField] private Animator animator;
-    RuntimeAnimatorController _None;
- 
-    float _TempDamage;
-    [SerializeField] GameObject _HealthBar;
-    [SerializeField]
-    TextMeshProUGUI _FullHealth;
-    [SerializeField]
-    TextMeshProUGUI _CurrentHealth;
-    [SerializeField]
-    Image _SliderValue;
+    
+    [SerializeField] private GameObject _HealthBar;
+    [SerializeField] private TextMeshProUGUI _FullHealth;
+    [SerializeField] private TextMeshProUGUI _CurrentHealth;
+    [SerializeField] private Image _SliderValue;
+
+    [SerializeField] private Transform playerTransform;
+    
+    [SerializeField] private float _CreatValue;
+    [SerializeField] private float _CreatCount;
+    [SerializeField] private float _ChestHealthValue; 
+    private float _ChestHealthValueCurrent;
+    private float _ChestHealthValueCurrentTemp;
+    private float _TempDamage;
+    
     bool _Hitting;
     void Start()
     {
@@ -105,10 +98,9 @@ public class ChestController : MonoBehaviour
         for (int i = 0; i < _CreatCount; i++)
         {
           //  GameObject go = Instantiate(_CreatBall, transform.position + new Vector3(Random.Range(0, 2), Random.Range(0, 2), Random.Range(0, 2)), Quaternion.Euler(0,180,0));
-            GameObject go = Instantiate(_CreatBall, transform.position, Quaternion.Euler(0,180,0));
-            go.GetComponent<Ball>();
-            go.GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(0,5), Random.Range(0, 5), Random.Range(0, 5))) ;
-
+            GameObject go = Instantiate(_CreatBall, transform.position, Quaternion.Euler(0,0,0));
+            //go.GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(.5f,5), Random.Range(0.5f, 5), Random.Range(0.5f, 5))) ;
+            go.transform.DOJump(playerTransform.position,1,1,1);
         }
         _MainObje.GetComponent<CloseDelay>().CloseObje();
     }
