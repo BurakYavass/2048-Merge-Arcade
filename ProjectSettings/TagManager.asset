@@ -3,7 +3,22 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - BallController
+  - UpgradeTrigger
+  - UpgradeBallPos
+  - MergeArea
+  - PortalArea
+  - EmptyBall
+  - HitArea
+  - Chest
+  - MergeController
+  - MergeMachine
+  - MergeBallPos
+  - BallUp
+  - BallDown
+  - Cameras
+  - StackBall
   layers:
   - Default
   - TransparentFX
