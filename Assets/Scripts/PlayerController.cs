@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
     [SerializeField] private Joystick joystick;
     [SerializeField] private RectTransform handle;
+    [SerializeField] private PlayerAnimationHandler _playerAnimationHandler;
     private CharacterController _characterController;
 
     [SerializeField]private float turnSpeed;
@@ -69,23 +70,25 @@ public class PlayerController : MonoBehaviour
         var movementVector = inputVector.x * cameraRightHorizontal + inputVector.z * cameraForwardHorizontal;
 
         var speed = GameManager.current.playerSpeed;
-        //var dot = Mathf.Clamp(Vector3.Dot(transform.forward, inputVector),0,1);
-
-        //_currentMoveMultiplier = Mathf.Lerp(_currentMoveMultiplier, dot, _acceleration * Time.fixedDeltaTime);
-        
-        //var position = transform.position + transform.forward.normalized * (speed * dot * Time.fixedDeltaTime);
-
-        //transform.position += movementVector.normalized * (speed * Time.deltaTime);
+      
         _characterController.Move(movementVector.normalized * (speed * Time.deltaTime));
 
         if (inputVector.magnitude > 0)
         {
             var newRotation = Quaternion.LookRotation(movementVector, Vector3.up);
-        
-            var rotation = Quaternion.Lerp(transform.rotation, newRotation, turnSpeed * Time.fixedDeltaTime);
             
-            transform.rotation = rotation;
+            transform.rotation = newRotation;
         }
     }
+    
+    //var rotation = Quaternion.Lerp(transform.rotation, newRotation, turnSpeed * Time.fixedDeltaTime);
+    
+    //var dot = Mathf.Clamp(Vector3.Dot(transform.forward, inputVector),0,1);
+
+    //_currentMoveMultiplier = Mathf.Lerp(_currentMoveMultiplier, dot, _acceleration * Time.fixedDeltaTime);
+        
+    //var position = transform.position + transform.forward.normalized * (speed * dot * Time.fixedDeltaTime);
+
+    //transform.position += movementVector.normalized * (speed * Time.deltaTime);
     
 }
