@@ -5,31 +5,32 @@ using UnityEngine;
 
 public class PlayerCollisionHandler : MonoBehaviour
 {
-    [SerializeField] private CharacterController _characterController;
+    [SerializeField] private WeaponsHit _weaponsHit;
+    private ChestController _chestController;
+    
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.CompareTag("Chest"))
         {
-            other.GetComponent<ChestController>().Hit(GameManager.current.playerDamage);
+            if (other.gameObject.activeInHierarchy)
+            {
+                _chestController= other.GetComponent<ChestController>();
+                GameEventHandler.current.PlayerHit(true);
+            }
         }
     }
 
-    // private void OnCollisionEnter(Collision collision)
-    // {
-    //     Debug.Log(collision.gameObject);
-    //     if (collision.gameObject.CompareTag("Chest"))
-    //     {
-    //         
-    //         collision.gameObject.GetComponent<ChestController>().Hit(GameManager.current.playerDamage);
-    //     }
-    // }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Chest"))
+        {
+            GameEventHandler.current.PlayerHit(false);
+        }
+    }
 
-    // private void OnControllerColliderHit(ControllerColliderHit hit)
-    // {
-    //     if (hit.gameObject.CompareTag("Chest"))
-    //     {
-    //         
-    //         hit.gameObject.GetComponent<ChestController>().Hit(GameManager.current.playerDamage);
-    //     }
-    // }
+    private void WeaponHit()
+    {
+        _chestController.Hit(_weaponsHit._DamageValue);
+        GameEventHandler.current.PlayerHit(false);
+    }
 }

@@ -3897,6 +3897,7 @@ GameObject:
   - component: {fileID: 1701609262}
   - component: {fileID: 1701609264}
   - component: {fileID: 1701609263}
+  - component: {fileID: 1701609265}
   m_Layer: 0
   m_Name: Cube.048 (1)
   m_TagString: Untagged
@@ -3969,6 +3970,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1701609261}
   m_Mesh: {fileID: -6851752233551798572, guid: 8bcdf435b86781045832220df4914641, type: 3}
+--- !u!65 &1701609265
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1701609261}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 45.25359, y: 37.853302, z: 0.5862083}
+  m_Center: {x: -0.000005930662, y: -0.0000019073486, z: 0}
 --- !u!224 &1717764274 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8170153791961219456, guid: 0d230cc8be529a542a08cb878ab14b18, type: 3}
@@ -16305,7 +16319,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44237c7d87ee38b4d951ad39ed9ec12d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _characterController: {fileID: 0}
+  _weaponsHit: {fileID: 6862496077275605885}
 --- !u!114 &6862496077275605885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16319,6 +16333,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _DamageValue: 10
+  weapon: 0
 --- !u!4 &6894094804798385495
 Transform:
   m_ObjectHideFlags: 0

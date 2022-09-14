@@ -11,8 +11,7 @@ public class CloseDelay : MonoBehaviour
     }
     IEnumerator DelayClose()
     {
-
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(.1f);
         gameObject.SetActive(false);
     }
 }

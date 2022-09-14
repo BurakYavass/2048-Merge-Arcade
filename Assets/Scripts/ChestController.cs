@@ -58,6 +58,8 @@ public class ChestController : MonoBehaviour
             }
             else
             {
+                var collider = GetComponent<Collider>();
+                collider.isTrigger = false;
                 StartCoroutine(CloseDelay());
                 for (int i = 0; i < _ClosePart.Length; i++)
                 {
@@ -68,19 +70,19 @@ public class ChestController : MonoBehaviour
                 {
                     _OpenPart[i].SetActive(true);
                 }
-               
-                
             }
-             
         }
     }
-  public void Hit(float damage)
+    public void Hit(float damage)
     {
-        _TempDamage = damage;
-        _ChestHealthValueCurrentTemp = _ChestHealthValueCurrent - _TempDamage;
-        _Hitting = true;
-        _HealthBar.SetActive(true);
-        StartCoroutine(HitClose());
+        if (gameObject.activeInHierarchy)
+        {
+            _TempDamage = damage;
+            _ChestHealthValueCurrentTemp = _ChestHealthValueCurrent - _TempDamage;
+            _Hitting = true;
+            _HealthBar.SetActive(true);
+            StartCoroutine(HitClose());
+        }
     }
 
     IEnumerator HitClose()
@@ -94,7 +96,6 @@ public class ChestController : MonoBehaviour
 
     IEnumerator CloseDelay()
     {
-        _MainObje.GetComponent<CloseDelay>().CloseObje();
         animator.SetBool("Hit",false);
         yield return new WaitForSeconds(.1f);
         for (int i = 0; i < _ClosePart.Length; i++)
@@ -109,5 +110,6 @@ public class ChestController : MonoBehaviour
             go.GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(0,5), Random.Range(0, 5), Random.Range(0, 5))) ;
 
         }
+        _MainObje.GetComponent<CloseDelay>().CloseObje();
     }
 }
