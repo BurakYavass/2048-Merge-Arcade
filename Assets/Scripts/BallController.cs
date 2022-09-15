@@ -41,7 +41,8 @@ public class BallController : MonoBehaviour
     float _TempTimeMerge;
     float _DelayMerge;
 
-   
+    public float xStackSpeed;
+
     void Start()
     {
         _FirstObjePos = _FirstObje.transform.position;
@@ -78,7 +79,7 @@ public class BallController : MonoBehaviour
     {
         if (_Player.walking)
         {
-            //_TempSpeed = _FollowSpeed + (10  * _Player.GetComponent<PlayerControl>().GetJoystickValue());
+            _TempSpeed = _FollowSpeed + (10  * _Player.GetJoystickValue());
             GetComponent<Animator>().runtimeAnimatorController = _BallSoft;
         }
         else
@@ -136,36 +137,33 @@ public class BallController : MonoBehaviour
         }
         else
         {
-            //_Balls[0].GetComponent<Rigidbody>().position = Vector3.Lerp(_Balls[0].GetComponent<Rigidbody>().position, _Root.GetComponent<Rigidbody>().position, .2f);
-            _Balls[0].GetComponent<Rigidbody>().position = new Vector3(
-            Mathf.Lerp(_Balls[0].GetComponent<Rigidbody>().position.x, _Root.transform.position.x, .5f),
-            Mathf.Lerp(_Balls[0].GetComponent<Rigidbody>().position.y, _Root.transform.position.y, .2f),
-            Mathf.Lerp(_Balls[0].GetComponent<Rigidbody>().position.z, _Root.transform.position.z, .2f)
-
-            );
-            //_Balls[0].transform.localScale = Vector3.Lerp(_Balls[0].transform.localScale, _Root.transform.lossyScale, _FollowSpeed * Time.deltaTime);
-            _Balls[0].GetComponent<Rigidbody>().rotation = Quaternion.Lerp(_Balls[0].GetComponent<Rigidbody>().rotation, _Root.transform.rotation, .2f);
+            var firstBall = _Balls[0].GetComponent<Rigidbody>();
+            var RootRb = _Root.GetComponent<Rigidbody>();
+            firstBall.position = new Vector3(
+             Mathf.Lerp(firstBall.position.x, RootRb.position.x, 1f),
+             Mathf.Lerp(firstBall.position.y, RootRb.position.y, .2f),
+             Mathf.Lerp(firstBall.position.z, RootRb.position.z, .5f)
+             );
+             firstBall.rotation = Quaternion.Lerp(firstBall.rotation, RootRb.rotation, .2f);
+             
             for (int i = 1; i < _Balls.Count; i++)
             {
-                //  _Balls[i].GetComponent<Rigidbody>().position = Vector3.Lerp(_Balls[i].GetComponent<Rigidbody>().position, _Balls[i-1].GetComponent<Rigidbody>().position  - (  _Balls[i - 1].GetComponent<Rigidbody>().transform.up * (_Balls[i].transform.localScale.z * 1.5f)), ( _TempSpeed * Time.deltaTime));
-
-                _Balls[i].GetComponent<Rigidbody>().position = new Vector3(
-                    Mathf.Lerp(_Balls[i].GetComponent<Rigidbody>().position.x, _Balls[i - 1].GetComponent<Rigidbody>().position.x, (_TempSpeed * Time.deltaTime)),
-                    Mathf.Lerp(_Balls[i].GetComponent<Rigidbody>().position.y, _Balls[i - 1].GetComponent<Rigidbody>().position.y, (_TempSpeed * Time.deltaTime) * ((_Balls.Count - i) * (.05f))),
-                    Mathf.Lerp(_Balls[i].GetComponent<Rigidbody>().position.z, _Balls[i - 1].GetComponent<Rigidbody>().position.z, (_TempSpeed * Time.deltaTime))
-
-                    );
-                _Balls[i].GetComponent<Rigidbody>().position -= (_Balls[i - 1].GetComponent<Rigidbody>().transform.up * (_Balls[i].transform.localScale.z * 1.5f));
-
-
-                _Balls[i].transform.localScale = Vector3.Lerp(_Balls[i].transform.localScale, _Balls[i - 1].transform.localScale, (_TempSpeed * Time.deltaTime));
-                _Balls[i].GetComponent<Rigidbody>().rotation = Quaternion.Lerp(_Balls[i].GetComponent<Rigidbody>().rotation, _Balls[i - 1].GetComponent<Rigidbody>().rotation, (_TempSpeed * Time.deltaTime));
-
+                var downBall = _Balls[i - 1].GetComponent<Rigidbody>();
+                var currentBall = _Balls[i].GetComponent<Rigidbody>();
+                
+                currentBall.position = new Vector3(
+                    Mathf.Lerp(currentBall.position.x, downBall.position.x, (_TempSpeed / xStackSpeed * Time.deltaTime)),
+                    Mathf.Lerp(currentBall.position.y, downBall.position.y, (_TempSpeed * Time.deltaTime) * ((_Balls.Count - i) * (.05f))),
+                    Mathf.Lerp(currentBall.position.z, downBall.position.z, (_TempSpeed * Time.deltaTime))
+                );
+               currentBall.position -= (downBall.transform.up * (currentBall.transform.localScale.z * 1.5f));
+               
+               currentBall.transform.localScale = Vector3.Lerp(currentBall.transform.localScale, downBall.transform.localScale, (_TempSpeed * Time.deltaTime));
+               currentBall.rotation = Quaternion.Lerp(currentBall.rotation, downBall.rotation, (_TempSpeed * Time.deltaTime));
             }
         }
     }
     public GameObject LastObje()
-
     {
         return _Balls[_Balls.Count - 1];
     }

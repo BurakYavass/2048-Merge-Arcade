@@ -64,11 +64,6 @@ public class MergeController : MonoBehaviour
                 TotalValue();
                 _TempTime = 0;
             }
-            
-        }
-        else
-        {
-         
         }
     }
 
@@ -200,7 +195,7 @@ public class MergeController : MonoBehaviour
             }                
         } 
         
-      else  if (_4.Count>0)
+        else  if (_4.Count>0)
         {
             if (_4.Count>=2)
             {
@@ -442,54 +437,53 @@ public class MergeController : MonoBehaviour
             {
                 _TotalValue += 8;
                 _8.Add(other.gameObject);
-             }
+            }
             else if (tempvalue == 16)
             {
                 _TotalValue += 16;
                 _16.Add(other.gameObject);
-             }
+            }
             else if (tempvalue == 32)
             {
                 _TotalValue += 32;
                 _32.Add(other.gameObject);
-             }
+            }
             else if (tempvalue == 64)
             {
                 _TotalValue += 64;
                 _64.Add(other.gameObject);
-             }
+            }
             else if (tempvalue == 128)
             {
                 _TotalValue += 128;
                 _128.Add(other.gameObject);
-             }
+            }
             else if (tempvalue == 256)
             {
                 _TotalValue += 256;
                 _256.Add(other.gameObject);
-             }
+            }
             else if (tempvalue == 512)
             {
                 _TotalValue += 512;
                 _512.Add(other.gameObject);
-             }
+            }
             else if (tempvalue == 1024)
             {
                 _TotalValue += 1022;
                 _1024.Add(other.gameObject);
-             }
+            }
             else if (tempvalue == 2048)
             {
                 _TotalValue += 2048;
                 _2048.Add(other.gameObject);
-             }
+            }
             else if (tempvalue == 4096)
             {
                 _TotalValue += 4096;
                 _4096.Add(other.gameObject);
-              }
+            }
 
-           
         }
     }
 }

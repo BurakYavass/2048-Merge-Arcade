@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private RectTransform handle;
     [SerializeField] private Rigidbody _rb;
 
+    private float _joystickValue;
+
     public bool walking = false;
     private bool once = false;
     
@@ -50,6 +52,7 @@ public class PlayerController : MonoBehaviour
             {
                 if ((transform.position - hit.position).magnitude >= 0.1f)
                 {
+                    _joystickValue = (transform.position - hit.position).magnitude;
                     _rb.MovePosition(temp);
                     _rb.MoveRotation(Quaternion.LookRotation(inputVector));
                     if (!once)
@@ -70,6 +73,11 @@ public class PlayerController : MonoBehaviour
             walking = false;
             once = false;
         }
+    }
+
+    public float GetJoystickValue()
+    {
+        return _joystickValue;
     }
     
 }
