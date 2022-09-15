@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class CloseDelay : MonoBehaviour
 {
+   
     public void CloseObje()
     {
         StartCoroutine(DelayClose());
     }
     IEnumerator DelayClose()
     {
-        yield return new WaitForSeconds(1f);
+
+        yield return new WaitForSeconds(1);
         gameObject.SetActive(false);
     }
 }

@@ -2138,6 +2138,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1074502071 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 945788033933457655, guid: 36b9ad92963f26440b6f4cf42ab4e80e, type: 3}
+  m_PrefabInstance: {fileID: 1239744897}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4ab1437155c2ed4b862a664a4b23aae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1115718621
 GameObject:
   m_ObjectHideFlags: 0
@@ -2357,6 +2368,71 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5724743012027968684, guid: 3f668382ec6342a4d8d584682fa0ceb8, type: 3}
   m_PrefabInstance: {fileID: 1142176738}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1239744897
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 945788033933457650, guid: 36b9ad92963f26440b6f4cf42ab4e80e, type: 3}
+      propertyPath: m_Name
+      value: Ball
+      objectReference: {fileID: 0}
+    - target: {fileID: 945788033933457653, guid: 36b9ad92963f26440b6f4cf42ab4e80e, type: 3}
+      propertyPath: m_RootOrder
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 945788033933457653, guid: 36b9ad92963f26440b6f4cf42ab4e80e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.856
+      objectReference: {fileID: 0}
+    - target: {fileID: 945788033933457653, guid: 36b9ad92963f26440b6f4cf42ab4e80e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -16
+      objectReference: {fileID: 0}
+    - target: {fileID: 945788033933457653, guid: 36b9ad92963f26440b6f4cf42ab4e80e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 10.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 945788033933457653, guid: 36b9ad92963f26440b6f4cf42ab4e80e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 945788033933457653, guid: 36b9ad92963f26440b6f4cf42ab4e80e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 945788033933457653, guid: 36b9ad92963f26440b6f4cf42ab4e80e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 945788033933457653, guid: 36b9ad92963f26440b6f4cf42ab4e80e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 945788033933457653, guid: 36b9ad92963f26440b6f4cf42ab4e80e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 945788033933457653, guid: 36b9ad92963f26440b6f4cf42ab4e80e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 945788033933457653, guid: 36b9ad92963f26440b6f4cf42ab4e80e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 945788033933457655, guid: 36b9ad92963f26440b6f4cf42ab4e80e, type: 3}
+      propertyPath: _Root
+      value: 
+      objectReference: {fileID: 1770751741}
+    - target: {fileID: 945788033933457655, guid: 36b9ad92963f26440b6f4cf42ab4e80e, type: 3}
+      propertyPath: _Player
+      value: 
+      objectReference: {fileID: 6862496077275605881}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 36b9ad92963f26440b6f4cf42ab4e80e, type: 3}
 --- !u!1001 &1251342416
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4323,7 +4399,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1770751741}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.35, z: -0.69}
+  m_LocalPosition: {x: 0, y: 1.49, z: 0.21}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16366,6 +16442,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _weaponsHit: {fileID: 6862496077275605885}
+  _ballController: {fileID: 1074502071}
 --- !u!114 &6862496077275605885
 MonoBehaviour:
   m_ObjectHideFlags: 0

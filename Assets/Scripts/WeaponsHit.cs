@@ -7,8 +7,8 @@ public class WeaponsHit : MonoBehaviour
 {
     [SerializeField] public float _DamageValue;
     public WeaponState weapon;
-    
-    bool _HitDelay;
+   
+    //bool _HitDelay; 
 
     private void Start()
     {
@@ -44,7 +44,7 @@ public class WeaponsHit : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         GetComponent<Collider>().enabled = true;
-        _HitDelay = false;
+        //_HitDelay = false;
     }
 
     public enum WeaponState

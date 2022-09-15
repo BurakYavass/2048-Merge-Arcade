@@ -21,8 +21,8 @@ public class CameraFollow : MonoBehaviour
      void Start()
     {
         _Player = GameObject.FindGameObjectWithTag("Player");
-        //_Distance.z = transform.position.z - _Player.transform.position.z;
-        //_Distance.y = transform.position.y - _Player.transform.position.y;
+        _Distance.z = transform.position.z - _Player.transform.position.z;
+        _Distance.y = transform.position.y - _Player.transform.position.y;
         _Distance.x = transform.position.x - _Player.transform.position.x;
     }   
     void Update()

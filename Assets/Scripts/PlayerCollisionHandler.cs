@@ -6,8 +6,19 @@ using UnityEngine;
 public class PlayerCollisionHandler : MonoBehaviour
 {
     [SerializeField] private WeaponsHit _weaponsHit;
+    [SerializeField] private BallController _ballController;
     private ChestController _chestController;
     
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("EmptyBall"))
+        {
+            other.gameObject.GetComponent<Ball>().SetGoTarget(_ballController.GetComponent<BallController>().LastObje());
+            other.tag = "StackBall";
+        }
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.CompareTag("Chest"))
@@ -33,6 +44,7 @@ public class PlayerCollisionHandler : MonoBehaviour
         if (collision.gameObject.CompareTag("EmptyBall"))
         {
             Debug.Log("Ball");
+            
         }
     }
 

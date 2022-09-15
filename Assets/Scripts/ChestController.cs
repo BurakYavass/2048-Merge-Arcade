@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -56,6 +54,7 @@ public class ChestController : MonoBehaviour
                 var collider = GetComponent<Collider>();
                 collider.isTrigger = false;
                 StartCoroutine(CloseDelay());
+                transform.DOScale(Vector3.zero, 1f);
                 for (int i = 0; i < _ClosePart.Length; i++)
                 {
                     _ClosePart[i].transform.localScale = Vector3.Lerp(_ClosePart[i].transform.localScale,Vector3.zero,.5f);
@@ -109,10 +108,10 @@ public class ChestController : MonoBehaviour
         }
         for (int i = 0; i < _CreatCount; i++)
         {
-          //  GameObject go = Instantiate(_CreatBall, transform.position + new Vector3(Random.Range(0, 2), Random.Range(0, 2), Random.Range(0, 2)), Quaternion.Euler(0,180,0));
-            GameObject go = Instantiate(_CreatBall, transform.position, Quaternion.Euler(0,0,0));
-            //go.GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(.5f,5), Random.Range(0.5f, 5), Random.Range(0.5f, 5)));
-            go.transform.DOJump(playerTransform.position,1,1,1);
+            GameObject go = Instantiate(_CreatBall, transform.position, Quaternion.Euler(0,180.0f,0));
+            go.GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(.5f,5), Random.Range(0.5f, 5), Random.Range(0.5f, 5)));
+            go.GetComponent<Ball>().SetValue(_CreatValue);
+            //go.transform.DOJump(playerTransform.position,1,1,1);
         }
         _MainObje.GetComponent<CloseDelay>().CloseObje();
     }
