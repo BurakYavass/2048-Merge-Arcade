@@ -8,14 +8,34 @@ public class PlayerCollisionHandler : MonoBehaviour
     [SerializeField] private WeaponsHit _weaponsHit;
     [SerializeField] private BallController _ballController;
     private ChestController _chestController;
-    
+
+    private bool _onUpgrade = false;
+    private bool _onMergeMachine = false;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("EmptyBall"))
         {
-            other.gameObject.GetComponent<Ball>().SetGoTarget(_ballController.GetComponent<BallController>().LastObje());
+            other.gameObject.GetComponent<Ball>().SetGoTarget(_ballController.LastObje());
             other.tag = "StackBall";
+        }
+        
+        if (other.CompareTag("MergeMachine"))
+        {
+            if (!_onMergeMachine)
+            {
+                _onMergeMachine = true;
+                _ballController.GoMerge();
+            }
+        }
+        
+        if (other.CompareTag("UpgradeTrigger"))
+        {
+            if (!_onUpgrade)
+            {
+                _onUpgrade = true;
+                _ballController.GoUpgrade();
+            }
         }
     }
 
@@ -37,16 +57,26 @@ public class PlayerCollisionHandler : MonoBehaviour
         {
             GameEventHandler.current.PlayerHit(false);
         }
-    }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("EmptyBall"))
+        if (other.CompareTag("MergeMachine"))
         {
-            Debug.Log("Ball");
-            
+            _onMergeMachine = false;
+        }
+
+        if (other.CompareTag("UpgradeTrigger"))
+        {
+            _onUpgrade = false;
         }
     }
+
+    // private void OnCollisionEnter(Collision collision)
+    // {
+    //     if (collision.gameObject.CompareTag("EmptyBall"))
+    //     {
+    //         Debug.Log("Ball");
+    //         
+    //     }
+    // }
 
     private void WeaponHit()
     {

@@ -163,10 +163,6 @@ public class BallController : MonoBehaviour
 
             }
         }
-
-
-
-      
     }
     public GameObject LastObje()
 

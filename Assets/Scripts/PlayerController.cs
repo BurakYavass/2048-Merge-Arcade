@@ -9,10 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
     [SerializeField] private Joystick joystick;
     [SerializeField] private RectTransform handle;
-    private CharacterController _characterController;
-
-    private float _gravity = -7.5f;
-    private Vector3 _velocity;
+    [SerializeField] private Rigidbody _rb;
 
     public bool walking = false;
     private bool once = false;
@@ -23,11 +20,9 @@ public class PlayerController : MonoBehaviour
         {
             Current = this;
         }
-        
-        _characterController = GetComponent<CharacterController>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (joystick.isActiveAndEnabled)
         {
@@ -38,24 +33,36 @@ public class PlayerController : MonoBehaviour
             walking = false;
             handle.anchoredPosition = Vector2.zero;
         }
-
-        if (!_characterController.isGrounded)
-        {
-            _velocity.y += _gravity * Time.deltaTime;
-            _characterController.Move(_velocity);
-        }
     }
 
     private void Movement()
     {
-        var inputVector = new Vector3(joystick.Horizontal, 0f, joystick.Vertical);
-
-        if (joystick.Horizontal != 0f || joystick.Vertical != 0f)
+        var speed = GameManager.current.playerSpeed;
+        Vector3 inputVector = new Vector3(joystick.Horizontal, 0f, joystick.Vertical) * speed;
+        
+        inputVector = Vector3.ClampMagnitude(inputVector, speed);
+        if (inputVector != Vector3.zero)
         {
-            if (!once)
+            Vector3 temp = transform.position + inputVector * (Time.deltaTime);
+            UnityEngine.AI.NavMeshHit hit;
+            bool isvalid = UnityEngine.AI.NavMesh.SamplePosition(temp, out hit, .3f, UnityEngine.AI.NavMesh.AllAreas);
+            if (isvalid)
             {
-                walking = true;
-                once = true;
+                if ((transform.position - hit.position).magnitude >= 0.1f)
+                {
+                    _rb.MovePosition(temp);
+                    _rb.MoveRotation(Quaternion.LookRotation(inputVector));
+                    if (!once)
+                    {
+                        walking = true;
+                        once = true;
+                    }
+                }
+            }
+            else
+            {
+                walking = false;
+                once = false;
             }
         }
         else
@@ -63,38 +70,6 @@ public class PlayerController : MonoBehaviour
             walking = false;
             once = false;
         }
-
-        var cameraTransform = virtualCamera.transform;
-        var forward = cameraTransform.forward;
-        var cameraForwardHorizontal =
-            new Vector3(forward.x, 0f, forward.z).normalized;
-
-        var right = cameraTransform.right;
-        var cameraRightHorizontal =
-            new Vector3(right.x, 0f, right.z).normalized;
-
-        var movementVector = inputVector.x * cameraRightHorizontal + inputVector.z * cameraForwardHorizontal;
-
-        var speed = GameManager.current.playerSpeed;
-      
-        _characterController.Move(movementVector.normalized * (speed * Time.deltaTime));
-
-        if (inputVector.magnitude > 0)
-        {
-            var newRotation = Quaternion.LookRotation(movementVector, Vector3.up);
-            
-            transform.rotation = newRotation;
-        }
     }
-    
-    //var rotation = Quaternion.Lerp(transform.rotation, newRotation, turnSpeed * Time.fixedDeltaTime);
-    
-    //var dot = Mathf.Clamp(Vector3.Dot(transform.forward, inputVector),0,1);
-
-    //_currentMoveMultiplier = Mathf.Lerp(_currentMoveMultiplier, dot, _acceleration * Time.fixedDeltaTime);
-        
-    //var position = transform.position + transform.forward.normalized * (speed * dot * Time.fixedDeltaTime);
-
-    //transform.position += movementVector.normalized * (speed * Time.deltaTime);
     
 }

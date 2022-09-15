@@ -169,7 +169,7 @@ public class PlayerControl : MonoBehaviour
         if (other.CompareTag("MergeMachine")  )
         {
             _OnMergeMachine = false;
-          }
+        }
 
         if (other.CompareTag("HitArea"))
         {
