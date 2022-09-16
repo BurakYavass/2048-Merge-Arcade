@@ -135,9 +135,10 @@ MonoBehaviour:
   _FullHealth: {fileID: 5089751835017539068}
   _CurrentHealth: {fileID: 8020547642934721421}
   _SliderValue: {fileID: 7199918364889956052}
-  playerTransform: {fileID: 0}
-  _CreatValue: 4
-  _CreatCount: 2
+  _CreatValue:
+  - 4
+  - 8
+  _CreatCount: 4
   _ChestHealthValue: 50
 --- !u!65 &8237917836032764395
 BoxCollider:

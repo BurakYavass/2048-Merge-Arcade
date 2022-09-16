@@ -1,22 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SaveManager : MonoBehaviour
 {
-    [SerializeField]
-    bool _Test;
-   [SerializeField]
-    List<GameObject> _AllObje = new List<GameObject>();
+    [SerializeField] private bool _Test;
+    [SerializeField] private GameObject level1Chests;
+    [SerializeField] private List<GameObject> _AllObje = new List<GameObject>();
+    
     private void Awake()
     {
-        foreach (Transform t in transform)
+        foreach (Transform t in level1Chests.transform)
         {
-
             _AllObje.Add(t.gameObject);
-
         }
+        
         if (_Test)
         {
             for (int i = 0; i < _AllObje.Count; i++)
@@ -25,31 +25,24 @@ public class SaveManager : MonoBehaviour
                 {
                     _AllObje[i].SetActive(true);
                 }
-                
             }
         }
         else
         {
-
-       
-        if (PlayerPrefs.GetInt("GetData"+SceneManager.GetActiveScene().buildIndex ) == 1)
-        {
-
-        
-
-     
-        for (int i = 0; i < _AllObje.Count; i++)
-        {
-            if (PlayerPrefs.GetInt("Level" + SceneManager.GetActiveScene().buildIndex + "_" + i)==1)
+            if (PlayerPrefs.GetInt("GetData"+SceneManager.GetActiveScene().buildIndex ) == 1)
             {
-                _AllObje[i].SetActive(true);
+                for (int i = 0; i < _AllObje.Count; i++)
+                {
+                    if (PlayerPrefs.GetInt("Level" + SceneManager.GetActiveScene().buildIndex + "_" + i)==1)
+                    {
+                        _AllObje[i].SetActive(true);
+                    }
+                    else
+                    {
+                        _AllObje[i].SetActive(false);
+                    }
+                }
             }
-            else
-            {
-                _AllObje[i].SetActive(false);
-            }
-        }
-        }
         }
     }
     void OnApplicationFocus(bool hasFocus)
@@ -75,9 +68,6 @@ public class SaveManager : MonoBehaviour
                 PlayerPrefs.SetInt("GetData" + SceneManager.GetActiveScene().buildIndex, 1);
                 PlayerPrefs.Save();
             }
-          
         }
-   
     }
-
 }

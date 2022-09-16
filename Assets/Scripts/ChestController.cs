@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -21,7 +22,7 @@ public class ChestController : MonoBehaviour
 
     private Transform playerTransform;
     
-    [SerializeField] private float _CreatValue;
+    [SerializeField] private float[] _CreatValue;
     [SerializeField] private float _CreatCount;
     [SerializeField] private float _ChestHealthValue; 
     private float _ChestHealthValueCurrent;
@@ -109,9 +110,26 @@ public class ChestController : MonoBehaviour
         for (int i = 0; i < _CreatCount; i++)
         {
             GameObject go = Instantiate(_CreatBall, transform.position, Quaternion.Euler(0,180.0f,0));
-            go.GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(.5f,5), Random.Range(0.5f, 5), Random.Range(0.5f, 5)));
-            go.GetComponent<Ball>().SetValue(_CreatValue);
-            //go.transform.DOJump(playerTransform.position,1,1,1);
+            go.GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(0,3), Random.Range(3, 5), Random.Range(0, 3)));
+            if (_CreatValue.Length > 1)
+            {
+                int rdnm=Random.Range(0,100);
+                if (rdnm>=70)
+                {
+                    go.GetComponent<Ball>().SetValue(_CreatValue[0]);
+    
+                }
+                else
+                {
+                    go.GetComponent<Ball>().SetValue(_CreatValue[1]);
+
+                }
+            }
+            else
+            {
+                go.GetComponent<Ball>().SetValue(_CreatValue[0]);
+            }
+            
         }
         _MainObje.GetComponent<CloseDelay>().CloseObje();
     }

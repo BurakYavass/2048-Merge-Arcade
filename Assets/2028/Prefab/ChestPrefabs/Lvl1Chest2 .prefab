@@ -96,8 +96,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.2, y: 1.2, z: 1.2}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.8045698, y: 1.2, z: 1.2}
+  m_Center: {x: 0.19771546, y: -0.000000007369666, z: -0.0000000010162041}
 --- !u!208 &5346320073673544930
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -140,7 +140,7 @@ Transform:
   m_GameObject: {fileID: 4759583007022332123}
   m_LocalRotation: {x: 0.16810527, y: 0.16810527, z: 0.6868338, w: 0.6868338}
   m_LocalPosition: {x: -80.23331, y: 1.4117241, z: -25.711851}
-  m_LocalScale: {x: 2.2, y: 2.2, z: 2.2}
+  m_LocalScale: {x: 2.2, y: 2.2, z: 2.2000003}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2594492123033113118}
@@ -182,15 +182,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7461999369491134434, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.095
       objectReference: {fileID: 0}
     - target: {fileID: 7461999369491134434, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7461999369491134434, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7461999369491134434, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
       propertyPath: m_LocalRotation.w
@@ -247,8 +247,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.5, y: 3.2, z: 3}
-  m_Center: {x: -0.27222115, y: 0.0012009323, z: -0.2473042}
+  m_Size: {x: 1.8698362, y: 3.2, z: 3.1115205}
+  m_Center: {x: 0.54285896, y: 0.0012009783, z: -0.19154297}
 --- !u!95 &7633444843680717402
 Animator:
   serializedVersion: 4
@@ -294,8 +294,9 @@ MonoBehaviour:
   _FullHealth: {fileID: 8383247900339632768}
   _CurrentHealth: {fileID: 6754163905329425649}
   _SliderValue: {fileID: 5845133849394620840}
-  playerTransform: {fileID: 0}
-  _CreatValue: 2
+  _CreatValue:
+  - 4
+  - 8
   _CreatCount: 3
   _ChestHealthValue: 30
 --- !u!1001 &5489751534412539153
