@@ -145,8 +145,8 @@ public class BallController : MonoBehaviour
              Mathf.Lerp(firstBall.position.z, RootRb.position.z, .5f)
              );
              firstBall.rotation = Quaternion.Lerp(firstBall.rotation, RootRb.rotation, .2f);
-             
-            for (int i = 1; i < _Balls.Count; i++)
+
+             for (int i = 1; i < _Balls.Count; i++)
             {
                 var downBall = _Balls[i - 1].GetComponent<Rigidbody>();
                 var currentBall = _Balls[i].GetComponent<Rigidbody>();

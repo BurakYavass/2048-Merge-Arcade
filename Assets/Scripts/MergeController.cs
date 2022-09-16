@@ -47,7 +47,6 @@ public class MergeController : MonoBehaviour
        
         if (!_MergeTime)
         {
-          
             if (_TotalValue !=0&& GameObject.FindGameObjectsWithTag("StackBall").Length<1)
             {
                 SetMerge();
@@ -60,8 +59,8 @@ public class MergeController : MonoBehaviour
         {
             if (_TempTime>.2f)
             {
-                // CalculateMerge();
-                TotalValue();
+                CalculateMerge();
+                //TotalValue();
                 _TempTime = 0;
             }
         }
@@ -70,8 +69,8 @@ public class MergeController : MonoBehaviour
     public void SetMerge()
     {
         _MergeTime = true;
-        TotalValue();
-        //CalculateMerge();
+        //TotalValue();
+        CalculateMerge();
     }
     void TotalValue()
     {
