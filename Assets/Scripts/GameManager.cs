@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager current;
 
+    [SerializeField] private UIManager uiManager;
+
     public float playerSpeed;
     public float playerDamage;
 
@@ -21,11 +23,31 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        GameEventHandler.current.OnPlayerUpgradeArea += OnPlayerUpgradeArea;   
+    }
+
+    private void OnDisable()
+    {
+        GameEventHandler.current.OnPlayerUpgradeArea -= OnPlayerUpgradeArea;   
+    }
+
+    private void OnPlayerUpgradeArea(bool openClose)
+    {
+        uiManager.UpgradePanel(openClose);
     }
 
     // Update is called once per frame
     void Update()
+    {
+        
+    }
+
+    public void PlayerSpeed()
+    {
+        
+    }
+
+    public void PlayerDamage()
     {
         
     }

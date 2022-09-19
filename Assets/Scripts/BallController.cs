@@ -106,27 +106,6 @@ public class BallController : MonoBehaviour
             }
           
         }
-        else if (_GoUpgrade)
-        {
-            _TempTimeMerge += Time.deltaTime;
-            if (_Balls.Count > 1)
-            {
-                if (_TempTimeMerge >= .05f)
-                {
-
-                    _Balls[_Balls.Count - 1].GetComponent<Ball>().SetGoUpgrade(_UpgradeBallPos, _DelayMerge);
-                    _DelayMerge += .5f;
-                    _Balls.RemoveAt(_Balls.Count - 1);
-                    _TempTimeMerge = 0;
-                }
-            }
-            else
-            {
-                // StartCoroutine(DelayMerge());
-                _GoUpgrade = false;
-                _DelayMerge = 0;
-            }
-        }
         else
         {
             var firstBall = _Balls[0].GetComponent<Rigidbody>();
@@ -155,6 +134,28 @@ public class BallController : MonoBehaviour
             }
         }
     }
+
+    public void GoUpgrade()
+    {
+        _TempTimeMerge += Time.deltaTime;
+        if (_Balls.Count > 1)
+        {
+            if (_TempTimeMerge >= .05f)
+            {
+
+                _Balls[_Balls.Count - 1].GetComponent<Ball>().SetGoUpgrade(_UpgradeBallPos, _DelayMerge);
+                _DelayMerge += .5f;
+                _Balls.RemoveAt(_Balls.Count - 1);
+                _TempTimeMerge = 0;
+            }
+        }
+        else
+        {
+            // StartCoroutine(DelayMerge());
+            _GoUpgrade = false;
+            _DelayMerge = 0;
+        }
+    }
     public GameObject LastObje()
     {
         return _Balls[_Balls.Count - 1];
@@ -169,11 +170,10 @@ public class BallController : MonoBehaviour
       
     }
 
-    public void GoUpgrade()
-    {
-        _GoUpgrade = true;
-
-    }
+    // public void GoUpgrade()
+    // {
+    //     _GoUpgrade = true;
+    // }
 
     void OnApplicationFocus(bool hasFocus)
     {

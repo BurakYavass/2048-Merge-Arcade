@@ -196,7 +196,7 @@ public class Ball : MonoBehaviour
         }
     }
 
-        IEnumerator DelayKinematic()
+    IEnumerator DelayKinematic()
     {
         yield return new WaitForSeconds(2);
         GetComponent<Rigidbody>().isKinematic = true;

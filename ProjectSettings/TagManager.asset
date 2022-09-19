@@ -19,6 +19,8 @@ TagManager:
   - BallDown
   - Cameras
   - StackBall
+  - BaseRight
+  - BaseLeft
   layers:
   - Default
   - TransparentFX

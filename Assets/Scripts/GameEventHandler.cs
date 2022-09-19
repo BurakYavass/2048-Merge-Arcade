@@ -15,12 +15,24 @@ public class GameEventHandler : MonoBehaviour
         }
     }
 
-    public event Action OnPlayerUpgradeArea;
+    public event Action<bool> OnPlayerUpgradeArea;
     public event Action<bool> OnPlayerHit;
+    public event Action<bool> OnPlayerRightArea;
+    public event Action<bool> OnPlayerLeftArea;
 
-    public void PlayerUpgradeArea()
+    public void PlayerLeftArea(bool enterExit)
     {
-        OnPlayerUpgradeArea?.Invoke();
+        OnPlayerLeftArea?.Invoke(enterExit);
+    }
+    
+    public void PlayerRightArea(bool enterExit)
+    {
+        OnPlayerRightArea?.Invoke(enterExit);
+    }
+
+    public void PlayerUpgradeArea(bool onUpgrade)
+    {
+        OnPlayerUpgradeArea?.Invoke(onUpgrade);
     }
 
     public void PlayerHit(bool hit)

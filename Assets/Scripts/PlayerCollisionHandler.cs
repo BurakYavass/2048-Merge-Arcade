@@ -19,6 +19,16 @@ public class PlayerCollisionHandler : MonoBehaviour
             other.gameObject.GetComponent<Ball>().SetGoTarget(_ballController.LastObje());
             other.tag = "StackBall";
         }
+
+        if (other.CompareTag("BaseRight"))
+        {
+            GameEventHandler.current.PlayerRightArea(true);
+        }
+        
+        if (other.CompareTag("BaseLeft"))
+        {
+            GameEventHandler.current.PlayerLeftArea(true);
+        }
         
         if (other.CompareTag("MergeMachine"))
         {
@@ -35,6 +45,7 @@ public class PlayerCollisionHandler : MonoBehaviour
             {
                 _onUpgrade = true;
                 _ballController.GoUpgrade();
+                GameEventHandler.current.PlayerUpgradeArea(true);
             }
         }
     }
@@ -57,6 +68,16 @@ public class PlayerCollisionHandler : MonoBehaviour
         {
             GameEventHandler.current.PlayerHit(false);
         }
+        
+        if (other.CompareTag("BaseRight"))
+        {
+            GameEventHandler.current.PlayerRightArea(false);
+        }
+        
+        if (other.CompareTag("BaseLeft"))
+        {
+            GameEventHandler.current.PlayerLeftArea(false);
+        }
 
         if (other.CompareTag("MergeMachine"))
         {
@@ -66,18 +87,10 @@ public class PlayerCollisionHandler : MonoBehaviour
         if (other.CompareTag("UpgradeTrigger"))
         {
             _onUpgrade = false;
+            GameEventHandler.current.PlayerUpgradeArea(false);
         }
     }
-
-    // private void OnCollisionEnter(Collision collision)
-    // {
-    //     if (collision.gameObject.CompareTag("EmptyBall"))
-    //     {
-    //         Debug.Log("Ball");
-    //         
-    //     }
-    // }
-
+    
     private void WeaponHit()
     {
         _chestController.Hit(_weaponsHit._DamageValue);
