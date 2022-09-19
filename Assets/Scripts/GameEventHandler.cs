@@ -15,7 +15,13 @@ public class GameEventHandler : MonoBehaviour
         }
     }
 
+    public event Action OnPlayerUpgradeArea;
     public event Action<bool> OnPlayerHit;
+
+    public void PlayerUpgradeArea()
+    {
+        OnPlayerUpgradeArea?.Invoke();
+    }
 
     public void PlayerHit(bool hit)
     {

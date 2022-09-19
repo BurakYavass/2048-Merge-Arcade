@@ -21,19 +21,19 @@ public class WeaponsHit : MonoBehaviour
         switch (weapons)
         {
             case WeaponState.Sword1:
-                _DamageValue = 10;
+                _DamageValue = 5;
                 break;
             case WeaponState.Sword2:
-                _DamageValue = 20;
+                _DamageValue = 10;
                 break;
             case WeaponState.Gurz:
-                _DamageValue = 10;
+                _DamageValue = 15;
                 break;
             case WeaponState.Axe1:
-                _DamageValue = 10;
+                _DamageValue = 40;
                 break;
             case WeaponState.Axe2:
-                _DamageValue = 10;
+                _DamageValue = 50;
                 break;
             default:
                 throw new ArgumentOutOfRangeException();

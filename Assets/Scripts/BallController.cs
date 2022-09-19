@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BallController : MonoBehaviour
@@ -8,36 +9,27 @@ public class BallController : MonoBehaviour
     [SerializeField] List<int> _SaveBall = new List<int>();
 
 
-    [SerializeField]
-    GameObject _CreatBall;  
+    [SerializeField] GameObject _CreatBall;  
     
-    [SerializeField]
-    GameObject _FirstObje;
+    //[SerializeField] GameObject _FirstObje;
    
-    Vector3 _FirstObjePos;
-    [SerializeField]
-    Vector3 _Distance;
-    [SerializeField]
-    GameObject _Root;
-    [SerializeField]
-    List<GameObject> _Balls=new List<GameObject>();
-    [SerializeField]
-    RuntimeAnimatorController _BallSoft;
+    //Vector3 _FirstObjePos;
+    private Vector3 _distance;
+    [SerializeField] GameObject _Root;
+    [SerializeField] List<GameObject> _Balls=new List<GameObject>();
+    [SerializeField] RuntimeAnimatorController _BallSoft;
+    [SerializeField] private Animation _animation;
    
-    [SerializeField]
-    RuntimeAnimatorController _MachineVib;
+    [SerializeField] RuntimeAnimatorController _MachineVib;
     RuntimeAnimatorController _None;
-    [SerializeField]
-    bool _Delay;
-    [SerializeField]
-   float _FollowSpeed ;
+    [SerializeField] float _FollowSpeed ;
     bool _GoMerge;
     bool _GoUpgrade;
     float _TempSpeed;
     [SerializeField] private PlayerController _Player;
     GameObject _MergeBallPos;
     GameObject _UpgradeBallPos;
-    GameObject _MergeController;
+    //GameObject _MergeController;
     float _TempTimeMerge;
     float _DelayMerge;
 
@@ -45,16 +37,16 @@ public class BallController : MonoBehaviour
 
     void Start()
     {
-        _FirstObjePos = _FirstObje.transform.position;
+        //_FirstObjePos = _FirstObje.transform.position;
         //_Player = GameObject.FindGameObjectWithTag("Player");
         _MergeBallPos = GameObject.FindGameObjectWithTag("MergeBallPos");
         _UpgradeBallPos = GameObject.FindGameObjectWithTag("UpgradeBallPos");
-        _MergeController = GameObject.FindGameObjectWithTag("MergeController");
+        //_MergeController = GameObject.FindGameObjectWithTag("MergeController");
     
 
-        _Distance.z = _Balls[0].transform.position.z - _Root.transform.position.z;
-        _Distance.y = _Balls[0].transform.position.y - _Root.transform.position.y;
-        _Distance.x = _Balls[0].transform.position.x - _Root.transform.position.x;
+        _distance.z = _Balls[0].transform.position.z - _Root.transform.position.z;
+        _distance.y = _Balls[0].transform.position.y - _Root.transform.position.y;
+        _distance.x = _Balls[0].transform.position.x - _Root.transform.position.x;
         _TempSpeed = _FollowSpeed;
 
 
@@ -80,11 +72,13 @@ public class BallController : MonoBehaviour
         if (_Player.walking)
         {
             _TempSpeed = _FollowSpeed + (10  * _Player.GetJoystickValue());
-            GetComponent<Animator>().runtimeAnimatorController = _BallSoft;
+            _animation.Play("BallScale");
+            //GetComponent<Animator>().runtimeAnimatorController = _BallSoft;
         }
         else
         {
-            GetComponent<Animator>().runtimeAnimatorController = _None;
+            _animation.Stop("BallScale");
+            //GetComponent<Animator>().runtimeAnimatorController = _None;
             _TempSpeed = _FollowSpeed;
         }
         if (_GoMerge)
@@ -125,8 +119,6 @@ public class BallController : MonoBehaviour
                     _Balls.RemoveAt(_Balls.Count - 1);
                     _TempTimeMerge = 0;
                 }
-
-
             }
             else
             {
@@ -200,7 +192,7 @@ public class BallController : MonoBehaviour
     }
 
 
-            IEnumerator DelayMerge()
+    IEnumerator DelayMerge()
     {
         yield return new WaitForSeconds(5);
        

@@ -96,7 +96,6 @@ public class ChestController : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         animator.SetBool("Hit",false);
         _Hitting = false;
-        //_HealthBar.SetActive(false);
     }
 
     IEnumerator CloseDelay()

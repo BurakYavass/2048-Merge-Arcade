@@ -524,7 +524,7 @@ MonoBehaviour:
   - {fileID: 6799037083379863155}
   _OpenPart:
   - {fileID: 3391193107276439836}
-  animator: {fileID: 0}
+  animator: {fileID: 545125218598824944}
   _HealthBar: {fileID: 8799913854462201741}
   _FullHealth: {fileID: 1884926143838587690}
   _CurrentHealth: {fileID: 3730178489634790747}

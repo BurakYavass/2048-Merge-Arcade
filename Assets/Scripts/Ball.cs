@@ -186,10 +186,7 @@ public class Ball : MonoBehaviour
         if (other.gameObject.name=="BallPool")
         {
             GetComponent<Rigidbody>().isKinematic = false;
-           
         }
-        
-
     }
     private void OnTriggerExit(Collider other)
     {
@@ -197,7 +194,6 @@ public class Ball : MonoBehaviour
         {
             GetComponent<Rigidbody>().isKinematic = true;
         }
-
     }
 
         IEnumerator DelayKinematic()
