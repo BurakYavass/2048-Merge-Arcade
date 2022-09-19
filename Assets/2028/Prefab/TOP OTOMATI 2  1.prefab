@@ -113,7 +113,7 @@ MonoBehaviour:
   _Ball: {fileID: 3802715413599442534, guid: 0e0b952b6270b8d4fa9c22f09459ade7, type: 3}
   _BallSpawn: {fileID: 2287091878625152697}
   _Machine: {fileID: 2353614229940855902}
-  _MachineVib: {fileID: 9100000, guid: 75583bf3150b8a045bd7abb997729bd2, type: 2}
+  machineAnimator: {fileID: 1360585164395393642}
   _2: []
   _4: []
   _8: []
@@ -140,7 +140,6 @@ GameObject:
   - component: {fileID: 1264569322}
   - component: {fileID: 1264569321}
   - component: {fileID: 1264569320}
-  - component: {fileID: 1264569323}
   m_Layer: 0
   m_Name: Cube (1)
   m_TagString: MergeMachine
@@ -224,24 +223,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &1264569323
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1264569318}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Size: {x: 1, y: 2.848391, z: 1}
+  m_Center: {x: -1.1703593e-17, y: 0.92419523, z: -2.5083216e-17}
 --- !u!1 &1265154406
 GameObject:
   m_ObjectHideFlags: 0
@@ -612,7 +595,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3162203140403347172}
-  - component: {fileID: 9011982584654929907}
+  - component: {fileID: 1360585164395393642}
   m_Layer: 0
   m_Name: TOP OTOMATI 2  1
   m_TagString: Untagged
@@ -629,7 +612,7 @@ Transform:
   m_GameObject: {fileID: 2353614229940855902}
   m_LocalRotation: {x: 0, y: -0.8882167, z: 0, w: 0.45942488}
   m_LocalPosition: {x: 14.89, y: 35.22, z: 22.86}
-  m_LocalScale: {x: 0.5000003, y: 0.5, z: 0.5000003}
+  m_LocalScale: {x: 0.5000003, y: 0.5, z: 0.5000001}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6509628152601693882}
@@ -641,7 +624,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -125.3, z: 0}
---- !u!95 &9011982584654929907
+--- !u!95 &1360585164395393642
 Animator:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -651,7 +634,7 @@ Animator:
   m_GameObject: {fileID: 2353614229940855902}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 75583bf3150b8a045bd7abb997729bd2, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -672,13 +655,14 @@ GameObject:
   - component: {fileID: 2275375071786739073}
   - component: {fileID: 7380995178409874207}
   - component: {fileID: 1398541311751065536}
-  - component: {fileID: 762133510}
+  - component: {fileID: 473204873}
+  - component: {fileID: 473204878}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 40
   m_IsActive: 1
 --- !u!4 &2275375071786739073
 Transform:
@@ -746,8 +730,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &762133510
-MeshCollider:
+--- !u!208 &473204873
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2874631308987001707}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 2.71, y: 2.92, z: 4.8}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.26, y: 0.79, z: 0.53300005}
+  m_TimeToStationary: 0.5
+--- !u!65 &473204878
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -756,10 +756,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -5495902117074765545, guid: 2f01e1e3bf39b424287d62e0b5553354, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 5.419085, y: 5.664956, z: 9.867946}
+  m_Center: {x: -0.23222618, y: 0.8041645, z: 0.53314507}
 --- !u!1 &4510691567011744767
 GameObject:
   m_ObjectHideFlags: 0
@@ -1020,7 +1019,6 @@ GameObject:
   - component: {fileID: 2786803693027201979}
   - component: {fileID: 376052481326570656}
   - component: {fileID: 955192556170887750}
-  - component: {fileID: 1677092135}
   m_Layer: 0
   m_Name: mergeBallPos
   m_TagString: MergeBallPos
@@ -1093,22 +1091,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!54 &1677092135
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8064047364816147311}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &8785281508620988261
 GameObject:
   m_ObjectHideFlags: 0

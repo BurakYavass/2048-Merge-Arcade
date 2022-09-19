@@ -1,18 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MergeController : MonoBehaviour
 {
-    [SerializeField]
-    GameObject _Ball;
-    [SerializeField]
-    GameObject _BallSpawn;
-    [SerializeField]
-    GameObject _Machine;
-    [SerializeField]
-    RuntimeAnimatorController _MachineVib;
-    RuntimeAnimatorController _None;
+    [SerializeField] private GameObject _Ball;
+    [SerializeField] private GameObject _BallSpawn;
+    [SerializeField] private GameObject _Machine;
+    [SerializeField] private Animator machineAnimator;
 
     [SerializeField]
     List<GameObject> _2 = new List<GameObject>(); 
@@ -41,13 +37,24 @@ public class MergeController : MonoBehaviour
     float _TempTime;
     int _IsDone;
     public int _TotalValue;
-   public bool _MergeTime;
+    public bool _MergeTime;
+
+    private void Start()
+    {
+        GameEventHandler.current.OnPlayerMergeArea += OnPlayerMergeArea;
+    }
+
+    private void OnDisable()
+    {
+        GameEventHandler.current.OnPlayerMergeArea -= OnPlayerMergeArea;
+    }
+    
     private void Update()
     {
        
         if (!_MergeTime)
         {
-            if (_TotalValue !=0&& GameObject.FindGameObjectsWithTag("StackBall").Length<1)
+            if (_TotalValue != 0&& GameObject.FindGameObjectsWithTag("StackBall").Length<1)
             {
                 SetMerge();
             }
@@ -64,6 +71,11 @@ public class MergeController : MonoBehaviour
                 _TempTime = 0;
             }
         }
+    }
+    
+    private void OnPlayerMergeArea(bool enterExit)
+    {
+        machineAnimator.SetBool("vibration" , true);
     }
 
     public void SetMerge()
@@ -167,10 +179,7 @@ public class MergeController : MonoBehaviour
         if (_IsDone <= 0)
         {
             _MergeTime = false;
-            _Machine.GetComponent<Animator>().runtimeAnimatorController = _None;
         }
-        
-
     }
     void CalculateMerge()
     {
@@ -406,17 +415,13 @@ public class MergeController : MonoBehaviour
         if (_IsDone==0)
         {
             _MergeTime = false;
-            _Machine.GetComponent<Animator>().runtimeAnimatorController = _None;
+            machineAnimator.SetBool("vibration" , false);
         }
-
-
-
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("StackBall"))
         {
-            
             float tempvalue = other.GetComponent<Ball>().GetValue();
          
             Destroy(other.gameObject);

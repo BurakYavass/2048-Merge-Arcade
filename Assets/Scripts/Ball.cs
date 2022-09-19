@@ -5,20 +5,16 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    [SerializeField]
-    GameObject[] _Colors;
-    [SerializeField]
-    float _BallValue;
+    [SerializeField] GameObject[] _Colors;
+    [SerializeField] float _BallValue;
 
-    [SerializeField]
-    TextMeshPro _BallText;
-    [SerializeField]
-    RuntimeAnimatorController _Merge;
+    [SerializeField] TextMeshPro _BallText;
+    [SerializeField] RuntimeAnimatorController _Merge;
     float _Distance;
     public GameObject _TempObje;
-  public  bool _Go;
-  public  bool _GoMerge;
-  public  bool _GoUpgrade;
+    public  bool _Go;
+    public  bool _GoMerge;
+    public  bool _GoUpgrade;
     bool _OnStackpos;
     GameObject _BallController;
  
@@ -81,7 +77,6 @@ public class Ball : MonoBehaviour
                 transform.localScale = Vector3.Lerp(transform.localScale, _TempObje.transform.localScale, .03f);
             }
         }
-        
     }
     public void SetValue(float ballvalue)
     {

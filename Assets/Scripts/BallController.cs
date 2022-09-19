@@ -7,29 +7,18 @@ public class BallController : MonoBehaviour
 {
 
     [SerializeField] List<int> _SaveBall = new List<int>();
-
-
-    [SerializeField] GameObject _CreatBall;  
-    
-    //[SerializeField] GameObject _FirstObje;
-   
-    //Vector3 _FirstObjePos;
+    [SerializeField] public List<GameObject> _Balls=new List<GameObject>();
+    [SerializeField] private GameObject creatBall;
+    [SerializeField] private GameObject playerRootPoint;
+    [SerializeField] private Animator animator;
+    [SerializeField] float followSpeed ;
     private Vector3 _distance;
-    [SerializeField] GameObject _Root;
-    [SerializeField] List<GameObject> _Balls=new List<GameObject>();
-    [SerializeField] RuntimeAnimatorController _BallSoft;
-    [SerializeField] private Animation _animation;
-   
-    [SerializeField] RuntimeAnimatorController _MachineVib;
-    RuntimeAnimatorController _None;
-    [SerializeField] float _FollowSpeed ;
     bool _GoMerge;
     bool _GoUpgrade;
     float _TempSpeed;
     [SerializeField] private PlayerController _Player;
     GameObject _MergeBallPos;
     GameObject _UpgradeBallPos;
-    //GameObject _MergeController;
     float _TempTimeMerge;
     float _DelayMerge;
 
@@ -44,17 +33,17 @@ public class BallController : MonoBehaviour
         //_MergeController = GameObject.FindGameObjectWithTag("MergeController");
     
 
-        _distance.z = _Balls[0].transform.position.z - _Root.transform.position.z;
-        _distance.y = _Balls[0].transform.position.y - _Root.transform.position.y;
-        _distance.x = _Balls[0].transform.position.x - _Root.transform.position.x;
-        _TempSpeed = _FollowSpeed;
+        _distance.z = _Balls[0].transform.position.z - playerRootPoint.transform.position.z;
+        _distance.y = _Balls[0].transform.position.y - playerRootPoint.transform.position.y;
+        _distance.x = _Balls[0].transform.position.x - playerRootPoint.transform.position.x;
+        _TempSpeed = followSpeed;
 
 
         if (PlayerPrefs.GetInt("BallSaveCount") > 1)
         {
             for (int i = 0; i < PlayerPrefs.GetInt("BallSaveCount"); i++)
             {
-                GameObject go = Instantiate(_CreatBall, _Balls[_Balls.Count-1].transform.position, Quaternion.Euler(0, 180, 0),gameObject.transform);
+                GameObject go = Instantiate(creatBall, _Balls[_Balls.Count-1].transform.position, Quaternion.Euler(0, 180, 0),gameObject.transform);
                 go.GetComponent<Ball>().SetValue(PlayerPrefs.GetInt("BallSave" + (i + 1)));
                 SetNewBall(go);
                 go.tag = "StackBall";
@@ -71,32 +60,27 @@ public class BallController : MonoBehaviour
     {
         if (_Player.walking)
         {
-            _TempSpeed = _FollowSpeed + (10  * _Player.GetJoystickValue());
-            _animation.Play("BallScale");
-            //GetComponent<Animator>().runtimeAnimatorController = _BallSoft;
+            _TempSpeed = followSpeed + (10  * _Player.GetJoystickValue());
+            animator.SetBool("Scale", true);
         }
         else
         {
-            _animation.Stop("BallScale");
-            //GetComponent<Animator>().runtimeAnimatorController = _None;
-            _TempSpeed = _FollowSpeed;
+            animator.SetBool("Scale" , false);
+            _TempSpeed = followSpeed;
         }
         if (_GoMerge)
         {
-            _MergeBallPos.transform.parent.GetComponent<Animator>().runtimeAnimatorController = _MachineVib;
+            //_MergeBallPos.transform.parent.GetComponent<Animator>().runtimeAnimatorController = _MachineVib;
             _TempTimeMerge += Time.deltaTime;
             if (_Balls.Count> 1  )
             {
                 if (_TempTimeMerge >= .05f)
                 {
-
-                     _Balls[_Balls.Count-1].GetComponent<Ball>().SetGoMerge(_MergeBallPos, _DelayMerge);
+                    _Balls[_Balls.Count-1].GetComponent<Ball>().SetGoMerge(_MergeBallPos, _DelayMerge);
                     _DelayMerge += .5f;
                     _Balls.RemoveAt(_Balls.Count-1);
                     _TempTimeMerge = 0;
                 }
-                
-                
             }
             else
             {
@@ -109,7 +93,7 @@ public class BallController : MonoBehaviour
         else
         {
             var firstBall = _Balls[0].GetComponent<Rigidbody>();
-            var RootRb = _Root.GetComponent<Rigidbody>();
+            var RootRb = playerRootPoint.GetComponent<Rigidbody>();
             firstBall.position = new Vector3(
              Mathf.Lerp(firstBall.position.x, RootRb.position.x, 1f),
              Mathf.Lerp(firstBall.position.y, RootRb.position.y, .2f),
