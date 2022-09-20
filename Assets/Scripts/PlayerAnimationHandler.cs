@@ -26,8 +26,9 @@ public class PlayerAnimationHandler : MonoBehaviour
         playerHit = hit;
     }
 
-    void LateUpdate()
+    void Update()
     {
+        animator.SetFloat("WalkingSpeed" , GameManager.current.playerSpeed/10);
         if (playerController.walking)
         {
             animator.SetBool("Idle", false);

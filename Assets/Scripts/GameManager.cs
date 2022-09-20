@@ -8,9 +8,9 @@ public class GameManager : MonoBehaviour
     public static GameManager current;
     
     public float playerSpeed;
-    private float _speedUpgradeRequire;
+    private int _speedUpgradeRequire;
     public float playerDamage;
-    private float _damageUpgradeRequire;
+    private int _damageUpgradeRequire;
 
     [SerializeField] private UIManager uiManager;
     [SerializeField] private PlayerBallCounter playerBallCounter;
@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
         GameEventHandler.current.OnPlayerUpgradeArea += OnPlayerUpgradeArea;
         Application.targetFrameRate = 60;
         _speedUpgradeRequire = speedUpgradeState[0];
-        _damageUpgradeRequire = speedUpgradeState[0];
+        _damageUpgradeRequire = damageUpgradeState[0];
     }
 
     private void OnDisable()
@@ -54,7 +54,6 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Not Enoughf Money");
         }
-        
     }
 
     public void PlayerSpeed()
@@ -62,6 +61,7 @@ public class GameManager : MonoBehaviour
         if (playerBallCounter.stackValue >= _speedUpgradeRequire)
         {
             playerBallCounter.stackValue -= _speedUpgradeRequire;
+            playerSpeed += 2.0f;
             Debug.Log("PlayerSpeedIncrease");
         }
         else
@@ -74,6 +74,7 @@ public class GameManager : MonoBehaviour
     {
         if (playerBallCounter.stackValue >= _damageUpgradeRequire)
         {
+            playerDamage += 5;
             playerBallCounter.stackValue -= _damageUpgradeRequire;
             Debug.Log("PlayerDamageIncrease");
         }

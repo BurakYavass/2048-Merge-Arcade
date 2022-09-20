@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
     private void Movement()
     {
         var speed = GameManager.current.playerSpeed;
-        Vector3 inputVector = new Vector3(joystick.Horizontal, 0f, joystick.Vertical) * speed;
+        Vector3 inputVector = new Vector3(joystick.Horizontal, 0f, joystick.Vertical);
         
         inputVector = Vector3.ClampMagnitude(inputVector, speed);
         if (inputVector != Vector3.zero)
@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour
 
             var movementVector = inputVector.x * cameraRightHorizontal + inputVector.z * cameraForwardHorizontal;
             
-            Vector3 temp = transform.position + movementVector * (Time.deltaTime);
+            Vector3 temp = transform.position + movementVector.normalized * (speed * Time.deltaTime);
             UnityEngine.AI.NavMeshHit hit;
             bool isvalid = UnityEngine.AI.NavMesh.SamplePosition(temp, out hit, .3f, UnityEngine.AI.NavMesh.AllAreas);
             if (isvalid)

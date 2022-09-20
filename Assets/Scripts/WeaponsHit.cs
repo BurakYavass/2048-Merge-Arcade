@@ -10,8 +10,13 @@ public class WeaponsHit : MonoBehaviour
 
     private void Start()
     {
+        
+        //Weapons(WeaponState.Axe1);
+    }
+
+    private void Update()
+    {
         _damageValue = GameManager.current.playerDamage;
-        Weapons(WeaponState.Axe1);
     }
 
     private void Weapons(WeaponState weapons)

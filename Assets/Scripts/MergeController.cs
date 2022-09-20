@@ -51,7 +51,6 @@ public class MergeController : MonoBehaviour
     
     private void Update()
     {
-       
         if (!_MergeTime)
         {
             if (_TotalValue != 0&& GameObject.FindGameObjectsWithTag("StackBall").Length<1)
@@ -75,7 +74,7 @@ public class MergeController : MonoBehaviour
     
     private void OnPlayerMergeArea(bool enterExit)
     {
-        machineAnimator.SetBool("vibration" , true);
+        machineAnimator.SetBool("vibration" , enterExit);
     }
 
     public void SetMerge()
@@ -388,8 +387,7 @@ public class MergeController : MonoBehaviour
                 _IsDone += 1;
             }                
         }
-
-
+        
         else if (_2048.Count>0)
         {
             if (_2048.Count>=2)
@@ -410,8 +408,7 @@ public class MergeController : MonoBehaviour
                 _IsDone += 1;
             }                
         }
-
-
+        
         else if (_4096.Count>0)
         {
             if (_4096.Count >= 1)
