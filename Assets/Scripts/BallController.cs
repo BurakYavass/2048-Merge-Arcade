@@ -10,15 +10,15 @@ public class BallController : MonoBehaviour
     [SerializeField] public List<GameObject> _Balls=new List<GameObject>();
     [SerializeField] private GameObject creatBall;
     [SerializeField] private GameObject playerRootPoint;
+    [SerializeField] private PlayerController _Player;
+    [SerializeField] private GameObject _MergeBallPos;
+    [SerializeField] private GameObject _UpgradeBallPos;
     [SerializeField] private Animator animator;
     [SerializeField] float followSpeed ;
     private Vector3 _distance;
     bool _GoMerge;
     bool _GoUpgrade;
     float _TempSpeed;
-    [SerializeField] private PlayerController _Player;
-    GameObject _MergeBallPos;
-    GameObject _UpgradeBallPos;
     float _TempTimeMerge;
     float _DelayMerge;
 
@@ -28,8 +28,8 @@ public class BallController : MonoBehaviour
     {
         //_FirstObjePos = _FirstObje.transform.position;
         //_Player = GameObject.FindGameObjectWithTag("Player");
-        _MergeBallPos = GameObject.FindGameObjectWithTag("MergeBallPos");
-        _UpgradeBallPos = GameObject.FindGameObjectWithTag("UpgradeBallPos");
+        //_MergeBallPos = GameObject.FindGameObjectWithTag("MergeBallPos");
+        //_UpgradeBallPos = GameObject.FindGameObjectWithTag("UpgradeBallPos");
         //_MergeController = GameObject.FindGameObjectWithTag("MergeController");
     
 
