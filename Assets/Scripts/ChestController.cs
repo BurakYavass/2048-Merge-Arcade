@@ -35,7 +35,7 @@ public class ChestController : MonoBehaviour
         _ChestHealthValueCurrent = _ChestHealthValue;
         _FullHealth.text = (Mathf.Round(_ChestHealthValue)).ToString();
         _CurrentHealth.text = (Mathf.Round(_ChestHealthValueCurrent)).ToString();
-        playerTransform = PlayerStackList.Current.stackPoint;
+        playerTransform = PlayerController.Current.transform;
     }
 
  

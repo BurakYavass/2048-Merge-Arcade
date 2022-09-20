@@ -9,9 +9,15 @@ public class PlayerCollisionHandler : MonoBehaviour
     [SerializeField] private WeaponsHit weaponsHit;
     [SerializeField] private BallController ballController;
     private ChestController _chestController;
+    private PlayerBallCounter _playerBallCounter;
 
     private bool _onUpgrade = false;
     private bool _onMergeMachine = false;
+
+    private void Start()
+    {
+        _playerBallCounter = playerController.GetComponent<PlayerBallCounter>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -54,7 +60,8 @@ public class PlayerCollisionHandler : MonoBehaviour
             if (!_onUpgrade)
             {
                 _onUpgrade = true;
-                ballController.GoUpgrade();
+                //ballController.GoUpgrade();
+                _playerBallCounter.BallCountCheck();
                 GameEventHandler.current.PlayerUpgradeArea(true);
             }
         }
@@ -107,7 +114,7 @@ public class PlayerCollisionHandler : MonoBehaviour
     
     private void WeaponHit()
     {
-        _chestController.Hit(weaponsHit._DamageValue);
+        _chestController.Hit(weaponsHit._damageValue);
         GameEventHandler.current.PlayerHit(false);
     }
 }

@@ -5,13 +5,12 @@ using UnityEngine;
 
 public class WeaponsHit : MonoBehaviour
 {
-    [SerializeField] public float _DamageValue;
+    public float _damageValue;
     public WeaponState weapon;
-   
-    //bool _HitDelay; 
 
     private void Start()
     {
+        _damageValue = GameManager.current.playerDamage;
         Weapons(WeaponState.Axe1);
     }
 
@@ -21,24 +20,25 @@ public class WeaponsHit : MonoBehaviour
         switch (weapons)
         {
             case WeaponState.Sword1:
-                _DamageValue = 5;
+                _damageValue = 5;
                 break;
             case WeaponState.Sword2:
-                _DamageValue = 10;
+                _damageValue = 10;
                 break;
             case WeaponState.Gurz:
-                _DamageValue = 15;
+                _damageValue = 15;
                 break;
             case WeaponState.Axe1:
-                _DamageValue = 40;
+                _damageValue = 40;
                 break;
             case WeaponState.Axe2:
-                _DamageValue = 50;
+                _damageValue = 50;
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
     }
+    
 
     IEnumerator HitDelay()
     {
