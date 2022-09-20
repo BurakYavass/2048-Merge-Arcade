@@ -51,7 +51,6 @@ public class PlayerCollisionHandler : MonoBehaviour
                 {
                     ballController.GoMerge();
                     GameEventHandler.current.PlayerMergeArea(true);
-                    Debug.Log("Merge Machine");
                 }
             }
         }
@@ -97,6 +96,7 @@ public class PlayerCollisionHandler : MonoBehaviour
 
         if (other.gameObject.CompareTag("Chest"))
         {
+            _chestController = null;
             GameEventHandler.current.PlayerHit(false);
         }
 

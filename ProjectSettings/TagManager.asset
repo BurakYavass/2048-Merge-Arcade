@@ -21,6 +21,7 @@ TagManager:
   - StackBall
   - BaseRight
   - BaseLeft
+  - MergeBall
   layers:
   - Default
   - TransparentFX

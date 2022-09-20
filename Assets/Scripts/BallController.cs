@@ -22,7 +22,7 @@ public class BallController : MonoBehaviour
     float _TempTimeMerge;
     float _DelayMerge;
 
-    public float xStackSpeed;
+    public float stackSpeed;
 
     void Start()
     {
@@ -103,18 +103,18 @@ public class BallController : MonoBehaviour
 
              for (int i = 1; i < _Balls.Count; i++)
             {
-                var downBall = _Balls[i - 1].GetComponent<Rigidbody>();
+                var forwardBall = _Balls[i - 1].GetComponent<Rigidbody>();
                 var currentBall = _Balls[i].GetComponent<Rigidbody>();
                 
                 currentBall.position = new Vector3(
-                    Mathf.Lerp(currentBall.position.x, downBall.position.x, (_TempSpeed / xStackSpeed * Time.deltaTime)),
-                    Mathf.Lerp(currentBall.position.y, downBall.position.y, (_TempSpeed * Time.deltaTime) * ((_Balls.Count - i) * (.05f))),
-                    Mathf.Lerp(currentBall.position.z, downBall.position.z, (_TempSpeed * Time.deltaTime))
+                    Mathf.Lerp(currentBall.position.x, forwardBall.position.x, (_TempSpeed * Time.deltaTime) / stackSpeed),
+                    Mathf.Lerp(currentBall.position.y, forwardBall.position.y, (_TempSpeed * Time.deltaTime) * ((_Balls.Count - i) * (.05f))),
+                    Mathf.Lerp(currentBall.position.z, forwardBall.position.z, (_TempSpeed * Time.deltaTime))
                 );
-               currentBall.position -= (downBall.transform.up * (currentBall.transform.localScale.z * 1.5f));
+               currentBall.position -= (forwardBall.transform.up * (currentBall.transform.localScale.z * 1.5f));
                
-               currentBall.transform.localScale = Vector3.Lerp(currentBall.transform.localScale, downBall.transform.localScale, (_TempSpeed * Time.deltaTime));
-               currentBall.rotation = Quaternion.Lerp(currentBall.rotation, downBall.rotation, (_TempSpeed * Time.deltaTime));
+               currentBall.transform.localScale = Vector3.Lerp(currentBall.transform.localScale, forwardBall.transform.localScale, (_TempSpeed * Time.deltaTime));
+               currentBall.rotation = Quaternion.Lerp(currentBall.rotation, forwardBall.rotation, (_TempSpeed * Time.deltaTime) / stackSpeed);
             }
         }
     }

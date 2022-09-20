@@ -53,7 +53,7 @@ public class MergeController : MonoBehaviour
     {
         if (!_MergeTime)
         {
-            if (_TotalValue != 0&& GameObject.FindGameObjectsWithTag("StackBall").Length<1)
+            if (_TotalValue != 0&& GameObject.FindGameObjectsWithTag("MergeBall").Length<1)
             {
                 SetMerge();
             }
@@ -343,8 +343,6 @@ public class MergeController : MonoBehaviour
                 _IsDone += 1;
             }                
         }
-
-
         else if (_512.Count>0)
         {
             if (_512.Count>=2)
@@ -365,8 +363,7 @@ public class MergeController : MonoBehaviour
                 _IsDone += 1;
             }                
         }
-
-
+        
         else if (_1024.Count>0)
         {
             if (_1024.Count>=2)
@@ -430,7 +427,7 @@ public class MergeController : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("StackBall"))
+        if (other.CompareTag("MergeBall"))
         {
             float tempvalue = other.GetComponent<Ball>().GetValue();
          

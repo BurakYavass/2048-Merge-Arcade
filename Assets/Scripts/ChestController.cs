@@ -46,7 +46,6 @@ public class ChestController : MonoBehaviour
             if (_ChestHealthValueCurrent>=1)
             {
                 _ChestHealthValueCurrent = Mathf.Lerp(_ChestHealthValueCurrent, _ChestHealthValueCurrentTemp, .1f);
-              
                 _CurrentHealth.text = (Mathf.Round(_ChestHealthValueCurrent)).ToString();
                 _SliderValue.fillAmount = (1 * (_ChestHealthValueCurrent / _ChestHealthValue));
             }
@@ -58,7 +57,7 @@ public class ChestController : MonoBehaviour
                 transform.DOScale(Vector3.zero, 1f);
                 for (int i = 0; i < _ClosePart.Length; i++)
                 {
-                    _ClosePart[i].transform.localScale = Vector3.Lerp(_ClosePart[i].transform.localScale,Vector3.zero,.5f);
+                    _ClosePart[i].transform.localScale = Vector3.Lerp(_ClosePart[i].transform.localScale,Vector3.zero,.1f);
           
                 } 
                 for (int i = 0; i < _OpenPart.Length; i++)
@@ -69,7 +68,7 @@ public class ChestController : MonoBehaviour
         }
 
         var distance = Vector3.Distance(transform.position, playerTransform.position);
-        if (distance < 5f)
+        if (distance < 10f)
         {
             _HealthBar.SetActive(true);
         }
@@ -78,7 +77,7 @@ public class ChestController : MonoBehaviour
             _HealthBar.SetActive(false);
         }
     }
-    public void Hit(float damage)
+    public void Hit(int damage)
     {
         if (gameObject.activeInHierarchy)
         {

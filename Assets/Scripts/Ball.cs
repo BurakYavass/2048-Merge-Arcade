@@ -178,6 +178,7 @@ public class Ball : MonoBehaviour
     {
         if (other.gameObject.name=="BallPool")
         {
+            gameObject.tag = "MergeBall";
             _rb.isKinematic = false;
         }
     }

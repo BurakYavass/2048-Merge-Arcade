@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class WeaponsHit : MonoBehaviour
 {
-    public float _damageValue;
+    public int _damageValue;
     public WeaponState weapon;
 
     private void Start()

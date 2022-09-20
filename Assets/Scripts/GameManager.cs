@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     
     public float playerSpeed;
     private int _speedUpgradeRequire;
-    public float playerDamage;
+    public int playerDamage;
     private int _damageUpgradeRequire;
 
     [SerializeField] private UIManager uiManager;
