@@ -10,6 +10,7 @@ public class Ball : MonoBehaviour
 
     [SerializeField] TextMeshPro _BallText;
     [SerializeField] RuntimeAnimatorController _Merge;
+    private Rigidbody _rb;
     float _Distance;
     public GameObject _TempObje;
     public  bool _Go;
@@ -22,7 +23,7 @@ public class Ball : MonoBehaviour
     float _DelayMerge;
     void Start()
     {
-      
+        _rb = GetComponent<Rigidbody>();
         _Material  = GetComponent<MeshRenderer>().material;
         _BallController = GameObject.FindGameObjectWithTag("BallController");
         BallTextChange();
@@ -48,7 +49,7 @@ public class Ball : MonoBehaviour
             transform.localScale = Vector3.Lerp(transform.localScale, _TempObje.transform.localScale, .03f   );
             if (Vector3.Distance(transform.position, _TempObje.transform.position) < _Distance * .05f)
             {
-                GetComponent<Rigidbody>().isKinematic = false;
+                _rb.isKinematic = false;
                 GetComponent<Collider>().enabled = false;
                 _GoMerge = false;
                 StartCoroutine(DelayMergeTime());
@@ -59,12 +60,9 @@ public class Ball : MonoBehaviour
             Vector3 rndm = new Vector3(Random.Range(-2, 2), Random.Range(2, 4), 0);
             if (Vector3.Distance(transform.position, _TempObje.transform.position) < _Distance * .05f)
             {
-                GetComponent<Rigidbody>().isKinematic = false;
+                _rb.isKinematic = false;
                 GetComponent<Collider>().enabled = false;
                 _GoUpgrade = false;
-               
-
-
             }
             else if (Vector3.Distance(transform.position, _TempObje.transform.position+ rndm) < _Distance * .8f)
             {
@@ -144,7 +142,7 @@ public class Ball : MonoBehaviour
     }
     public void SetGoUpgrade(GameObject target, float delay)
     {
-        GetComponent<Rigidbody>().isKinematic = true;
+        _rb.isKinematic = true;
         _TempObje = target;
         _Distance = Vector3.Distance(transform.position, _TempObje.transform.position);
         GetComponent<Collider>().isTrigger = true;
@@ -152,7 +150,7 @@ public class Ball : MonoBehaviour
     }
     public void SetGoTarget(GameObject target)
     {
-        GetComponent<Rigidbody>().isKinematic = true;
+        _rb.isKinematic = true;
         _TempObje = target;
         _Distance = Vector3.Distance(transform.position,_TempObje.transform.position);
         GetComponent<Collider>().isTrigger = true;
@@ -162,7 +160,7 @@ public class Ball : MonoBehaviour
     {
         _DelayMerge = delay;
         gameObject.transform.parent = target.transform.parent;
-        GetComponent<Rigidbody>().isKinematic = true;
+        //_rb.isKinematic = true;
         _TempObje = target;
         _Distance = Vector3.Distance(transform.position, _TempObje.transform.position);
         GetComponent<Collider>().isTrigger = true;
@@ -180,28 +178,28 @@ public class Ball : MonoBehaviour
     {
         if (other.gameObject.name=="BallPool")
         {
-            GetComponent<Rigidbody>().isKinematic = false;
+            _rb.isKinematic = false;
         }
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.name == "BallPool")
         {
-            GetComponent<Rigidbody>().isKinematic = true;
+            _rb.isKinematic = true;
         }
     }
 
     IEnumerator DelayKinematic()
     {
         yield return new WaitForSeconds(2);
-        GetComponent<Rigidbody>().isKinematic = true;
+        //_rb.isKinematic = true;
     }
     IEnumerator DelayMergeTime( )
     {
         GetComponent<Collider>().isTrigger = false;
         yield return new WaitForSeconds(_DelayMerge);
         GetComponent<Animator>().runtimeAnimatorController = _Merge;
-        GetComponent<Rigidbody>().isKinematic = true;
+        //_rb.isKinematic = true;
         GetComponent<Collider>().isTrigger = true;
 
     }

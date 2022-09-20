@@ -23,7 +23,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameEventHandler.current.OnPlayerUpgradeArea += OnPlayerUpgradeArea;   
+        GameEventHandler.current.OnPlayerUpgradeArea += OnPlayerUpgradeArea;
+        Application.targetFrameRate = 60;
     }
 
     private void OnDisable()
