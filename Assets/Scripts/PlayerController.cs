@@ -39,10 +39,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // public void CameraChanger(int cam)
-    // {
-    //     _virtualCamera = virtualCameras[cam];
-    // }
+    public void CameraChanger(int cam)
+    {
+        _virtualCamera = null;
+        _virtualCamera = virtualCameras[cam];
+    }
 
     private void Movement()
     {

@@ -24,16 +24,16 @@ public class PlayerCollisionHandler : MonoBehaviour
         if (other.CompareTag("BaseRight"))
         {
             GameEventHandler.current.PlayerRightArea(true);
-            //playerController.CameraChanger(1);
+            playerController.CameraChanger(1);
         }
         else if (other.CompareTag("BaseLeft"))
         {
             GameEventHandler.current.PlayerLeftArea(true);
-            //playerController.CameraChanger(2);
+            playerController.CameraChanger(2);
         }
         else
         {
-            //playerController.CameraChanger(0);
+            playerController.CameraChanger(0);
         }
 
         if (other.CompareTag("MergeMachine"))
@@ -77,14 +77,15 @@ public class PlayerCollisionHandler : MonoBehaviour
         if (other.CompareTag("BaseRight"))
         {
             GameEventHandler.current.PlayerRightArea(false);
-            //playerController.CameraChanger(0);
+            playerController.CameraChanger(0);
         }
-        
+
         if (other.CompareTag("BaseLeft"))
         {
             GameEventHandler.current.PlayerLeftArea(false);
-            //playerController.CameraChanger(0);
+            playerController.CameraChanger(0);
         }
+        
 
         if (other.gameObject.CompareTag("Chest"))
         {

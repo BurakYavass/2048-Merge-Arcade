@@ -28,17 +28,15 @@ public class CameraControl : MonoBehaviour
     {
         if (enterExit)
         {
-            //playerNormalCam.transform.Rotate(new Vector3(30,-30,0));
-            playerNormalCam.transform.rotation = Quaternion.Euler(30,-30,0);
-            _transposer.m_FollowOffset = new Vector3(7, 15, -20);
-            //playerBaseLeftCam.Priority = 10;
+            //playerNormalCam.transform.rotation = Quaternion.Euler(30,-30,0);
+            //_transposer.m_FollowOffset = new Vector3(7, 15, -20);
+            playerBaseLeftCam.Priority = 10;
         }
         else
         {
-            //playerNormalCam.transform.Rotate(new Vector3(30,0,0));
-            playerNormalCam.transform.rotation = Quaternion.Euler(30,0,0);
-            _transposer.m_FollowOffset = new Vector3(0, 15, -20);
-            //playerBaseLeftCam.Priority = 4;
+            //playerNormalCam.transform.rotation = Quaternion.Euler(30,0,0);
+            //_transposer.m_FollowOffset = new Vector3(0, 15, -20);
+            playerBaseLeftCam.Priority = 4;
         }
     }
 
@@ -46,19 +44,17 @@ public class CameraControl : MonoBehaviour
     {
         if (enterExit)
         {
-            //playerNormalCam.transform.Rotate(new Vector3(30,30,0));
-            playerNormalCam.transform.rotation = Quaternion.Euler(30,30,0);
-            _transposer.m_FollowOffset = new Vector3(-7, 15, -20);
+            //playerNormalCam.transform.rotation = Quaternion.Euler(30,30,0);
+            //_transposer.m_FollowOffset = new Vector3(-7, 15, -20);
             //playerNormalCam.Priority = 4;
-            //playerBaseRightCam.Priority = 10;
+            playerBaseRightCam.Priority = 10;
         }
         else
         {
-            //playerNormalCam.transform.Rotate(new Vector3(30,0,0));
-            playerNormalCam.transform.rotation = Quaternion.Euler(30,0,0);
-            _transposer.m_FollowOffset = new Vector3(0, 15, -20);
+            //playerNormalCam.transform.rotation = Quaternion.Euler(30,0,0);
+            //_transposer.m_FollowOffset = new Vector3(0, 15, -20);
             //playerNormalCam.Priority = 7;
-            //playerBaseRightCam.Priority = 4;
+            playerBaseRightCam.Priority = 4;
         }
     }
 }
