@@ -38,6 +38,7 @@ public class PlayerAnimationHandler : MonoBehaviour
         }
         else if (playerHit)
         {
+            playerHit = false;
             animator.SetBool("Hit", true);
             animator.SetBool("Idle", false);
             animator.SetBool("Walking", false);

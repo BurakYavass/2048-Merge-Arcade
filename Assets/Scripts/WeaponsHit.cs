@@ -45,12 +45,12 @@ public class WeaponsHit : MonoBehaviour
     }
     
 
-    IEnumerator HitDelay()
-    {
-        yield return new WaitForSeconds(1);
-        GetComponent<Collider>().enabled = true;
-        //_HitDelay = false;
-    }
+    // IEnumerator HitDelay()
+    // {
+    //     yield return new WaitForSeconds(1);
+    //     GetComponent<Collider>().enabled = true;
+    //     //_HitDelay = false;
+    // }
 
     public enum WeaponState
     {

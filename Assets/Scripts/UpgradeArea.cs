@@ -13,8 +13,13 @@ public class UpgradeArea : MonoBehaviour
         GameEventHandler.current.OnPlayerUpgradeArea += OnPlayerUpgradeArea;
     }
 
-    private void OnPlayerUpgradeArea(bool obj)
+    private void OnDisable()
     {
-        /// BlackSmith working anim
+        GameEventHandler.current.OnPlayerUpgradeArea -= OnPlayerUpgradeArea;
+    }
+
+    private void OnPlayerUpgradeArea(bool working)
+    {
+        blackSmithAnimator.SetBool("working",working);
     }
 }

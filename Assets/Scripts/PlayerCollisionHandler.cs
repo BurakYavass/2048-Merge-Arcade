@@ -13,6 +13,7 @@ public class PlayerCollisionHandler : MonoBehaviour
 
     private bool _onUpgrade = false;
     private bool _onMergeMachine = false;
+    private bool _hit = false;
 
     private void Start()
     {
@@ -69,13 +70,12 @@ public class PlayerCollisionHandler : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.CompareTag("Chest"))
+        if (other.gameObject.CompareTag("Chest") && !_hit)
         {
-            if (other.gameObject.activeInHierarchy)
-            {
-                _chestController= other.GetComponent<ChestController>();
-                GameEventHandler.current.PlayerHit(true);
-            }
+            _hit = true;
+            _chestController= other.GetComponent<ChestController>();
+            GameEventHandler.current.PlayerHit(true);
+            StartCoroutine(HitDelay());
         }
     }
 
@@ -114,6 +114,11 @@ public class PlayerCollisionHandler : MonoBehaviour
         }
     }
     
+    IEnumerator HitDelay()
+    {
+        yield return new WaitForSeconds(0.5f);
+        _hit = false;
+    }
     private void WeaponHit()
     {
         _chestController.Hit(weaponsHit._damageValue);
