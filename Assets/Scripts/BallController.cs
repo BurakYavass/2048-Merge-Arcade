@@ -63,7 +63,27 @@ public class BallController : MonoBehaviour
             _TempSpeed = followSpeed;
         }
         
-        if (!_GoMerge)
+        if (_GoMerge)
+        {
+            _TempTimeMerge += Time.deltaTime;
+            if (_Balls.Count> 1  )
+            {
+                if (_TempTimeMerge >= .05f)
+                {
+                    _Balls[_Balls.Count-1].GetComponent<Ball>().SetGoMerge(_MergeBallPos, _DelayMerge);
+                    _DelayMerge += .5f;
+                    _Balls.RemoveAt(_Balls.Count-1);
+                    _TempTimeMerge = 0;
+                }
+            }
+            else
+            {
+                // StartCoroutine(DelayMerge());
+                _GoMerge = false;
+                _DelayMerge = 0;
+            }
+        }
+        else
         {
             var firstBall = _Balls[0].GetComponent<Rigidbody>();
             var RootRb = playerRootPoint.GetComponent<Rigidbody>();
@@ -92,28 +112,6 @@ public class BallController : MonoBehaviour
                 currentBall.transform.localScale = Vector3.Lerp(currentBall.transform.localScale, forwardBall.transform.localScale, (_TempSpeed * Time.deltaTime));
                 currentBall.rotation = Quaternion.Lerp(currentBall.rotation, forwardBall.rotation, (_TempSpeed * Time.deltaTime) / xStackSpeed);
             }
-        }
-    }
-    
-    public void GoMerge()
-    {
-        _GoMerge = true;
-        _TempTimeMerge += Time.deltaTime;
-        if (_Balls.Count> 1  )
-        {
-            if (_TempTimeMerge >= .05f)
-            {
-                _Balls[_Balls.Count-1].GetComponent<Ball>().SetGoMerge(_MergeBallPos, _DelayMerge);
-                _DelayMerge += .5f;
-                _Balls.RemoveAt(_Balls.Count-1);
-                _TempTimeMerge = 0;
-            }
-        }
-        else
-        {
-            // StartCoroutine(DelayMerge());
-            _GoMerge = false;
-            _DelayMerge = 0;
         }
     }
 
@@ -146,7 +144,10 @@ public class BallController : MonoBehaviour
     {
         _Balls.Add(ball) ;
     }
-    
+    public void GoMerge()
+    {
+        _GoMerge = true;
+    }
 
     // public void GoUpgrade()
     // {
