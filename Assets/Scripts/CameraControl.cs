@@ -23,7 +23,12 @@ public class CameraControl : MonoBehaviour
         GameEventHandler.current.OnPlayerRightArea -= OnPlayerRightArea;
         GameEventHandler.current.OnPlayerLeftArea -= OnPlayerLeftArea;
     }
-    
+
+    private void Update()
+    {
+        
+    }
+
     private void OnPlayerLeftArea(bool enterExit)
     {
         if (enterExit)

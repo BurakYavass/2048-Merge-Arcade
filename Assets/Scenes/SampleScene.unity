@@ -558,12 +558,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de8e42c528f6bee43a2620da2a984ad5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSpeed: 10
-  playerDamage: 5
+  playerSpeed: 12
+  playerDamage: 7
   uiManager: {fileID: 1072916451}
   playerBallCounter: {fileID: 6862496077275605891}
   speedUpgradeState: 8000000000010000000200000004000000080000
-  damageUpgradeState: 0500000000010000000200000004000000080000
+  damageUpgradeState: 4000000000010000000200000004000000080000
 --- !u!4 &156980963
 Transform:
   m_ObjectHideFlags: 0
@@ -3283,7 +3283,6 @@ GameObject:
   m_Component:
   - component: {fileID: 853174630}
   - component: {fileID: 853174631}
-  - component: {fileID: 853174634}
   - component: {fileID: 853174633}
   - component: {fileID: 853174632}
   m_Layer: 0
@@ -3302,7 +3301,7 @@ Transform:
   m_GameObject: {fileID: 853174629}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.026127994, y: 13.861262, z: -4.9414525}
-  m_LocalScale: {x: 11.551909, y: 38.646088, z: 0.13248445}
+  m_LocalScale: {x: 11.551909, y: 38.646088, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 659988365}
@@ -3319,8 +3318,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1.2397581, z: 0.6295815}
+  m_Center: {x: 0, y: -0.119878925, z: 0.18520924}
 --- !u!33 &853174632
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -3371,22 +3370,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!208 &853174634
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 853174629}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
-  m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0}
-  m_TimeToStationary: 0.5
 --- !u!4 &909986345 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 781152ab0b84b014aab17039a347d025, type: 3}
@@ -6054,7 +6037,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1389044263}
   m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
-  m_LocalPosition: {x: 0, y: 15.634001, z: -20}
+  m_LocalPosition: {x: 0, y: 15.634, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6737,7 +6720,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1525185632}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e501d18bb52cf8c40b1853ca4904654f, type: 3}
   m_Name: 
@@ -6745,7 +6728,7 @@ MonoBehaviour:
   m_CollideAgainst:
     serializedVersion: 2
     m_Bits: 1
-  m_IgnoreTag: 
+  m_IgnoreTag: StackBall
   m_TransparentLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -9562,8 +9545,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5276293853433177104}
   m_LocalRotation: {x: -0.7071067, y: -0.000000030908616, z: 0.000000030908623, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: 0, z: 13.491545}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: -0, z: 19.5907}
+  m_LocalScale: {x: 1, y: 1.3223, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4053647277189909210}
@@ -21072,6 +21055,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4053647277189909210}
     m_Modifications:
+    - target: {fileID: 2117762359490098957, guid: 55979b1646b4a504fab81863dd22dff4, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: bef7f3e679adc1449b40e3d571ea2b43, type: 2}
     - target: {fileID: 4146638029568668569, guid: 55979b1646b4a504fab81863dd22dff4, type: 3}
       propertyPath: m_RootOrder
       value: 1
