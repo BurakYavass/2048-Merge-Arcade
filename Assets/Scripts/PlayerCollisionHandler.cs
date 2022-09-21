@@ -121,7 +121,10 @@ public class PlayerCollisionHandler : MonoBehaviour
     }
     private void WeaponHit()
     {
-        _chestController.Hit(weaponsHit._damageValue);
+        if (_chestController != null)
+        {
+            _chestController.Hit(weaponsHit._damageValue);
+        }
         GameEventHandler.current.PlayerHit(false);
     }
 }

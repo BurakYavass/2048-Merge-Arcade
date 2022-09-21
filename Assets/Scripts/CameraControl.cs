@@ -24,23 +24,14 @@ public class CameraControl : MonoBehaviour
         GameEventHandler.current.OnPlayerLeftArea -= OnPlayerLeftArea;
     }
 
-    private void Update()
-    {
-        
-    }
-
     private void OnPlayerLeftArea(bool enterExit)
     {
         if (enterExit)
         {
-            //playerNormalCam.transform.rotation = Quaternion.Euler(30,-30,0);
-            //_transposer.m_FollowOffset = new Vector3(7, 15, -20);
             playerBaseLeftCam.Priority = 10;
         }
         else
         {
-            //playerNormalCam.transform.rotation = Quaternion.Euler(30,0,0);
-            //_transposer.m_FollowOffset = new Vector3(0, 15, -20);
             playerBaseLeftCam.Priority = 4;
         }
     }
@@ -49,16 +40,10 @@ public class CameraControl : MonoBehaviour
     {
         if (enterExit)
         {
-            //playerNormalCam.transform.rotation = Quaternion.Euler(30,30,0);
-            //_transposer.m_FollowOffset = new Vector3(-7, 15, -20);
-            //playerNormalCam.Priority = 4;
             playerBaseRightCam.Priority = 10;
         }
         else
         {
-            //playerNormalCam.transform.rotation = Quaternion.Euler(30,0,0);
-            //_transposer.m_FollowOffset = new Vector3(0, 15, -20);
-            //playerNormalCam.Priority = 7;
             playerBaseRightCam.Priority = 4;
         }
     }

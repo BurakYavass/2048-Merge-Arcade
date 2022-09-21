@@ -11,6 +11,8 @@ public class Ball : MonoBehaviour
     [SerializeField] TextMeshPro _BallText;
     [SerializeField] RuntimeAnimatorController _Merge;
     private Rigidbody _rb;
+    private Collider _collider;
+    [SerializeField] private SphereCollider triggerCollider;
     float _Distance;
     public GameObject _TempObje;
     public  bool _Go;
@@ -24,6 +26,7 @@ public class Ball : MonoBehaviour
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        _collider = GetComponent<Collider>();
         _Material  = GetComponent<MeshRenderer>().material;
         _BallController = GameObject.FindGameObjectWithTag("BallController");
         BallTextChange();
@@ -50,7 +53,7 @@ public class Ball : MonoBehaviour
             if (Vector3.Distance(transform.position, _TempObje.transform.position) < _Distance * .05f)
             {
                 _rb.isKinematic = false;
-                GetComponent<Collider>().enabled = false;
+                _collider.enabled = false;
                 _GoMerge = false;
                 StartCoroutine(DelayMergeTime());
             }
@@ -61,7 +64,7 @@ public class Ball : MonoBehaviour
             if (Vector3.Distance(transform.position, _TempObje.transform.position) < _Distance * .05f)
             {
                 _rb.isKinematic = false;
-                GetComponent<Collider>().enabled = false;
+                _collider.enabled = false;
                 _GoUpgrade = false;
             }
             else if (Vector3.Distance(transform.position, _TempObje.transform.position+ rndm) < _Distance * .8f)
@@ -136,26 +139,27 @@ public class Ball : MonoBehaviour
         else if (_BallValue == 4096)
         {
             _Colors[11].SetActive(true);
-        } 
-        
-       
+        }
     }
+    
     public void SetGoUpgrade(GameObject target, float delay)
     {
         _rb.isKinematic = true;
         _TempObje = target;
         _Distance = Vector3.Distance(transform.position, _TempObje.transform.position);
-        GetComponent<Collider>().isTrigger = true;
+        _collider.isTrigger = true;
         _GoUpgrade = true;
     }
+    
     public void SetGoTarget(GameObject target)
     {
         _rb.isKinematic = true;
         _TempObje = target;
         _Distance = Vector3.Distance(transform.position,_TempObje.transform.position);
-        GetComponent<Collider>().isTrigger = true;
+        _collider.isTrigger = true;
         _Go = true;
     }
+    
     public void SetGoMerge(GameObject target,float delay)
     {
         _DelayMerge = delay;
@@ -163,9 +167,10 @@ public class Ball : MonoBehaviour
         //_rb.isKinematic = true;
         _TempObje = target;
         _Distance = Vector3.Distance(transform.position, _TempObje.transform.position);
-        GetComponent<Collider>().isTrigger = true;
+        _collider.isTrigger = true;
         _GoMerge = true;
     }
+    
     public bool GetStackPos()
     {
         return _OnStackpos;
@@ -192,16 +197,20 @@ public class Ball : MonoBehaviour
 
     IEnumerator DelayKinematic()
     {
+        yield return new WaitForSeconds(1);
+        triggerCollider.enabled = true;
+        //triggerCollider.isTrigger = true;
+        //triggerCollider.radius = 3.0f;
         yield return new WaitForSeconds(2);
-        //_rb.isKinematic = true;
+        _rb.isKinematic = true;
     }
     IEnumerator DelayMergeTime( )
     {
-        GetComponent<Collider>().isTrigger = false;
+        _collider.isTrigger = false;
         yield return new WaitForSeconds(_DelayMerge);
         GetComponent<Animator>().runtimeAnimatorController = _Merge;
         //_rb.isKinematic = true;
-        GetComponent<Collider>().isTrigger = true;
+        _collider.isTrigger = true;
 
     }
 }
