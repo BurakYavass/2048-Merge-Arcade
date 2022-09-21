@@ -22,22 +22,16 @@ public class BallController : MonoBehaviour
     float _TempTimeMerge;
     float _DelayMerge;
 
-    public float stackSpeed;
+    public float xStackSpeed;
+    public float yStackSpeed;
+    public float zStackSpeed;
 
     void Start()
     {
-        //_FirstObjePos = _FirstObje.transform.position;
-        //_Player = GameObject.FindGameObjectWithTag("Player");
-        //_MergeBallPos = GameObject.FindGameObjectWithTag("MergeBallPos");
-        //_UpgradeBallPos = GameObject.FindGameObjectWithTag("UpgradeBallPos");
-        //_MergeController = GameObject.FindGameObjectWithTag("MergeController");
-    
-
         _distance.z = _Balls[0].transform.position.z - playerRootPoint.transform.position.z;
         _distance.y = _Balls[0].transform.position.y - playerRootPoint.transform.position.y;
         _distance.x = _Balls[0].transform.position.x - playerRootPoint.transform.position.x;
         _TempSpeed = followSpeed;
-
 
         if (PlayerPrefs.GetInt("BallSaveCount") > 1)
         {
@@ -68,54 +62,58 @@ public class BallController : MonoBehaviour
             animator.SetBool("Scale" , false);
             _TempSpeed = followSpeed;
         }
-        if (_GoMerge)
-        {
-            //_MergeBallPos.transform.parent.GetComponent<Animator>().runtimeAnimatorController = _MachineVib;
-            _TempTimeMerge += Time.deltaTime;
-            if (_Balls.Count> 1  )
-            {
-                if (_TempTimeMerge >= .05f)
-                {
-                    _Balls[_Balls.Count-1].GetComponent<Ball>().SetGoMerge(_MergeBallPos, _DelayMerge);
-                    _DelayMerge += .5f;
-                    _Balls.RemoveAt(_Balls.Count-1);
-                    _TempTimeMerge = 0;
-                }
-            }
-            else
-            {
-               // StartCoroutine(DelayMerge());
-                _GoMerge = false;
-                _DelayMerge = 0;
-            }
-          
-        }
-        else
+        
+        if (!_GoMerge)
         {
             var firstBall = _Balls[0].GetComponent<Rigidbody>();
             var RootRb = playerRootPoint.GetComponent<Rigidbody>();
             firstBall.position = new Vector3(
-             Mathf.Lerp(firstBall.position.x, RootRb.position.x, 1f),
-             Mathf.Lerp(firstBall.position.y, RootRb.position.y, .2f),
-             Mathf.Lerp(firstBall.position.z, RootRb.position.z, .5f)
-             );
-             firstBall.rotation = Quaternion.Lerp(firstBall.rotation, RootRb.rotation, .2f);
+                Mathf.Lerp(firstBall.position.x, RootRb.position.x, 1f),
+                Mathf.Lerp(firstBall.position.y, RootRb.position.y, .2f),
+                Mathf.Lerp(firstBall.position.z, RootRb.position.z, .5f)
+            );
+            firstBall.rotation = Quaternion.Lerp(firstBall.rotation, RootRb.rotation, .2f);
 
-             for (int i = 1; i < _Balls.Count; i++)
+            for (int i = 1; i < _Balls.Count; i++)
             {
                 var forwardBall = _Balls[i - 1].GetComponent<Rigidbody>();
                 var currentBall = _Balls[i].GetComponent<Rigidbody>();
                 
                 currentBall.position = new Vector3(
-                    Mathf.Lerp(currentBall.position.x, forwardBall.position.x, (_TempSpeed * Time.deltaTime) / stackSpeed),
-                    Mathf.Lerp(currentBall.position.y, forwardBall.position.y, (_TempSpeed * Time.deltaTime) * ((_Balls.Count - i) * (.05f))),
-                    Mathf.Lerp(currentBall.position.z, forwardBall.position.z, (_TempSpeed * Time.deltaTime))
+                    //Mathf.Lerp(currentBall.position.x, forwardBall.position.x, (_TempSpeed * Time.deltaTime) / stackSpeed),
+                    //Mathf.Lerp(currentBall.position.y, forwardBall.position.y, (_TempSpeed * Time.deltaTime) * ((_Balls.Count - i) * (.05f))),
+                    //Mathf.Lerp(currentBall.position.z, forwardBall.position.z, (_TempSpeed * Time.deltaTime))
+                    Mathf.Lerp(currentBall.position.x, forwardBall.position.x, (xStackSpeed * Time.deltaTime)),
+                    Mathf.Lerp(currentBall.position.y, forwardBall.position.y, (yStackSpeed * Time.deltaTime)),
+                    Mathf.Lerp(currentBall.position.z, forwardBall.position.z, (zStackSpeed * Time.deltaTime))
                 );
-               currentBall.position -= (forwardBall.transform.up * (currentBall.transform.localScale.z * 1.5f));
+                currentBall.position -= (forwardBall.transform.up * (currentBall.transform.localScale.z * 1.5f));
                
-               currentBall.transform.localScale = Vector3.Lerp(currentBall.transform.localScale, forwardBall.transform.localScale, (_TempSpeed * Time.deltaTime));
-               currentBall.rotation = Quaternion.Lerp(currentBall.rotation, forwardBall.rotation, (_TempSpeed * Time.deltaTime) / stackSpeed);
+                currentBall.transform.localScale = Vector3.Lerp(currentBall.transform.localScale, forwardBall.transform.localScale, (_TempSpeed * Time.deltaTime));
+                currentBall.rotation = Quaternion.Lerp(currentBall.rotation, forwardBall.rotation, (_TempSpeed * Time.deltaTime) / xStackSpeed);
             }
+        }
+    }
+    
+    public void GoMerge()
+    {
+        _GoMerge = true;
+        _TempTimeMerge += Time.deltaTime;
+        if (_Balls.Count> 1  )
+        {
+            if (_TempTimeMerge >= .05f)
+            {
+                _Balls[_Balls.Count-1].GetComponent<Ball>().SetGoMerge(_MergeBallPos, _DelayMerge);
+                _DelayMerge += .5f;
+                _Balls.RemoveAt(_Balls.Count-1);
+                _TempTimeMerge = 0;
+            }
+        }
+        else
+        {
+            // StartCoroutine(DelayMerge());
+            _GoMerge = false;
+            _DelayMerge = 0;
         }
     }
 
@@ -148,11 +146,7 @@ public class BallController : MonoBehaviour
     {
         _Balls.Add(ball) ;
     }
-    public void GoMerge()
-    {
-        _GoMerge = true;
-      
-    }
+    
 
     // public void GoUpgrade()
     // {

@@ -86,7 +86,7 @@ public class Ball : MonoBehaviour
     }
     void BallTextChange()
     {
-        _BallText.text = _BallValue.ToString();
+        //_BallText.text = _BallValue.ToString();
 
         for (int i = 0; i < _Colors.Length; i++)
         {
