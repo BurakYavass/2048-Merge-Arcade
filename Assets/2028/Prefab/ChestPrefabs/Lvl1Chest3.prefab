@@ -416,6 +416,42 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Chest
       objectReference: {fileID: 0}
+    - target: {fileID: 7385895005598399096, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
+      propertyPath: _MainObje
+      value: 
+      objectReference: {fileID: 3202818396577974641}
+    - target: {fileID: 7385895005598399096, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
+      propertyPath: _HealthBar
+      value: 
+      objectReference: {fileID: 8799913854462201741}
+    - target: {fileID: 7385895005598399096, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
+      propertyPath: _FullHealth
+      value: 
+      objectReference: {fileID: 1884926143838587690}
+    - target: {fileID: 7385895005598399096, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
+      propertyPath: _SliderValue
+      value: 
+      objectReference: {fileID: 4567155383597520898}
+    - target: {fileID: 7385895005598399096, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
+      propertyPath: _CurrentHealth
+      value: 
+      objectReference: {fileID: 3730178489634790747}
+    - target: {fileID: 7385895005598399096, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
+      propertyPath: _CreatValue.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7385895005598399096, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
+      propertyPath: _OpenPart.Array.data[0]
+      value: 
+      objectReference: {fileID: 3391193107276439836}
+    - target: {fileID: 7385895005598399096, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
+      propertyPath: _ClosePart.Array.data[0]
+      value: 
+      objectReference: {fileID: 8799913854462201741}
+    - target: {fileID: 7385895005598399096, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
+      propertyPath: _CreatValue.Array.data[2]
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 7461999369491134434, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -464,26 +500,14 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[2]
       value: 
       objectReference: {fileID: 2100000, guid: 37e05f98c1e6c694abbafb09e4ae59fd, type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7385895005598399096, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
 --- !u!1 &1076293986582331624 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2530805582524634302, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
   m_PrefabInstance: {fileID: 3310420505606345814}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &3709858451970410890
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1076293986582331624}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2, y: 2.5, z: 2.5}
-  m_Center: {x: 0.60153824, y: -0.0011472375, z: -0.1434538}
 --- !u!95 &545125218598824944
 Animator:
   serializedVersion: 4
@@ -517,7 +541,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _MainObje: {fileID: 3202818396577974641}
-  _CreatBall: {fileID: 3802715413599442534, guid: 0e0b952b6270b8d4fa9c22f09459ade7, type: 3}
+  _CreatBall: {fileID: 6986705099755840392, guid: 0f2efdd3da2d21d489df375a833720ad, type: 3}
   _ClosePart:
   - {fileID: 8799913854462201741}
   - {fileID: 1076293986582331624}

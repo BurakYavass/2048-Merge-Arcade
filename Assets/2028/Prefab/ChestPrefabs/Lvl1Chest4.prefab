@@ -247,6 +247,14 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Chest
       objectReference: {fileID: 0}
+    - target: {fileID: 7385895005598399096, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
+      propertyPath: _MainObje
+      value: 
+      objectReference: {fileID: 8598626794033322754}
+    - target: {fileID: 7385895005598399096, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
+      propertyPath: _ClosePart.Array.data[0]
+      value: 
+      objectReference: {fileID: 2394037967436701182}
     - target: {fileID: 7461999369491134434, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -295,7 +303,8 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[2]
       value: 
       objectReference: {fileID: 2100000, guid: 37e05f98c1e6c694abbafb09e4ae59fd, type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7385895005598399096, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
 --- !u!4 &1249861953153544647 stripped
 Transform:
@@ -307,19 +316,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2530805582524634302, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
   m_PrefabInstance: {fileID: 8563100148027819557}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &1950798313
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6181476858173837979}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.8666118, y: 1.7438462, z: 1.7321241}
-  m_Center: {x: 0.60153824, y: -0.0011470896, z: -0.1434538}
 --- !u!95 &6680645439474006403
 Animator:
   serializedVersion: 4
@@ -352,21 +348,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a13ccf0e8f9d6c48850ab9a81476fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _MainObje: {fileID: 0}
+  _MainObje: {fileID: 8598626794033322754}
   _CreatBall: {fileID: 3802715413599442534, guid: 0e0b952b6270b8d4fa9c22f09459ade7, type: 3}
-  _CreatValue: 4
-  _CreatCount: 3
   _ClosePart:
   - {fileID: 2394037967436701182}
   - {fileID: 8598626794033322754}
   _OpenPart:
   - {fileID: 8370282920155935599}
-  _ChestHealthValue: 250
-  _Hit: {fileID: 9100000, guid: 0089696eaf307754e98222b7ff91e700, type: 2}
+  animator: {fileID: 6680645439474006403}
   _HealthBar: {fileID: 2394037967436701182}
   _FullHealth: {fileID: 4687787107174209881}
   _CurrentHealth: {fileID: 7557750788238528296}
   _SliderValue: {fileID: 7225757602998192753}
+  _CreatValue:
+  - 16
+  - 32
+  _CreatCount: 3
+  _ChestHealthValue: 250
 --- !u!1001 &8752352159160239816
 PrefabInstance:
   m_ObjectHideFlags: 0
