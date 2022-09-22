@@ -2,55 +2,55 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Ball : MonoBehaviour
 {
     [SerializeField] GameObject[] _Colors;
     [SerializeField] float _BallValue;
-
-    [SerializeField] TextMeshPro _BallText;
+    [SerializeField] private SphereCollider triggerCollider;
+    [SerializeField] private NavMeshAgent navMeshAgent;
     [SerializeField] RuntimeAnimatorController _Merge;
+    [SerializeField] private GameObject ballController;
+    public GameObject targetObje;
     private Rigidbody _rb;
     private Collider _collider;
-    [SerializeField] private SphereCollider triggerCollider;
-    float _Distance;
-    public GameObject _TempObje;
+    
+    private float _DelayMerge;
+    private float _distance;
     public  bool _Go;
     public  bool _GoMerge;
     public  bool _GoUpgrade;
-    bool _OnStackpos;
-    GameObject _BallController;
- 
-    Material  _Material;
-    float _DelayMerge;
+    private bool _OnStackpos;
+    
+    
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
         _collider = GetComponent<Collider>();
-        _Material  = GetComponent<MeshRenderer>().material;
-        _BallController = GameObject.FindGameObjectWithTag("BallController");
-        BallTextChange();
+        ballController = GameObject.FindGameObjectWithTag("BallController");
+        BallChanger();
         StartCoroutine(DelayKinematic());
-       
     }
-  void Update()
+  void FixedUpdate()
     {
         if (_Go)
         {
-            transform.position = Vector3.Lerp(transform.position,_TempObje.transform.position,.1f*(_Distance- Vector3.Distance(transform.position, _TempObje.transform.position)));
-            if (Vector3.Distance(transform.position, _TempObje.transform.position)<_Distance*.2f)
+            navMeshAgent.speed = GameManager.current.playerSpeed;
+            navMeshAgent.destination = targetObje.transform.position;
+            //transform.position = Vector3.Lerp(transform.position,targetObje.transform.position,.1f*(_distance- Vector3.Distance(transform.position, targetObje.transform.position)));
+            if (Vector3.Distance(transform.position, targetObje.transform.position)<_distance*.2f)
             {
-          
                 _Go = false;
                 _OnStackpos = true;
-                _BallController.GetComponent<BallController>().SetNewBall(gameObject);
+                ballController.GetComponent<BallController>().SetNewBall(gameObject);
             }
         }
         else if (_GoMerge)
         {
-            transform.position = Vector3.Lerp(transform.position, _TempObje.transform.position, .03f   );
-            transform.localScale = Vector3.Lerp(transform.localScale, _TempObje.transform.localScale, .03f   );
-            if (Vector3.Distance(transform.position, _TempObje.transform.position) < _Distance * .05f)
+            transform.position = Vector3.Lerp(transform.position, targetObje.transform.position, .03f   );
+            transform.localScale = Vector3.Lerp(transform.localScale, targetObje.transform.localScale, .03f   );
+            if (Vector3.Distance(transform.position, targetObje.transform.position) < _distance * .05f)
             {
                 _rb.isKinematic = false;
                 _collider.enabled = false;
@@ -61,33 +61,31 @@ public class Ball : MonoBehaviour
         else if (_GoUpgrade)
         {
             Vector3 rndm = new Vector3(Random.Range(-2, 2), Random.Range(2, 4), 0);
-            if (Vector3.Distance(transform.position, _TempObje.transform.position) < _Distance * .05f)
+            if (Vector3.Distance(transform.position, targetObje.transform.position) < _distance * .05f)
             {
                 _rb.isKinematic = false;
                 _collider.enabled = false;
                 _GoUpgrade = false;
             }
-            else if (Vector3.Distance(transform.position, _TempObje.transform.position+ rndm) < _Distance * .8f)
+            else if (Vector3.Distance(transform.position, targetObje.transform.position+ rndm) < _distance * .8f)
             {
-                transform.position = Vector3.Lerp(transform.position, _TempObje.transform.position+ rndm, .01f);
-                transform.localScale = Vector3.Lerp(transform.localScale, _TempObje.transform.localScale, .01f);
+                transform.position = Vector3.Lerp(transform.position, targetObje.transform.position+ rndm, .01f);
+                transform.localScale = Vector3.Lerp(transform.localScale, targetObje.transform.localScale, .01f);
             }
             else
             {
-                transform.position = Vector3.Lerp(transform.position, _TempObje.transform.position, .03f);
-                transform.localScale = Vector3.Lerp(transform.localScale, _TempObje.transform.localScale, .03f);
+                transform.position = Vector3.Lerp(transform.position, targetObje.transform.position, .03f);
+                transform.localScale = Vector3.Lerp(transform.localScale, targetObje.transform.localScale, .03f);
             }
         }
     }
     public void SetValue(float ballvalue)
     {
         _BallValue = ballvalue;
-        BallTextChange();
+        BallChanger();
     }
-    void BallTextChange()
+    void BallChanger()
     {
-        //_BallText.text = _BallValue.ToString();
-
         for (int i = 0; i < _Colors.Length; i++)
         {
             _Colors[i].SetActive(false);
@@ -145,18 +143,18 @@ public class Ball : MonoBehaviour
     public void SetGoUpgrade(GameObject target, float delay)
     {
         _rb.isKinematic = true;
-        _TempObje = target;
-        _Distance = Vector3.Distance(transform.position, _TempObje.transform.position);
+        targetObje = target;
+        _distance = Vector3.Distance(transform.position, targetObje.transform.position);
         _collider.isTrigger = true;
         _GoUpgrade = true;
     }
     
     public void SetGoTarget(GameObject target)
     {
-        _rb.isKinematic = true;
-        _TempObje = target;
-        _Distance = Vector3.Distance(transform.position,_TempObje.transform.position);
-        _collider.isTrigger = true;
+        //_rb.isKinematic = true;
+        targetObje = target;
+        //_distance = Vector3.Distance(transform.position,targetObje.transform.position);
+        //_collider.isTrigger = true;
         _Go = true;
     }
     
@@ -165,8 +163,8 @@ public class Ball : MonoBehaviour
         _DelayMerge = delay;
         gameObject.transform.parent = target.transform.parent;
         //_rb.isKinematic = true;
-        _TempObje = target;
-        _Distance = Vector3.Distance(transform.position, _TempObje.transform.position);
+        targetObje = target;
+        _distance = Vector3.Distance(transform.position, targetObje.transform.position);
         gameObject.tag = "MergeBall";
         _collider.isTrigger = true;
         _GoMerge = true;
@@ -201,8 +199,9 @@ public class Ball : MonoBehaviour
         triggerCollider.enabled = true;
         //triggerCollider.isTrigger = true;
         //triggerCollider.radius = 3.0f;
+        Debug.Log(navMeshAgent.isOnNavMesh);
         yield return new WaitForSeconds(2);
-        _rb.isKinematic = true;
+        //_rb.isKinematic = true;
     }
     IEnumerator DelayMergeTime( )
     {

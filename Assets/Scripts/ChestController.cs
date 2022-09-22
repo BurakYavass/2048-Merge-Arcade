@@ -107,7 +107,7 @@ public class ChestController : MonoBehaviour
         }
         for (int i = 0; i < _CreatCount; i++)
         {
-            GameObject go = Instantiate(_CreatBall, transform.position, Quaternion.Euler(0,180.0f,0));
+            GameObject go = Instantiate(_CreatBall, transform.position, Quaternion.identity);
             go.GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(0,3), Random.Range(3, 5), Random.Range(0, 3)));
             if (_CreatValue.Length > 1)
             {
