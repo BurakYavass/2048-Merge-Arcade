@@ -167,6 +167,7 @@ public class Ball : MonoBehaviour
         //_rb.isKinematic = true;
         _TempObje = target;
         _Distance = Vector3.Distance(transform.position, _TempObje.transform.position);
+        gameObject.tag = "MergeBall";
         _collider.isTrigger = true;
         _GoMerge = true;
     }
@@ -183,7 +184,6 @@ public class Ball : MonoBehaviour
     {
         if (other.gameObject.name=="BallPool")
         {
-            gameObject.tag = "MergeBall";
             _rb.isKinematic = false;
         }
     }

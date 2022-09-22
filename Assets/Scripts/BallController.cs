@@ -84,9 +84,8 @@ public class BallController : MonoBehaviour
                 _goUpgrade = false;
                 _delayMerge = 0;
             }
-        }
-        
-        if (_goMerge)
+        } 
+        else if (_goMerge)
         {
             _tempTimeMerge += Time.deltaTime;
             if (balls.Count> 1  )
