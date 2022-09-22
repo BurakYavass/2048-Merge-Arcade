@@ -6164,7 +6164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaecadf461787a941bffc59ae5f8c2e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Test: 0
+  _Test: 1
   level1Chests: {fileID: 1685836494}
   _AllObje: []
 --- !u!1001 &1487005402

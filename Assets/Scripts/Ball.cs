@@ -1,17 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 public class Ball : MonoBehaviour
 {
     [SerializeField] GameObject[] _Colors;
     [SerializeField] float _BallValue;
     [SerializeField] private SphereCollider triggerCollider;
-    [SerializeField] private NavMeshAgent navMeshAgent;
+    [SerializeField] private NavMeshAgent agent;
     [SerializeField] RuntimeAnimatorController _Merge;
     [SerializeField] private GameObject ballController;
+    private PlayerController _playerController;
     public GameObject targetObje;
     private Rigidbody _rb;
     private Collider _collider;
@@ -36,15 +39,27 @@ public class Ball : MonoBehaviour
     {
         if (_Go)
         {
-            navMeshAgent.speed = GameManager.current.playerSpeed;
-            navMeshAgent.destination = targetObje.transform.position;
-            //transform.position = Vector3.Lerp(transform.position,targetObje.transform.position,.1f*(_distance- Vector3.Distance(transform.position, targetObje.transform.position)));
-            if (Vector3.Distance(transform.position, targetObje.transform.position)<_distance*.2f)
+            agent.speed = GameManager.current.playerSpeed;
+            if (_playerController.walking)
             {
-                _Go = false;
-                _OnStackpos = true;
-                ballController.GetComponent<BallController>().SetNewBall(gameObject);
+                _rb.isKinematic = false;
+                agent.enabled = true;
+                agent.destination = targetObje.transform.position;
+                
             }
+            else
+            {
+                var distance = Vector3.Distance(transform.position, targetObje.transform.position);
+                if (distance <= 7f)
+                {
+                    agent.enabled = false;
+                    _rb.isKinematic = true;
+                    //_Go = false;
+                    _OnStackpos = true;
+                }
+            }
+            
+            
         }
         else if (_GoMerge)
         {
@@ -149,10 +164,11 @@ public class Ball : MonoBehaviour
         _GoUpgrade = true;
     }
     
-    public void SetGoTarget(GameObject target)
+    public void SetGoTarget(PlayerController target)
     {
+        _playerController = target;
         //_rb.isKinematic = true;
-        targetObje = target;
+        targetObje = target.gameObject;
         //_distance = Vector3.Distance(transform.position,targetObje.transform.position);
         //_collider.isTrigger = true;
         _Go = true;
@@ -199,7 +215,7 @@ public class Ball : MonoBehaviour
         triggerCollider.enabled = true;
         //triggerCollider.isTrigger = true;
         //triggerCollider.radius = 3.0f;
-        Debug.Log(navMeshAgent.isOnNavMesh);
+        Debug.Log(agent.isOnNavMesh);
         yield return new WaitForSeconds(2);
         //_rb.isKinematic = true;
     }

@@ -24,7 +24,7 @@ public class PlayerCollisionHandler : MonoBehaviour
     {
         if (other.CompareTag("EmptyBall"))
         {
-            other.gameObject.GetComponent<Ball>().SetGoTarget(ballController.LastObje());
+            other.gameObject.GetComponent<Ball>().SetGoTarget(playerController);
             other.tag = "StackBall";
         }
 
