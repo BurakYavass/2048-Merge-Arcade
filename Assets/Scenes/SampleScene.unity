@@ -108,7 +108,7 @@ NavMeshSettings:
     agentTypeID: 0
     agentRadius: 0.3
     agentHeight: 2
-    agentSlope: 60
+    agentSlope: 25
     agentClimb: 0.4
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
@@ -3539,7 +3539,7 @@ Transform:
   m_GameObject: {fileID: 966652522}
   m_LocalRotation: {x: 0, y: 0.70710677, z: 0.70710677, w: 0}
   m_LocalPosition: {x: 0, y: 1.47, z: -1.33}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6862496077275605879}
@@ -3590,7 +3590,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   follower:
-  - {fileID: 966652523}
+  - {fileID: 966652522}
+  creatBall: {fileID: 6986705099755840392, guid: 0f2efdd3da2d21d489df375a833720ad, type: 3}
 --- !u!1 &992337050
 GameObject:
   m_ObjectHideFlags: 3
@@ -3992,13 +3993,11 @@ MonoBehaviour:
   - {fileID: 8118605291951913642}
   creatBall: {fileID: 6986705099755840392, guid: 0f2efdd3da2d21d489df375a833720ad, type: 3}
   playerController: {fileID: 6862496077275605881}
+  _playerFollowerList: {fileID: 6862496077275605884}
   mergeBallPos: {fileID: 9009596902882058503}
   upgradeBallPos: {fileID: 1760504813}
   animator: {fileID: 1785838640}
   followSpeed: 170
-  xStackSpeed: 35
-  yStackSpeed: 7
-  zStackSpeed: 40
 --- !u!1 &1104868863
 GameObject:
   m_ObjectHideFlags: 0
@@ -5148,7 +5147,7 @@ Transform:
   m_GameObject: {fileID: 1178738070}
   m_LocalRotation: {x: 0, y: 0.70710677, z: 0.70710677, w: 0}
   m_LocalPosition: {x: 2, y: 1.47, z: -1.33}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6862496077275605879}
@@ -5199,7 +5198,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   follower:
-  - {fileID: 1178738071}
+  - {fileID: 1178738070}
+  creatBall: {fileID: 6986705099755840392, guid: 0f2efdd3da2d21d489df375a833720ad, type: 3}
 --- !u!1001 &1251342416
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7363,7 +7363,7 @@ Transform:
   m_GameObject: {fileID: 1770751741}
   m_LocalRotation: {x: 0, y: 0.70710677, z: 0.70710677, w: 0}
   m_LocalPosition: {x: -2, y: 1.47, z: -1.33}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6862496077275605879}
@@ -7414,7 +7414,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   follower:
-  - {fileID: 1770751742}
+  - {fileID: 1770751741}
+  creatBall: {fileID: 6986705099755840392, guid: 0f2efdd3da2d21d489df375a833720ad, type: 3}
 --- !u!1 &1785838639
 GameObject:
   m_ObjectHideFlags: 0

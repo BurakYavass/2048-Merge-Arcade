@@ -446,10 +446,11 @@ MonoBehaviour:
   - {fileID: 8274937079007953648}
   _BallValue: 0
   triggerCollider: {fileID: 4377867378702110397}
-  agent: {fileID: 6420056463189566397}
-  _Merge: {fileID: 9100000, guid: 72c4e1134b7a66a45b4d90a240e30894, type: 2}
+  merge: {fileID: 9100000, guid: 72c4e1134b7a66a45b4d90a240e30894, type: 2}
   ballController: {fileID: 0}
+  agent: {fileID: 6420056463189566397}
   targetObje: {fileID: 0}
+  ballRb: {fileID: 6066408898465132506}
   _Go: 0
   _GoMerge: 0
   _GoUpgrade: 0
@@ -493,7 +494,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6986705099755840392}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 1
   m_Speed: 3.5

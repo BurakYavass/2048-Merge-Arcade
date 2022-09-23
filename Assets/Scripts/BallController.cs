@@ -12,6 +12,7 @@ public class BallController : MonoBehaviour
     [SerializeField] private GameObject creatBall;
     //[SerializeField] private GameObject playerRootPoint;
     [SerializeField] private PlayerController playerController;
+    [SerializeField] private PlayerCollisionHandler _playerFollowerList;
     [SerializeField] private GameObject mergeBallPos;
     [SerializeField] private GameObject upgradeBallPos;
     [SerializeField] private Animator animator;
@@ -23,32 +24,40 @@ public class BallController : MonoBehaviour
     private float _tempSpeed;
     private float _tempTimeMerge;
     private float _delayMerge;
-    
-
-    public float xStackSpeed;
-    public float yStackSpeed;
-    public float zStackSpeed;
+    private int j = 0;
 
     void Start()
     {
-        var rootPosition = playerController.transform.position;
-        _distance.z = balls[0].transform.position.z - rootPosition.z;
-        _distance.y = balls[0].transform.position.y - rootPosition.y;
-        _distance.x = balls[0].transform.position.x - rootPosition.x;
-        _tempSpeed = followSpeed;
+        // var rootPosition = playerController.transform.position;
+        // _distance.z = balls[0].transform.position.z - rootPosition.z;
+        // _distance.y = balls[0].transform.position.y - rootPosition.y;
+        // _distance.x = balls[0].transform.position.x - rootPosition.x;
+        // _tempSpeed = followSpeed;
 
         if (PlayerPrefs.GetInt("BallSaveCount") > 1)
         {
             for (int i = 0; i < PlayerPrefs.GetInt("BallSaveCount"); i++)
             {
-                GameObject go = Instantiate(creatBall, balls[balls.Count-1].transform.position, Quaternion.Euler(0, 180, 0),gameObject.transform);
-                go.GetComponent<Ball>().SetValue(PlayerPrefs.GetInt("BallSave" + (i + 1)));
-                SetNewBall(go);
-                go.tag = "StackBall";
-                go.GetComponent<Rigidbody>().isKinematic = true;
+                if (j > 2)
+                {
+                    j = 0;
+                }
+
+                if (j < 3)
+                {
+                    var follower = _playerFollowerList.playerFollowPoints[j];
+                    GameObject go = Instantiate(creatBall, follower.ReturnLast().transform.position, Quaternion.identity,gameObject.transform);
+                    var ball = go.GetComponent<Ball>();
+                    ball.SetValue(PlayerPrefs.GetInt("BallSave" + (i + 1)));
+                    SetNewBall(go);
+                    follower.SaveBall(go);
+                    ball.tag = "StackBall";
+                    ball.ballRb.isKinematic = true;
+                    ball.SetGoTarget(follower.transform);
+                    j++;
+                }
             }
         }
-
         PlayerPrefs.DeleteKey("BallSaveCount");
     }
     
@@ -61,7 +70,7 @@ public class BallController : MonoBehaviour
         }
         else
         {
-            animator.SetBool("Scale" , false);
+            //animator.SetBool("Scale" , false);
             //_tempSpeed = followSpeed;
         }
 
@@ -154,11 +163,11 @@ public class BallController : MonoBehaviour
     }
     public void SetNewBall(GameObject ball)
     {
-        balls.Add(ball) ;
+        balls.Add(ball);
     }
     public void GoMerge()
     {
-        _goMerge = true;
+        //_goMerge = true;
     }
 
     public void GoUpgrade()

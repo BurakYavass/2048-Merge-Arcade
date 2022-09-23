@@ -9,7 +9,7 @@ public class PlayerCollisionHandler : MonoBehaviour
     [SerializeField] private PlayerController playerController;
     [SerializeField] private WeaponsHit weaponsHit;
     [SerializeField] private BallController ballController;
-    [SerializeField] private List<FollowerList> playerFollowPoints;
+    public List<FollowerList> playerFollowPoints;
     private ChestController _chestController;
     private PlayerBallCounter _playerBallCounter;
 
@@ -22,7 +22,6 @@ public class PlayerCollisionHandler : MonoBehaviour
     private void Start()
     {
         _playerBallCounter = playerController.GetComponent<PlayerBallCounter>();
-        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -77,8 +76,9 @@ public class PlayerCollisionHandler : MonoBehaviour
             }
             if (i < 3)
             {
-                other.gameObject.GetComponent<Ball>().SetGoTarget(playerFollowPoints[i].ReturnLast());
-                playerFollowPoints[i].follower.Add(other.transform);
+                other.gameObject.GetComponent<Ball>().SetGoTarget(playerFollowPoints[i].ReturnLast().transform);
+                playerFollowPoints[i].SaveBall(other.transform.gameObject);
+                ballController.SetNewBall(other.gameObject);
                 other.tag = "StackBall";
                 i++;
             }
@@ -117,7 +117,7 @@ public class PlayerCollisionHandler : MonoBehaviour
         if (other.CompareTag("MergeMachine"))
         {
             _onMergeMachine = false;
-            //GameEventHandler.current.PlayerMergeArea(false);
+            GameEventHandler.current.PlayerMergeArea(false);
         }
 
         if (other.CompareTag("UpgradeTrigger"))
