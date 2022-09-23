@@ -2,32 +2,31 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PlayerCollisionHandler : MonoBehaviour
 {
     [SerializeField] private PlayerController playerController;
     [SerializeField] private WeaponsHit weaponsHit;
     [SerializeField] private BallController ballController;
+    [SerializeField] private List<FollowerList> playerFollowPoints;
     private ChestController _chestController;
     private PlayerBallCounter _playerBallCounter;
 
     private bool _onUpgrade = false;
     private bool _onMergeMachine = false;
     private bool _hit = false;
+    private bool _waiter = false;
+    private int i = 0;
 
     private void Start()
     {
         _playerBallCounter = playerController.GetComponent<PlayerBallCounter>();
+        
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("EmptyBall"))
-        {
-            other.gameObject.GetComponent<Ball>().SetGoTarget(playerController);
-            other.tag = "StackBall";
-        }
-
         if (other.CompareTag("BaseRight"))
         {
             GameEventHandler.current.PlayerRightArea(true);
@@ -70,6 +69,21 @@ public class PlayerCollisionHandler : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
+        if (other.CompareTag("EmptyBall"))
+        {
+            if (i > 2)
+            {
+                i = 0;
+            }
+            if (i < 3)
+            {
+                other.gameObject.GetComponent<Ball>().SetGoTarget(playerFollowPoints[i].ReturnLast());
+                playerFollowPoints[i].follower.Add(other.transform);
+                other.tag = "StackBall";
+                i++;
+            }
+        }
+        
         if (other.gameObject.CompareTag("Chest") && !_hit)
         {
             _hit = true;
@@ -119,6 +133,7 @@ public class PlayerCollisionHandler : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         _hit = false;
     }
+
     private void WeaponHit()
     {
         if (_chestController != null)

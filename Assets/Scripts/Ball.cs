@@ -13,7 +13,7 @@ public class Ball : MonoBehaviour
     [SerializeField] private SphereCollider triggerCollider;
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] RuntimeAnimatorController _Merge;
-    [SerializeField] private GameObject ballController;
+    [SerializeField] private BallController ballController;
     private PlayerController _playerController;
     public GameObject targetObje;
     private Rigidbody _rb;
@@ -31,7 +31,8 @@ public class Ball : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody>();
         _collider = GetComponent<Collider>();
-        ballController = GameObject.FindGameObjectWithTag("BallController");
+        ballController = GameObject.FindGameObjectWithTag("BallController").GetComponent<BallController>();
+        _playerController = PlayerController.Current;
         BallChanger();
         StartCoroutine(DelayKinematic());
     }
@@ -40,26 +41,20 @@ public class Ball : MonoBehaviour
         if (_Go)
         {
             agent.speed = GameManager.current.playerSpeed;
-            if (_playerController.walking)
+            var distance = Vector3.Distance(transform.position , targetObje.transform.position);
+            if (distance < 3.0f && !_playerController.walking)
+            {
+                agent.enabled = false;
+                _rb.isKinematic = true;
+                //_Go = false;
+                _OnStackpos = true;
+            }
+            else
             {
                 _rb.isKinematic = false;
                 agent.enabled = true;
                 agent.destination = targetObje.transform.position;
-                
             }
-            else
-            {
-                var distance = Vector3.Distance(transform.position, targetObje.transform.position);
-                if (distance <= 7f)
-                {
-                    agent.enabled = false;
-                    _rb.isKinematic = true;
-                    //_Go = false;
-                    _OnStackpos = true;
-                }
-            }
-            
-            
         }
         else if (_GoMerge)
         {
@@ -164,9 +159,10 @@ public class Ball : MonoBehaviour
         _GoUpgrade = true;
     }
     
-    public void SetGoTarget(PlayerController target)
+    public void SetGoTarget(Transform target)
     {
-        _playerController = target;
+        //_playerController = target.GetComponentInParent<PlayerController>();
+        ballController.SetNewBall(gameObject);
         //_rb.isKinematic = true;
         targetObje = target.gameObject;
         //_distance = Vector3.Distance(transform.position,targetObje.transform.position);
@@ -176,9 +172,11 @@ public class Ball : MonoBehaviour
     
     public void SetGoMerge(GameObject target,float delay)
     {
+        _Go = false;
+        agent.enabled = false;
         _DelayMerge = delay;
         gameObject.transform.parent = target.transform.parent;
-        //_rb.isKinematic = true;
+        _rb.isKinematic = true;
         targetObje = target;
         _distance = Vector3.Distance(transform.position, targetObje.transform.position);
         gameObject.tag = "MergeBall";
@@ -214,10 +212,6 @@ public class Ball : MonoBehaviour
         yield return new WaitForSeconds(1);
         triggerCollider.enabled = true;
         //triggerCollider.isTrigger = true;
-        //triggerCollider.radius = 3.0f;
-        Debug.Log(agent.isOnNavMesh);
-        yield return new WaitForSeconds(2);
-        //_rb.isKinematic = true;
     }
     IEnumerator DelayMergeTime( )
     {

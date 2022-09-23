@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerAnimationHandler : MonoBehaviour
 {
     [SerializeField] private Animator animator;
-    [SerializeField] private Animation stackPointAnimation;
+    //[SerializeField] private Animation stackPointAnimation;
     [SerializeField] private PlayerController playerController;
 
     private bool playerHit = false;
@@ -34,7 +34,7 @@ public class PlayerAnimationHandler : MonoBehaviour
             animator.SetBool("Idle", false);
             animator.SetBool("Walking", true);
             animator.SetBool("Hit", false);
-            stackPointAnimation.Play("StackPointAnim");
+            //stackPointAnimation.Play("StackPointAnim");
         }
         else if (playerHit)
         {
@@ -42,14 +42,14 @@ public class PlayerAnimationHandler : MonoBehaviour
             animator.SetBool("Hit", true);
             animator.SetBool("Idle", false);
             animator.SetBool("Walking", false);
-            stackPointAnimation.Stop("StackPointAnim");
+            //stackPointAnimation.Stop("StackPointAnim");
         }
         else
         {
             animator.SetBool("Idle", true);
             animator.SetBool("Walking", false);
             animator.SetBool("Hit", false);
-            stackPointAnimation.Stop("StackPointAnim");
+            //stackPointAnimation.Stop("StackPointAnim");
         }
     }
 }
