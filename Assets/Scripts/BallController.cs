@@ -28,32 +28,28 @@ public class BallController : MonoBehaviour
 
     void Start()
     {
-        // var rootPosition = playerController.transform.position;
-        // _distance.z = balls[0].transform.position.z - rootPosition.z;
-        // _distance.y = balls[0].transform.position.y - rootPosition.y;
-        // _distance.x = balls[0].transform.position.x - rootPosition.x;
-        // _tempSpeed = followSpeed;
 
         if (PlayerPrefs.GetInt("BallSaveCount") > 1)
         {
             for (int i = 0; i < PlayerPrefs.GetInt("BallSaveCount"); i++)
             {
-                if (j > 2)
+                if (j >2)
                 {
                     j = 0;
                 }
-
-                if (j < 3)
+                if (j <= 2)
                 {
                     var follower = _playerFollowerList.playerFollowPoints[j];
-                    GameObject go = Instantiate(creatBall, follower.ReturnLast().transform.position, Quaternion.identity,gameObject.transform);
+                    var last = follower.ReturnLast();
+                    var lastPosition = last.transform.position;
+                    GameObject go = Instantiate(creatBall, new Vector3(lastPosition.x,lastPosition.y,lastPosition.z-3), Quaternion.identity,gameObject.transform);
+                    go.tag = "StackBall";
                     var ball = go.GetComponent<Ball>();
                     ball.SetValue(PlayerPrefs.GetInt("BallSave" + (i + 1)));
+                    follower.SaveBall(ball.gameObject);
+                    //ball.ballRb.isKinematic = true;
+                    ball.SetGoTarget(last.transform);
                     SetNewBall(go);
-                    follower.SaveBall(go);
-                    ball.tag = "StackBall";
-                    ball.ballRb.isKinematic = true;
-                    ball.SetGoTarget(follower.transform);
                     j++;
                 }
             }
@@ -63,16 +59,16 @@ public class BallController : MonoBehaviour
     
     private void FixedUpdate()
     {
-        if (playerController.walking)
-        {
-            //_tempSpeed = followSpeed + (10  * playerController.GetJoystickValue());
-            animator.SetBool("Scale", true);
-        }
-        else
-        {
-            //animator.SetBool("Scale" , false);
-            //_tempSpeed = followSpeed;
-        }
+        // if (playerController.walking)
+        // {
+        //     //_tempSpeed = followSpeed + (10  * playerController.GetJoystickValue());
+        //     animator.SetBool("Scale", true);
+        // }
+        // else
+        // {
+        //     //animator.SetBool("Scale" , false);
+        //     //_tempSpeed = followSpeed;
+        // }
 
         if (_goUpgrade)
         {
@@ -110,17 +106,16 @@ public class BallController : MonoBehaviour
                         _delayMerge += .5f;
                         balls.RemoveAt(i);
                         _tempTimeMerge = 0;
-                        return;
                     }
                 }
                 
-                if (_tempTimeMerge >= .05f)
-                {
-                    balls[balls.Count-1].GetComponent<Ball>().SetGoMerge(mergeBallPos, _delayMerge);
-                    _delayMerge += 1f;
-                    balls.RemoveAt(balls.Count-1);
-                    _tempTimeMerge = 0;
-                }
+                // if (_tempTimeMerge >= .05f)
+                // {
+                //     balls[balls.Count-1].GetComponent<Ball>().SetGoMerge(mergeBallPos, _delayMerge);
+                //     _delayMerge += 1f;
+                //     balls.RemoveAt(balls.Count-1);
+                //     _tempTimeMerge = 0;
+                // }
             }
             else
             {
@@ -167,7 +162,7 @@ public class BallController : MonoBehaviour
     }
     public void GoMerge()
     {
-        //_goMerge = true;
+        _goMerge = true;
     }
 
     public void GoUpgrade()

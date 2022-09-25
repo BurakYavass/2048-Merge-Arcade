@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (joystick.isActiveAndEnabled)
         {
@@ -70,8 +70,8 @@ public class PlayerController : MonoBehaviour
                 if ((transform.position - hit.position).magnitude >= 0.1f)
                 {
                     _joystickValue = (transform.position - hit.position).magnitude;
-                    _rb.MovePosition(temp);
-                    _rb.MoveRotation(Quaternion.LookRotation(movementVector));
+                    transform.position = temp;
+                    transform.rotation = Quaternion.LookRotation(movementVector);
                     if (!once)
                     {
                         walking = true;

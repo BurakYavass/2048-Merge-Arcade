@@ -12,22 +12,7 @@ public class FollowerList : MonoBehaviour
 
     private void Start()
     {
-        // GameEventHandler.current.OnPlayerMergeArea += RemoveBall;
-        // if (PlayerPrefs.GetInt("BallSaveCount") > 1)
-        // {
-        //     for (int i = 0; i < PlayerPrefs.GetInt("BallSaveCount"); i++)
-        //     {
-        //         GameObject go = Instantiate(creatBall, follower[i].transform.position, Quaternion.identity,transform);
-        //         var ball = go.GetComponent<Ball>();
-        //         ball.SetValue(PlayerPrefs.GetInt("BallSave" + (i + 1)));
-        //         SetNewBall(go);
-        //         go.tag = "StackBall";
-        //         //ball.ballRb.isKinematic = false;
-        //         //ball.agent.enabled = true;
-        //         ball.SetGoTarget(ReturnLast().transform);
-        //     }
-        // }
-        // PlayerPrefs.DeleteKey("BallSaveCount");
+        GameEventHandler.current.OnPlayerMergeArea += RemoveBall;
     }
 
     private void SetNewBall(GameObject go)
@@ -64,23 +49,7 @@ public class FollowerList : MonoBehaviour
 
     public GameObject ReturnLast()
     {
-        var last = follower.Last();
+        var last = follower.LastOrDefault();
         return last;
     }
-
-    // void OnApplicationFocus(bool hasFocus)
-    // {
-    //     if (!hasFocus)
-    //     {
-    //         if (follower.Count>1)
-    //         {
-    //             for (int i = 1; i < follower.Count; i++)
-    //             {
-    //                 PlayerPrefs.SetInt("BallSave" + i, (int)(follower[i].GetComponent<Ball>().GetValue()));
-    //                 PlayerPrefs.SetInt("BallSaveCount", follower.Count);
-    //                 PlayerPrefs.Save();
-    //             }
-    //         }
-    //     }
-    // }
 }

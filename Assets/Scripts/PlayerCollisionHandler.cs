@@ -70,17 +70,17 @@ public class PlayerCollisionHandler : MonoBehaviour
     {
         if (other.CompareTag("EmptyBall"))
         {
-            if (i > 2)
-            {
-                i = 0;
-            }
-            if (i < 3)
+            if (i <= 2)
             {
                 other.gameObject.GetComponent<Ball>().SetGoTarget(playerFollowPoints[i].ReturnLast().transform);
                 playerFollowPoints[i].SaveBall(other.transform.gameObject);
                 ballController.SetNewBall(other.gameObject);
                 other.tag = "StackBall";
                 i++;
+            }
+            else
+            {
+                i = 0;
             }
         }
         

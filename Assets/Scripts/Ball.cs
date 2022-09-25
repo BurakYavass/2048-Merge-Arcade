@@ -25,16 +25,15 @@ public class Ball : MonoBehaviour
     public  bool _GoMerge;
     public  bool _GoUpgrade;
     private bool _OnStackpos;
-    
-    
+
     void Start()
     {
-        //ballController = GameObject.FindGameObjectWithTag("BallController").GetComponent<BallController>();
+        ballController = GameObject.FindGameObjectWithTag("BallController").GetComponent<BallController>();
         _playerController = PlayerController.Current;
         BallChanger();
         StartCoroutine(DelayKinematic());
     }
-  void FixedUpdate()
+    void FixedUpdate()
     {
         if (_Go)
         {
@@ -42,16 +41,19 @@ public class Ball : MonoBehaviour
             var distance = Vector3.Distance(transform.position , targetObje.transform.position);
             if (distance < 3.0f && !_playerController.walking)
             {
-                agent.enabled = false;
                 ballRb.isKinematic = true;
-                //_Go = false;
-                _OnStackpos = true;
             }
             else
             {
                 ballRb.isKinematic = false;
-                agent.enabled = true;
-                agent.destination = targetObje.transform.position;
+                var currentVelocity = agent.velocity;
+                agent.destination =
+                    Vector3.SmoothDamp(transform.position, targetObje.transform.position, ref currentVelocity,
+                         Time.fixedDeltaTime);
+                //var destinationLerp = Vector3.Lerp(ballRb.position, targetObje.transform.position,
+                //Time.deltaTime);
+                //ballRb.MovePosition(destinationLerp);
+                //ballRb.rotation = Quaternion.LookRotation(targetObje.transform.position);
             }
         }
         else if (_GoMerge)
@@ -60,7 +62,7 @@ public class Ball : MonoBehaviour
             transform.localScale = Vector3.Lerp(transform.localScale, targetObje.transform.localScale, .03f   );
             if (Vector3.Distance(transform.position, targetObje.transform.position) < _distance * .05f)
             {
-                ballRb.isKinematic = false;
+                //ballRb.isKinematic = false;
                 _collider.enabled = false;
                 _GoMerge = false;
                 StartCoroutine(DelayMergeTime());
@@ -71,7 +73,7 @@ public class Ball : MonoBehaviour
             Vector3 rndm = new Vector3(Random.Range(-2, 2), Random.Range(2, 4), 0);
             if (Vector3.Distance(transform.position, targetObje.transform.position) < _distance * .05f)
             {
-                ballRb.isKinematic = false;
+                //ballRb.isKinematic = false;
                 _collider.enabled = false;
                 _GoUpgrade = false;
             }
@@ -150,7 +152,7 @@ public class Ball : MonoBehaviour
     
     public void SetGoUpgrade(GameObject target, float delay)
     {
-        ballRb.isKinematic = true;
+        //ballRb.isKinematic = true;
         targetObje = target;
         _distance = Vector3.Distance(transform.position, targetObje.transform.position);
         _collider.isTrigger = true;
@@ -168,15 +170,16 @@ public class Ball : MonoBehaviour
     public void SetGoMerge(GameObject target,float delay)
     {
         _Go = false;
-        agent.enabled = false;
+        _GoMerge = true;
+        //agent.enabled = false;
         _DelayMerge = delay;
         gameObject.transform.parent = target.transform.parent;
-        ballRb.isKinematic = true;
+        //ballRb.isKinematic = false;
         targetObje = target;
         _distance = Vector3.Distance(transform.position, targetObje.transform.position);
         gameObject.tag = "MergeBall";
         _collider.isTrigger = true;
-        _GoMerge = true;
+        
     }
     
     public bool GetStackPos()
@@ -191,14 +194,14 @@ public class Ball : MonoBehaviour
     {
         if (other.gameObject.name=="BallPool")
         {
-            ballRb.isKinematic = false;
+            //ballRb.isKinematic = false;
         }
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.name == "BallPool")
         {
-            ballRb.isKinematic = true;
+            //ballRb.isKinematic = true;
         }
     }
 
@@ -208,7 +211,7 @@ public class Ball : MonoBehaviour
         triggerCollider.enabled = true;
         //triggerCollider.isTrigger = true;
         yield return new WaitForSeconds(2);
-        ballRb.isKinematic = true;
+        //ballRb.isKinematic = true;
         agent.enabled = true;
     }
     IEnumerator DelayMergeTime( )
