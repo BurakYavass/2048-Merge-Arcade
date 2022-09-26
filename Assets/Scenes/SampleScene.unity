@@ -3976,7 +3976,6 @@ MonoBehaviour:
   _playerFollowerList: {fileID: 6862496077275605884}
   mergeBallPos: {fileID: 9009596902882058503}
   upgradeBallPos: {fileID: 1760504813}
-  animator: {fileID: 1785838640}
 --- !u!1 &1104868863
 GameObject:
   m_ObjectHideFlags: 0

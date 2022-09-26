@@ -15,6 +15,7 @@ public class Ball : MonoBehaviour
     [SerializeField] private SphereCollider _collider;
     [SerializeField] private RuntimeAnimatorController merge;
     [SerializeField] private BallController ballController;
+    [SerializeField] private Animator ballAnimator;
     public NavMeshAgent agent;
     public GameObject targetObje;
     public Rigidbody ballRb;
@@ -39,9 +40,13 @@ public class Ball : MonoBehaviour
         if (_Go && agent.enabled)
         {
             var distance = Vector3.Distance(transform.position , targetObje.transform.position);
-            if (distance < 3.0f)
+            if (distance < 4.0f)
             {
                 agent.isStopped = true;
+                if (ballAnimator!=null)
+                {
+                    ballAnimator.SetBool("Jump", false);
+                }
                 agent.speed = GameManager.current.playerSpeed;
             }
             else
@@ -55,7 +60,11 @@ public class Ball : MonoBehaviour
                 {
                     agent.speed = speed +1;
                 }
-                
+
+                if (ballAnimator!=null)
+                {
+                    ballAnimator.SetBool("Jump", true);
+                }
                 agent.isStopped = false;
                 var currentVelocity = agent.velocity;
                 agent.destination =
@@ -114,26 +123,50 @@ public class Ball : MonoBehaviour
         if (_BallValue==2)
         {
             _Colors[0].SetActive(true);
+            if (_Colors[0].GetComponent<Animator>() != null)
+            {
+                ballAnimator = _Colors[0].GetComponent<Animator>();
+            }
         }
         else if (_BallValue == 4)
         {
             _Colors[1].SetActive(true);
+            if (_Colors[1].GetComponent<Animator>() != null)
+            {
+                ballAnimator = _Colors[1].GetComponent<Animator>();
+            }
         }
         else if (_BallValue == 8)
         {
             _Colors[2].SetActive(true);
+            if (_Colors[2].GetComponent<Animator>() != null)
+            {
+                ballAnimator = _Colors[2].GetComponent<Animator>();
+            }
         }
         else if (_BallValue == 16)
         {
             _Colors[3].SetActive(true);
+            if (_Colors[3].GetComponent<Animator>() != null)
+            {
+                ballAnimator = _Colors[3].GetComponent<Animator>();
+            }
         }
         else if (_BallValue == 32)
         {
             _Colors[4].SetActive(true);
+            if (_Colors[4].GetComponent<Animator>() != null)
+            {
+                ballAnimator = _Colors[4].GetComponent<Animator>();
+            }
         }
         else if (_BallValue == 64)
         {
             _Colors[5].SetActive(true);
+            if (_Colors[5].GetComponent<Animator>() != null)
+            {
+                ballAnimator = _Colors[5].GetComponent<Animator>();
+            }
         }
         else if (_BallValue == 128)
         {
@@ -185,11 +218,16 @@ public class Ball : MonoBehaviour
         ballRb.useGravity = false;
         ballRb.isKinematic = true;
         triggerCollider.enabled = false;
+        if (ballAnimator!=null)
+        {
+            ballAnimator.SetBool("Jump", false);
+            ballAnimator = null;
+        }
         ballRb.interpolation = RigidbodyInterpolation.None;
         _Go = false;
         _GoMerge = true;
         _DelayMerge = delay;
-        //gameObject.transform.parent = target.transform.parent;
+        gameObject.transform.parent = target.transform.parent;
         targetObje = target;
         _distance = Vector3.Distance(transform.position, targetObje.transform.position);
         gameObject.tag = "MergeBall";

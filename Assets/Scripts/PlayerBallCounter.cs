@@ -11,7 +11,7 @@ public class PlayerBallCounter : MonoBehaviour
 
     public void BallCountCheck()
     {
-        for (int i = 1; i < _ballController.balls.Count; i++)
+        for (int i = 0; i < _ballController.balls.Count; i++)
         {
             stackValue += _ballController.balls[i].GetComponent<Ball>().GetValue();
         }

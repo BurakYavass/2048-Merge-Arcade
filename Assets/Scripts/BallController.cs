@@ -11,7 +11,7 @@ public class BallController : MonoBehaviour
     [SerializeField] private PlayerCollisionHandler _playerFollowerList;
     [SerializeField] private GameObject mergeBallPos;
     [SerializeField] private GameObject upgradeBallPos;
-    [SerializeField] private Animator animator;
+    //[SerializeField] private Animator animator;
     private Vector3 _distance;
     private bool _goMerge;
     private bool _goUpgrade;
