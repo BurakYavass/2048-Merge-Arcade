@@ -41,12 +41,12 @@ public class MergeController : MonoBehaviour
 
     private void Start()
     {
-        GameEventHandler.current.OnPlayerMergeArea += OnPlayerMergeArea;
+        GameEventHandler.current.OnBallMergeArea += OnBallMergeArea;
     }
 
     private void OnDisable()
     {
-        GameEventHandler.current.OnPlayerMergeArea -= OnPlayerMergeArea;
+        GameEventHandler.current.OnBallMergeArea -= OnBallMergeArea;
     }
     
     private void Update()
@@ -71,7 +71,7 @@ public class MergeController : MonoBehaviour
             }
         }
     }
-    private void OnPlayerMergeArea(bool enterExit)
+    private void OnBallMergeArea(bool enterExit)
     {
         machineAnimator.SetBool("vibration" , enterExit);
     }
@@ -177,27 +177,27 @@ public class MergeController : MonoBehaviour
          }
          else if (_TotalValue >= 8)
          {
-             GameObject go = Instantiate(_Ball, _BallSpawn.transform.position, Quaternion.identity);
+             GameObject go = Instantiate(_Ball, _BallSpawn.transform.position, _BallSpawn.transform.localRotation);
              var ball = go.GetComponent<Ball>();
              ball.SetValue(8);
-             ball.ballRb.AddForce(Vector3.left,ForceMode.Impulse);
+             ball.ballRb.AddForce(Vector3.forward,ForceMode.Impulse);
              ball.agent.enabled = false;
              _TotalValue -= 8;
              _IsDone = 1;
          }
          else if (_TotalValue >= 4)
          {
-             GameObject go = Instantiate(_Ball, _BallSpawn.transform.position, Quaternion.identity);
+             GameObject go = Instantiate(_Ball, _BallSpawn.transform.position, _BallSpawn.transform.localRotation);
              var ball = go.GetComponent<Ball>();
              ball.SetValue(4);
-             ball.ballRb.AddForce(Vector3.forward , ForceMode.Impulse);
+             ball.ballRb.AddForce(Vector3.forward);
              ball.agent.enabled = false;
              _TotalValue -= 4;
              _IsDone = 1;
          }
          else if (_TotalValue >= 2)
          {
-             GameObject go = Instantiate(_Ball, _BallSpawn.transform.position, Quaternion.identity);
+             GameObject go = Instantiate(_Ball, _BallSpawn.transform.position, _BallSpawn.transform.localRotation);
              var ball = go.GetComponent<Ball>();
              ball.SetValue(2);
              ball.ballRb.AddForce(Vector3.forward);
@@ -533,4 +533,5 @@ public class MergeController : MonoBehaviour
 
         }
     }
+    
 }

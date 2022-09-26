@@ -49,7 +49,6 @@ public class PlayerCollisionHandler : MonoBehaviour
                 if (ballController.balls.Count > 1)
                 {
                     ballController.GoMerge();
-                    GameEventHandler.current.PlayerMergeArea(true);
                 }
             }
         }
@@ -117,7 +116,7 @@ public class PlayerCollisionHandler : MonoBehaviour
         if (other.CompareTag("MergeMachine"))
         {
             _onMergeMachine = false;
-            GameEventHandler.current.PlayerMergeArea(false);
+            GameEventHandler.current.BallMergeArea(false);
         }
 
         if (other.CompareTag("UpgradeTrigger"))

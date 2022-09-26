@@ -6,17 +6,12 @@ using UnityEngine.AI;
 
 public class BallController : MonoBehaviour
 {
-
-    [SerializeField] List<int> saveBall = new List<int>();
     [SerializeField] public List<GameObject> balls=new List<GameObject>();
     [SerializeField] private GameObject creatBall;
-    //[SerializeField] private GameObject playerRootPoint;
-    [SerializeField] private PlayerController playerController;
     [SerializeField] private PlayerCollisionHandler _playerFollowerList;
     [SerializeField] private GameObject mergeBallPos;
     [SerializeField] private GameObject upgradeBallPos;
     [SerializeField] private Animator animator;
-    [SerializeField] float followSpeed ;
     private Vector3 _distance;
     private bool _goMerge;
     private bool _goUpgrade;
@@ -28,7 +23,6 @@ public class BallController : MonoBehaviour
 
     void Start()
     {
-
         if (PlayerPrefs.GetInt("BallSaveCount") > 0)
         {
             for (int i = 0; i < PlayerPrefs.GetInt("BallSaveCount"); i++)
@@ -47,7 +41,6 @@ public class BallController : MonoBehaviour
                     var ball = go.GetComponent<Ball>();
                     ball.SetValue(PlayerPrefs.GetInt("BallSave" + (i)));
                     follower.SaveBall(ball.gameObject);
-                    //ball.ballRb.isKinematic = true;
                     ball.SetGoTarget(last.transform);
                     SetNewBall(go);
                     j++;
@@ -75,7 +68,6 @@ public class BallController : MonoBehaviour
             }
             else
             {
-                // StartCoroutine(DelayMerge());
                 _goUpgrade = false;
                 _delayMerge = 0;
             }
@@ -101,37 +93,9 @@ public class BallController : MonoBehaviour
             }
             else
             {
-                //StartCoroutine(DelayMerge());
                 _goMerge = false;
                 _delayMerge = 0;
             }
-        }
-        else
-        {
-            //     var firstBall = balls[0].GetComponent<Rigidbody>();
-        //     var RootRb = playerController.GetComponent<Rigidbody>();
-        //     firstBall.position = new Vector3(
-        //         Mathf.Lerp(firstBall.position.x, RootRb.position.x, 1f),
-        //         Mathf.Lerp(firstBall.position.y, RootRb.position.y, .2f),
-        //         Mathf.Lerp(firstBall.position.z, RootRb.position.z, .5f)
-        //     );
-        //     firstBall.rotation = Quaternion.Lerp(firstBall.rotation, RootRb.rotation, .2f);
-        //
-        //     for (int i = 1; i < balls.Count; i++)
-        //     {
-        //         var forwardBall = balls[i - 1].GetComponent<Rigidbody>();
-        //         var currentBall = balls[i].GetComponent<Rigidbody>();
-        //         
-        //         currentBall.position = new Vector3(
-        //             Mathf.Lerp(currentBall.position.x, forwardBall.position.x, (xStackSpeed * Time.deltaTime)),
-        //             Mathf.Lerp(currentBall.position.y, forwardBall.position.y, (yStackSpeed * Time.deltaTime)),
-        //             Mathf.Lerp(currentBall.position.z, forwardBall.position.z, (zStackSpeed * Time.deltaTime))
-        //         );
-        //         currentBall.position -= (forwardBall.transform.up * (currentBall.transform.localScale.z * 1.5f));
-        //        
-        //         currentBall.transform.localScale = Vector3.Lerp(currentBall.transform.localScale, forwardBall.transform.localScale, (_tempSpeed * Time.deltaTime));
-        //         currentBall.rotation = Quaternion.Lerp(currentBall.rotation, forwardBall.rotation, (_tempSpeed * Time.deltaTime) / xStackSpeed);
-        //     }
         }
     }
     public GameObject LastObje()

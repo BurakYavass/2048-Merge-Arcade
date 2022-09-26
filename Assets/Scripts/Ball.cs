@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Experimental.GlobalIllumination;
 using Random = UnityEngine.Random;
 
 public class Ball : MonoBehaviour
@@ -15,7 +16,6 @@ public class Ball : MonoBehaviour
     [SerializeField] private RuntimeAnimatorController merge;
     [SerializeField] private BallController ballController;
     public NavMeshAgent agent;
-    private PlayerController _playerController;
     public GameObject targetObje;
     public Rigidbody ballRb;
 
@@ -29,9 +29,9 @@ public class Ball : MonoBehaviour
     void Start()
     {
         ballController = GameObject.FindGameObjectWithTag("BallController").GetComponent<BallController>();
-        _playerController = PlayerController.Current;
         BallChanger();
         StartCoroutine(DelayKinematic());
+        ballRb.isKinematic = false;
         ballRb.interpolation = RigidbodyInterpolation.None;
     }
     void FixedUpdate()
@@ -69,9 +69,11 @@ public class Ball : MonoBehaviour
         {
             transform.position = Vector3.Lerp(transform.position, targetObje.transform.position, .03f   );
             transform.localScale = Vector3.Lerp(transform.localScale, targetObje.transform.localScale, .03f   );
-            if (Vector3.Distance(transform.position, targetObje.transform.position) < _distance * .05f)
+            if (Vector3.Distance(transform.position, targetObje.transform.position) < _distance * .02f)
             {
-                //ballRb.isKinematic = true;
+                ballRb.isKinematic = false;
+                ballRb.useGravity = true;
+                triggerCollider.enabled = true;
                 _GoMerge = false;
                 StartCoroutine(DelayMergeTime());
             }
@@ -182,11 +184,12 @@ public class Ball : MonoBehaviour
         agent.enabled = false;
         ballRb.useGravity = false;
         ballRb.isKinematic = true;
+        triggerCollider.enabled = false;
         ballRb.interpolation = RigidbodyInterpolation.None;
         _Go = false;
         _GoMerge = true;
         _DelayMerge = delay;
-        gameObject.transform.parent = target.transform.parent;
+        //gameObject.transform.parent = target.transform.parent;
         targetObje = target;
         _distance = Vector3.Distance(transform.position, targetObje.transform.position);
         gameObject.tag = "MergeBall";
@@ -205,8 +208,8 @@ public class Ball : MonoBehaviour
         if (other.gameObject.name=="BallPool")
         {
              _collider.isTrigger = true;
-            //ballRb.isKinematic = false;
-            agent.enabled = false;
+             agent.enabled = false;
+            GameEventHandler.current.BallMergeArea(true);
         }
     }
     private void OnTriggerExit(Collider other)
@@ -220,7 +223,7 @@ public class Ball : MonoBehaviour
 
     IEnumerator DelayKinematic()
     {
-        //ballRb.isKinematic = false;
+        ballRb.isKinematic = false;
         ballRb.useGravity = true;
         yield return new WaitForSeconds(1);
         triggerCollider.enabled = true;
