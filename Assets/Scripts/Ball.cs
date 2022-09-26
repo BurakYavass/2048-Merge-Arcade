@@ -39,20 +39,30 @@ public class Ball : MonoBehaviour
         if (_Go && agent.enabled)
         {
             var distance = Vector3.Distance(transform.position , targetObje.transform.position);
-            if (distance < 3.0f && !_playerController.walking)
+            if (distance < 3.0f)
             {
-                ballRb.isKinematic = true;
+                agent.isStopped = true;
                 agent.speed = GameManager.current.playerSpeed;
             }
             else
             {
-                agent.speed = GameManager.current.playerSpeed +1;
-                ballRb.isKinematic = false;
+                var speed = GameManager.current.playerSpeed;
+                if (distance > 6)
+                {
+                    agent.speed = speed +3;
+                }
+                else
+                {
+                    agent.speed = speed +1;
+                }
+                
+                agent.isStopped = false;
                 var currentVelocity = agent.velocity;
                 agent.destination =
                     Vector3.SmoothDamp(transform.position, targetObje.transform.position, ref currentVelocity,
-                         Time.fixedDeltaTime);
+                        Time.fixedDeltaTime);
             }
+            
         }
         
         if (_GoMerge)
@@ -164,6 +174,7 @@ public class Ball : MonoBehaviour
         //_rb.isKinematic = true;
         targetObje = target.gameObject;
         _Go = true;
+        ballRb.isKinematic = true;
     }
     
     public void SetGoMerge(GameObject target,float delay)
@@ -209,7 +220,7 @@ public class Ball : MonoBehaviour
 
     IEnumerator DelayKinematic()
     {
-        ballRb.isKinematic = false;
+        //ballRb.isKinematic = false;
         ballRb.useGravity = true;
         yield return new WaitForSeconds(1);
         triggerCollider.enabled = true;
