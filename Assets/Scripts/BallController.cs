@@ -29,7 +29,7 @@ public class BallController : MonoBehaviour
     void Start()
     {
 
-        if (PlayerPrefs.GetInt("BallSaveCount") > 1)
+        if (PlayerPrefs.GetInt("BallSaveCount") > 0)
         {
             for (int i = 0; i < PlayerPrefs.GetInt("BallSaveCount"); i++)
             {
@@ -45,7 +45,7 @@ public class BallController : MonoBehaviour
                     GameObject go = Instantiate(creatBall, new Vector3(lastPosition.x,lastPosition.y,lastPosition.z-3), Quaternion.identity,gameObject.transform);
                     go.tag = "StackBall";
                     var ball = go.GetComponent<Ball>();
-                    ball.SetValue(PlayerPrefs.GetInt("BallSave" + (i + 1)));
+                    ball.SetValue(PlayerPrefs.GetInt("BallSave" + (i)));
                     follower.SaveBall(ball.gameObject);
                     //ball.ballRb.isKinematic = true;
                     ball.SetGoTarget(last.transform);
@@ -59,17 +59,6 @@ public class BallController : MonoBehaviour
     
     private void FixedUpdate()
     {
-        // if (playerController.walking)
-        // {
-        //     //_tempSpeed = followSpeed + (10  * playerController.GetJoystickValue());
-        //     animator.SetBool("Scale", true);
-        // }
-        // else
-        // {
-        //     //animator.SetBool("Scale" , false);
-        //     //_tempSpeed = followSpeed;
-        // }
-
         if (_goUpgrade)
         {
             _tempTimeMerge += Time.deltaTime;
@@ -91,12 +80,13 @@ public class BallController : MonoBehaviour
                 _delayMerge = 0;
             }
         } 
-        else if (_goMerge)
+        
+        if (_goMerge)
         {
             _tempTimeMerge += Time.deltaTime;
-            if (balls.Count> 1  )
+            if (balls.Count> 0)
             {
-                for (int i = 1; i < balls.Count; i++)
+                for (int i = 0; i < balls.Count; i++)
                 {
                     if (!_waiter)
                     {
@@ -108,18 +98,10 @@ public class BallController : MonoBehaviour
                         _tempTimeMerge = 0;
                     }
                 }
-                
-                // if (_tempTimeMerge >= .05f)
-                // {
-                //     balls[balls.Count-1].GetComponent<Ball>().SetGoMerge(mergeBallPos, _delayMerge);
-                //     _delayMerge += 1f;
-                //     balls.RemoveAt(balls.Count-1);
-                //     _tempTimeMerge = 0;
-                // }
             }
             else
             {
-                // StartCoroutine(DelayMerge());
+                //StartCoroutine(DelayMerge());
                 _goMerge = false;
                 _delayMerge = 0;
             }
@@ -174,12 +156,12 @@ public class BallController : MonoBehaviour
     {
         if (!hasFocus)
         {
-            if (balls.Count>1)
+            if (balls.Count>0)
             {
-                for (int i = 1; i < balls.Count; i++)
+                for (int i = 0; i < balls.Count; i++)
                 {
                     PlayerPrefs.SetInt("BallSave" + i, (int)(balls[i].GetComponent<Ball>().GetValue()));
-                    PlayerPrefs.SetInt("BallSaveCount", balls.Count-1);
+                    PlayerPrefs.SetInt("BallSaveCount", balls.Count);
                     PlayerPrefs.Save();
                 }
             }

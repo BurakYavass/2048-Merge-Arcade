@@ -88,84 +88,120 @@ public class MergeController : MonoBehaviour
          if (_TotalValue >=4096)
          {
              GameObject go = Instantiate(_Ball, _BallSpawn.transform.position, Quaternion.identity);
-             go.GetComponent<Ball>().SetValue(4096);
+             var ball = go.GetComponent<Ball>();
+             ball.SetValue(4096);
+             ball.ballRb.AddForce(Vector3.forward);
+             ball.agent.enabled = false;
              _TotalValue -= 4096;
              _IsDone = 1;
          }
          else if (_TotalValue >= 2048)
          {
              GameObject go = Instantiate(_Ball, _BallSpawn.transform.position, Quaternion.identity);
-             go.GetComponent<Ball>().SetValue(2048);
+             var ball = go.GetComponent<Ball>();
+             ball.SetValue(2048);
+             ball.ballRb.AddForce(Vector3.forward,ForceMode.Impulse);
+             ball.agent.enabled = false;
              _TotalValue -= 2048;
              _IsDone = 1;
          }
          else if (_TotalValue >= 1024)
          {
              GameObject go = Instantiate(_Ball, _BallSpawn.transform.position, Quaternion.identity);
-             go.GetComponent<Ball>().SetValue(1024);
+             var ball = go.GetComponent<Ball>();
+             ball.SetValue(1024);
+             ball.ballRb.AddForce(Vector3.forward,ForceMode.Impulse);
+             ball.agent.enabled = false;
              _TotalValue -= 1024;
              _IsDone = 1;
          }
          else if (_TotalValue >= 512)
          {
              GameObject go = Instantiate(_Ball, _BallSpawn.transform.position, Quaternion.identity);
-             go.GetComponent<Ball>().SetValue(512);
+             var ball = go.GetComponent<Ball>();
+             ball.SetValue(512);
+             ball.ballRb.AddForce(Vector3.forward,ForceMode.Impulse);
+             ball.agent.enabled = false;
              _TotalValue -= 512;
              _IsDone= 1;
          }
          else if (_TotalValue >= 256)
          {
              GameObject go = Instantiate(_Ball, _BallSpawn.transform.position, Quaternion.identity);
-             go.GetComponent<Ball>().SetValue(256);
+             var ball = go.GetComponent<Ball>();
+             ball.SetValue(256);
+             ball.ballRb.AddForce(Vector3.forward,ForceMode.Impulse);
+             ball.agent.enabled = false;
              _TotalValue -= 256;
              _IsDone = 1;
          }
          else if (_TotalValue >= 128)
          {
              GameObject go = Instantiate(_Ball, _BallSpawn.transform.position, Quaternion.identity);
-             go.GetComponent<Ball>().SetValue(128);
+             var ball = go.GetComponent<Ball>();
+             ball.SetValue(128);
+             ball.ballRb.AddForce(Vector3.forward,ForceMode.Impulse);
+             ball.agent.enabled = false;
              _TotalValue -= 128;
              _IsDone = 1;
          }
          else if (_TotalValue >= 64)
          {
              GameObject go = Instantiate(_Ball, _BallSpawn.transform.position, Quaternion.identity);
-             go.GetComponent<Ball>().SetValue(64);
+             var ball = go.GetComponent<Ball>();
+             ball.SetValue(64);
+             ball.ballRb.AddForce(Vector3.forward,ForceMode.Impulse);
+             ball.agent.enabled = false;
              _TotalValue -= 64;
              _IsDone = 1;
          }
          else if (_TotalValue >= 32)
          {
              GameObject go = Instantiate(_Ball, _BallSpawn.transform.position, Quaternion.identity);
-             go.GetComponent<Ball>().SetValue(32);
+             var ball = go.GetComponent<Ball>();
+             ball.SetValue(32);
+             ball.ballRb.AddForce(Vector3.forward,ForceMode.Impulse);
+             ball.agent.enabled = false;
              _TotalValue -= 32;
              _IsDone = 1;
          }
          else if (_TotalValue >= 16)
          {
              GameObject go = Instantiate(_Ball, _BallSpawn.transform.position, Quaternion.identity);
-             go.GetComponent<Ball>().SetValue(16);
+             var ball = go.GetComponent<Ball>();
+             ball.SetValue(16);
+             ball.ballRb.AddForce(Vector3.forward,ForceMode.Impulse);
+             ball.agent.enabled = false;
              _TotalValue -= 16;
              _IsDone = 1;
          }
          else if (_TotalValue >= 8)
          {
              GameObject go = Instantiate(_Ball, _BallSpawn.transform.position, Quaternion.identity);
-             go.GetComponent<Ball>().SetValue(8);
+             var ball = go.GetComponent<Ball>();
+             ball.SetValue(8);
+             ball.ballRb.AddForce(Vector3.left,ForceMode.Impulse);
+             ball.agent.enabled = false;
              _TotalValue -= 8;
              _IsDone = 1;
          }
          else if (_TotalValue >= 4)
          {
              GameObject go = Instantiate(_Ball, _BallSpawn.transform.position, Quaternion.identity);
-             go.GetComponent<Ball>().SetValue(4);
+             var ball = go.GetComponent<Ball>();
+             ball.SetValue(4);
+             ball.ballRb.AddForce(Vector3.forward , ForceMode.Impulse);
+             ball.agent.enabled = false;
              _TotalValue -= 4;
              _IsDone = 1;
          }
          else if (_TotalValue >= 2)
          {
              GameObject go = Instantiate(_Ball, _BallSpawn.transform.position, Quaternion.identity);
-             go.GetComponent<Ball>().SetValue(2);
+             var ball = go.GetComponent<Ball>();
+             ball.SetValue(2);
+             ball.ballRb.AddForce(Vector3.forward);
+             ball.agent.enabled = false;
              _TotalValue -= 2;
              _IsDone = 1;
          }

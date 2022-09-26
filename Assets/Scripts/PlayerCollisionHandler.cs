@@ -45,8 +45,8 @@ public class PlayerCollisionHandler : MonoBehaviour
         {
             if (!_onMergeMachine)
             {
-                _onMergeMachine = true;
-                if (ballController.balls.Count > 2)
+                //_onMergeMachine = true;
+                if (ballController.balls.Count > 1)
                 {
                     ballController.GoMerge();
                     GameEventHandler.current.PlayerMergeArea(true);

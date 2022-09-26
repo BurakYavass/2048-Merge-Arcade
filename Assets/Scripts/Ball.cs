@@ -11,14 +11,14 @@ public class Ball : MonoBehaviour
     [SerializeField] GameObject[] _Colors;
     [SerializeField] float _BallValue;
     [SerializeField] private SphereCollider triggerCollider;
+    [SerializeField] private SphereCollider _collider;
     [SerializeField] private RuntimeAnimatorController merge;
     [SerializeField] private BallController ballController;
     public NavMeshAgent agent;
     private PlayerController _playerController;
     public GameObject targetObje;
     public Rigidbody ballRb;
-    private Collider _collider;
-    
+
     private float _DelayMerge;
     private float _distance;
     public  bool _Go;
@@ -32,43 +32,42 @@ public class Ball : MonoBehaviour
         _playerController = PlayerController.Current;
         BallChanger();
         StartCoroutine(DelayKinematic());
+        ballRb.interpolation = RigidbodyInterpolation.None;
     }
     void FixedUpdate()
     {
-        if (_Go)
+        if (_Go && agent.enabled)
         {
-            agent.speed = GameManager.current.playerSpeed;
             var distance = Vector3.Distance(transform.position , targetObje.transform.position);
             if (distance < 3.0f && !_playerController.walking)
             {
                 ballRb.isKinematic = true;
+                agent.speed = GameManager.current.playerSpeed;
             }
             else
             {
+                agent.speed = GameManager.current.playerSpeed +1;
                 ballRb.isKinematic = false;
                 var currentVelocity = agent.velocity;
                 agent.destination =
                     Vector3.SmoothDamp(transform.position, targetObje.transform.position, ref currentVelocity,
                          Time.fixedDeltaTime);
-                //var destinationLerp = Vector3.Lerp(ballRb.position, targetObje.transform.position,
-                //Time.deltaTime);
-                //ballRb.MovePosition(destinationLerp);
-                //ballRb.rotation = Quaternion.LookRotation(targetObje.transform.position);
             }
         }
-        else if (_GoMerge)
+        
+        if (_GoMerge)
         {
             transform.position = Vector3.Lerp(transform.position, targetObje.transform.position, .03f   );
             transform.localScale = Vector3.Lerp(transform.localScale, targetObje.transform.localScale, .03f   );
             if (Vector3.Distance(transform.position, targetObje.transform.position) < _distance * .05f)
             {
-                //ballRb.isKinematic = false;
-                _collider.enabled = false;
+                //ballRb.isKinematic = true;
                 _GoMerge = false;
                 StartCoroutine(DelayMergeTime());
             }
         }
-        else if (_GoUpgrade)
+        
+        if (_GoUpgrade)
         {
             Vector3 rndm = new Vector3(Random.Range(-2, 2), Random.Range(2, 4), 0);
             if (Vector3.Distance(transform.position, targetObje.transform.position) < _distance * .05f)
@@ -169,17 +168,17 @@ public class Ball : MonoBehaviour
     
     public void SetGoMerge(GameObject target,float delay)
     {
+        agent.enabled = false;
+        ballRb.useGravity = false;
+        ballRb.isKinematic = true;
+        ballRb.interpolation = RigidbodyInterpolation.None;
         _Go = false;
         _GoMerge = true;
-        //agent.enabled = false;
         _DelayMerge = delay;
         gameObject.transform.parent = target.transform.parent;
-        //ballRb.isKinematic = false;
         targetObje = target;
         _distance = Vector3.Distance(transform.position, targetObje.transform.position);
         gameObject.tag = "MergeBall";
-        _collider.isTrigger = true;
-        
     }
     
     public bool GetStackPos()
@@ -194,33 +193,38 @@ public class Ball : MonoBehaviour
     {
         if (other.gameObject.name=="BallPool")
         {
+             _collider.isTrigger = true;
             //ballRb.isKinematic = false;
+            agent.enabled = false;
         }
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.name == "BallPool")
         {
+            //triggerCollider.isTrigger = true;
             //ballRb.isKinematic = true;
         }
     }
 
     IEnumerator DelayKinematic()
     {
+        ballRb.isKinematic = false;
+        ballRb.useGravity = true;
         yield return new WaitForSeconds(1);
         triggerCollider.enabled = true;
-        //triggerCollider.isTrigger = true;
         yield return new WaitForSeconds(2);
-        //ballRb.isKinematic = true;
+        ballRb.interpolation = RigidbodyInterpolation.Interpolate;
         agent.enabled = true;
+        ballRb.isKinematic = true;
+        ballRb.useGravity = true;
     }
     IEnumerator DelayMergeTime( )
     {
-        _collider.isTrigger = false;
+        triggerCollider.isTrigger = false;
         yield return new WaitForSeconds(_DelayMerge);
         GetComponent<Animator>().runtimeAnimatorController = merge;
-        //_rb.isKinematic = true;
-        _collider.isTrigger = true;
+        triggerCollider.isTrigger = true;
 
     }
 }
