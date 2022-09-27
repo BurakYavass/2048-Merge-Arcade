@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -55,15 +56,19 @@ public class BallController : MonoBehaviour
         if (_goUpgrade)
         {
             _tempTimeMerge += Time.deltaTime;
-            if (balls.Count > 1)
+            if (balls.Count > 0)
             {
-                if (_tempTimeMerge >= .05f)
+                for (int i = 0; i < balls.Count; i++)
                 {
-
-                    balls[balls.Count - 1].GetComponent<Ball>().SetGoUpgrade(upgradeBallPos, _delayMerge);
-                    _delayMerge += .5f;
-                    balls.RemoveAt(balls.Count - 1);
-                    _tempTimeMerge = 0;
+                    if (!_waiter)
+                    {
+                        _waiter = true;
+                        StartCoroutine(DelayMerge());
+                        balls[i].GetComponent<Ball>().SetGoUpgrade(upgradeBallPos, _delayMerge);
+                        _delayMerge += .5f;
+                        balls.RemoveAt(i);
+                        _tempTimeMerge = 0;
+                    }
                 }
             }
             else

@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private List<CinemachineVirtualCamera> virtualCameras;
     [SerializeField] private Joystick joystick;
     [SerializeField] private RectTransform handle;
-    [SerializeField] private Rigidbody _rb;
+    [SerializeField] public Rigidbody _rb;
     [SerializeField] private CinemachineVirtualCamera _virtualCamera;
 
     private float _joystickValue;
@@ -41,8 +41,15 @@ public class PlayerController : MonoBehaviour
 
     public void CameraChanger(int cam)
     {
-        _virtualCamera = null;
-        _virtualCamera = virtualCameras[cam];
+        if (cam == 5)
+        {
+            _virtualCamera = null;
+        }
+        else
+        {
+            _virtualCamera = null;
+            _virtualCamera = virtualCameras[cam];
+        }
     }
 
     private void Movement()

@@ -10,7 +10,7 @@ using Random = UnityEngine.Random;
 public class Ball : MonoBehaviour
 {
     [SerializeField] GameObject[] _Colors;
-    [SerializeField] float _BallValue;
+    [SerializeField] public int _BallValue;
     [SerializeField] private SphereCollider triggerCollider;
     [SerializeField] private SphereCollider _collider;
     [SerializeField] private RuntimeAnimatorController merge;
@@ -39,39 +39,41 @@ public class Ball : MonoBehaviour
     {
         if (_Go && agent.enabled)
         {
+            var targetObjePos = targetObje.transform.position;
             var distance = Vector3.Distance(transform.position , targetObje.transform.position);
-            if (distance < 4.0f)
-            {
-                agent.isStopped = true;
-                if (ballAnimator!=null)
-                {
-                    ballAnimator.SetBool("Jump", false);
-                }
-                agent.speed = GameManager.current.playerSpeed;
-            }
-            else
+            if (distance > 3f)
             {
                 var speed = GameManager.current.playerSpeed;
                 if (distance > 6)
                 {
-                    agent.speed = speed +3;
+                    agent.speed = speed +4;
                 }
                 else
                 {
-                    agent.speed = speed +1;
+                    agent.speed = speed +3;
                 }
 
                 if (ballAnimator!=null)
                 {
                     ballAnimator.SetBool("Jump", true);
                 }
-                agent.isStopped = false;
+
+                _collider.isTrigger = true;
                 var currentVelocity = agent.velocity;
                 agent.destination =
-                    Vector3.SmoothDamp(transform.position, targetObje.transform.position, ref currentVelocity,
-                        Time.fixedDeltaTime);
+                    Vector3.SmoothDamp(transform.position, 
+                                        new Vector3(targetObjePos.x,targetObjePos.y,
+                                                            targetObjePos.z + agent.radius), 
+                                                                 ref currentVelocity, Time.smoothDeltaTime);
             }
-            
+            else
+            {
+                if (ballAnimator!=null)
+                {
+                    ballAnimator.SetBool("Jump", false);
+                }
+                agent.speed = GameManager.current.playerSpeed;
+            }
         }
         
         if (_GoMerge)
@@ -80,7 +82,7 @@ public class Ball : MonoBehaviour
             transform.localScale = Vector3.Lerp(transform.localScale, targetObje.transform.localScale, .03f   );
             if (Vector3.Distance(transform.position, targetObje.transform.position) < _distance * .02f)
             {
-                ballRb.isKinematic = false;
+                //ballRb.isKinematic = false;
                 ballRb.useGravity = true;
                 triggerCollider.enabled = true;
                 _GoMerge = false;
@@ -90,26 +92,21 @@ public class Ball : MonoBehaviour
         
         if (_GoUpgrade)
         {
-            Vector3 rndm = new Vector3(Random.Range(-2, 2), Random.Range(2, 4), 0);
-            if (Vector3.Distance(transform.position, targetObje.transform.position) < _distance * .05f)
+            transform.position = Vector3.Lerp(transform.position, targetObje.transform.position, .03f);
+            transform.localScale = Vector3.Lerp(transform.localScale, targetObje.transform.localScale, .03f);
+            if (Vector3.Distance(transform.position, targetObje.transform.position) < _distance * .02f)
             {
-                //ballRb.isKinematic = false;
-                _collider.enabled = false;
+                ballRb.isKinematic = false;
+                Destroy(gameObject);
+                //_collider.enabled = false;
+                ballRb.useGravity = true;
+                //triggerCollider.enabled = true;
                 _GoUpgrade = false;
-            }
-            else if (Vector3.Distance(transform.position, targetObje.transform.position+ rndm) < _distance * .8f)
-            {
-                transform.position = Vector3.Lerp(transform.position, targetObje.transform.position+ rndm, .01f);
-                transform.localScale = Vector3.Lerp(transform.localScale, targetObje.transform.localScale, .01f);
-            }
-            else
-            {
-                transform.position = Vector3.Lerp(transform.position, targetObje.transform.position, .03f);
-                transform.localScale = Vector3.Lerp(transform.localScale, targetObje.transform.localScale, .03f);
+                //StartCoroutine(DelayMergeTime());
             }
         }
     }
-    public void SetValue(float ballvalue)
+    public void SetValue(int ballvalue)
     {
         _BallValue = ballvalue;
         BallChanger();
@@ -196,11 +193,25 @@ public class Ball : MonoBehaviour
     
     public void SetGoUpgrade(GameObject target, float delay)
     {
-        //ballRb.isKinematic = true;
+        agent.enabled = false;
+        ballRb.useGravity = false;
+        ballRb.isKinematic = true;
+        triggerCollider.enabled = false;
+        _collider.isTrigger = true;
+        if (ballAnimator!=null)
+        {
+            ballAnimator.SetBool("Jump", false);
+            ballAnimator = null;
+        }
+        ballRb.interpolation = RigidbodyInterpolation.None;
+        _Go = false;
+        _GoMerge = false;
+        _GoUpgrade = true;
+        _DelayMerge = delay;
+        gameObject.transform.parent = target.transform.parent;
         targetObje = target;
         _distance = Vector3.Distance(transform.position, targetObje.transform.position);
-        _collider.isTrigger = true;
-        _GoUpgrade = true;
+        gameObject.tag = "UpgradeBall";
     }
     
     public void SetGoTarget(Transform target)
@@ -237,7 +248,7 @@ public class Ball : MonoBehaviour
     {
         return _OnStackpos;
     }
-    public float GetValue()
+    public int GetValue()
     {
         return _BallValue;
     }
@@ -248,6 +259,12 @@ public class Ball : MonoBehaviour
              _collider.isTrigger = true;
              agent.enabled = false;
             GameEventHandler.current.BallMergeArea(true);
+        }
+        
+        if (other.gameObject.name == "BallFire")
+        {
+            _collider.isTrigger = true;
+            agent.enabled = false;
         }
     }
     private void OnTriggerExit(Collider other)

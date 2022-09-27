@@ -2,26 +2,28 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CameraControl : MonoBehaviour
 {
     [SerializeField] private CinemachineVirtualCamera playerNormalCam;
-    private CinemachineTransposer _transposer;
     [SerializeField] private CinemachineVirtualCamera playerBaseRightCam;
     [SerializeField] private CinemachineVirtualCamera playerBaseLeftCam;
+    [SerializeField] private CinemachineVirtualCamera UpgradeAreaCam;
     
     void Start()
     {
         GameEventHandler.current.OnPlayerRightArea += OnPlayerRightArea;
         GameEventHandler.current.OnPlayerLeftArea += OnPlayerLeftArea;
-        _transposer = playerNormalCam.GetCinemachineComponent<CinemachineTransposer>();
+        GameEventHandler.current.OnPlayerUpgradeArea += OnplayerUpgradeArea;
     }
 
     private void OnDisable()
     {
         GameEventHandler.current.OnPlayerRightArea -= OnPlayerRightArea;
         GameEventHandler.current.OnPlayerLeftArea -= OnPlayerLeftArea;
+        GameEventHandler.current.OnPlayerUpgradeArea -= OnplayerUpgradeArea;
     }
 
     private void OnPlayerLeftArea(bool enterExit)
@@ -44,7 +46,21 @@ public class CameraControl : MonoBehaviour
         }
         else
         {
-            playerBaseRightCam.Priority = 4;
+            playerBaseRightCam.Priority = 3;
+        }
+    }
+
+    private void OnplayerUpgradeArea(bool enterExit,int value)
+    {
+        if (enterExit)
+        {
+            //playerNormalCam.enabled = false;
+            UpgradeAreaCam.Priority = 10;
+        }
+        else
+        {
+            //playerNormalCam.enabled = true;
+            UpgradeAreaCam.Priority = 2;
         }
     }
 }

@@ -22,7 +22,7 @@ public class ChestController : MonoBehaviour
 
     private Transform playerTransform;
     
-    [SerializeField] private float[] _CreatValue;
+    [SerializeField] private int[] _CreatValue;
     [SerializeField] private float _CreatCount;
     [SerializeField] private float _ChestHealthValue; 
     private float _ChestHealthValueCurrent;
@@ -107,8 +107,8 @@ public class ChestController : MonoBehaviour
         }
         for (int i = 0; i < _CreatCount; i++)
         {
-            GameObject go = Instantiate(_CreatBall, transform.position, Quaternion.identity);
-            go.GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(0,3), Random.Range(3, 5), Random.Range(0, 3)));
+            GameObject go = Instantiate(_CreatBall, transform.position, Quaternion.LookRotation(Vector3.forward));
+            go.GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(0,3), Random.Range(3, 5)*3, Random.Range(0, 3)));
             if (_CreatValue.Length > 1)
             {
                 int rdnm=Random.Range(0,100);
