@@ -12,9 +12,9 @@ public class PlayerBallCounter : MonoBehaviour
 
     public void BallCountCheck()
     {
-        for (int i = 0; i < _ballController.balls.Count; i++)
+        foreach (var ball in _ballController.balls)
         {
-            stackValue += _ballController.balls[i].GetComponent<Ball>().GetValue();
+            stackValue += ball.GetComponent<Ball>().GetValue();
         }
     }
     public float GetValue()

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Experimental.GlobalIllumination;
@@ -41,16 +42,20 @@ public class Ball : MonoBehaviour
         {
             var targetObjePos = targetObje.transform.position;
             var distance = Vector3.Distance(transform.position , targetObje.transform.position);
-            if (distance > 3f)
+            if (Mathf.Abs(agent.stoppingDistance - distance) > 3.0f)
             {
                 var speed = GameManager.current.playerSpeed;
-                if (distance > 6)
+                if (distance > 6.0f)
                 {
-                    agent.speed = speed +4;
+                    agent.speed += .5f * Time.deltaTime;
+                }
+                else if(distance < 4)
+                {
+                    agent.speed = speed;
                 }
                 else
                 {
-                    agent.speed = speed +3;
+                    agent.speed -= .5f * Time.deltaTime;
                 }
 
                 if (ballAnimator!=null)
@@ -97,7 +102,7 @@ public class Ball : MonoBehaviour
             if (Vector3.Distance(transform.position, targetObje.transform.position) < _distance * .02f)
             {
                 ballRb.isKinematic = false;
-                Destroy(gameObject);
+                Destroy(transform.gameObject);
                 //_collider.enabled = false;
                 ballRb.useGravity = true;
                 //triggerCollider.enabled = true;
@@ -254,35 +259,26 @@ public class Ball : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.name=="BallPool")
+        if (other.CompareTag("BallPool"))
         {
              _collider.isTrigger = true;
              agent.enabled = false;
             GameEventHandler.current.BallMergeArea(true);
         }
         
-        if (other.gameObject.name == "BallFire")
+        if (other.CompareTag("BallUpgrade"))
         {
+            GameEventHandler.current.BallUpgradeArea(true);
             _collider.isTrigger = true;
-            agent.enabled = false;
         }
     }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.name == "BallPool")
-        {
-            //triggerCollider.isTrigger = true;
-            //ballRb.isKinematic = true;
-        }
-    }
-
     IEnumerator DelayKinematic()
     {
         ballRb.isKinematic = false;
         ballRb.useGravity = true;
         yield return new WaitForSeconds(1);
         triggerCollider.enabled = true;
-        yield return new WaitForSeconds(2);
+        //yield return new WaitForSeconds(2);
         ballRb.interpolation = RigidbodyInterpolation.Interpolate;
         agent.enabled = true;
         ballRb.isKinematic = true;

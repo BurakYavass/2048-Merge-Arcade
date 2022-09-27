@@ -9,8 +9,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject upgradePanel;
     [SerializeField] private GameObject joyStickPanel;
     [SerializeField] private TextMeshProUGUI speedText;
-    [SerializeField] private TextMeshProUGUI healthText;
+    [SerializeField] private TextMeshProUGUI armorText;
     [SerializeField] private TextMeshProUGUI damageText;
+    [SerializeField] private TextMeshProUGUI speedLevel;
+    [SerializeField] private TextMeshProUGUI armorLevel;
+    [SerializeField] private TextMeshProUGUI damageLevel;
+    
 
     
     public void UpgradePanel(bool openClose)
@@ -31,6 +35,5 @@ public class UIManager : MonoBehaviour
                             joyStickPanel.SetActive(true);
                         }));
         }
-        
     }
 }

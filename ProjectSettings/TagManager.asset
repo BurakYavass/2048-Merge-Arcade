@@ -23,6 +23,8 @@ TagManager:
   - BaseLeft
   - MergeBall
   - UpgradeBall
+  - BallPool
+  - BallUpgrade
   layers:
   - Default
   - TransparentFX

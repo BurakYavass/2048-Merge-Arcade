@@ -13,11 +13,10 @@ public class PlayerCollisionHandler : MonoBehaviour
     private ChestController _chestController;
     private PlayerBallCounter _playerBallCounter;
     private Vector3 _lastposition;
-
-    private bool _onUpgrade = false;
+    
     private bool _onMergeMachine = false;
     private bool _hit = false;
-    private bool _waiter = false;
+    private bool upgradeArea = false;
     private int i = 0;
 
     private void Start()
@@ -46,10 +45,11 @@ public class PlayerCollisionHandler : MonoBehaviour
         {
             if (!_onMergeMachine)
             {
-                //_onMergeMachine = true;
+                _onMergeMachine = true;
                 if (ballController.balls.Count > 1)
                 {
                     ballController.GoMerge();
+                    GameEventHandler.current.BallMergeArea(true);
                 }
             }
         }
@@ -58,18 +58,16 @@ public class PlayerCollisionHandler : MonoBehaviour
         {
             var playerpos = playerController.gameObject.transform.position;
             _lastposition = new Vector3(playerpos.x, playerpos.y, playerpos.z);
-            if (!_onUpgrade)
+            ballController.GoUpgrade();
+            if (!upgradeArea)
             {
-                //_onUpgrade = true;
-                //ballController.GoUpgrade();
-                ballController.GoUpgrade();
+                upgradeArea = true;
                 _playerBallCounter.BallCountCheck();
-                GameEventHandler.current.PlayerUpgradeArea(true,_playerBallCounter.stackValue);
-                playerController.gameObject.transform.position = new Vector3(36.95f, 0.63f, 24.75f);
-                playerController.gameObject.transform.rotation = Quaternion.Euler(0,-66,0);
-                playerController.CameraChanger(5);
-                //playerController._rb.isKinematic = true;
             }
+            GameEventHandler.current.PlayerUpgradeArea(true,_playerBallCounter.stackValue);
+            playerController.gameObject.transform.position = new Vector3(36.95f, 0.63f, 24.75f);
+            playerController.gameObject.transform.rotation = Quaternion.Euler(0,-66,0);
+            playerController.CameraChanger(5);
         }
     }
 
@@ -80,10 +78,12 @@ public class PlayerCollisionHandler : MonoBehaviour
             if (i <= 2)
             {
                 var lastObje = playerFollowPoints[i].ReturnLast();
-                other.gameObject.GetComponent<Ball>().SetGoTarget(lastObje.transform);
+                if (other.gameObject.GetComponent<Ball>() != null)
+                {
+                    other.gameObject.GetComponent<Ball>().SetGoTarget(lastObje.transform);
+                }
                 playerFollowPoints[i].SaveBall(other.transform.gameObject);
                 ballController.SetNewBall(other.gameObject);
-                //other.transform.parent = lastObje.transform;
                 other.tag = "StackBall";
                 i++;
             }
@@ -131,15 +131,20 @@ public class PlayerCollisionHandler : MonoBehaviour
 
         if (other.CompareTag("UpgradeTrigger"))
         {
-            _onUpgrade = false;
-            GameEventHandler.current.PlayerUpgradeArea(false,0);
-            _playerBallCounter.stackValue = 0;
-            playerController.CameraChanger(0);
-            playerController._rb.isKinematic = false;
-            playerController.gameObject.transform.position = new Vector3(_lastposition.x, _lastposition.y, _lastposition.z);
-            playerController.gameObject.transform.rotation = Quaternion.Euler(0,0,0);
-            
+            upgradeArea = false;
+            GameEventHandler.current.BallUpgradeArea(false);
         }
+        
+    }
+
+    public void ExitUpgrade()
+    {
+        GameEventHandler.current.PlayerUpgradeArea(false,0);
+        _playerBallCounter.stackValue = 0;
+        playerController.gameObject.transform.position = new Vector3(_lastposition.x, _lastposition.y, _lastposition.z);
+        playerController.gameObject.transform.rotation = Quaternion.Euler(0,0,0);
+        playerController.CameraChanger(0);
+        
     }
     
     IEnumerator HitDelay()

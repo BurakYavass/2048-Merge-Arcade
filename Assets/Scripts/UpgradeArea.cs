@@ -39,7 +39,6 @@ public class UpgradeArea : MonoBehaviour
     
     private float _tempTime;
     private int _totalValue;
-    private int _isDone;
     private bool _mergeTime;
     private bool _calculate = false;
     private int _dicreaseValue;
@@ -73,7 +72,14 @@ public class UpgradeArea : MonoBehaviour
     private void OnPlayerUpgradeArea(bool working, int value)
     {
         blackSmithAnimator.SetBool("working",working);
-        _totalValue = value;
+        if (working == false)
+        {
+            UpgradeCalculate(0);
+        }
+        else
+        {
+            _totalValue = value;
+        }
     }
 
     public void SetUpgrade()
@@ -87,7 +93,6 @@ public class UpgradeArea : MonoBehaviour
 
     void TotalValue()
      {
-         _isDone = 0;
          if (_totalValue >=4096)
          {
              GameObject go = Instantiate(ballPrefab, ballSpawnPosition.position, Quaternion.identity);

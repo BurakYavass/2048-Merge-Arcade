@@ -65,7 +65,6 @@ public class MergeController : MonoBehaviour
         {
             if (_TempTime>.2f)
             {
-                //CalculateMerge();
                 TotalValue();
                 _TempTime = 0;
             }
@@ -80,7 +79,6 @@ public class MergeController : MonoBehaviour
     {
         _MergeTime = true;
         TotalValue();
-        //CalculateMerge();
     }
      void TotalValue()
      {
@@ -150,7 +148,7 @@ public class MergeController : MonoBehaviour
              GameObject go = Instantiate(_Ball, _ballSpawn.transform.position, _ballSpawn.transform.localRotation);
              var ball = go.GetComponent<Ball>();
              ball.SetValue(64);
-             ball.ballRb.AddForce(Vector3.forward*5);
+             ball.ballRb.AddForce(Vector3.forward*5,ForceMode.Acceleration);
              ball.agent.enabled = false;
              _TotalValue -= 64;
              _IsDone = 1;
@@ -160,7 +158,7 @@ public class MergeController : MonoBehaviour
              GameObject go = Instantiate(_Ball, _ballSpawn.transform.position, _ballSpawn.transform.localRotation);
              var ball = go.GetComponent<Ball>();
              ball.SetValue(32);
-             ball.ballRb.AddForce(Vector3.forward*5);
+             ball.ballRb.AddForce(Vector3.left*5,ForceMode.Acceleration);
              ball.agent.enabled = false;
              _TotalValue -= 32;
              _IsDone = 1;
@@ -170,7 +168,7 @@ public class MergeController : MonoBehaviour
              GameObject go = Instantiate(_Ball, _ballSpawn.transform.position, _ballSpawn.transform.localRotation);
              var ball = go.GetComponent<Ball>();
              ball.SetValue(16);
-             ball.ballRb.AddForce(Vector3.forward*5);
+             ball.ballRb.AddForce(Vector3.left*5,ForceMode.Acceleration);
              ball.agent.enabled = false;
              _TotalValue -= 16;
              _IsDone = 1;
@@ -180,7 +178,7 @@ public class MergeController : MonoBehaviour
              GameObject go = Instantiate(_Ball, _ballSpawn.transform.position, _ballSpawn.transform.localRotation);
              var ball = go.GetComponent<Ball>();
              ball.SetValue(8);
-             ball.ballRb.AddForce(Vector3.forward*5);
+             ball.ballRb.AddForce(Vector3.left*5,ForceMode.Acceleration);
              ball.agent.enabled = false;
              _TotalValue -= 8;
              _IsDone = 1;
@@ -190,7 +188,7 @@ public class MergeController : MonoBehaviour
              GameObject go = Instantiate(_Ball, _ballSpawn.transform.position, _ballSpawn.transform.localRotation);
              var ball = go.GetComponent<Ball>();
              ball.SetValue(4);
-             ball.ballRb.AddForce(Vector3.forward*5);
+             ball.ballRb.AddForce(Vector3.left*5,ForceMode.Acceleration);
              ball.agent.enabled = false;
              _TotalValue -= 4;
              _IsDone = 1;
@@ -200,7 +198,7 @@ public class MergeController : MonoBehaviour
              GameObject go = Instantiate(_Ball, _ballSpawn.transform.position, _ballSpawn.transform.localRotation);
              var ball = go.GetComponent<Ball>();
              ball.SetValue(2);
-             ball.ballRb.AddForce(Vector3.forward*5);
+             ball.ballRb.AddForce(Vector3.left*5,ForceMode.Acceleration);
              ball.agent.enabled = false;
              _TotalValue -= 2;
              _IsDone = 1;
@@ -216,252 +214,7 @@ public class MergeController : MonoBehaviour
                 machineAnimator.SetBool("vibration" , false);
          }
      }
-    /*void CalculateMerge()
-    {
-        _IsDone = 0;
-        if (_2.Count>0)
-        {
-            if (_2.Count>=2)
-            {
-                 _2.RemoveAt(_2.Count-1);
-                 _2.RemoveAt(_2.Count-1);
-                GameObject go = Instantiate(_Ball, _BallSpawn.transform.position, Quaternion.identity);
-                go.GetComponent<Ball>().SetValue(4);
-                go.GetComponent<Rigidbody>().AddForce(transform.forward);
-                _IsDone += 1;
-            }
-            else if (_2.Count == 1)
-            {
-                _2.Clear();
-                GameObject go = Instantiate(_Ball, _BallSpawn.transform.position, Quaternion.identity);
-                go.GetComponent<Ball>().SetValue(2);
-                go.GetComponent<Rigidbody>().AddForce(transform.forward);
-                _IsDone += 1;
-            }                
-        }
-        else  if (_4.Count>0)
-        {
-            if (_4.Count>=2)
-            {
-                 _4.RemoveAt(_4.Count-1);
-                 _4.RemoveAt(_4.Count-1);
-                GameObject go = Instantiate(_Ball, _BallSpawn.transform.position, Quaternion.identity);
-                go.GetComponent<Ball>().SetValue(8);
-                go.GetComponent<Rigidbody>().AddForce(transform.forward);
-                _IsDone += 1;
-            }
-            else if (_4.Count == 1)
-            {
-                _4.Clear();
-                GameObject go = Instantiate(_Ball, _BallSpawn.transform.position, Quaternion.identity);
-                go.GetComponent<Ball>().SetValue(4);
-                go.GetComponent<Rigidbody>().AddForce(transform.forward);
-                _IsDone += 1;
-            }                
-        }
-        else if (_8.Count>0)
-        {
-            if (_8.Count>=2)
-            {
-                 _8.RemoveAt(_8.Count-1);
-                 _8.RemoveAt(_8.Count-1);
-                GameObject go = Instantiate(_Ball, _BallSpawn.transform.position, Quaternion.identity);
-                go.GetComponent<Ball>().SetValue(16);
-                go.GetComponent<Rigidbody>().AddForce(transform.forward);
-                _IsDone += 1;
-            }
-            else if (_8.Count == 1)
-            {
-                _8.Clear();
-                GameObject go = Instantiate(_Ball, _BallSpawn.transform.position, Quaternion.identity);
-                go.GetComponent<Ball>().SetValue(8);
-                go.GetComponent<Rigidbody>().AddForce(transform.forward);
-                _IsDone += 1;
-            }                
-        }
-        else if (_16.Count>0)
-        {
-            if (_16.Count>=2)
-            {
-                 _16.RemoveAt(_16.Count-1);
-                 _16.RemoveAt(_16.Count-1);
-                GameObject go = Instantiate(_Ball, _BallSpawn.transform.position, Quaternion.identity);
-                go.GetComponent<Ball>().SetValue(32);
-                go.GetComponent<Rigidbody>().AddForce(transform.forward);
-                _IsDone += 1;
-            }
-            else if (_16.Count == 1)
-            {
-                _16.Clear();
-                GameObject go = Instantiate(_Ball, _BallSpawn.transform.position, Quaternion.identity);
-                go.GetComponent<Ball>().SetValue(16);
-                go.GetComponent<Rigidbody>().AddForce(transform.forward);
-                _IsDone += 1;
-            }                
-        }
-        else if (_32.Count>0)
-        {
-            if (_32.Count>=2)
-            {
-                 _32.RemoveAt(_32.Count-1);
-                 _32.RemoveAt(_32.Count-1);
-                GameObject go = Instantiate(_Ball, _BallSpawn.transform.position, Quaternion.identity);
-                go.GetComponent<Ball>().SetValue(64);
-                go.GetComponent<Rigidbody>().AddForce(transform.forward);
-                _IsDone += 1;
-            }
-            else if (_32.Count == 1)
-            {
-                _32.Clear();
-                GameObject go = Instantiate(_Ball, _BallSpawn.transform.position, Quaternion.identity);
-                go.GetComponent<Ball>().SetValue(32);
-                go.GetComponent<Rigidbody>().AddForce(transform.forward);
-                _IsDone += 1;
-            }                
-        }
-        else if (_64.Count>0)
-        {
-            if (_64.Count>=2)
-            {
-                 _64.RemoveAt(_64.Count-1);
-                 _64.RemoveAt(_64.Count-1);
-                GameObject go = Instantiate(_Ball, _BallSpawn.transform.position, Quaternion.identity);
-                go.GetComponent<Ball>().SetValue(128);
-                go.GetComponent<Rigidbody>().AddForce(transform.forward);
-                _IsDone += 1;
-            }
-            else if (_64.Count == 1)
-            {
-                _64.Clear();
-                GameObject go = Instantiate(_Ball, _BallSpawn.transform.position, Quaternion.identity);
-                go.GetComponent<Ball>().SetValue(64);
-                go.GetComponent<Rigidbody>().AddForce(transform.forward);
-                _IsDone += 1;
-            }                
-        }
-        else if (_128.Count>0)
-        {
-            if (_128.Count>=2)
-            {
-                 _128.RemoveAt(_128.Count-1);
-                 _128.RemoveAt(_128.Count-1);
-                GameObject go = Instantiate(_Ball, _BallSpawn.transform.position, Quaternion.identity);
-                go.GetComponent<Ball>().SetValue(256);
-                go.GetComponent<Rigidbody>().AddForce(transform.forward);
-                _IsDone += 1;
-            }
-            else if (_128.Count == 1)
-            {
-                _128.Clear();
-                GameObject go = Instantiate(_Ball, _BallSpawn.transform.position, Quaternion.identity);
-                go.GetComponent<Ball>().SetValue(128);
-                go.GetComponent<Rigidbody>().AddForce(transform.forward);
-                _IsDone += 1;
-            }                
-        }
-        else if (_256.Count>0)
-        {
-            if (_256.Count>=2)
-            {
-                _256.RemoveAt(_256.Count-1);
-                _256.RemoveAt(_256.Count-1);
-                GameObject go = Instantiate(_Ball, _BallSpawn.transform.position, Quaternion.identity);
-                go.GetComponent<Ball>().SetValue(512);
-                go.GetComponent<Rigidbody>().AddForce(transform.forward);
-                _IsDone += 1;
-            }
-            else if (_256.Count == 1)
-            {
-                _256.Clear();
-                GameObject go = Instantiate(_Ball, _BallSpawn.transform.position, Quaternion.identity);
-                go.GetComponent<Ball>().SetValue(256);
-                go.GetComponent<Rigidbody>().AddForce(transform.forward);
-                _IsDone += 1;
-            }                
-        }
-        else if (_512.Count>0)
-        {
-            if (_512.Count>=2)
-            {
-                _512.RemoveAt(_512.Count-1);
-                _512.RemoveAt(_512.Count-1);
-                GameObject go = Instantiate(_Ball, _BallSpawn.transform.position, Quaternion.identity);
-                go.GetComponent<Ball>().SetValue(1024);
-                go.GetComponent<Rigidbody>().AddForce(transform.forward);
-                _IsDone += 1;
-            }
-            else if (_512.Count == 1)
-            {
-                _512.Clear();
-                GameObject go = Instantiate(_Ball, _BallSpawn.transform.position, Quaternion.identity);
-                go.GetComponent<Ball>().SetValue(512);
-                go.GetComponent<Rigidbody>().AddForce(transform.forward);
-                _IsDone += 1;
-            }                
-        }
-        
-        else if (_1024.Count>0)
-        {
-            if (_1024.Count>=2)
-            {
-                _1024.RemoveAt(_1024.Count-1);
-                _1024.RemoveAt(_1024.Count-1);
-                GameObject go = Instantiate(_Ball, _BallSpawn.transform.position, Quaternion.identity);
-                go.GetComponent<Ball>().SetValue(2048);
-                go.GetComponent<Rigidbody>().AddForce(transform.forward);
-                _IsDone += 1;
-            }
-            else if (_1024.Count == 1)
-            {
-                _1024.Clear();
-                GameObject go = Instantiate(_Ball, _BallSpawn.transform.position, Quaternion.identity);
-                go.GetComponent<Ball>().SetValue(1024);
-                go.GetComponent<Rigidbody>().AddForce(transform.forward);
-                _IsDone += 1;
-            }                
-        }
-        
-        else if (_2048.Count>0)
-        {
-            if (_2048.Count>=2)
-            {
-                _2048.RemoveAt(_2048.Count-1);
-                _2048.RemoveAt(_2048.Count-1);
-                GameObject go = Instantiate(_Ball, _BallSpawn.transform.position, Quaternion.identity);
-                go.GetComponent<Ball>().SetValue(4096);
-                go.GetComponent<Rigidbody>().AddForce(transform.forward);
-                _IsDone += 1;
-            }
-            else if (_2048.Count == 1)
-            {
-                _2048.Clear();
-                GameObject go = Instantiate(_Ball, _BallSpawn.transform.position, Quaternion.identity);
-                go.GetComponent<Ball>().SetValue(2048);
-                go.GetComponent<Rigidbody>().AddForce(transform.forward);
-                _IsDone += 1;
-            }                
-        }
-        
-        else if (_4096.Count>0)
-        {
-            if (_4096.Count >= 1)
-            {
-                _4096.RemoveAt(_4096.Count - 1);
-              
-                GameObject go = Instantiate(_Ball, _BallSpawn.transform.position, Quaternion.identity);
-                go.GetComponent<Ball>().SetValue(4096);
-                go.GetComponent<Rigidbody>().AddForce(transform.forward);
-                _IsDone += 1;
-            }                
-        }
-
-        if (_IsDone==0)
-        {
-            _MergeTime = false;
-            machineAnimator.SetBool("vibration" , false);
-        }
-    }*/
-    private void OnTriggerEnter(Collider other)
+     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("MergeBall"))
         {
@@ -530,8 +283,6 @@ public class MergeController : MonoBehaviour
                 _TotalValue += 4096;
                 _4096.Add(other.gameObject);
             }
-
         }
     }
-    
 }
