@@ -75,12 +75,12 @@ public class UpgradeArea : MonoBehaviour
         if (working == false)
         {
             _calculate = false;
+            SetUpgrade();
         }
     }
 
     public void SetUpgrade()
     {
-        Debug.Log(_totalValue);
         if (_totalValue >1)
         {
             TotalValue();

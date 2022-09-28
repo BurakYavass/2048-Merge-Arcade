@@ -262,9 +262,17 @@ public class Ball : MonoBehaviour
         if (other.CompareTag("BallPool"))
         {
             _collider.isTrigger = true;
-            agent.enabled = false;
-            other.transform.DOPunchScale(Vector3.back, 1);
-            GameEventHandler.current.BallMergeArea(true,this.gameObject);
+            GameEventHandler.current.BallMergeArea(true,gameObject);
+            if (!once)
+            {
+                once = true;
+                other.transform.parent.DOPunchScale(new Vector3(0.1f,0.1f,0.1f),0.5f)
+                    .OnComplete((() =>
+                    {
+                        once = false;
+                        other.transform.localScale = Vector3.one;
+                    }));
+            }
         }
     }
 
@@ -272,6 +280,7 @@ public class Ball : MonoBehaviour
     {
         if (other.CompareTag("BallUpgrade"))
         {
+            _collider.isTrigger = true;
             GameEventHandler.current.BallUpgradeArea(true,this.gameObject);
             if (!once)
             {
@@ -283,7 +292,6 @@ public class Ball : MonoBehaviour
                         other.transform.localScale = Vector3.one;
                     }));
             }
-            _collider.isTrigger = true;
         }
     }
 
