@@ -13,19 +13,22 @@ public class GameManager : MonoBehaviour
     private int _damageUpgradeRequire;
     private int _armorUpgradeRequire;
 
-    private int _speedState = 0;
-    private int _damageState = 0;
-    private int _armorState = 0;
+    [NonSerialized]
+    public int _speedState = 0;
+    [NonSerialized]
+    public int _damageState = 0;
+    [NonSerialized]
+    public int _armorState = 0;
 
     private int playerMoney;
 
     [SerializeField] private UIManager uiManager;
     [SerializeField] private PlayerBallCounter playerBallCounter;
     [SerializeField] private BallController ballController;
-    [SerializeField] private UpgradeArea upgradeArea;
-    [SerializeField] private List<int> speedUpgradeState;
-    [SerializeField] private List<int> damageUpgradeState;
-    [SerializeField] private List<int> armorUpgradeState;
+    [SerializeField] private UpgradeArea upgradeMachine;
+    [SerializeField] public List<int> speedUpgradeState;
+    [SerializeField] public List<int> damageUpgradeState;
+    [SerializeField] public List<int> armorUpgradeState;
 
     private void Awake()
     {
@@ -50,17 +53,17 @@ public class GameManager : MonoBehaviour
         GameEventHandler.current.OnPlayerUpgradeArea -= OnPlayerUpgradeArea;   
     }
 
-    private void OnPlayerUpgradeArea(bool openClose,int value)
+    private void OnPlayerUpgradeArea(bool openClose)
     {
         uiManager.UpgradePanel(openClose);
         playerMoney = playerBallCounter.stackValue;
     }
 
-    public void PlayerHealth()
+    public void PlayerArmor()
     {
         if (playerBallCounter.stackValue >= 128)
         {
-            upgradeArea.UpgradeCalculate(_speedUpgradeRequire);
+            upgradeMachine.UpgradeCalculate(_armorUpgradeRequire);
             Debug.Log("PlayerHealthIncrease");
         }
         else
@@ -73,13 +76,21 @@ public class GameManager : MonoBehaviour
     {
         if (playerBallCounter.stackValue >= _speedUpgradeRequire)
         {
-            upgradeArea.UpgradeCalculate(_speedUpgradeRequire);
+            upgradeMachine.UpgradeCalculate(_speedUpgradeRequire);
             playerBallCounter.stackValue -= _speedUpgradeRequire;
             playerSpeed += 2.0f;
             _speedState++;
             if (_speedState==1)
             {
                 _speedUpgradeRequire = speedUpgradeState[_speedState];
+            }
+            else if (_speedState == 2)
+            {
+                _speedUpgradeRequire = speedUpgradeState[_speedState];
+            }
+            else
+            {
+                //_speedUpgradeRequire = speedUpgradeState[_speedState];
             }
             Debug.Log("PlayerSpeedIncrease");
         }
@@ -88,14 +99,28 @@ public class GameManager : MonoBehaviour
             Debug.Log("Not Enoughf Money");
         }
     }
-
+    
     public void PlayerDamage()
     {
-        if (playerBallCounter.stackValue >= _damageUpgradeRequire)
+        if (playerBallCounter.stackValue >= _damageUpgradeRequire )
         {
-            upgradeArea.UpgradeCalculate(_damageUpgradeRequire);
+            upgradeMachine.UpgradeCalculate(_damageUpgradeRequire);
             playerDamage += 5;
             playerBallCounter.stackValue -= _damageUpgradeRequire;
+            _damageState++;
+            if (_damageState==1)
+            {
+                _damageState = damageUpgradeState[_damageState];
+            }
+            else if (_damageState == 2)
+            {
+                _damageUpgradeRequire = damageUpgradeState[_damageState];
+            }
+            else
+            {
+                Debug.Log("MaxLevel");
+                //_damageUpgradeRequire = damageUpgradeState[_damageState];
+            }
             Debug.Log("PlayerDamageIncrease");
         }
         else
@@ -103,5 +128,18 @@ public class GameManager : MonoBehaviour
             Debug.Log("Not Enoughf Money");
         }
         
+    }
+    
+    public int ReturnSpeedState()
+    {
+        return speedUpgradeState[_speedState];
+    }
+    public int ReturnArmorState()
+    {
+        return armorUpgradeState[_armorState];
+    }
+    public int ReturnDamageState()
+    {
+        return damageUpgradeState[_damageState];
     }
 }

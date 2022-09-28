@@ -27,9 +27,10 @@ public class FollowerList : MonoBehaviour
         GameEventHandler.current.OnBallUpgradeArea -= RemoveBall;
     }
 
-    private void RemoveBall(bool obj)
+    private void RemoveBall(bool work, GameObject obj)
     {
-        clearList = obj;
+        //clearList = obj;
+        follower.Remove(obj);
     }
 
     private void Update()

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Cinemachine;
+using DG.Tweening;
 using UnityEngine;
 
 
@@ -16,6 +17,7 @@ public class PlayerController : MonoBehaviour
     private float _joystickValue;
 
     public bool walking = false;
+    private bool upgradeArea = false;
     private bool once = false;
     
     private void Awake()
@@ -26,9 +28,39 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        GameEventHandler.current.OnPlayerUpgradeArea += OnPlayerUpgradeArea;
+        DOTween.Init();
+    }
+
+    private void OnDisable()
+    {
+        GameEventHandler.current.OnPlayerUpgradeArea -= OnPlayerUpgradeArea;
+    }
+
+    private void OnPlayerUpgradeArea(bool enterExit)
+    {
+        if (enterExit)
+        {
+            transform.DOMove(new Vector3(37f, 0.63f, 24.75f), 1.0f).OnUpdate((() => walking = true))
+                .OnComplete((() =>
+                {
+                    transform.DORotate(new Vector3(0, -66, 0), 1.0f);
+                    upgradeArea = true;
+                }));
+            
+        }
+        else 
+        {
+            upgradeArea = false;
+        }
+        
+    }
+
     void Update()
     {
-        if (joystick.isActiveAndEnabled)
+        if (joystick.isActiveAndEnabled && _virtualCamera != null && !upgradeArea)
         {
             Movement();
         }
@@ -41,13 +73,12 @@ public class PlayerController : MonoBehaviour
 
     public void CameraChanger(int cam)
     {
-        if (cam == 5)
+        if (cam == 3)
         {
-            _virtualCamera = null;
+            _virtualCamera = virtualCameras[cam];
         }
         else
         {
-            _virtualCamera = null;
             _virtualCamera = virtualCameras[cam];
         }
     }
@@ -56,7 +87,7 @@ public class PlayerController : MonoBehaviour
     {
         var speed = GameManager.current.playerSpeed;
         Vector3 inputVector = new Vector3(joystick.Horizontal, 0f, joystick.Vertical);
-        
+
         inputVector = Vector3.ClampMagnitude(inputVector, speed);
         if (inputVector != Vector3.zero)
         {
@@ -88,6 +119,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
+                
                 walking = false;
                 once = false;
             }

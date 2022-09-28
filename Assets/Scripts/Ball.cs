@@ -1,11 +1,7 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Experimental.GlobalIllumination;
 using Random = UnityEngine.Random;
 
 public class Ball : MonoBehaviour
@@ -27,6 +23,7 @@ public class Ball : MonoBehaviour
     public  bool _GoMerge;
     public  bool _GoUpgrade;
     private bool _OnStackpos;
+    private bool once = false;
 
     void Start()
     {
@@ -125,6 +122,9 @@ public class Ball : MonoBehaviour
         if (_BallValue==2)
         {
             _Colors[0].SetActive(true);
+            _Colors[0].transform.DOLocalJump(
+                new Vector3(Random.Range(0, 3), Random.Range(3, 5),Random.Range(0, 3)),
+                                    1,1,2.0f);
             if (_Colors[0].GetComponent<Animator>() != null)
             {
                 ballAnimator = _Colors[0].GetComponent<Animator>();
@@ -261,28 +261,41 @@ public class Ball : MonoBehaviour
     {
         if (other.CompareTag("BallPool"))
         {
-             _collider.isTrigger = true;
-             agent.enabled = false;
-            GameEventHandler.current.BallMergeArea(true);
+            _collider.isTrigger = true;
+            agent.enabled = false;
+            other.transform.DOPunchScale(Vector3.back, 1);
+            GameEventHandler.current.BallMergeArea(true,this.gameObject);
         }
-        
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
         if (other.CompareTag("BallUpgrade"))
         {
-            GameEventHandler.current.BallUpgradeArea(true);
+            GameEventHandler.current.BallUpgradeArea(true,this.gameObject);
+            if (!once)
+            {
+                once = true;
+                other.transform.DOPunchScale(new Vector3(0.1f,0.1f,0.1f),0.5f)
+                    .OnComplete((() =>
+                    {
+                        once = false;
+                        other.transform.localScale = Vector3.one;
+                    }));
+            }
             _collider.isTrigger = true;
         }
     }
+
     IEnumerator DelayKinematic()
     {
         ballRb.isKinematic = false;
         ballRb.useGravity = true;
-        yield return new WaitForSeconds(1);
         triggerCollider.enabled = true;
-        //yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         ballRb.interpolation = RigidbodyInterpolation.Interpolate;
         agent.enabled = true;
         ballRb.isKinematic = true;
-        ballRb.useGravity = true;
     }
     IEnumerator DelayMergeTime( )
     {

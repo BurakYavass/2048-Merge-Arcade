@@ -15,22 +15,22 @@ public class GameEventHandler : MonoBehaviour
         }
     }
 
-    public event Action<bool,int> OnPlayerUpgradeArea;
+    public event Action<bool> OnPlayerUpgradeArea;
     public event Action<bool> OnPlayerHit;
     public event Action<bool> OnPlayerRightArea;
     public event Action<bool> OnPlayerLeftArea;
-    public event Action<bool> OnBallMergeArea;
+    public event Action<bool ,GameObject> OnBallMergeArea;
 
-    public event Action<bool> OnBallUpgradeArea;
+    public event Action<bool ,GameObject> OnBallUpgradeArea;
 
-    public void BallUpgradeArea(bool enterExit)
+    public void BallUpgradeArea(bool enterExit,GameObject obje)
     {
-        OnBallUpgradeArea?.Invoke(enterExit);
+        OnBallUpgradeArea?.Invoke(enterExit,obje);
     }
 
-    public void BallMergeArea(bool enterExit)
+    public void BallMergeArea(bool enterExit,GameObject obje)
     {
-        OnBallMergeArea?.Invoke(enterExit);
+        OnBallMergeArea?.Invoke(enterExit,obje);
     }
 
     public void PlayerLeftArea(bool enterExit)
@@ -43,9 +43,9 @@ public class GameEventHandler : MonoBehaviour
         OnPlayerRightArea?.Invoke(enterExit);
     }
 
-    public void PlayerUpgradeArea(bool onUpgrade,int value)
+    public void PlayerUpgradeArea(bool onUpgrade)
     {
-        OnPlayerUpgradeArea?.Invoke(onUpgrade,value);
+        OnPlayerUpgradeArea?.Invoke(onUpgrade);
     }
 
     public void PlayerHit(bool hit)

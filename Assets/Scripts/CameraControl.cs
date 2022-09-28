@@ -50,7 +50,7 @@ public class CameraControl : MonoBehaviour
         }
     }
 
-    private void OnplayerUpgradeArea(bool enterExit,int value)
+    private void OnplayerUpgradeArea(bool enterExit)
     {
         if (enterExit)
         {

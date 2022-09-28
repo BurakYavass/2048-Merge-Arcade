@@ -65,20 +65,16 @@ public class UpgradeArea : MonoBehaviour
     {
         if (_calculate && _totalValue>1)
         {
+            blackSmithAnimator.SetBool("working",true);
             SetUpgrade();
         }
     }
     
-    private void OnPlayerUpgradeArea(bool working, int value)
+    private void OnPlayerUpgradeArea(bool working)
     {
-        blackSmithAnimator.SetBool("working",working);
         if (working == false)
         {
-            UpgradeCalculate(0);
-        }
-        else
-        {
-            _totalValue = value;
+            _calculate = false;
         }
     }
 
@@ -89,6 +85,7 @@ public class UpgradeArea : MonoBehaviour
         {
             TotalValue();
         }
+        blackSmithAnimator.SetBool("working",false);
     }
 
     void TotalValue()
@@ -98,7 +95,6 @@ public class UpgradeArea : MonoBehaviour
              GameObject go = Instantiate(ballPrefab, ballSpawnPosition.position, Quaternion.identity);
              var ball = go.GetComponent<Ball>();
              ball.SetValue(4096);
-             ball.agent.enabled = false;
              _totalValue -= 4096;
          }
          else if (_totalValue >= 2048)
@@ -106,7 +102,6 @@ public class UpgradeArea : MonoBehaviour
              GameObject go = Instantiate(ballPrefab, ballSpawnPosition.position, Quaternion.identity);
              var ball = go.GetComponent<Ball>();
              ball.SetValue(2048);
-             ball.agent.enabled = false;
              _totalValue -= 2048;
          }
          else if (_totalValue >= 1024)
@@ -114,7 +109,6 @@ public class UpgradeArea : MonoBehaviour
              GameObject go = Instantiate(ballPrefab, ballSpawnPosition.position, Quaternion.identity);
              var ball = go.GetComponent<Ball>();
              ball.SetValue(1024);
-             ball.agent.enabled = false;
              _totalValue -= 1024;
          }
          else if (_totalValue >= 512)
@@ -122,7 +116,6 @@ public class UpgradeArea : MonoBehaviour
              GameObject go = Instantiate(ballPrefab, ballSpawnPosition.position, Quaternion.identity);
              var ball = go.GetComponent<Ball>();
              ball.SetValue(512);
-             ball.agent.enabled = false;
              _totalValue -= 512;
          }
          else if (_totalValue >= 256)
@@ -130,7 +123,6 @@ public class UpgradeArea : MonoBehaviour
              GameObject go = Instantiate(this.ballPrefab, ballSpawnPosition.position, Quaternion.identity);
              var ball = go.GetComponent<Ball>();
              ball.SetValue(256);
-             ball.agent.enabled = false;
              _totalValue -= 256;
          }
          else if (_totalValue >= 128)
@@ -138,7 +130,6 @@ public class UpgradeArea : MonoBehaviour
              GameObject go = Instantiate(this.ballPrefab, ballSpawnPosition.position, Quaternion.identity);
              var ball = go.GetComponent<Ball>();
              ball.SetValue(128);
-             ball.agent.enabled = false;
              _totalValue -= 128;
          }
          else if (_totalValue >= 64)
@@ -146,7 +137,6 @@ public class UpgradeArea : MonoBehaviour
              GameObject go = Instantiate(this.ballPrefab, ballSpawnPosition.position, Quaternion.identity);
              var ball = go.GetComponent<Ball>();
              ball.SetValue(64);
-             ball.agent.enabled = false;
              _totalValue -= 64;
          }
          else if (_totalValue >= 32)
@@ -154,7 +144,6 @@ public class UpgradeArea : MonoBehaviour
              GameObject go = Instantiate(this.ballPrefab, ballSpawnPosition.position, Quaternion.identity);
              var ball = go.GetComponent<Ball>();
              ball.SetValue(32);
-             ball.agent.enabled = false;
              _totalValue -= 32;
          }
          else if (_totalValue >= 16)
@@ -162,7 +151,6 @@ public class UpgradeArea : MonoBehaviour
              GameObject go = Instantiate(this.ballPrefab, ballSpawnPosition.position, Quaternion.identity);
              var ball = go.GetComponent<Ball>();
              ball.SetValue(16);
-             ball.agent.enabled = false;
              _totalValue -= 16;
          }
          else if (_totalValue >= 8)
@@ -170,7 +158,6 @@ public class UpgradeArea : MonoBehaviour
              GameObject go = Instantiate(this.ballPrefab, ballSpawnPosition.position, ballSpawnPosition.transform.localRotation);
              var ball = go.GetComponent<Ball>();
              ball.SetValue(8);
-             ball.agent.enabled = false;
              _totalValue -= 8;
          }
          else if (_totalValue >= 4)
@@ -178,7 +165,6 @@ public class UpgradeArea : MonoBehaviour
              GameObject go = Instantiate(this.ballPrefab, ballSpawnPosition.position, ballSpawnPosition.transform.localRotation);
              var ball = go.GetComponent<Ball>();
              ball.SetValue(4);
-             ball.agent.enabled = false;
              _totalValue -= 4;
          }
          else if (_totalValue >= 2)
@@ -186,7 +172,6 @@ public class UpgradeArea : MonoBehaviour
              GameObject go = Instantiate(this.ballPrefab, ballSpawnPosition.position, ballSpawnPosition.transform.localRotation);
              var ball = go.GetComponent<Ball>();
              ball.SetValue(2);
-             ball.agent.enabled = false;
              _totalValue -= 2;
          }
          else
@@ -195,80 +180,77 @@ public class UpgradeArea : MonoBehaviour
              _totalValue = 0;
          }
      }
-
     
-
-    // private void OnTriggerEnter(Collider other)
-    // {
-    //     if (other.CompareTag("UpgradeBall"))
-    //     {
-    //         float tempvalue = other.GetComponent<Ball>().GetValue();
-    //         Debug.Log(other.gameObject);
-    //      
-    //         Destroy(other.gameObject);
-    //         if (tempvalue==2)
-    //         {
-    //             _totalValue += 2;
-    //             _2.Add(other.gameObject);
-    //            
-    //         }
-    //         else if (tempvalue == 4)
-    //         {
-    //             _totalValue += 4;
-    //             _4.Add(other.gameObject);
-    //            
-    //         }
-    //         else if (tempvalue == 8)
-    //         {
-    //             _totalValue += 8;
-    //             _8.Add(other.gameObject);
-    //         }
-    //         else if (tempvalue == 16)
-    //         {
-    //             _totalValue += 16;
-    //             _16.Add(other.gameObject);
-    //         }
-    //         else if (tempvalue == 32)
-    //         {
-    //             _totalValue += 32;
-    //             _32.Add(other.gameObject);
-    //         }
-    //         else if (tempvalue == 64)
-    //         {
-    //             _totalValue += 64;
-    //             _64.Add(other.gameObject);
-    //         }
-    //         else if (tempvalue == 128)
-    //         {
-    //             _totalValue += 128;
-    //             _128.Add(other.gameObject);
-    //         }
-    //         else if (tempvalue == 256)
-    //         {
-    //             _totalValue += 256;
-    //             _256.Add(other.gameObject);
-    //         }
-    //         else if (tempvalue == 512)
-    //         {
-    //             _totalValue += 512;
-    //             _512.Add(other.gameObject);
-    //         }
-    //         else if (tempvalue == 1024)
-    //         {
-    //             _totalValue += 1022;
-    //             _1024.Add(other.gameObject);
-    //         }
-    //         else if (tempvalue == 2048)
-    //         {
-    //             _totalValue += 2048;
-    //             _2048.Add(other.gameObject);
-    //         }
-    //         else if (tempvalue == 4096)
-    //         {
-    //             _totalValue += 4096;
-    //             _4096.Add(other.gameObject);
-    //         }
-    //
-    //     }
-    // }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("UpgradeBall"))
+        {
+            float tempvalue = other.GetComponent<Ball>().GetValue();
+            
+            Destroy(other.gameObject);
+            if (tempvalue==2)
+            {
+                _totalValue += 2;
+                _2.Add(other.gameObject);
+               
+            }
+            else if (tempvalue == 4)
+            {
+                _totalValue += 4;
+                _4.Add(other.gameObject);
+               
+            }
+            else if (tempvalue == 8)
+            {
+                _totalValue += 8;
+                _8.Add(other.gameObject);
+            }
+            else if (tempvalue == 16)
+            {
+                _totalValue += 16;
+                _16.Add(other.gameObject);
+            }
+            else if (tempvalue == 32)
+            {
+                _totalValue += 32;
+                _32.Add(other.gameObject);
+            }
+            else if (tempvalue == 64)
+            {
+                _totalValue += 64;
+                _64.Add(other.gameObject);
+            }
+            else if (tempvalue == 128)
+            {
+                _totalValue += 128;
+                _128.Add(other.gameObject);
+            }
+            else if (tempvalue == 256)
+            {
+                _totalValue += 256;
+                _256.Add(other.gameObject);
+            }
+            else if (tempvalue == 512)
+            {
+                _totalValue += 512;
+                _512.Add(other.gameObject);
+            }
+            else if (tempvalue == 1024)
+            {
+                _totalValue += 1022;
+                _1024.Add(other.gameObject);
+            }
+            else if (tempvalue == 2048)
+            {
+                _totalValue += 2048;
+                _2048.Add(other.gameObject);
+            }
+            else if (tempvalue == 4096)
+            {
+                _totalValue += 4096;
+                _4096.Add(other.gameObject);
+            }
+    
+        }
+    }
 }

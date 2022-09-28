@@ -49,25 +49,21 @@ public class PlayerCollisionHandler : MonoBehaviour
                 if (ballController.balls.Count > 1)
                 {
                     ballController.GoMerge();
-                    GameEventHandler.current.BallMergeArea(true);
+                    GameEventHandler.current.BallMergeArea(true,null);
                 }
             }
         }
         
         if (other.CompareTag("UpgradeTrigger"))
         {
-            var playerpos = playerController.gameObject.transform.position;
-            _lastposition = new Vector3(playerpos.x, playerpos.y, playerpos.z);
             ballController.GoUpgrade();
+            GameEventHandler.current.PlayerUpgradeArea(true);
             if (!upgradeArea)
             {
                 upgradeArea = true;
                 _playerBallCounter.BallCountCheck();
+                playerController.CameraChanger(3);
             }
-            GameEventHandler.current.PlayerUpgradeArea(true,_playerBallCounter.stackValue);
-            playerController.gameObject.transform.position = new Vector3(36.95f, 0.63f, 24.75f);
-            playerController.gameObject.transform.rotation = Quaternion.Euler(0,-66,0);
-            playerController.CameraChanger(5);
         }
     }
 
@@ -126,25 +122,23 @@ public class PlayerCollisionHandler : MonoBehaviour
         if (other.CompareTag("MergeMachine"))
         {
             _onMergeMachine = false;
-            GameEventHandler.current.BallMergeArea(false);
+            //GameEventHandler.current.BallMergeArea(false,null);
         }
 
         if (other.CompareTag("UpgradeTrigger"))
         {
             upgradeArea = false;
-            GameEventHandler.current.BallUpgradeArea(false);
+            //GameEventHandler.current.BallUpgradeArea(false,null);
+            GameEventHandler.current.PlayerUpgradeArea(false);
+            playerController.CameraChanger(0);
+            _playerBallCounter.stackValue = 0;
         }
         
     }
 
     public void ExitUpgrade()
     {
-        GameEventHandler.current.PlayerUpgradeArea(false,0);
-        _playerBallCounter.stackValue = 0;
-        playerController.gameObject.transform.position = new Vector3(_lastposition.x, _lastposition.y, _lastposition.z);
-        playerController.gameObject.transform.rotation = Quaternion.Euler(0,0,0);
-        playerController.CameraChanger(0);
-        
+        GameEventHandler.current.PlayerUpgradeArea(false);
     }
     
     IEnumerator HitDelay()

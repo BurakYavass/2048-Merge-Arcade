@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -14,20 +15,27 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI speedLevel;
     [SerializeField] private TextMeshProUGUI armorLevel;
     [SerializeField] private TextMeshProUGUI damageLevel;
-    
 
-    
+
+    private void Update()
+    {
+        speedText.text = GameManager.current.ReturnSpeedState().ToString();
+        armorText.text = GameManager.current.ReturnArmorState().ToString();
+        damageText.text = GameManager.current.ReturnDamageState().ToString();
+        speedLevel.text = (GameManager.current._speedState+1).ToString();
+        armorLevel.text = (GameManager.current._armorState+1).ToString();
+        damageLevel.text = (GameManager.current._damageState+1).ToString();
+    }
+
     public void UpgradePanel(bool openClose)
     {
         if (openClose)
         {
             upgradePanel.SetActive(true);
-            joyStickPanel.SetActive(false);
             upgradePanel.transform.DOScale(Vector3.one, 0.5f);
         }
         else
         {
-            joyStickPanel.SetActive(true);
             upgradePanel.transform.DOScale(Vector3.zero, 0.5f)
                         .OnComplete((() =>
                         {
