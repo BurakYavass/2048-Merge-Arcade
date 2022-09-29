@@ -8,7 +8,7 @@ public class FollowerList : MonoBehaviour
 {
     public List<GameObject> follower;
     [SerializeField] private GameObject creatBall;
-    private bool clearList;
+    private bool clearList = false;
 
     private void Start()
     {
@@ -29,8 +29,7 @@ public class FollowerList : MonoBehaviour
 
     private void RemoveBall(bool work, GameObject obj)
     {
-        //clearList = obj;
-        follower.Remove(obj);
+        clearList = work;
     }
 
     private void Update()

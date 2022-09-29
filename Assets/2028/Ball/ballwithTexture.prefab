@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4111332509947260680}
   m_Layer: 0
   m_Name: ball1024
-  m_TagString: EmptyBall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 3441595026126127821}
   m_Layer: 0
   m_Name: ball4
-  m_TagString: EmptyBall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -201,7 +201,7 @@ GameObject:
   - component: {fileID: 4161844611460475621}
   m_Layer: 0
   m_Name: ball32
-  m_TagString: EmptyBall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -304,7 +304,7 @@ GameObject:
   - component: {fileID: 7013087160385686390}
   m_Layer: 0
   m_Name: ball512
-  m_TagString: EmptyBall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -567,7 +567,7 @@ GameObject:
   - component: {fileID: 1645405797745147106}
   m_Layer: 0
   m_Name: ball8
-  m_TagString: EmptyBall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -671,7 +671,7 @@ GameObject:
   - component: {fileID: 3128733719133704445}
   m_Layer: 0
   m_Name: ball64
-  m_TagString: EmptyBall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -775,7 +775,7 @@ GameObject:
   - component: {fileID: 4621058539112728909}
   m_Layer: 0
   m_Name: ball16
-  m_TagString: EmptyBall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -878,7 +878,7 @@ GameObject:
   - component: {fileID: 5619290410102473291}
   m_Layer: 0
   m_Name: ball128
-  m_TagString: EmptyBall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -961,7 +961,7 @@ GameObject:
   - component: {fileID: 8410851367609247008}
   m_Layer: 0
   m_Name: ball256
-  m_TagString: EmptyBall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1044,7 +1044,7 @@ GameObject:
   - component: {fileID: 5033470146213247458}
   m_Layer: 0
   m_Name: ball4096
-  m_TagString: EmptyBall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1127,7 +1127,7 @@ GameObject:
   - component: {fileID: 4805413517701404690}
   m_Layer: 0
   m_Name: ball2048
-  m_TagString: EmptyBall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1211,7 +1211,7 @@ GameObject:
   - component: {fileID: 4897635023237352255}
   m_Layer: 0
   m_Name: ball2
-  m_TagString: EmptyBall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

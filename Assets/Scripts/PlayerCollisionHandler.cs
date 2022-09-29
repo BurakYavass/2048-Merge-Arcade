@@ -65,30 +65,26 @@ public class PlayerCollisionHandler : MonoBehaviour
                 playerController.CameraChanger(3);
             }
         }
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
+        
         if (other.CompareTag("EmptyBall"))
         {
-            if (i <= 2)
+            if (i>2)
             {
-                var lastObje = playerFollowPoints[i].ReturnLast();
-                if (other.gameObject.GetComponent<Ball>() != null)
-                {
-                    other.gameObject.GetComponent<Ball>().SetGoTarget(lastObje.transform);
-                }
-                playerFollowPoints[i].SaveBall(other.transform.gameObject);
+                i = 0;
+            }
+            if (i < 3)
+            {
+                other.gameObject.GetComponent<Ball>().SetGoTarget(playerFollowPoints[i].ReturnLast().transform);
+                playerFollowPoints[i].SaveBall(other.gameObject);
                 ballController.SetNewBall(other.gameObject);
                 other.tag = "StackBall";
                 i++;
             }
-            else
-            {
-                i = 0;
-            }
         }
-        
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
         if (other.gameObject.CompareTag("Chest") && !_hit)
         {
             _hit = true;

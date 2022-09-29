@@ -187,7 +187,7 @@ public class UpgradeArea : MonoBehaviour
         {
             float tempvalue = other.GetComponent<Ball>().GetValue();
             
-            Destroy(other.gameObject);
+            //Destroy(other.gameObject);
             if (tempvalue==2)
             {
                 _totalValue += 2;

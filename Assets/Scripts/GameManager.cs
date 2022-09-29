@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public int playerDamage;
     private int _damageUpgradeRequire;
     private int _armorUpgradeRequire;
+    public bool max =false;
 
     [NonSerialized]
     public int _speedState = 0;
@@ -76,21 +77,30 @@ public class GameManager : MonoBehaviour
     {
         if (playerBallCounter.stackValue >= _speedUpgradeRequire)
         {
-            upgradeMachine.UpgradeCalculate(_speedUpgradeRequire);
-            playerBallCounter.stackValue -= _speedUpgradeRequire;
-            playerSpeed += 2.0f;
             _speedState++;
             if (_speedState==1)
             {
-                _speedUpgradeRequire = speedUpgradeState[_speedState];
+                _speedUpgradeRequire = speedUpgradeState[_speedState-1];
+                upgradeMachine.UpgradeCalculate(_speedUpgradeRequire);
+                playerBallCounter.stackValue -= _speedUpgradeRequire;
+                playerSpeed += 2.0f;
             }
             else if (_speedState == 2)
             {
-                _speedUpgradeRequire = speedUpgradeState[_speedState];
+                _speedUpgradeRequire = speedUpgradeState[_speedState-1];
+                upgradeMachine.UpgradeCalculate(_speedUpgradeRequire);
+                playerBallCounter.stackValue -= _speedUpgradeRequire;
+                playerSpeed += 2.0f;
             }
-            else
+            else if (_speedState == 3)
             {
-                //_speedUpgradeRequire = speedUpgradeState[_speedState];
+                _speedUpgradeRequire = speedUpgradeState[_speedState-1];
+                upgradeMachine.UpgradeCalculate(_speedUpgradeRequire);
+                playerBallCounter.stackValue -= _speedUpgradeRequire;
+                playerSpeed += 2.0f;
+                max = true;
+                //speedUpgradeState.Add(int.Parse("Max"));
+                Debug.Log("max");
             }
             Debug.Log("PlayerSpeedIncrease");
         }
@@ -102,7 +112,7 @@ public class GameManager : MonoBehaviour
     
     public void PlayerDamage()
     {
-        if (playerBallCounter.stackValue >= _damageUpgradeRequire )
+        if (playerBallCounter.stackValue >= _damageUpgradeRequire && _damageState < 3 )
         {
             upgradeMachine.UpgradeCalculate(_damageUpgradeRequire);
             playerDamage += 5;
@@ -132,7 +142,14 @@ public class GameManager : MonoBehaviour
     
     public int ReturnSpeedState()
     {
-        return speedUpgradeState[_speedState];
+        if (max)
+        {
+            return (int.Parse("Max"));
+        }
+        else
+        {
+            return speedUpgradeState[_speedState];
+        }
     }
     public int ReturnArmorState()
     {
