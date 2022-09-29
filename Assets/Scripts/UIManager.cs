@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    [SerializeField] private GameManager gameManager;
     [SerializeField] private GameObject upgradePanel;
     [SerializeField] private GameObject joyStickPanel;
     [SerializeField] private TextMeshProUGUI speedText;
@@ -15,16 +17,48 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI speedLevel;
     [SerializeField] private TextMeshProUGUI armorLevel;
     [SerializeField] private TextMeshProUGUI damageLevel;
+    [SerializeField] private Button damageButton;
+    [SerializeField] private Button speedButton;
+    [SerializeField] private Button armorButton;
 
 
     private void Update()
     {
-        speedText.text = GameManager.current.ReturnSpeedState().ToString();
-        armorText.text = GameManager.current.ReturnArmorState().ToString();
-        damageText.text = GameManager.current.ReturnDamageState().ToString();
-        speedLevel.text = (GameManager.current._speedState+1).ToString();
-        armorLevel.text = (GameManager.current._armorState+1).ToString();
-        damageLevel.text = (GameManager.current._damageState+1).ToString();
+        if (!gameManager.damageMax)
+        {
+            damageLevel.text = (gameManager._damageState+1).ToString();
+            damageText.text = gameManager.ReturnDamageState().ToString();
+        }
+        else
+        {
+            damageLevel.text = "Max Level";
+            damageText.text = "Max Level";
+            damageButton.enabled = false;
+        }
+
+        if (!gameManager.armorMax)
+        {
+            armorLevel.text = (gameManager._armorState+1).ToString();
+            armorText.text = gameManager.ReturnArmorState().ToString();
+        }
+        else
+        {
+            armorLevel.text = "Max Level";
+            armorText.text = "Max Level";
+            armorButton.enabled = false;
+        }
+
+        if (!gameManager.speedMax)
+        {
+            speedLevel.text = (gameManager._speedState+1).ToString();
+            speedText.text = gameManager.ReturnSpeedState().ToString();
+        }
+        else
+        {
+            speedLevel.text = "Max Level";
+            speedText.text = "Max Level";
+            speedButton.enabled = false;
+        }
     }
 
     public void UpgradePanel(bool openClose)

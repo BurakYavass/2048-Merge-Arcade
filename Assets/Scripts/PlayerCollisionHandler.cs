@@ -6,6 +6,7 @@ using Random = UnityEngine.Random;
 
 public class PlayerCollisionHandler : MonoBehaviour
 {
+    [SerializeField] private GameEventHandler gameEventHandler;
     [SerializeField] private PlayerController playerController;
     [SerializeField] private WeaponsHit weaponsHit;
     [SerializeField] private BallController ballController;
@@ -15,6 +16,7 @@ public class PlayerCollisionHandler : MonoBehaviour
     private Vector3 _lastposition;
     
     private bool _onMergeMachine = false;
+    private bool _once = false;
     private bool _hit = false;
     private bool upgradeArea = false;
     private int i = 0;
@@ -49,7 +51,7 @@ public class PlayerCollisionHandler : MonoBehaviour
                 if (ballController.balls.Count > 1)
                 {
                     ballController.GoMerge();
-                    GameEventHandler.current.BallMergeArea(true,null);
+                    GameEventHandler.current.PlayerMergeArea(true);
                 }
             }
         }
@@ -66,6 +68,16 @@ public class PlayerCollisionHandler : MonoBehaviour
             }
         }
         
+        
+
+        // if (other.CompareTag("StackBall"))
+        // {
+        //     _once = false;
+        // }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
         if (other.CompareTag("EmptyBall"))
         {
             if (i>2)
@@ -74,17 +86,14 @@ public class PlayerCollisionHandler : MonoBehaviour
             }
             if (i < 3)
             {
+                other.tag = "StackBall";
                 other.gameObject.GetComponent<Ball>().SetGoTarget(playerFollowPoints[i].ReturnLast().transform);
                 playerFollowPoints[i].SaveBall(other.gameObject);
-                ballController.SetNewBall(other.gameObject);
-                other.tag = "StackBall";
                 i++;
+                ballController.SetNewBall(other.gameObject);
             }
         }
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
+        
         if (other.gameObject.CompareTag("Chest") && !_hit)
         {
             _hit = true;
@@ -108,7 +117,6 @@ public class PlayerCollisionHandler : MonoBehaviour
             playerController.CameraChanger(0);
         }
         
-
         if (other.gameObject.CompareTag("Chest"))
         {
             _chestController = null;
@@ -118,6 +126,7 @@ public class PlayerCollisionHandler : MonoBehaviour
         if (other.CompareTag("MergeMachine"))
         {
             _onMergeMachine = false;
+            GameEventHandler.current.PlayerMergeArea(false);
             //GameEventHandler.current.BallMergeArea(false,null);
         }
 

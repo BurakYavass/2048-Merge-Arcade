@@ -12,7 +12,9 @@ public class GameManager : MonoBehaviour
     public int playerDamage;
     private int _damageUpgradeRequire;
     private int _armorUpgradeRequire;
-    public bool max =false;
+    public bool speedMax =false;
+    public bool armorMax =false;
+    public bool damageMax =false;
 
     [NonSerialized]
     public int _speedState = 0;
@@ -27,9 +29,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PlayerBallCounter playerBallCounter;
     [SerializeField] private BallController ballController;
     [SerializeField] private UpgradeArea upgradeMachine;
-    [SerializeField] public List<int> speedUpgradeState;
-    [SerializeField] public List<int> damageUpgradeState;
-    [SerializeField] public List<int> armorUpgradeState;
+    [SerializeField] public List<int> speedUpgradeState = new List<int>();
+    [SerializeField] public List<int> damageUpgradeState = new List<int>();
+    [SerializeField] public List<int> armorUpgradeState = new List<int>();
 
     private void Awake()
     {
@@ -38,8 +40,7 @@ public class GameManager : MonoBehaviour
             current = this;
         }
     }
-
-    // Start is called before the first frame update
+    
     void Start()
     {
         GameEventHandler.current.OnPlayerUpgradeArea += OnPlayerUpgradeArea;
@@ -62,44 +63,56 @@ public class GameManager : MonoBehaviour
 
     public void PlayerArmor()
     {
-        if (playerBallCounter.stackValue >= 128)
-        {
-            upgradeMachine.UpgradeCalculate(_armorUpgradeRequire);
-            Debug.Log("PlayerHealthIncrease");
-        }
-        else
-        {
-            Debug.Log("Not Enoughf Money");
-        }
+        _armorUpgradeRequire = armorUpgradeState[_armorState];
+        // if (_speedState==0)
+        // {
+        //     playerSpeed += 2.0f;
+        //     upgradeMachine.UpgradeCalculate(_speedUpgradeRequire);
+        //     playerBallCounter.stackValue -= _speedUpgradeRequire;
+        //     _speedState++;
+        // }
+        // else if (_speedState == 1)
+        // {
+        //     playerSpeed += 2.0f;
+        //     upgradeMachine.UpgradeCalculate(_speedUpgradeRequire);
+        //     playerBallCounter.stackValue -= _speedUpgradeRequire;
+        //     _speedState++;
+        // }
+        // else if (_speedState == 2)
+        // {
+        //     playerSpeed += 2.0f;
+        //     upgradeMachine.UpgradeCalculate(_speedUpgradeRequire);
+        //     playerBallCounter.stackValue -= _speedUpgradeRequire;
+        //     speedMax = true;
+        //     Debug.Log("max");
+        // }
     }
 
     public void PlayerSpeed()
     {
         if (playerBallCounter.stackValue >= _speedUpgradeRequire)
         {
-            _speedState++;
-            if (_speedState==1)
+            _speedUpgradeRequire = speedUpgradeState[_speedState];
+            if (_speedState==0)
             {
-                _speedUpgradeRequire = speedUpgradeState[_speedState-1];
+                playerSpeed += 2.0f;
                 upgradeMachine.UpgradeCalculate(_speedUpgradeRequire);
                 playerBallCounter.stackValue -= _speedUpgradeRequire;
+                _speedState++;
+            }
+            else if (_speedState == 1)
+            {
                 playerSpeed += 2.0f;
+                upgradeMachine.UpgradeCalculate(_speedUpgradeRequire);
+                playerBallCounter.stackValue -= _speedUpgradeRequire;
+                _speedState++;
             }
             else if (_speedState == 2)
             {
-                _speedUpgradeRequire = speedUpgradeState[_speedState-1];
+                playerSpeed += 2.0f;
                 upgradeMachine.UpgradeCalculate(_speedUpgradeRequire);
                 playerBallCounter.stackValue -= _speedUpgradeRequire;
-                playerSpeed += 2.0f;
-            }
-            else if (_speedState == 3)
-            {
-                _speedUpgradeRequire = speedUpgradeState[_speedState-1];
-                upgradeMachine.UpgradeCalculate(_speedUpgradeRequire);
-                playerBallCounter.stackValue -= _speedUpgradeRequire;
-                playerSpeed += 2.0f;
-                max = true;
-                //speedUpgradeState.Add(int.Parse("Max"));
+                speedMax = true;
                 Debug.Log("max");
             }
             Debug.Log("PlayerSpeedIncrease");
@@ -112,24 +125,30 @@ public class GameManager : MonoBehaviour
     
     public void PlayerDamage()
     {
-        if (playerBallCounter.stackValue >= _damageUpgradeRequire && _damageState < 3 )
+        if (playerBallCounter.stackValue >= _damageUpgradeRequire)
         {
-            upgradeMachine.UpgradeCalculate(_damageUpgradeRequire);
-            playerDamage += 5;
-            playerBallCounter.stackValue -= _damageUpgradeRequire;
-            _damageState++;
-            if (_damageState==1)
+            _damageUpgradeRequire = damageUpgradeState[_damageState];
+            if (_damageState==0)
             {
-                _damageState = damageUpgradeState[_damageState];
+                upgradeMachine.UpgradeCalculate(_damageUpgradeRequire);
+                playerDamage += 5;
+                playerBallCounter.stackValue -= _damageUpgradeRequire;
+                _damageState++;
             }
-            else if (_damageState == 2)
+            else if (_damageState == 1)
             {
-                _damageUpgradeRequire = damageUpgradeState[_damageState];
+                upgradeMachine.UpgradeCalculate(_damageUpgradeRequire);
+                playerDamage += 5;
+                playerBallCounter.stackValue -= _damageUpgradeRequire;
+                _damageState++;
             }
-            else
+            else if(_damageState == 2)
             {
+                upgradeMachine.UpgradeCalculate(_damageUpgradeRequire);
+                playerDamage += 5;
+                playerBallCounter.stackValue -= _damageUpgradeRequire;
+                damageMax = true;
                 Debug.Log("MaxLevel");
-                //_damageUpgradeRequire = damageUpgradeState[_damageState];
             }
             Debug.Log("PlayerDamageIncrease");
         }
@@ -142,7 +161,7 @@ public class GameManager : MonoBehaviour
     
     public int ReturnSpeedState()
     {
-        if (max)
+        if (speedMax)
         {
             return (int.Parse("Max"));
         }

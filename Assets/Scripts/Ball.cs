@@ -288,25 +288,21 @@ public class Ball : MonoBehaviour
         // }
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("BallPool"))
         {
             agent.enabled = false;
-            _collider.isTrigger = true;
+            //_collider.isTrigger = true;
             _GoMerge = false;
-            gameObject.GetComponentInChildren<MeshRenderer>().enabled = false;
+            //gameObject.GetComponentInChildren<MeshRenderer>().enabled = false;
             GameEventHandler.current.BallMergeArea(true,gameObject);
         }
         
         if (other.CompareTag("BallUpgrade"))
         {
-            _collider.isTrigger = true;
+            _collider.isTrigger = false;
+            triggerCollider.enabled = false;
             GameEventHandler.current.BallUpgradeArea(true,gameObject);
             if (!once)
             {
@@ -339,8 +335,8 @@ public class Ball : MonoBehaviour
     IEnumerator DelayKinematic()
     {
         ballRb.useGravity = true;
-        triggerCollider.enabled = true;
         yield return new WaitForSeconds(1);
+        triggerCollider.enabled = true;
         ballRb.interpolation = RigidbodyInterpolation.Interpolate;
         agent.enabled = true;
     }

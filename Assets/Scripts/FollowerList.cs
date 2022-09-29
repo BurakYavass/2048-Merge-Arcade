@@ -8,12 +8,12 @@ public class FollowerList : MonoBehaviour
 {
     public List<GameObject> follower;
     [SerializeField] private GameObject creatBall;
-    private bool clearList = false;
+    public bool clearList = false;
 
     private void Start()
     {
-        GameEventHandler.current.OnBallMergeArea += RemoveBall;
-        GameEventHandler.current.OnBallUpgradeArea += RemoveBall;
+        GameEventHandler.current.OnPlayerMergeArea += RemoveBall;
+        GameEventHandler.current.OnPlayerUpgradeArea += RemoveBall;
     }
 
     private void SetNewBall(GameObject go)
@@ -23,11 +23,11 @@ public class FollowerList : MonoBehaviour
 
     private void OnDisable()
     {
-        GameEventHandler.current.OnBallMergeArea -= RemoveBall;
-        GameEventHandler.current.OnBallUpgradeArea -= RemoveBall;
+        GameEventHandler.current.OnPlayerMergeArea -= RemoveBall;
+        GameEventHandler.current.OnPlayerUpgradeArea -= RemoveBall;
     }
 
-    private void RemoveBall(bool work, GameObject obj)
+    private void RemoveBall(bool work)
     {
         clearList = work;
     }
@@ -38,9 +38,14 @@ public class FollowerList : MonoBehaviour
         {
             if (follower.Count > 1)
             {
-                var ballIndex = follower.FindLast(x => x.name == "ballwithTexture(Clone)");
+                var ballIndex = follower.Find(x => x.name == "ballwithTexture(Clone)");
                 follower.Remove(ballIndex);
             }
+            else
+            {
+                clearList = false;
+            }
+            
         }
     }
 
@@ -51,7 +56,7 @@ public class FollowerList : MonoBehaviour
 
     public GameObject ReturnLast()
     {
-        var last = follower.LastOrDefault();
-        return last;
+        //var last = follower.LastOrDefault();
+        return follower.Last();
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -41,55 +42,52 @@ public class UpgradeArea : MonoBehaviour
     private int _totalValue;
     private bool _mergeTime;
     private bool _calculate = false;
+    private bool complete = false;
     private int _dicreaseValue;
     [SerializeField] private Animator upgradeAnimator;
 
     private void Start()
     {
-        GameEventHandler.current.OnPlayerUpgradeArea += OnPlayerUpgradeArea;
+        //GameEventHandler.current.OnPlayerUpgradeArea += OnPlayerUpgradeArea;
     }
 
     private void OnDisable()
     {
-        GameEventHandler.current.OnPlayerUpgradeArea -= OnPlayerUpgradeArea;
+        //GameEventHandler.current.OnPlayerUpgradeArea -= OnPlayerUpgradeArea;
     }
 
     public void UpgradeCalculate(int value)
     {
         _dicreaseValue = value;
         _totalValue = Mathf.Clamp(_totalValue - _dicreaseValue, 0, 4096);
-        _calculate = true;
     }
 
     private void Update()
     {
-        if (_calculate && _totalValue>1)
+        if (_calculate)
         {
             blackSmithAnimator.SetBool("working",true);
-            SetUpgrade();
-        }
-    }
-    
-    private void OnPlayerUpgradeArea(bool working)
-    {
-        if (working == false)
-        {
-            _calculate = false;
-            SetUpgrade();
+            //SetUpgrade();
+            TotalValue();
         }
     }
 
-    public void SetUpgrade()
+    public void UpgradeComplete(bool resume)
     {
-        if (_totalValue >1)
-        {
-            TotalValue();
-        }
-        blackSmithAnimator.SetBool("working",false);
+        complete = resume;
+        _calculate = resume;
+    }
+    
+
+    private void SetUpgrade()
+    {
+        TotalValue();
+        
     }
 
     void TotalValue()
      {
+         blackSmithAnimator.SetBool("working",false);
          if (_totalValue >=4096)
          {
              GameObject go = Instantiate(ballPrefab, ballSpawnPosition.position, Quaternion.identity);
@@ -177,6 +175,7 @@ public class UpgradeArea : MonoBehaviour
          else
          {
              _calculate = false;
+             complete = false;
              _totalValue = 0;
          }
      }
@@ -187,7 +186,7 @@ public class UpgradeArea : MonoBehaviour
         {
             float tempvalue = other.GetComponent<Ball>().GetValue();
             
-            //Destroy(other.gameObject);
+            Destroy(other.gameObject);
             if (tempvalue==2)
             {
                 _totalValue += 2;
