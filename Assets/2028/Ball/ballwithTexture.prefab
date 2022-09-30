@@ -469,6 +469,7 @@ MonoBehaviour:
   _Go: 0
   _GoMerge: 0
   _GoUpgrade: 0
+  _GoUnlock: 0
 --- !u!135 &4123675069864074240
 SphereCollider:
   m_ObjectHideFlags: 0

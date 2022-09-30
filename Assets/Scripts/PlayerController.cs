@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
         
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (joystick.isActiveAndEnabled && _virtualCamera != null && !upgradeArea)
         {

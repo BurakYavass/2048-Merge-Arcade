@@ -231,7 +231,7 @@ public class Ball : MonoBehaviour
         gameObject.tag = "MergeBall";
         if (gameObject.activeInHierarchy)
         {
-            transform.DOJump(target.transform.position, 2, 1, 1.0f).SetEase(Ease.OutBounce)
+            transform.DOJump(target.transform.position, 2, 1, 2.0f).SetEase(Ease.InOutSine)
                 .OnUpdate((() =>
                 {
                     transform.localScale -= new Vector3(.3f, .3f, .3f) * Time.deltaTime;
