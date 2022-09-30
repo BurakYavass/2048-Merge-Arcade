@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8196671434637389583}
   - component: {fileID: 6299918984827868987}
   m_Layer: 0
-  m_Name: 'Lvl1Chest2 '
+  m_Name: Lvl2Chest2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 4759583007022332123}
   m_LocalRotation: {x: 0.16810527, y: 0.16810527, z: 0.6868338, w: 0.6868338}
   m_LocalPosition: {x: -80.23331, y: 1.4117241, z: -25.711851}
-  m_LocalScale: {x: 2.2, y: 2.2, z: 2.2000003}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2594492123033113118}
@@ -54,6 +54,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8196671434637389583}
     m_Modifications:
+    - target: {fileID: 1311728381372591371, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
+      propertyPath: m_Size.x
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311728381372591371, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
+      propertyPath: m_Size.y
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311728381372591371, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
+      propertyPath: m_Size.z
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311728381372591371, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
+      propertyPath: m_Center.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311728381372591371, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
+      propertyPath: m_Center.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311728381372591371, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
+      propertyPath: m_Center.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2427762038273416378, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
+      propertyPath: m_Size.x
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2427762038273416378, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
+      propertyPath: m_Center.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2427762038273416378, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
+      propertyPath: m_Center.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2427762038273416378, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
+      propertyPath: m_Center.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2530805582524634302, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
       propertyPath: m_Name
       value: Chest
@@ -138,6 +178,22 @@ PrefabInstance:
       propertyPath: m_ReceiveShadows
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8085266752041353350, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 3016479151454471876, guid: 3517534986b878f4e8ccf19e9431df77, type: 3}
+    - target: {fileID: 8085266752041353350, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: -6922793697723135513, guid: 3517534986b878f4e8ccf19e9431df77, type: 3}
+    - target: {fileID: 8085266752041353350, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: -6478536213147159724, guid: 3517534986b878f4e8ccf19e9431df77, type: 3}
+    - target: {fileID: 9125106667903028836, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 8999911773206952699, guid: 3517534986b878f4e8ccf19e9431df77, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
 --- !u!4 &2594492123033113118 stripped
