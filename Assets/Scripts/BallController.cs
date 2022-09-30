@@ -103,6 +103,16 @@ public class BallController : MonoBehaviour
             }
         }
     }
+
+    public void GoUnlock(int value)
+    {
+        var ballTotal= 0;
+
+        for (int i = 0; i < balls.Count; i++)
+        {
+            ballTotal += balls[i].GetComponent<Ball>().GetValue();
+        }
+    }
     public GameObject LastObje()
     {
         return balls[balls.Count - 1];

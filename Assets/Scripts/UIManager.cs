@@ -79,4 +79,22 @@ public class UIManager : MonoBehaviour
                         }));
         }
     }
+    
+    public void LevelUnlockPanel(bool openClose)
+    {
+        if (openClose)
+        {
+            levelUnlockPanel.SetActive(true);
+            levelUnlockPanel.transform.DOScale(Vector3.one, 0.5f);
+        }
+        else
+        {
+            levelUnlockPanel.transform.DOScale(Vector3.zero, 0.5f)
+                .OnComplete((() =>
+                {
+                    levelUnlockPanel.SetActive(false);
+                    joyStickPanel.SetActive(true);
+                }));
+        }
+    }
 }

@@ -19,7 +19,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1310316465179491411
 Transform:
   m_ObjectHideFlags: 0
@@ -123,6 +123,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4943113148420394198}
+  - component: {fileID: 2841883971557914590}
   m_Layer: 0
   m_Name: Lvl1Chest4
   m_TagString: Untagged
@@ -149,6 +150,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -179.567, z: 90}
+--- !u!114 &2841883971557914590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8598626794033322754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 196967a8b71d7c54cb48f66a5d7c28bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5353205103009885112
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -349,7 +362,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _MainObje: {fileID: 8598626794033322754}
-  _CreatBall: {fileID: 3802715413599442534, guid: 0e0b952b6270b8d4fa9c22f09459ade7, type: 3}
+  _CreatBall: {fileID: 6986705099755840392, guid: 0f2efdd3da2d21d489df375a833720ad, type: 3}
   _ClosePart:
   - {fileID: 2394037967436701182}
   - {fileID: 8598626794033322754}

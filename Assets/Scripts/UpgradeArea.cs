@@ -9,9 +9,7 @@ public class UpgradeArea : MonoBehaviour
 {
     [SerializeField] private GameObject blackSmith;
     [SerializeField] private Animator blackSmithAnimator;
-    [SerializeField] private Transform ballSpawnPosition;
     [SerializeField] private GameObject ballPrefab;
-    [SerializeField] private Collider ballFireCollider;
 
     [SerializeField]
     List<GameObject> _2 = new List<GameObject>(); 
@@ -38,23 +36,14 @@ public class UpgradeArea : MonoBehaviour
     [SerializeField]
     List<GameObject> _4096 = new List<GameObject>();
     
-    private float _tempTime;
     private int _totalValue;
-    private bool _mergeTime;
     private bool _calculate = false;
     private bool complete = false;
     private int _dicreaseValue;
     [SerializeField] private Animator upgradeAnimator;
-
-    private void Start()
-    {
-        //GameEventHandler.current.OnPlayerUpgradeArea += OnPlayerUpgradeArea;
-    }
-
-    private void OnDisable()
-    {
-        //GameEventHandler.current.OnPlayerUpgradeArea -= OnPlayerUpgradeArea;
-    }
+    private int j;
+    [SerializeField] private PlayerCollisionHandler _playerFollowerList;
+    [SerializeField] private BallController _ballController;
 
     public void UpgradeCalculate(int value)
     {
@@ -67,7 +56,6 @@ public class UpgradeArea : MonoBehaviour
         if (_calculate)
         {
             blackSmithAnimator.SetBool("working",true);
-            //SetUpgrade();
             TotalValue();
         }
     }
@@ -77,100 +65,311 @@ public class UpgradeArea : MonoBehaviour
         complete = resume;
         _calculate = resume;
     }
-    
-
-    private void SetUpgrade()
-    {
-        TotalValue();
-        
-    }
 
     void TotalValue()
      {
          blackSmithAnimator.SetBool("working",false);
          if (_totalValue >=4096)
          {
-             GameObject go = Instantiate(ballPrefab, ballSpawnPosition.position, Quaternion.identity);
-             var ball = go.GetComponent<Ball>();
-             ball.SetValue(4096);
-             _totalValue -= 4096;
+             if (j >2)
+             {
+                 j = 0;
+             }
+
+             if (j <= 2)
+             {
+                 var follower = _playerFollowerList.playerFollowPoints[j];
+                 var last = follower.ReturnLast();
+                 var lastPosition = last.transform.position;
+                 GameObject go = Instantiate(ballPrefab,
+                     new Vector3(lastPosition.x, lastPosition.y, lastPosition.z - 3), Quaternion.identity,
+                     _ballController.gameObject.transform);
+                 go.tag = "StackBall";
+                 var ball = go.GetComponent<Ball>();
+                 ball.SetValue(4096);
+                 follower.SaveBall(ball.gameObject);
+                 ball.SetGoTarget(last.transform);
+                 _totalValue -= 4096;
+                 _ballController.SetNewBall(go);
+                 j++;
+             }
          }
          else if (_totalValue >= 2048)
          {
-             GameObject go = Instantiate(ballPrefab, ballSpawnPosition.position, Quaternion.identity);
-             var ball = go.GetComponent<Ball>();
-             ball.SetValue(2048);
-             _totalValue -= 2048;
+             if (j >2)
+             {
+                 j = 0;
+             }
+
+             if (j <= 2)
+             {
+                 var follower = _playerFollowerList.playerFollowPoints[j];
+                 var last = follower.ReturnLast();
+                 var lastPosition = last.transform.position;
+                 GameObject go = Instantiate(ballPrefab,
+                     new Vector3(lastPosition.x, lastPosition.y, lastPosition.z - 3), Quaternion.identity,
+                     _ballController.gameObject.transform);
+                 go.tag = "StackBall";
+                 var ball = go.GetComponent<Ball>();
+                 ball.SetValue(2048);
+                 follower.SaveBall(ball.gameObject);
+                 ball.SetGoTarget(last.transform);
+                 _totalValue -= 2048;
+                 _ballController.SetNewBall(go);
+                 j++;
+             }
          }
          else if (_totalValue >= 1024)
          {
-             GameObject go = Instantiate(ballPrefab, ballSpawnPosition.position, Quaternion.identity);
-             var ball = go.GetComponent<Ball>();
-             ball.SetValue(1024);
-             _totalValue -= 1024;
+             if (j >2)
+             {
+                 j = 0;
+             }
+
+             if (j <= 2)
+             {
+                 var follower = _playerFollowerList.playerFollowPoints[j];
+                 var last = follower.ReturnLast();
+                 var lastPosition = last.transform.position;
+                 GameObject go = Instantiate(ballPrefab,
+                     new Vector3(lastPosition.x, lastPosition.y, lastPosition.z - 3), Quaternion.identity,
+                     _ballController.gameObject.transform);
+                 go.tag = "StackBall";
+                 var ball = go.GetComponent<Ball>();
+                 ball.SetValue(1024);
+                 follower.SaveBall(ball.gameObject);
+                 ball.SetGoTarget(last.transform);
+                 _totalValue -= 1024;
+                 _ballController.SetNewBall(go);
+                 j++;
+             }
          }
          else if (_totalValue >= 512)
          {
-             GameObject go = Instantiate(ballPrefab, ballSpawnPosition.position, Quaternion.identity);
-             var ball = go.GetComponent<Ball>();
-             ball.SetValue(512);
-             _totalValue -= 512;
+             if (j >2)
+             {
+                 j = 0;
+             }
+
+             if (j <= 2)
+             {
+                 var follower = _playerFollowerList.playerFollowPoints[j];
+                 var last = follower.ReturnLast();
+                 var lastPosition = last.transform.position;
+                 GameObject go = Instantiate(ballPrefab,
+                     new Vector3(lastPosition.x, lastPosition.y, lastPosition.z - 3), Quaternion.identity,
+                     _ballController.gameObject.transform);
+                 go.tag = "StackBall";
+                 var ball = go.GetComponent<Ball>();
+                 ball.SetValue(512);
+                 follower.SaveBall(ball.gameObject);
+                 ball.SetGoTarget(last.transform);
+                 _totalValue -= 512;
+                 _ballController.SetNewBall(go);
+                 j++;
+             }
          }
          else if (_totalValue >= 256)
          {
-             GameObject go = Instantiate(this.ballPrefab, ballSpawnPosition.position, Quaternion.identity);
-             var ball = go.GetComponent<Ball>();
-             ball.SetValue(256);
-             _totalValue -= 256;
+             if (j >2)
+             {
+                 j = 0;
+             }
+
+             if (j <= 2)
+             {
+                 var follower = _playerFollowerList.playerFollowPoints[j];
+                 var last = follower.ReturnLast();
+                 var lastPosition = last.transform.position;
+                 GameObject go = Instantiate(ballPrefab,
+                     new Vector3(lastPosition.x, lastPosition.y, lastPosition.z - 3), Quaternion.identity,
+                     _ballController.gameObject.transform);
+                 go.tag = "StackBall";
+                 var ball = go.GetComponent<Ball>();
+                 ball.SetValue(256);
+                 follower.SaveBall(ball.gameObject);
+                 ball.SetGoTarget(last.transform);
+                 _totalValue -= 256;
+                 _ballController.SetNewBall(go);
+                 j++;
+             }
          }
          else if (_totalValue >= 128)
          {
-             GameObject go = Instantiate(this.ballPrefab, ballSpawnPosition.position, Quaternion.identity);
-             var ball = go.GetComponent<Ball>();
-             ball.SetValue(128);
-             _totalValue -= 128;
+             if (j >2)
+             {
+                 j = 0;
+             }
+
+             if (j <= 2)
+             {
+                 var follower = _playerFollowerList.playerFollowPoints[j];
+                 var last = follower.ReturnLast();
+                 var lastPosition = last.transform.position;
+                 GameObject go = Instantiate(ballPrefab,
+                     new Vector3(lastPosition.x, lastPosition.y, lastPosition.z - 3), Quaternion.identity,
+                     _ballController.gameObject.transform);
+                 go.tag = "StackBall";
+                 var ball = go.GetComponent<Ball>();
+                 ball.SetValue(128);
+                 follower.SaveBall(ball.gameObject);
+                 ball.SetGoTarget(last.transform);
+                 _totalValue -= 128;
+                 _ballController.SetNewBall(go);
+                 j++;
+             }
          }
          else if (_totalValue >= 64)
          {
-             GameObject go = Instantiate(this.ballPrefab, ballSpawnPosition.position, Quaternion.identity);
-             var ball = go.GetComponent<Ball>();
-             ball.SetValue(64);
-             _totalValue -= 64;
+             if (j >2)
+             {
+                 j = 0;
+             }
+
+             if (j <= 2)
+             {
+                 var follower = _playerFollowerList.playerFollowPoints[j];
+                 var last = follower.ReturnLast();
+                 var lastPosition = last.transform.position;
+                 GameObject go = Instantiate(ballPrefab,
+                     new Vector3(lastPosition.x, lastPosition.y, lastPosition.z - 3), Quaternion.identity,
+                     _ballController.gameObject.transform);
+                 go.tag = "StackBall";
+                 var ball = go.GetComponent<Ball>();
+                 ball.SetValue(64);
+                 follower.SaveBall(ball.gameObject);
+                 ball.SetGoTarget(last.transform);
+                 _totalValue -= 64;
+                 _ballController.SetNewBall(go);
+                 j++;
+             }
          }
          else if (_totalValue >= 32)
          {
-             GameObject go = Instantiate(this.ballPrefab, ballSpawnPosition.position, Quaternion.identity);
-             var ball = go.GetComponent<Ball>();
-             ball.SetValue(32);
-             _totalValue -= 32;
+             if (j >2)
+             {
+                 j = 0;
+             }
+
+             if (j <= 2)
+             {
+                 var follower = _playerFollowerList.playerFollowPoints[j];
+                 var last = follower.ReturnLast();
+                 var lastPosition = last.transform.position;
+                 GameObject go = Instantiate(ballPrefab,
+                     new Vector3(lastPosition.x, lastPosition.y, lastPosition.z - 3), Quaternion.identity,
+                     _ballController.gameObject.transform);
+                 go.tag = "StackBall";
+                 var ball = go.GetComponent<Ball>();
+                 ball.SetValue(32);
+                 follower.SaveBall(ball.gameObject);
+                 ball.SetGoTarget(last.transform);
+                 _totalValue -= 32;
+                 _ballController.SetNewBall(go);
+                 j++;
+             }
          }
          else if (_totalValue >= 16)
          {
-             GameObject go = Instantiate(this.ballPrefab, ballSpawnPosition.position, Quaternion.identity);
-             var ball = go.GetComponent<Ball>();
-             ball.SetValue(16);
-             _totalValue -= 16;
+             if (j >2)
+             {
+                 j = 0;
+             }
+
+             if (j <= 2)
+             {
+                 var follower = _playerFollowerList.playerFollowPoints[j];
+                 var last = follower.ReturnLast();
+                 var lastPosition = last.transform.position;
+                 GameObject go = Instantiate(ballPrefab,
+                     new Vector3(lastPosition.x, lastPosition.y, lastPosition.z - 3), Quaternion.identity,
+                     _ballController.gameObject.transform);
+                 go.tag = "StackBall";
+                 var ball = go.GetComponent<Ball>();
+                 ball.SetValue(16);
+                 follower.SaveBall(ball.gameObject);
+                 ball.SetGoTarget(last.transform);
+                 _totalValue -= 16;
+                 _ballController.SetNewBall(go);
+                 j++;
+             }
          }
          else if (_totalValue >= 8)
          {
-             GameObject go = Instantiate(this.ballPrefab, ballSpawnPosition.position, ballSpawnPosition.transform.localRotation);
-             var ball = go.GetComponent<Ball>();
-             ball.SetValue(8);
-             _totalValue -= 8;
+             if (j >2)
+             {
+                 j = 0;
+             }
+
+             if (j <= 2)
+             {
+                 var follower = _playerFollowerList.playerFollowPoints[j];
+                 var last = follower.ReturnLast();
+                 var lastPosition = last.transform.position;
+                 GameObject go = Instantiate(ballPrefab,
+                     new Vector3(lastPosition.x, lastPosition.y, lastPosition.z - 3), Quaternion.identity,
+                     _ballController.gameObject.transform);
+                 go.tag = "StackBall";
+                 var ball = go.GetComponent<Ball>();
+                 ball.SetValue(8);
+                 follower.SaveBall(ball.gameObject);
+                 ball.SetGoTarget(last.transform);
+                 _totalValue -= 8;
+                 _ballController.SetNewBall(go);
+                 j++;
+             }
+
          }
          else if (_totalValue >= 4)
          {
-             GameObject go = Instantiate(this.ballPrefab, ballSpawnPosition.position, ballSpawnPosition.transform.localRotation);
-             var ball = go.GetComponent<Ball>();
-             ball.SetValue(4);
-             _totalValue -= 4;
+             if (j >2)
+             {
+                 j = 0;
+             }
+
+             if (j <= 2)
+             {
+                 var follower = _playerFollowerList.playerFollowPoints[j];
+                 var last = follower.ReturnLast();
+                 var lastPosition = last.transform.position;
+                 GameObject go = Instantiate(ballPrefab,
+                     new Vector3(lastPosition.x, lastPosition.y, lastPosition.z - 3), Quaternion.identity,
+                     _ballController.gameObject.transform);
+                 go.tag = "StackBall";
+                 var ball = go.GetComponent<Ball>();
+                 ball.SetValue(4);
+                 follower.SaveBall(ball.gameObject);
+                 ball.SetGoTarget(last.transform);
+                 _totalValue -= 4;
+                 _ballController.SetNewBall(go);
+                 j++;
+             }
+
          }
          else if (_totalValue >= 2)
          {
-             GameObject go = Instantiate(this.ballPrefab, ballSpawnPosition.position, ballSpawnPosition.transform.localRotation);
-             var ball = go.GetComponent<Ball>();
-             ball.SetValue(2);
-             _totalValue -= 2;
+             if (j >2)
+             {
+                 j = 0;
+             }
+
+             if (j <= 2)
+             {
+                 var follower = _playerFollowerList.playerFollowPoints[j];
+                 var last = follower.ReturnLast();
+                 var lastPosition = last.transform.position;
+                 GameObject go = Instantiate(ballPrefab,
+                     new Vector3(lastPosition.x, lastPosition.y, lastPosition.z - 3), Quaternion.identity,
+                     _ballController.gameObject.transform);
+                 go.tag = "StackBall";
+                 var ball = go.GetComponent<Ball>();
+                 ball.SetValue(2);
+                 follower.SaveBall(ball.gameObject);
+                 ball.SetGoTarget(last.transform);
+                 _totalValue -= 2;
+                 _ballController.SetNewBall(go);
+                 j++;
+             }
          }
          else
          {

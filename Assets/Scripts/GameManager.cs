@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public bool speedMax =false;
     public bool armorMax =false;
     public bool damageMax =false;
+    
 
     [NonSerialized]
     public int _speedState = 0;
@@ -52,22 +53,26 @@ public class GameManager : MonoBehaviour
         _damageUpgradeRequire = damageUpgradeState[_damageState];
         _armorUpgradeRequire = armorUpgradeState[_armorState];
     }
-    
+
+    private void Update()
+    {
+        playerMoney = playerBallCounter.stackValue;
+    }
+
     private void OnDisable()
     {
         gameEventHandler.OnPlayerUpgradeArea -= OnPlayerUpgradeArea;
         gameEventHandler.OnPlayerLevelUnlockArea -= PlayerLevelUnlockArea;
     }
     
-    private void PlayerLevelUnlockArea(bool obj)
+    private void PlayerLevelUnlockArea(bool openClose,int value)
     {
-        
+        uiManager.LevelUnlockPanel(openClose);
     }
 
     private void OnPlayerUpgradeArea(bool openClose)
     {
         uiManager.UpgradePanel(openClose);
-        playerMoney = playerBallCounter.stackValue;
     }
 
     public void PlayerArmor()

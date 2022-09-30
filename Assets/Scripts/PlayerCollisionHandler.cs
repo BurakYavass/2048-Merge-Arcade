@@ -44,7 +44,8 @@ public class PlayerCollisionHandler : MonoBehaviour
 
         if (other.CompareTag("LevelWall"))
         {
-            gameEventHandler.PlayerLevelUnlockArea(true);
+            var wallValue = other.GetComponent<WallValue>().unlockRequire;
+            gameEventHandler.PlayerLevelUnlockArea(true,wallValue);
         }
 
         if (other.CompareTag("MergeMachine"))
@@ -123,7 +124,7 @@ public class PlayerCollisionHandler : MonoBehaviour
         
         if (other.CompareTag("LevelWall"))
         {
-            gameEventHandler.PlayerLevelUnlockArea(false);
+            gameEventHandler.PlayerLevelUnlockArea(false,0);
         }
         
         if (other.gameObject.CompareTag("Chest"))
