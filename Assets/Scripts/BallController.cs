@@ -12,10 +12,12 @@ public class BallController : MonoBehaviour
     [SerializeField] private PlayerCollisionHandler _playerFollowerList;
     [SerializeField] private GameObject mergeBallPos;
     [SerializeField] private GameObject upgradeBallPos;
+    private Transform _unlockWallPos;
     //[SerializeField] private Animator animator;
     private Vector3 _distance;
     private bool _goMerge;
     private bool _goUpgrade;
+    private bool _goUnlock;
     private bool _waiter = false;
     private float _tempSpeed;
     private float _tempTimeMerge;
@@ -55,7 +57,6 @@ public class BallController : MonoBehaviour
     {
         if (_goUpgrade)
         {
-            _tempTimeMerge += Time.deltaTime;
             if (balls.Count > 0)
             {
                 for (int i = 0; i < balls.Count; i++)
@@ -64,7 +65,7 @@ public class BallController : MonoBehaviour
                     {
                         _waiter = true;
                         StartCoroutine(DelayMerge());
-                        balls[i].GetComponent<Ball>().SetGoUpgrade(upgradeBallPos, _delayMerge);
+                        balls[i].GetComponent<Ball>().SetGoUpgrade(upgradeBallPos);
                         _delayMerge += .5f;
                         balls.RemoveAt(i);
                         _tempTimeMerge = 0;
@@ -102,16 +103,36 @@ public class BallController : MonoBehaviour
                 _delayMerge = 0;
             }
         }
+
+        if (_goUnlock)
+        {
+            if (balls.Count > 0)
+            {
+                for (int i = 0; i < balls.Count; i++)
+                {
+                    // if (!_waiter)
+                    // {
+                    //     _waiter = true;
+                    //     StartCoroutine(DelayMerge());
+                    //     balls[i].GetComponent<Ball>().SetGoUnlock(_unlockWallPos);
+                    //     balls.RemoveAt(i);
+                    // }
+                    balls[i].GetComponent<Ball>().SetGoUnlock(_unlockWallPos);
+                    balls.RemoveAt(i);
+                }
+            }
+            else
+            {
+                _goUnlock = false;
+                _delayMerge = 0;
+            }
+        }
     }
 
-    public void GoUnlock(int value)
+    public void GoUnlock(Transform target)
     {
-        var ballTotal= 0;
-
-        for (int i = 0; i < balls.Count; i++)
-        {
-            ballTotal += balls[i].GetComponent<Ball>().GetValue();
-        }
+        _unlockWallPos = target;
+        _goUnlock = true;
     }
     public GameObject LastObje()
     {

@@ -15,7 +15,7 @@ public class GameEventHandler : MonoBehaviour
         }
     }
 
-    public event Action<bool,int> OnPlayerLevelUnlockArea; 
+    public event Action<bool> OnPlayerLevelUnlockArea; 
     public event Action<bool> OnPlayerUpgradeArea;
     public event Action<bool> OnPlayerMergeArea; 
     public event Action<bool> OnPlayerHit;
@@ -23,12 +23,8 @@ public class GameEventHandler : MonoBehaviour
     public event Action<bool> OnPlayerLeftArea;
     public event Action<bool ,GameObject> OnBallMergeArea;
 
-    public event Action<bool ,GameObject> OnBallUpgradeArea;
+    public event Action<bool> OnBallWallArea;
 
-    public void BallUpgradeArea(bool enterExit,GameObject obje)
-    {
-        OnBallUpgradeArea?.Invoke(enterExit,obje);
-    }
 
     public void BallMergeArea(bool enterExit,GameObject obje)
     {
@@ -60,8 +56,13 @@ public class GameEventHandler : MonoBehaviour
         OnPlayerHit?.Invoke(hit);
     }
 
-    public void PlayerLevelUnlockArea(bool enterExit ,int value)
+    public void PlayerLevelUnlockArea(bool enterExit)
     {
-        OnPlayerLevelUnlockArea?.Invoke(enterExit,value);
+        OnPlayerLevelUnlockArea?.Invoke(enterExit);
+    }
+
+    public void BallWallArea(bool enterExit)
+    {
+        OnBallWallArea?.Invoke(enterExit);
     }
 }

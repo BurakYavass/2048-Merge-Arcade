@@ -20,10 +20,10 @@ public class Ball : MonoBehaviour
 
     private float _DelayMerge;
     private float _distance;
-    public  bool _Go;
-    public  bool _GoMerge;
-    public  bool _GoUpgrade;
-    private bool _OnStackpos;
+    public bool _Go;
+    public bool _GoMerge;
+    public bool _GoUpgrade;
+    public bool _GoUnlock;
 
     void Start()
     {
@@ -166,7 +166,7 @@ public class Ball : MonoBehaviour
         }
     }
     
-    public void SetGoUpgrade(GameObject target, float delay)
+    public void SetGoUpgrade(GameObject target)
     {
         agent.enabled = false;
         ballRb.useGravity = false;
@@ -206,6 +206,8 @@ public class Ball : MonoBehaviour
     {
         targetObje = target.gameObject;
         _Go = true;
+        _GoUnlock = false;
+        _GoMerge = false;
         ballRb.isKinematic = true;
         agent.enabled = true;
     }
@@ -218,6 +220,7 @@ public class Ball : MonoBehaviour
         ballRb.isKinematic = false;
         gameObject.transform.parent = target.transform.parent;
         _Go = false;
+        _GoUnlock = false;
         _GoMerge = true;
         if (ballAnimator!=null)
         {
@@ -226,23 +229,61 @@ public class Ball : MonoBehaviour
         }
         ballRb.interpolation = RigidbodyInterpolation.None;
         gameObject.tag = "MergeBall";
-        transform.DOJump(target.transform.position, 2, 1, 1.0f)
-            .OnUpdate((() =>
-            {
-                transform.localScale -= new Vector3(.3f, .3f, .3f) * Time.deltaTime;
-            })).OnComplete((() =>
-            {
-                agent.enabled = false;
-                _collider.isTrigger = false;
-                transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
-                StartCoroutine(DelayMergeTime(delay));
-            }));
+        if (gameObject.activeInHierarchy)
+        {
+            transform.DOJump(target.transform.position, 2, 1, 1.0f).SetEase(Ease.OutBounce)
+                .OnUpdate((() =>
+                {
+                    transform.localScale -= new Vector3(.3f, .3f, .3f) * Time.deltaTime;
+                })).OnComplete((() =>
+                {
+                    agent.enabled = false;
+                    _collider.isTrigger = false;
+                    transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
+                    StartCoroutine(DelayMergeTime(delay));
+                }));
+        }
+        else
+        {
+            transform.DOKill();
+        }
+    }
+
+    public void SetGoUnlock(Transform target)
+    {
+        _Go = false;
+        _GoMerge = false;
+        _GoUnlock = true;
+        agent.enabled = false;
+        ballRb.useGravity = false;
+        triggerCollider.enabled = false;
+        _collider.isTrigger = true;
+        ballRb.isKinematic = false;
+        if (ballAnimator!=null)
+        {
+            ballAnimator.SetBool("Jump", false);
+            ballAnimator = null;
+        }
+        ballRb.interpolation = RigidbodyInterpolation.None;
+        gameObject.tag = "UnlockBall";
+        if (gameObject.activeInHierarchy)
+        {
+            transform.DOMove(target.position, 2)
+                .OnUpdate((() =>
+                {
+                    transform.localScale -= new Vector3(.3f, .3f, .3f) * Time.deltaTime;
+                })).OnComplete((() =>
+                {
+                    transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
+                    _GoUnlock = false;
+                }));
+        }
+        else
+        {
+            transform.DOKill();
+        }
     }
     
-    public bool GetStackPos()
-    {
-        return _OnStackpos;
-    }
     public int GetValue()
     {
         return _BallValue;
@@ -265,13 +306,22 @@ public class Ball : MonoBehaviour
         {
             transform.DOKill();
             triggerCollider.enabled = false;
-            GameEventHandler.current.BallUpgradeArea(true,gameObject);
+            _GoUpgrade = false;
             other.transform.DOKill();
-            other.transform.DOPunchScale(new Vector3(0.1f,0.1f,0.1f),0.5f)
+            other.transform.DOPunchScale(new Vector3(0.1f,0.1f,0.1f),0.5f).SetEase(Ease.InBounce)
                 .OnComplete((() =>
                 {
                     other.transform.localScale = Vector3.one;
                 }));
+        }
+
+        if (other.CompareTag("LevelWall"))
+        {
+            transform.DOKill();
+            triggerCollider.enabled = false;
+            _GoUnlock = false;
+            other.transform.DOKill();
+            other.transform.DOPunchScale(new Vector3(0.5f, 0.5f, 0.5f), 0.5f).SetEase(Ease.InBounce);
         }
     }
 
@@ -280,11 +330,6 @@ public class Ball : MonoBehaviour
         if (other.CompareTag("BallPool"))
         {
             GameEventHandler.current.BallMergeArea(false,gameObject);
-        }
-        
-        if (other.CompareTag("BallUpgrade"))
-        {
-            GameEventHandler.current.BallUpgradeArea(false,gameObject);
         }
     }
 

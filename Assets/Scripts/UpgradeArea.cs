@@ -38,7 +38,6 @@ public class UpgradeArea : MonoBehaviour
     
     private int _totalValue;
     private bool _calculate = false;
-    private bool complete = false;
     private int _dicreaseValue;
     [SerializeField] private Animator upgradeAnimator;
     private int j;
@@ -62,7 +61,6 @@ public class UpgradeArea : MonoBehaviour
 
     public void UpgradeComplete(bool resume)
     {
-        complete = resume;
         _calculate = resume;
     }
 
@@ -81,9 +79,8 @@ public class UpgradeArea : MonoBehaviour
                  var follower = _playerFollowerList.playerFollowPoints[j];
                  var last = follower.ReturnLast();
                  var lastPosition = last.transform.position;
-                 GameObject go = Instantiate(ballPrefab,
-                     new Vector3(lastPosition.x, lastPosition.y, lastPosition.z - 3), Quaternion.identity,
-                     _ballController.gameObject.transform);
+                 GameObject go = Instantiate(ballPrefab, new Vector3(lastPosition.x, lastPosition.y, lastPosition.z - 3), Quaternion.identity,
+                     _ballController.transform);
                  go.tag = "StackBall";
                  var ball = go.GetComponent<Ball>();
                  ball.SetValue(4096);
@@ -108,7 +105,7 @@ public class UpgradeArea : MonoBehaviour
                  var lastPosition = last.transform.position;
                  GameObject go = Instantiate(ballPrefab,
                      new Vector3(lastPosition.x, lastPosition.y, lastPosition.z - 3), Quaternion.identity,
-                     _ballController.gameObject.transform);
+                     _ballController.transform);
                  go.tag = "StackBall";
                  var ball = go.GetComponent<Ball>();
                  ball.SetValue(2048);
@@ -133,7 +130,7 @@ public class UpgradeArea : MonoBehaviour
                  var lastPosition = last.transform.position;
                  GameObject go = Instantiate(ballPrefab,
                      new Vector3(lastPosition.x, lastPosition.y, lastPosition.z - 3), Quaternion.identity,
-                     _ballController.gameObject.transform);
+                     _ballController.transform);
                  go.tag = "StackBall";
                  var ball = go.GetComponent<Ball>();
                  ball.SetValue(1024);
@@ -374,7 +371,6 @@ public class UpgradeArea : MonoBehaviour
          else
          {
              _calculate = false;
-             complete = false;
              _totalValue = 0;
          }
      }

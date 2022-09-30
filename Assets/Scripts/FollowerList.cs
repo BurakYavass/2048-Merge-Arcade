@@ -14,6 +14,7 @@ public class FollowerList : MonoBehaviour
     {
         GameEventHandler.current.OnPlayerMergeArea += RemoveBall;
         GameEventHandler.current.OnPlayerUpgradeArea += RemoveBall;
+        GameEventHandler.current.OnBallWallArea += RemoveBall;
     }
 
     private void SetNewBall(GameObject go)
@@ -25,6 +26,7 @@ public class FollowerList : MonoBehaviour
     {
         GameEventHandler.current.OnPlayerMergeArea -= RemoveBall;
         GameEventHandler.current.OnPlayerUpgradeArea -= RemoveBall;
+        GameEventHandler.current.OnBallWallArea -= RemoveBall;
     }
 
     private void RemoveBall(bool work)

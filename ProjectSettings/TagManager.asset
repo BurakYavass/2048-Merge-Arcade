@@ -26,6 +26,8 @@ TagManager:
   - BallPool
   - BallUpgrade
   - LevelWall
+  - UnlockBall
+  - UIManager
   layers:
   - Default
   - TransparentFX

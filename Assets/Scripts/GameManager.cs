@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
         gameEventHandler.OnPlayerLevelUnlockArea -= PlayerLevelUnlockArea;
     }
     
-    private void PlayerLevelUnlockArea(bool openClose,int value)
+    private void PlayerLevelUnlockArea(bool openClose)
     {
         uiManager.LevelUnlockPanel(openClose);
     }

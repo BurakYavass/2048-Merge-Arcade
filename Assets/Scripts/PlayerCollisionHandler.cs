@@ -41,12 +41,7 @@ public class PlayerCollisionHandler : MonoBehaviour
         {
             playerController.CameraChanger(0);
         }
-
-        if (other.CompareTag("LevelWall"))
-        {
-            var wallValue = other.GetComponent<WallValue>().unlockRequire;
-            gameEventHandler.PlayerLevelUnlockArea(true,wallValue);
-        }
+        
 
         if (other.CompareTag("MergeMachine"))
         {
@@ -73,12 +68,6 @@ public class PlayerCollisionHandler : MonoBehaviour
             }
         }
         
-        
-
-        // if (other.CompareTag("StackBall"))
-        // {
-        //     _once = false;
-        // }
     }
 
     private void OnTriggerStay(Collider other)
@@ -124,7 +113,8 @@ public class PlayerCollisionHandler : MonoBehaviour
         
         if (other.CompareTag("LevelWall"))
         {
-            gameEventHandler.PlayerLevelUnlockArea(false,0);
+            gameEventHandler.PlayerLevelUnlockArea(false);
+            _playerBallCounter.stackValue = 0;
         }
         
         if (other.gameObject.CompareTag("Chest"))
