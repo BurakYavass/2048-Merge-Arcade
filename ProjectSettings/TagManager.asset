@@ -25,6 +25,7 @@ TagManager:
   - UpgradeBall
   - BallPool
   - BallUpgrade
+  - LevelWall
   layers:
   - Default
   - TransparentFX

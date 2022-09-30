@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private GameManager gameManager;
+    [SerializeField] private GameObject levelUnlockPanel;
     [SerializeField] private GameObject upgradePanel;
     [SerializeField] private GameObject joyStickPanel;
     [SerializeField] private TextMeshProUGUI speedText;
@@ -26,37 +27,37 @@ public class UIManager : MonoBehaviour
     {
         if (!gameManager.damageMax)
         {
-            damageLevel.text = (gameManager._damageState+1).ToString();
+            damageLevel.text = "Level - " + (gameManager._damageState+1).ToString();
             damageText.text = gameManager.ReturnDamageState().ToString();
         }
         else
         {
-            damageLevel.text = "Max Level";
-            damageText.text = "Max Level";
+            damageLevel.text = "Max";
+            damageText.text = "Max";
             damageButton.enabled = false;
         }
 
         if (!gameManager.armorMax)
         {
-            armorLevel.text = (gameManager._armorState+1).ToString();
+            armorLevel.text = "Level - " + (gameManager._armorState+1);
             armorText.text = gameManager.ReturnArmorState().ToString();
         }
         else
         {
-            armorLevel.text = "Max Level";
-            armorText.text = "Max Level";
+            armorLevel.text = "Max";
+            armorText.text = "Max";
             armorButton.enabled = false;
         }
 
         if (!gameManager.speedMax)
         {
-            speedLevel.text = (gameManager._speedState+1).ToString();
+            speedLevel.text = "Level - " + (gameManager._speedState+1).ToString();
             speedText.text = gameManager.ReturnSpeedState().ToString();
         }
         else
         {
-            speedLevel.text = "Max Level";
-            speedText.text = "Max Level";
+            speedLevel.text = "Max";
+            speedText.text = "Max";
             speedButton.enabled = false;
         }
     }

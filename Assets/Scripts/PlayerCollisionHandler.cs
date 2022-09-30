@@ -16,7 +16,6 @@ public class PlayerCollisionHandler : MonoBehaviour
     private Vector3 _lastposition;
     
     private bool _onMergeMachine = false;
-    private bool _once = false;
     private bool _hit = false;
     private bool upgradeArea = false;
     private int i = 0;
@@ -41,6 +40,11 @@ public class PlayerCollisionHandler : MonoBehaviour
         else
         {
             playerController.CameraChanger(0);
+        }
+
+        if (other.CompareTag("LevelWall"))
+        {
+            gameEventHandler.PlayerLevelUnlockArea(true);
         }
 
         if (other.CompareTag("MergeMachine"))
@@ -115,6 +119,11 @@ public class PlayerCollisionHandler : MonoBehaviour
         {
             GameEventHandler.current.PlayerLeftArea(false);
             playerController.CameraChanger(0);
+        }
+        
+        if (other.CompareTag("LevelWall"))
+        {
+            gameEventHandler.PlayerLevelUnlockArea(false);
         }
         
         if (other.gameObject.CompareTag("Chest"))

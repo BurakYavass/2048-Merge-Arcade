@@ -360,10 +360,8 @@ MonoBehaviour:
   _FullHealth: {fileID: 4687787107174209881}
   _CurrentHealth: {fileID: 7557750788238528296}
   _SliderValue: {fileID: 7225757602998192753}
-  _CreatValue:
-  - 16
-  - 32
-  _CreatCount: 3
+  _CreatValue: 0400000008000000
+  _CreatCount: 5
   _ChestHealthValue: 250
 --- !u!1001 &8752352159160239816
 PrefabInstance:

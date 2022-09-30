@@ -24,7 +24,6 @@ public class Ball : MonoBehaviour
     public  bool _GoMerge;
     public  bool _GoUpgrade;
     private bool _OnStackpos;
-    private bool once = false;
 
     void Start()
     {
@@ -227,12 +226,13 @@ public class Ball : MonoBehaviour
         }
         ballRb.interpolation = RigidbodyInterpolation.None;
         gameObject.tag = "MergeBall";
-        transform.DOJump(target.transform.position, 2, 1, 2.0f)
+        transform.DOJump(target.transform.position, 2, 1, 1.0f)
             .OnUpdate((() =>
             {
                 transform.localScale -= new Vector3(.3f, .3f, .3f) * Time.deltaTime;
             })).OnComplete((() =>
             {
+                agent.enabled = false;
                 _collider.isTrigger = false;
                 transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
                 StartCoroutine(DelayMergeTime(delay));
@@ -270,7 +270,6 @@ public class Ball : MonoBehaviour
             other.transform.DOPunchScale(new Vector3(0.1f,0.1f,0.1f),0.5f)
                 .OnComplete((() =>
                 {
-                    once = false;
                     other.transform.localScale = Vector3.one;
                 }));
         }
