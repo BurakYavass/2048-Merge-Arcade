@@ -78,34 +78,6 @@ public class Ball : MonoBehaviour
                 agent.speed = GameManager.current.playerSpeed;
             }
         }
-        
-        if (_GoMerge)
-        {
-            // transform.position = Vector3.Lerp(transform.position, targetObje.transform.position, .03f   );
-            // transform.localScale = Vector3.Lerp(transform.localScale, targetObje.transform.localScale, .03f   );
-            // if (Vector3.Distance(transform.position, targetObje.transform.position) < _distance * .02f)
-            // {
-            //     //ballRb.isKinematic = false;
-            //     ballRb.useGravity = true;
-            //     triggerCollider.enabled = true;
-            //     _GoMerge = false;
-            //     StartCoroutine(DelayMergeTime());
-            // }
-
-            //transform.DOJump(targetObje.transform.position, 2, 1, 1);
-        }
-        
-        if (_GoUpgrade)
-        {
-            transform.position = Vector3.Lerp(transform.position, targetObje.transform.position, .03f);
-            transform.localScale = Vector3.Lerp(transform.localScale, targetObje.transform.localScale, .03f);
-            if (Vector3.Distance(transform.position, targetObje.transform.position) < _distance * .02f)
-            {
-                ballRb.isKinematic = false;
-                ballRb.useGravity = true;
-                _GoUpgrade = false;
-            }
-        }
     }
     public void SetValue(int ballvalue)
     {
@@ -201,20 +173,34 @@ public class Ball : MonoBehaviour
         ballRb.useGravity = false;
         triggerCollider.enabled = false;
         _collider.isTrigger = true;
+        ballRb.isKinematic = false;
+        gameObject.transform.parent = target.transform.parent;
+        _Go = false;
+        _GoMerge = true;
         if (ballAnimator!=null)
         {
             ballAnimator.SetBool("Jump", false);
             ballAnimator = null;
         }
         ballRb.interpolation = RigidbodyInterpolation.None;
-        _Go = false;
-        _GoMerge = false;
-        _GoUpgrade = true;
-        _DelayMerge = delay;
-        gameObject.transform.parent = target.transform.parent;
-        targetObje = target;
-        _distance = Vector3.Distance(transform.position, targetObje.transform.position);
         gameObject.tag = "UpgradeBall";
+        if (gameObject.activeInHierarchy)
+        {
+            transform.DOMove(target.transform.position, 2)
+                .OnUpdate((() =>
+                {
+                    transform.localScale -= new Vector3(.3f, .3f, .3f) * Time.deltaTime;
+                })).OnComplete((() =>
+                {
+                    transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
+                    _GoUpgrade = false;
+                }));
+        }
+        else
+        {
+            transform.DOKill();
+        }
+        
     }
     
     public void SetGoTarget(Transform target)
@@ -228,21 +214,19 @@ public class Ball : MonoBehaviour
     public void SetGoMerge(GameObject target,float delay)
     {
         agent.enabled = false;
-        ballRb.useGravity = false;
+        ballRb.useGravity = true;
         triggerCollider.enabled = true;
+        ballRb.isKinematic = false;
+        gameObject.transform.parent = target.transform.parent;
+        _Go = false;
+        _GoMerge = true;
         if (ballAnimator!=null)
         {
             ballAnimator.SetBool("Jump", false);
             ballAnimator = null;
         }
         ballRb.interpolation = RigidbodyInterpolation.None;
-        gameObject.transform.parent = target.transform.parent;
-        _Go = false;
-        _GoMerge = true;
-        _DelayMerge = delay;
-        targetObje = target;
         gameObject.tag = "MergeBall";
-        _distance = Vector3.Distance(transform.position, targetObje.transform.position);
         transform.DOJump(target.transform.position, 2, 1, 2.0f)
             .OnUpdate((() =>
             {
@@ -251,10 +235,7 @@ public class Ball : MonoBehaviour
             {
                 _collider.isTrigger = false;
                 transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
-                ballRb.isKinematic = false;
-                ballRb.useGravity = true;
-                triggerCollider.enabled = true;
-                StartCoroutine(DelayMergeTime());
+                StartCoroutine(DelayMergeTime(delay));
             }));
     }
     
@@ -266,55 +247,32 @@ public class Ball : MonoBehaviour
     {
         return _BallValue;
     }
-    private void OnTriggerStay(Collider other)
-    {
-        // if (other.CompareTag("BallPool"))
-        // {
-        //     agent.enabled = false;
-        //     _collider.isTrigger = true;
-        //     _GoMerge = false;
-        //     gameObject.transform.parent = other.transform.parent;
-        //     GameEventHandler.current.BallMergeArea(true,gameObject);
-        //     if (!once)
-        //     {
-        //         once = true;
-        //         // other.transform.parent.transform.DOPunchScale(new Vector3(0.1f,0.1f,0.1f),0.5f)
-        //         //     .OnComplete((() =>
-        //         //     {
-        //         //         once = false;
-        //         //         other.transform.localScale = Vector3.one;
-        //         //     }));
-        //     }
-        // }
-    }
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.CompareTag("Player"))
+        {
+            agent.enabled = true;
+        }
         if (other.CompareTag("BallPool"))
         {
-            agent.enabled = false;
-            //_collider.isTrigger = true;
+            transform.DOKill();
             _GoMerge = false;
-            //gameObject.GetComponentInChildren<MeshRenderer>().enabled = false;
             GameEventHandler.current.BallMergeArea(true,gameObject);
         }
         
         if (other.CompareTag("BallUpgrade"))
         {
-            _collider.isTrigger = false;
+            transform.DOKill();
             triggerCollider.enabled = false;
             GameEventHandler.current.BallUpgradeArea(true,gameObject);
-            if (!once)
-            {
-                once = true;
-                gameObject.GetComponentInChildren<MeshRenderer>().enabled = false;
-                other.transform.DOPunchScale(new Vector3(0.1f,0.1f,0.1f),0.5f)
-                    .OnComplete((() =>
-                    {
-                        once = false;
-                        other.transform.localScale = Vector3.one;
-                    }));
-            }
+            other.transform.DOKill();
+            other.transform.DOPunchScale(new Vector3(0.1f,0.1f,0.1f),0.5f)
+                .OnComplete((() =>
+                {
+                    once = false;
+                    other.transform.localScale = Vector3.one;
+                }));
         }
     }
 
@@ -322,7 +280,6 @@ public class Ball : MonoBehaviour
     {
         if (other.CompareTag("BallPool"))
         {
-            gameObject.GetComponentInChildren<MeshRenderer>().enabled = true;
             GameEventHandler.current.BallMergeArea(false,gameObject);
         }
         
@@ -338,12 +295,11 @@ public class Ball : MonoBehaviour
         yield return new WaitForSeconds(1);
         triggerCollider.enabled = true;
         ballRb.interpolation = RigidbodyInterpolation.Interpolate;
-        agent.enabled = true;
     }
-    IEnumerator DelayMergeTime( )
+    IEnumerator DelayMergeTime(float delay)
     {
         //triggerCollider.isTrigger = false;
-        yield return new WaitForSeconds(_DelayMerge);
+        yield return new WaitForSeconds(delay);
         GetComponent<Animator>().runtimeAnimatorController = merge;
         triggerCollider.isTrigger = true;
     }

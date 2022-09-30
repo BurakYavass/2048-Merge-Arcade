@@ -56,7 +56,6 @@ public class FollowerList : MonoBehaviour
 
     public GameObject ReturnLast()
     {
-        //var last = follower.LastOrDefault();
         return follower.Last();
     }
 }
