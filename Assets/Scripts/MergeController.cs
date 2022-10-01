@@ -88,7 +88,7 @@ public class MergeController : MonoBehaviour
              GameObject go = Instantiate(_Ball, _ballSpawn.transform.position, _ballSpawn.transform.localRotation);
              var ball = go.GetComponent<Ball>();
              ball.SetValue(4096);
-             ball.ballRb.AddForce(Vector3.left*10,ForceMode.Impulse);
+             ball.ballRb.AddForce(Vector3.left*3,ForceMode.Impulse);
              ball.agent.enabled = false;
              _TotalValue -= 4096;
              _IsDone = 1;
@@ -98,7 +98,7 @@ public class MergeController : MonoBehaviour
              GameObject go = Instantiate(_Ball, _ballSpawn.transform.position, _ballSpawn.transform.localRotation);
              var ball = go.GetComponent<Ball>();
              ball.SetValue(2048);
-             ball.ballRb.AddForce(Vector3.left*10,ForceMode.Impulse);
+             ball.ballRb.AddForce(Vector3.left*3,ForceMode.Impulse);
              ball.agent.enabled = false;
              _TotalValue -= 2048;
              _IsDone = 1;
@@ -108,7 +108,7 @@ public class MergeController : MonoBehaviour
              GameObject go = Instantiate(_Ball, _ballSpawn.transform.position, _ballSpawn.transform.localRotation);
              var ball = go.GetComponent<Ball>();
              ball.SetValue(1024);
-             ball.ballRb.AddForce(Vector3.left*10,ForceMode.Impulse);
+             ball.ballRb.AddForce(Vector3.left*3,ForceMode.Impulse);
              ball.agent.enabled = false;
              _TotalValue -= 1024;
              _IsDone = 1;
@@ -118,7 +118,7 @@ public class MergeController : MonoBehaviour
              GameObject go = Instantiate(_Ball, _ballSpawn.transform.position, _ballSpawn.transform.localRotation);
              var ball = go.GetComponent<Ball>();
              ball.SetValue(512);
-             ball.ballRb.AddForce(Vector3.left*10,ForceMode.Impulse);
+             ball.ballRb.AddForce(Vector3.left*3,ForceMode.Impulse);
              ball.agent.enabled = false;
              _TotalValue -= 512;
              _IsDone= 1;
@@ -128,7 +128,7 @@ public class MergeController : MonoBehaviour
              GameObject go = Instantiate(_Ball, _ballSpawn.transform.position, _ballSpawn.transform.localRotation);
              var ball = go.GetComponent<Ball>();
              ball.SetValue(256);
-             ball.ballRb.AddForce(Vector3.left*10,ForceMode.Impulse);
+             ball.ballRb.AddForce(Vector3.left*3,ForceMode.Impulse);
              ball.agent.enabled = false;
              _TotalValue -= 256;
              _IsDone = 1;
@@ -138,7 +138,7 @@ public class MergeController : MonoBehaviour
              GameObject go = Instantiate(_Ball, _ballSpawn.transform.position, _ballSpawn.transform.localRotation);
              var ball = go.GetComponent<Ball>();
              ball.SetValue(128);
-             ball.ballRb.AddForce(Vector3.left*10,ForceMode.Impulse);
+             ball.ballRb.AddForce(Vector3.left*3,ForceMode.Impulse);
              ball.agent.enabled = false;
              _TotalValue -= 128;
              _IsDone = 1;
@@ -148,7 +148,7 @@ public class MergeController : MonoBehaviour
              GameObject go = Instantiate(_Ball, _ballSpawn.transform.position, _ballSpawn.transform.localRotation);
              var ball = go.GetComponent<Ball>();
              ball.SetValue(64);
-             ball.ballRb.AddForce(Vector3.left*10,ForceMode.Impulse);
+             ball.ballRb.AddForce(Vector3.left*3,ForceMode.Impulse);
              ball.agent.enabled = false;
              _TotalValue -= 64;
              _IsDone = 1;
@@ -158,7 +158,7 @@ public class MergeController : MonoBehaviour
              GameObject go = Instantiate(_Ball, _ballSpawn.transform.position, _ballSpawn.transform.localRotation);
              var ball = go.GetComponent<Ball>();
              ball.SetValue(32);
-             ball.ballRb.AddForce(Vector3.left*10,ForceMode.Impulse);
+             ball.ballRb.AddForce(Vector3.left*3,ForceMode.Impulse);
              ball.agent.enabled = false;
              _TotalValue -= 32;
              _IsDone = 1;
@@ -168,7 +168,7 @@ public class MergeController : MonoBehaviour
              GameObject go = Instantiate(_Ball, _ballSpawn.transform.position, _ballSpawn.transform.localRotation);
              var ball = go.GetComponent<Ball>();
              ball.SetValue(16);
-             ball.ballRb.AddForce(Vector3.left*10,ForceMode.Impulse);
+             ball.ballRb.AddForce(Vector3.left*3,ForceMode.Impulse);
              ball.agent.enabled = false;
              _TotalValue -= 16;
              _IsDone = 1;
@@ -178,7 +178,7 @@ public class MergeController : MonoBehaviour
              GameObject go = Instantiate(_Ball, _ballSpawn.transform.position, _ballSpawn.transform.localRotation);
              var ball = go.GetComponent<Ball>();
              ball.SetValue(8);
-             ball.ballRb.AddForce(Vector3.left*10,ForceMode.Impulse);
+             ball.ballRb.AddForce(Vector3.left*3,ForceMode.Impulse);
              ball.agent.enabled = false;
              _TotalValue -= 8;
              _IsDone = 1;
@@ -188,7 +188,7 @@ public class MergeController : MonoBehaviour
              GameObject go = Instantiate(_Ball, _ballSpawn.transform.position, _ballSpawn.transform.localRotation);
              var ball = go.GetComponent<Ball>();
              ball.SetValue(4);
-             ball.ballRb.AddForce(Vector3.left*10,ForceMode.Impulse);
+             ball.ballRb.AddForce(Vector3.left*3,ForceMode.Impulse);
              ball.agent.enabled = false;
              _TotalValue -= 4;
              _IsDone = 1;
@@ -198,7 +198,7 @@ public class MergeController : MonoBehaviour
              GameObject go = Instantiate(_Ball, _ballSpawn.transform.position, _ballSpawn.transform.localRotation);
              var ball = go.GetComponent<Ball>();
              ball.SetValue(2);
-             ball.ballRb.AddForce(Vector3.left*10,ForceMode.Impulse);
+             ball.ballRb.AddForce(Vector3.left*3,ForceMode.Impulse);
              ball.agent.enabled = false;
              _TotalValue -= 2;
              _IsDone = 1;

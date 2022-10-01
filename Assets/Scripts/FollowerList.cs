@@ -12,9 +12,9 @@ public class FollowerList : MonoBehaviour
 
     private void Start()
     {
-        GameEventHandler.current.OnPlayerMergeArea += RemoveBall;
-        GameEventHandler.current.OnPlayerUpgradeArea += RemoveBall;
-        GameEventHandler.current.OnBallWallArea += RemoveBall;
+        //GameEventHandler.current.OnPlayerMergeArea += RemoveBall;
+        //GameEventHandler.current.OnPlayerUpgradeArea += RemoveBall;
+        //GameEventHandler.current.OnBallWallArea += RemoveBall;
     }
 
     private void SetNewBall(GameObject go)
@@ -47,8 +47,9 @@ public class FollowerList : MonoBehaviour
             {
                 clearList = false;
             }
-            
         }
+
+        follower.RemoveAll((obje => obje == null));
     }
 
     public void SaveBall(GameObject obje)
