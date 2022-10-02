@@ -52,7 +52,7 @@ public class PlayerCollisionHandler : MonoBehaviour
                 if (ballController.balls.Count > 1)
                 {
                     ballController.GoMerge();
-                    GameEventHandler.current.PlayerMergeArea(true);
+                    //GameEventHandler.current.PlayerMergeArea(true);
                 }
             }
         }

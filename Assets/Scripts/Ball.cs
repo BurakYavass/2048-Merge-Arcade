@@ -35,8 +35,9 @@ public class Ball : MonoBehaviour
     }
     void FixedUpdate()
     {
-        if (_Go && agent.enabled)
+        if (_Go && agent.enabled && targetObje != null )
         {
+            ballRb.isKinematic = true;
             var targetObjePos = targetObje.transform.position;
             var distance = Vector3.Distance(transform.position , targetObje.transform.position);
             if (Mathf.Abs(agent.stoppingDistance - distance) > 3.0f)
@@ -192,6 +193,12 @@ public class Ball : MonoBehaviour
                     transform.localScale -= new Vector3(.3f, .3f, .3f) * Time.deltaTime;
                 })).OnComplete((() =>
                 {
+                    target.transform.DOKill();
+                    target.transform.DOPunchScale(new Vector3(0.1f,0.1f,0.1f),0.2f).SetEase(Ease.InBounce)
+                        .OnComplete((() =>
+                        {
+                            target.transform.localScale = Vector3.one;
+                        }));
                     transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
                     _GoUpgrade = false;
                 }));
@@ -280,6 +287,7 @@ public class Ball : MonoBehaviour
                 })).OnComplete((() =>
                 {
                     transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
+                    target.transform.DOPunchScale(new Vector3(0.5f, 0.5f, 0.5f), 0.5f).SetEase(Ease.InBounce);
                     _GoUnlock = false;
                 }));
         }
@@ -312,12 +320,7 @@ public class Ball : MonoBehaviour
             transform.DOKill();
             triggerCollider.enabled = false;
             _GoUpgrade = false;
-            other.transform.DOKill();
-            other.transform.DOPunchScale(new Vector3(0.1f,0.1f,0.1f),0.5f).SetEase(Ease.InBounce)
-                .OnComplete((() =>
-                {
-                    other.transform.localScale = Vector3.one;
-                }));
+            
         }
 
         if (other.CompareTag("LevelWall"))
@@ -325,8 +328,6 @@ public class Ball : MonoBehaviour
             transform.DOKill();
             triggerCollider.enabled = false;
             _GoUnlock = false;
-            other.transform.DOKill();
-            other.transform.DOPunchScale(new Vector3(0.5f, 0.5f, 0.5f), 0.5f).SetEase(Ease.InBounce);
         }
     }
 

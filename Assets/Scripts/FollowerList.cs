@@ -11,9 +11,9 @@ public class FollowerList : MonoBehaviour
 
     private void Start()
     {
-        GameEventHandler.current.OnPlayerMergeArea += RemoveBall;
-        GameEventHandler.current.OnPlayerUpgradeArea += RemoveBall;
-        GameEventHandler.current.OnPlayerLevelUnlockArea += RemoveBall;
+        // GameEventHandler.current.OnPlayerMergeArea += RemoveBall;
+        // GameEventHandler.current.OnPlayerUpgradeArea += RemoveBall;
+        // GameEventHandler.current.OnPlayerLevelUnlockArea += RemoveBall;
     }
 
     private void SetNewBall(GameObject go)
@@ -23,19 +23,20 @@ public class FollowerList : MonoBehaviour
 
     private void OnDisable()
     {
-        GameEventHandler.current.OnPlayerMergeArea -= RemoveBall;
-        GameEventHandler.current.OnPlayerUpgradeArea -= RemoveBall;
-        GameEventHandler.current.OnPlayerLevelUnlockArea -= RemoveBall;
+        // GameEventHandler.current.OnPlayerMergeArea -= RemoveBall;
+        // GameEventHandler.current.OnPlayerUpgradeArea -= RemoveBall;
+        // GameEventHandler.current.OnPlayerLevelUnlockArea -= RemoveBall;
     }
 
     private void RemoveBall(bool work)
     {
         //clearList = work;
-        follower.RemoveAll((obje => obje == null));
+        
     }
 
-    private void LateUpdate()
+    private void FixedUpdate()
     {
+        follower.RemoveAll((obje => obje == null));
         // if (clearList)
         // {
         //     if (follower.Count > 1)
