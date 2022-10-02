@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2287741638534487717}
   - component: {fileID: 5278633608939663903}
   m_Layer: 0
-  m_Name: Lvl1Chest3
+  m_Name: Lvl1Chest3 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -424,18 +424,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2287741638534487717}
     m_Modifications:
-    - target: {fileID: 2427762038273416378, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
-      propertyPath: m_Size.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2427762038273416378, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
-      propertyPath: m_Size.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2427762038273416378, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
-      propertyPath: m_Size.z
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2530805582524634302, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
       propertyPath: m_Name
       value: Chest
@@ -443,22 +431,6 @@ PrefabInstance:
     - target: {fileID: 2530805582524634302, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
       propertyPath: m_TagString
       value: Chest
-      objectReference: {fileID: 0}
-    - target: {fileID: 5346320073673544930, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
-      propertyPath: m_Center.x
-      value: 0.34
-      objectReference: {fileID: 0}
-    - target: {fileID: 5346320073673544930, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
-      propertyPath: m_Extents.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5346320073673544930, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
-      propertyPath: m_Extents.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5346320073673544930, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
-      propertyPath: m_Extents.z
-      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7385895005598399096, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
       propertyPath: _MainObje
@@ -597,7 +569,9 @@ MonoBehaviour:
   _FullHealth: {fileID: 1884926143838587690}
   _CurrentHealth: {fileID: 3730178489634790747}
   _SliderValue: {fileID: 4567155383597520898}
-  _CreatValue: 0400000008000000
+  _CreatValue:
+  - 4
+  - 8
   _CreatCount: 3
   _ChestHealthValue: 75
 --- !u!4 &5367904883907290036 stripped

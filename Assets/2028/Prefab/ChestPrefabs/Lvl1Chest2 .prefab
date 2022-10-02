@@ -54,9 +54,41 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8196671434637389583}
     m_Modifications:
+    - target: {fileID: 2427762038273416378, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2427762038273416378, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
+      propertyPath: m_Size.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2427762038273416378, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
+      propertyPath: m_Size.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2427762038273416378, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
+      propertyPath: m_Center.x
+      value: 0.35
+      objectReference: {fileID: 0}
     - target: {fileID: 2530805582524634302, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
       propertyPath: m_Name
       value: Chest
+      objectReference: {fileID: 0}
+    - target: {fileID: 5346320073673544930, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
+      propertyPath: m_Center.x
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 5346320073673544930, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
+      propertyPath: m_Extents.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5346320073673544930, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
+      propertyPath: m_Extents.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5346320073673544930, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
+      propertyPath: m_Extents.z
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7385895005598399096, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
       propertyPath: _MainObje
@@ -132,11 +164,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8085266752041353350, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
       propertyPath: m_CastShadows
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8085266752041353350, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
       propertyPath: m_ReceiveShadows
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}

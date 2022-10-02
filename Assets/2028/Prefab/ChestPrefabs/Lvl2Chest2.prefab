@@ -172,11 +172,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8085266752041353350, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
       propertyPath: m_CastShadows
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8085266752041353350, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
       propertyPath: m_ReceiveShadows
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8085266752041353350, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -190,6 +190,14 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[2]
       value: 
       objectReference: {fileID: -6478536213147159724, guid: 3517534986b878f4e8ccf19e9431df77, type: 3}
+    - target: {fileID: 8306547202127584712, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8306547202127584712, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9125106667903028836, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
       propertyPath: m_Mesh
       value: 

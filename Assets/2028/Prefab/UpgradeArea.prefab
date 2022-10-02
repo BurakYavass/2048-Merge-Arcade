@@ -720,6 +720,14 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6330911270293043179, guid: 00bd2f6ead2448f43a2f37dd79409147, type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6330911270293043179, guid: 00bd2f6ead2448f43a2f37dd79409147, type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6385634510849723323, guid: 00bd2f6ead2448f43a2f37dd79409147, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
@@ -743,6 +751,14 @@ PrefabInstance:
     - target: {fileID: 7343288396736526193, guid: 00bd2f6ead2448f43a2f37dd79409147, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7527967525772991891, guid: 00bd2f6ead2448f43a2f37dd79409147, type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7527967525772991891, guid: 00bd2f6ead2448f43a2f37dd79409147, type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7527967525772991891, guid: 00bd2f6ead2448f43a2f37dd79409147, type: 3}
       propertyPath: m_Materials.Array.data[1]
