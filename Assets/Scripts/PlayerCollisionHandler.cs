@@ -17,7 +17,8 @@ public class PlayerCollisionHandler : MonoBehaviour
     
     private bool _onMergeMachine = false;
     private bool _hit = false;
-    private bool upgradeArea = false;
+    private bool _upgradeArea = false;
+    private bool _unlockArea = false;
     private int i = 0;
 
     private void Start()
@@ -60,9 +61,9 @@ public class PlayerCollisionHandler : MonoBehaviour
         {
             ballController.GoUpgrade();
             GameEventHandler.current.PlayerUpgradeArea(true);
-            if (!upgradeArea)
+            if (!_upgradeArea)
             {
-                upgradeArea = true;
+                _upgradeArea = true;
                 _playerBallCounter.BallCountCheck();
                 playerController.CameraChanger(3);
             }
@@ -113,7 +114,7 @@ public class PlayerCollisionHandler : MonoBehaviour
         
         if (other.CompareTag("LevelWall"))
         {
-            gameEventHandler.PlayerLevelUnlockArea(false);
+            //gameEventHandler.PlayerLevelUnlockArea(false);
             _playerBallCounter.stackValue = 0;
         }
         
@@ -132,7 +133,7 @@ public class PlayerCollisionHandler : MonoBehaviour
 
         if (other.CompareTag("UpgradeTrigger"))
         {
-            upgradeArea = false;
+            _upgradeArea = false;
             //GameEventHandler.current.BallUpgradeArea(false,null);
             GameEventHandler.current.PlayerUpgradeArea(false);
             playerController.CameraChanger(0);

@@ -231,9 +231,10 @@ public class Ball : MonoBehaviour
         gameObject.tag = "MergeBall";
         if (gameObject.activeInHierarchy)
         {
-            transform.DOJump(target.transform.position, 2, 1, 2.0f).SetEase(Ease.InOutSine)
+            transform.DOJump(target.transform.position, 1, 1, 1.5f).SetEase(Ease.OutSine)
                 .OnUpdate((() =>
                 {
+                    ballRb.mass = 0.01f;
                     transform.localScale -= new Vector3(.3f, .3f, .3f) * Time.deltaTime;
                 })).OnComplete((() =>
                 {
@@ -297,9 +298,9 @@ public class Ball : MonoBehaviour
         }
         if (other.CompareTag("BallPool"))
         {
-            transform.DOKill();
+            //transform.DOKill();
             _GoMerge = false;
-            GameEventHandler.current.BallMergeArea(true,gameObject);
+            GameEventHandler.current.BallMergeArea(true);
         }
         
         if (other.CompareTag("BallUpgrade"))
@@ -329,7 +330,7 @@ public class Ball : MonoBehaviour
     {
         if (other.CompareTag("BallPool"))
         {
-            GameEventHandler.current.BallMergeArea(false,gameObject);
+            GameEventHandler.current.BallMergeArea(false);
         }
     }
 

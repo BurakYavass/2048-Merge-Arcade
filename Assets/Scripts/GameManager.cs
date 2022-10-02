@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
     {
         gameEventHandler.OnPlayerUpgradeArea += OnPlayerUpgradeArea;
         gameEventHandler.OnPlayerLevelUnlockArea += PlayerLevelUnlockArea;
+        Application.targetFrameRate = 60;
         _speedUpgradeRequire = speedUpgradeState[_speedState];
         _damageUpgradeRequire = damageUpgradeState[_damageState];
         _armorUpgradeRequire = armorUpgradeState[_armorState];

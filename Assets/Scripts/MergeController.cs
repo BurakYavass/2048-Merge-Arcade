@@ -70,7 +70,7 @@ public class MergeController : MonoBehaviour
             }
         }
     }
-    private void OnBallMergeArea(bool enterExit,GameObject obj)
+    private void OnBallMergeArea(bool enterExit)
     {
         machineAnimator.SetBool("vibration" , true);
     }

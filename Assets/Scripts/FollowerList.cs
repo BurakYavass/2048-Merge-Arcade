@@ -7,14 +7,13 @@ using UnityEngine;
 public class FollowerList : MonoBehaviour
 {
     public List<GameObject> follower;
-    [SerializeField] private GameObject creatBall;
     public bool clearList = false;
 
     private void Start()
     {
-        //GameEventHandler.current.OnPlayerMergeArea += RemoveBall;
-        //GameEventHandler.current.OnPlayerUpgradeArea += RemoveBall;
-        //GameEventHandler.current.OnBallWallArea += RemoveBall;
+        GameEventHandler.current.OnPlayerMergeArea += RemoveBall;
+        GameEventHandler.current.OnPlayerUpgradeArea += RemoveBall;
+        GameEventHandler.current.OnPlayerLevelUnlockArea += RemoveBall;
     }
 
     private void SetNewBall(GameObject go)
@@ -26,30 +25,31 @@ public class FollowerList : MonoBehaviour
     {
         GameEventHandler.current.OnPlayerMergeArea -= RemoveBall;
         GameEventHandler.current.OnPlayerUpgradeArea -= RemoveBall;
-        GameEventHandler.current.OnBallWallArea -= RemoveBall;
+        GameEventHandler.current.OnPlayerLevelUnlockArea -= RemoveBall;
     }
 
     private void RemoveBall(bool work)
     {
-        clearList = work;
+        //clearList = work;
+        follower.RemoveAll((obje => obje == null));
     }
 
-    private void Update()
+    private void LateUpdate()
     {
-        if (clearList)
-        {
-            if (follower.Count > 1)
-            {
-                var ballIndex = follower.Find(x => x.name == "ballwithTexture(Clone)");
-                follower.Remove(ballIndex);
-            }
-            else
-            {
-                clearList = false;
-            }
-        }
+        // if (clearList)
+        // {
+        //     if (follower.Count > 1)
+        //     {
+        //         var ballIndex = follower.Find(x => x.name == "ballwithTexture(Clone)");
+        //         follower.Remove(ballIndex);
+        //     }
+        //     else
+        //     {
+        //         clearList = false;
+        //     }
+        // }
 
-        follower.RemoveAll((obje => obje == null));
+        
     }
 
     public void SaveBall(GameObject obje)

@@ -110,15 +110,15 @@ public class BallController : MonoBehaviour
             {
                 for (int i = 0; i < balls.Count; i++)
                 {
-                    // if (!_waiter)
-                    // {
-                    //     _waiter = true;
-                    //     StartCoroutine(DelayMerge());
-                    //     balls[i].GetComponent<Ball>().SetGoUnlock(_unlockWallPos);
-                    //     balls.RemoveAt(i);
-                    // }
-                    balls[i].GetComponent<Ball>().SetGoUnlock(_unlockWallPos);
-                    balls.RemoveAt(i);
+                    if (!_waiter)
+                    {
+                        _waiter = true;
+                        StartCoroutine(DelayMerge());
+                        balls[i].GetComponent<Ball>().SetGoUnlock(_unlockWallPos);
+                        balls.RemoveAt(i);
+                    }
+                    // balls[i].GetComponent<Ball>().SetGoUnlock(_unlockWallPos);
+                    // balls.RemoveAt(i);
                 }
             }
             else

@@ -62,7 +62,6 @@ public class WallValue : MonoBehaviour
         {
             playerValue.stackValue -= unlockRequire;
             _uiManager.LevelUnlockPanel(false);
-            GameEventHandler.current.BallWallArea(true);
             _ballController.GoUnlock(transform);
             StartCoroutine(Delay(delay));
         }
