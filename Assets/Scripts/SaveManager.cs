@@ -6,13 +6,19 @@ public class SaveManager : MonoBehaviour
 {
     [SerializeField] private bool _Test;
     [SerializeField] private GameObject level1Chests;
+    [SerializeField] private GameObject level2Chests;
     [SerializeField] private List<GameObject> _AllObje = new List<GameObject>();
     
     private void Awake()
     {
-        foreach (Transform t in level1Chests.transform)
+        foreach (Transform chest1 in level1Chests.transform)
         {
-            _AllObje.Add(t.gameObject);
+            _AllObje.Add(chest1.gameObject);
+        }
+
+        foreach (Transform chest2 in level2Chests.transform)
+        {
+            _AllObje.Add(chest2.gameObject);
         }
         
         if (_Test)

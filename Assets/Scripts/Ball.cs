@@ -60,13 +60,14 @@ public class Ball : MonoBehaviour
                     ballAnimator.SetBool("Jump", true);
                 }
 
-                _collider.isTrigger = true;
+                
                 var currentVelocity = agent.velocity;
                 agent.destination =
                     Vector3.SmoothDamp(transform.position, 
                                         new Vector3(targetObjePos.x,targetObjePos.y,
                                                             targetObjePos.z + agent.radius), 
                                                                  ref currentVelocity, Time.smoothDeltaTime);
+                
             }
             else
             {
@@ -210,6 +211,9 @@ public class Ball : MonoBehaviour
         _GoMerge = false;
         ballRb.isKinematic = true;
         agent.enabled = true;
+        _collider.isTrigger = true;
+        var pos = transform.position;
+        transform.DOJump(new Vector3(pos.x,pos.y,pos.z), 1, 1, 1.0f).SetEase(Ease.OutBounce);
     }
     
     public void SetGoMerge(GameObject target,float delay)
