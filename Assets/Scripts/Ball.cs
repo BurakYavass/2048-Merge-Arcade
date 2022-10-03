@@ -33,42 +33,41 @@ public class Ball : MonoBehaviour
         ballRb.isKinematic = false;
         ballRb.interpolation = RigidbodyInterpolation.None;
     }
+
+    private void Awake()
+    {
+        agent.updatePosition = false;
+    }
+
     void FixedUpdate()
     {
         if (_Go && agent.enabled && targetObje != null )
         {
             ballRb.isKinematic = true;
             var targetObjePos = targetObje.transform.position;
-            var distance = Vector3.Distance(transform.position , targetObje.transform.position);
+            var distance = Vector3.Distance(transform.position , targetObjePos);
             if (Mathf.Abs(agent.stoppingDistance - distance) > 3.0f)
             {
                 var speed = GameManager.current.playerSpeed;
-                if (distance > 6.0f)
+                agent.speed = speed;
+                if (distance > 10.0f)
                 {
-                    agent.speed += .5f * Time.deltaTime;
-                }
-                else if(distance < 4)
-                {
-                    agent.speed = speed;
+                    agent.speed = Mathf.Clamp(agent.speed + 0.5f *Time.fixedDeltaTime,12,50);
                 }
                 else
                 {
-                    agent.speed -= .5f * Time.deltaTime;
+                    agent.speed = Mathf.Clamp(agent.speed - 0.5f* Time.fixedDeltaTime,12,50);
                 }
-
+                
                 if (ballAnimator!=null)
                 {
                     ballAnimator.SetBool("Anim", true);
                 }
-
                 
-                var currentVelocity = agent.velocity;
-                agent.destination =
-                    Vector3.SmoothDamp(transform.position, 
-                                        new Vector3(targetObjePos.x,targetObjePos.y,
-                                                            targetObjePos.z + agent.radius), 
-                                                                 ref currentVelocity, Time.smoothDeltaTime);
-                
+                var currentVelocity = Vector3.zero;
+                agent.SetDestination(targetObjePos);
+                transform.position = Vector3.SmoothDamp(transform.position,agent.nextPosition, ref currentVelocity, 0.1f);
+                //agent.destination = Vector3.SmoothDamp(transform.position, targetObjePos, ref currentVelocity, Time.fixedDeltaTime);
             }
             else
             {

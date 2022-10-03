@@ -100,7 +100,7 @@ public class PlayerController : MonoBehaviour
 
             var movementVector = inputVector.x * cameraRightHorizontal + inputVector.z * cameraForwardHorizontal;
             
-            Vector3 temp = transform.position + movementVector.normalized * (speed * Time.deltaTime);
+            Vector3 temp = transform.position + transform.forward* (speed * Time.fixedDeltaTime);
             UnityEngine.AI.NavMeshHit hit;
             bool isvalid = UnityEngine.AI.NavMesh.SamplePosition(temp, out hit, .3f, UnityEngine.AI.NavMesh.AllAreas);
             if (isvalid)
@@ -109,7 +109,8 @@ public class PlayerController : MonoBehaviour
                 {
                     _joystickValue = (transform.position - hit.position).magnitude;
                     transform.position = temp;
-                    transform.rotation = Quaternion.LookRotation(movementVector);
+                    var lerp = Vector3.Lerp(transform.forward, movementVector, speed * Time.fixedDeltaTime);
+                    transform.rotation = Quaternion.LookRotation(lerp);
                     if (!once)
                     {
                         walking = true;
