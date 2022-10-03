@@ -145,49 +145,49 @@ public class Ball : MonoBehaviour
         else if (_BallValue == 128)
         {
             _Colors[6].SetActive(true);
-            if (_Colors[5].GetComponent<Animator>() != null)
+            if (_Colors[6].GetComponent<Animator>() != null)
             {
-                ballAnimator = _Colors[5].GetComponent<Animator>();
+                ballAnimator = _Colors[6].GetComponent<Animator>();
             }
         }
         else if (_BallValue == 256)
         {
             _Colors[7].SetActive(true);
-            if (_Colors[5].GetComponent<Animator>() != null)
+            if (_Colors[7].GetComponent<Animator>() != null)
             {
-                ballAnimator = _Colors[5].GetComponent<Animator>();
+                ballAnimator = _Colors[7].GetComponent<Animator>();
             }
         }
         else if (_BallValue == 512)
         {
             _Colors[8].SetActive(true);
-            if (_Colors[5].GetComponent<Animator>() != null)
+            if (_Colors[8].GetComponent<Animator>() != null)
             {
-                ballAnimator = _Colors[5].GetComponent<Animator>();
+                ballAnimator = _Colors[8].GetComponent<Animator>();
             }
         }
         else if (_BallValue == 1024)
         {
             _Colors[9].SetActive(true);
-            if (_Colors[5].GetComponent<Animator>() != null)
+            if (_Colors[9].GetComponent<Animator>() != null)
             {
-                ballAnimator = _Colors[5].GetComponent<Animator>();
+                ballAnimator = _Colors[9].GetComponent<Animator>();
             }
         }
         else if (_BallValue == 2048)
         {
             _Colors[10].SetActive(true);
-            if (_Colors[5].GetComponent<Animator>() != null)
+            if (_Colors[10].GetComponent<Animator>() != null)
             {
-                ballAnimator = _Colors[5].GetComponent<Animator>();
+                ballAnimator = _Colors[10].GetComponent<Animator>();
             }
         }
         else if (_BallValue == 4096)
         {
             _Colors[11].SetActive(true);
-            if (_Colors[5].GetComponent<Animator>() != null)
+            if (_Colors[11].GetComponent<Animator>() != null)
             {
-                ballAnimator = _Colors[5].GetComponent<Animator>();
+                ballAnimator = _Colors[11].GetComponent<Animator>();
             }
         }
     }
