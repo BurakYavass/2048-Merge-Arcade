@@ -33,17 +33,20 @@ public class PlayerCollisionHandler : MonoBehaviour
             GameEventHandler.current.PlayerRightArea(true);
             playerController.CameraChanger(1);
         }
-        else if (other.CompareTag("BaseLeft"))
+        
+        if (other.CompareTag("BaseLeft"))
         {
             GameEventHandler.current.PlayerLeftArea(true);
             playerController.CameraChanger(2);
         }
-        else
+        
+        if (other.CompareTag("Ground"))
         {
+            GameEventHandler.current.PlayerLeftArea(false);
+            GameEventHandler.current.PlayerRightArea(false);
             playerController.CameraChanger(0);
         }
-        
-
+       
         if (other.CompareTag("MergeMachine"))
         {
             if (!_onMergeMachine)
@@ -105,13 +108,13 @@ public class PlayerCollisionHandler : MonoBehaviour
             GameEventHandler.current.PlayerRightArea(false);
             playerController.CameraChanger(0);
         }
-
+        
         if (other.CompareTag("BaseLeft"))
         {
             GameEventHandler.current.PlayerLeftArea(false);
             playerController.CameraChanger(0);
         }
-        
+
         if (other.CompareTag("LevelWall"))
         {
             //gameEventHandler.PlayerLevelUnlockArea(false);

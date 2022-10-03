@@ -18,8 +18,7 @@ public class PlayerController : MonoBehaviour
 
     public bool walking = false;
     private bool upgradeArea = false;
-    private bool once = false;
-    
+
     private void Awake()
     {
         if (Current == null)
@@ -122,19 +121,16 @@ public class PlayerController : MonoBehaviour
                     // }
                     
                     walking = true;
-                    once = true;
                 }
             }
             else
             {
                 walking = false;
-                once = false;
             }
         }
         else
         {
             walking = false;
-            once = false;
         }
     }
 

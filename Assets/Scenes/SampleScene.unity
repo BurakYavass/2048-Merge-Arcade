@@ -1161,7 +1161,7 @@ GameObject:
   - component: {fileID: 340214418}
   m_Layer: 0
   m_Name: NavMeshPlane
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 126
@@ -2884,7 +2884,7 @@ GameObject:
   - component: {fileID: 659988366}
   m_Layer: 0
   m_Name: NavMeshPlane (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 126
@@ -6070,7 +6070,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1345076667}
   m_LocalRotation: {x: 0.25488704, y: 0.16773126, z: -0.044943456, w: 0.95125127}
-  m_LocalPosition: {x: -7.903179, y: 3, z: -5.596403}
+  m_LocalPosition: {x: -7.903179, y: 2.8660002, z: -5.596403}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6375,7 +6375,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1389044263}
   m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
-  m_LocalPosition: {x: 0, y: 15.634, z: -20}
+  m_LocalPosition: {x: 0, y: 15.5, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6797,7 +6797,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1525185632}
   m_LocalRotation: {x: 0.2588191, y: -0, z: -0, w: 0.9659258}
-  m_LocalPosition: {x: -1.9031792, y: 3, z: -5.596403}
+  m_LocalPosition: {x: -1.9031792, y: 2.8660002, z: -5.596403}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9104,7 +9104,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2045268467}
   m_LocalRotation: {x: 0.25488704, y: -0.16773133, z: 0.04494348, w: 0.95125127}
-  m_LocalPosition: {x: 4.096821, y: 3, z: -5.596403}
+  m_LocalPosition: {x: 4.096821, y: 2.8660002, z: -5.596403}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -13130,6 +13130,7 @@ GameObject:
   - component: {fileID: 1205606903084025596}
   - component: {fileID: 3622528531101982039}
   - component: {fileID: 3959966553742838033}
+  - component: {fileID: 3959966553742838034}
   m_Layer: 0
   m_Name: YellowPortal
   m_TagString: Untagged
@@ -14601,14 +14602,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3031138948541075228}
-  m_LocalRotation: {x: -0.579228, y: -0.40557975, z: -0.40557975, w: 0.579228}
-  m_LocalPosition: {x: 23, y: 3.1, z: 8.3}
+  m_LocalRotation: {x: -0.548528, y: -0.44622532, z: -0.44622532, w: 0.548528}
+  m_LocalPosition: {x: 23, y: 3.1, z: 8.76}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4053647277189909210}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -70}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -78.256}
 --- !u!114 &3959966553742838033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14621,6 +14622,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37afc8bdce44ef243aea494a43176c46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  travelType: 0
+  yellowLevel: {fileID: 8343962592088307497}
+  greenLevel: {fileID: 87893810}
+  purpleLevel: {fileID: 9009218084598397508}
+--- !u!136 &3959966553742838034
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3031138948541075228}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 2.8085103
+  m_Height: 2.5635586
+  m_Direction: 1
+  m_Center: {x: -0.0000019184656, y: -0.37302575, z: -0.2121265}
 --- !u!4 &3976879149797361258
 Transform:
   m_ObjectHideFlags: 0
@@ -15489,6 +15508,7 @@ GameObject:
   - component: {fileID: 6665243347800164159}
   - component: {fileID: 5000891598182897279}
   - component: {fileID: 6665243347800164160}
+  - component: {fileID: 6665243347800164161}
   m_Layer: 0
   m_Name: GreenPortal
   m_TagString: Untagged
@@ -19176,6 +19196,7 @@ GameObject:
   - component: {fileID: 715458837369459639}
   - component: {fileID: 7548057535549667996}
   - component: {fileID: 7563244082168608358}
+  - component: {fileID: 7563244082168608359}
   m_Layer: 0
   m_Name: PurplePortal
   m_TagString: Untagged
@@ -19527,6 +19548,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37afc8bdce44ef243aea494a43176c46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  travelType: 1
+  yellowLevel: {fileID: 8343962592088307497}
+  greenLevel: {fileID: 87893810}
+  purpleLevel: {fileID: 9009218084598397508}
+--- !u!136 &6665243347800164161
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4581450350011635576}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 2.8085103
+  m_Height: 2.5635586
+  m_Direction: 1
+  m_Center: {x: -0.0000019184656, y: -0.37302575, z: -0.2121265}
 --- !u!4 &6689039398628444300
 Transform:
   m_ObjectHideFlags: 0
@@ -19796,7 +19835,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4531743358513300116}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.634, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -20718,6 +20757,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37afc8bdce44ef243aea494a43176c46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  travelType: 2
+  yellowLevel: {fileID: 8343962592088307497}
+  greenLevel: {fileID: 87893810}
+  purpleLevel: {fileID: 9009218084598397508}
+--- !u!136 &7563244082168608359
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6488984477954846819}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 2.8085103
+  m_Height: 2.5635586
+  m_Direction: 1
+  m_Center: {x: -0.0000019184656, y: -0.37302575, z: -0.2121265}
 --- !u!1 &7565269441367256083
 GameObject:
   m_ObjectHideFlags: 0

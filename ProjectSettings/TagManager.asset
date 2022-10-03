@@ -28,6 +28,7 @@ TagManager:
   - LevelWall
   - UnlockBall
   - UIManager
+  - Ground
   layers:
   - Default
   - TransparentFX
