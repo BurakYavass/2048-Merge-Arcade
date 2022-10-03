@@ -216,7 +216,7 @@ public class Ball : MonoBehaviour
                     transform.localScale -= new Vector3(.3f, .3f, .3f) * Time.deltaTime;
                 })).OnComplete((() =>
                 {
-                    transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
+                    transform.localScale = new Vector3(1f, 1f, 1f);
                     _GoUpgrade = false;
                 }));
         }

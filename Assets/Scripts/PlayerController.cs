@@ -43,11 +43,16 @@ public class PlayerController : MonoBehaviour
     {
         if (enterExit)
         {
-            transform.DOMove(new Vector3(37f, 0.63f, 24.75f), 1.0f).OnUpdate((() => walking = true))
+            transform.DOMove(new Vector3(37f, 0.63f, 24.75f), 1.0f).OnUpdate((() =>
+                {
+                    upgradeArea = true;
+                    walking = true;
+                }))
                 .OnComplete((() =>
                 {
                     transform.DORotate(new Vector3(0, -66, 0), 1.0f);
                     upgradeArea = true;
+                    walking = false;
                 }));
             
         }
@@ -66,7 +71,6 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            walking = false;
             handle.anchoredPosition = Vector2.zero;
         }
     }
@@ -111,16 +115,18 @@ public class PlayerController : MonoBehaviour
                     transform.position = temp;
                     var lerp = Vector3.Lerp(transform.forward, movementVector, speed * Time.fixedDeltaTime);
                     transform.rotation = Quaternion.LookRotation(lerp);
-                    if (!once)
-                    {
-                        walking = true;
-                        once = true;
-                    }
+                    // if (!once)
+                    // {
+                    //     walking = true;
+                    //     once = true;
+                    // }
+                    
+                    walking = true;
+                    once = true;
                 }
             }
             else
             {
-                
                 walking = false;
                 once = false;
             }

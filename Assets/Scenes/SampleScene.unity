@@ -13129,6 +13129,7 @@ GameObject:
   - component: {fileID: 3959966553742838032}
   - component: {fileID: 1205606903084025596}
   - component: {fileID: 3622528531101982039}
+  - component: {fileID: 3959966553742838033}
   m_Layer: 0
   m_Name: YellowPortal
   m_TagString: Untagged
@@ -14608,6 +14609,18 @@ Transform:
   m_Father: {fileID: 4053647277189909210}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: -70}
+--- !u!114 &3959966553742838033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3031138948541075228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37afc8bdce44ef243aea494a43176c46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &3976879149797361258
 Transform:
   m_ObjectHideFlags: 0
@@ -15475,6 +15488,7 @@ GameObject:
   - component: {fileID: 1519003035485235107}
   - component: {fileID: 6665243347800164159}
   - component: {fileID: 5000891598182897279}
+  - component: {fileID: 6665243347800164160}
   m_Layer: 0
   m_Name: GreenPortal
   m_TagString: Untagged
@@ -19161,6 +19175,7 @@ GameObject:
   - component: {fileID: 7563244082168608357}
   - component: {fileID: 715458837369459639}
   - component: {fileID: 7548057535549667996}
+  - component: {fileID: 7563244082168608358}
   m_Layer: 0
   m_Name: PurplePortal
   m_TagString: Untagged
@@ -19500,6 +19515,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4581450350011635576}
   m_Mesh: {fileID: 3874432442672741690, guid: 75907fb7f4cb2094d93f16cb52a36188, type: 3}
+--- !u!114 &6665243347800164160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4581450350011635576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37afc8bdce44ef243aea494a43176c46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &6689039398628444300
 Transform:
   m_ObjectHideFlags: 0
@@ -20679,6 +20706,18 @@ Transform:
   m_Father: {fileID: 4053647277189909210}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: -38}
+--- !u!114 &7563244082168608358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6488984477954846819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37afc8bdce44ef243aea494a43176c46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7565269441367256083
 GameObject:
   m_ObjectHideFlags: 0
