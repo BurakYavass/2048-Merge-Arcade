@@ -216,12 +216,6 @@ public class Ball : MonoBehaviour
                     transform.localScale -= new Vector3(.3f, .3f, .3f) * Time.deltaTime;
                 })).OnComplete((() =>
                 {
-                    target.transform.DOKill();
-                    target.transform.DOPunchScale(new Vector3(0.1f,0.1f,0.1f),0.2f).SetEase(Ease.InBounce)
-                        .OnComplete((() =>
-                        {
-                            target.transform.localScale = Vector3.one;
-                        }));
                     transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
                     _GoUpgrade = false;
                 }));
@@ -341,6 +335,12 @@ public class Ball : MonoBehaviour
         if (other.CompareTag("BallUpgrade"))
         {
             transform.DOKill();
+            other.transform.DOKill();
+            other.transform.DOPunchScale(new Vector3(0.1f,0.1f,0.1f),0.1f).SetEase(Ease.InBounce)
+                .OnComplete((() =>
+                {
+                    other.transform.localScale = Vector3.one;
+                }));
             triggerCollider.enabled = false;
             _GoUpgrade = false;
             

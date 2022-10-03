@@ -7,18 +7,27 @@ public class SaveManager : MonoBehaviour
     [SerializeField] private bool _Test;
     [SerializeField] private GameObject level1Chests;
     [SerializeField] private GameObject level2Chests;
+    [SerializeField] private GameObject level3Chests;
     [SerializeField] private List<GameObject> _AllObje = new List<GameObject>();
     
     private void Awake()
     {
+        // Level 1 Chestlerini listeye ekliyoruz
         foreach (Transform chest1 in level1Chests.transform)
         {
             _AllObje.Add(chest1.gameObject);
         }
-
+        
+        // Level 2 Chestlerini listeye ekliyoruz
         foreach (Transform chest2 in level2Chests.transform)
         {
             _AllObje.Add(chest2.gameObject);
+        }
+        
+        // Level 3 Chestlerini listeye ekliyoruz
+        foreach (Transform chest3 in level3Chests.transform)
+        {
+            _AllObje.Add(chest3.gameObject);
         }
         
         if (_Test)

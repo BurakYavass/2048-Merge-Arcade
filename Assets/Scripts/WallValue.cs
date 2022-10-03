@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WallValue : MonoBehaviour
 {
@@ -10,6 +12,7 @@ public class WallValue : MonoBehaviour
     [SerializeField] private UIManager _uiManager;
     [SerializeField] private Animator wallAnimator;
     [SerializeField] private GameObject ballPrefab;
+    [SerializeField] private TextMeshProUGUI wallValue;
     private PlayerCollisionHandler _playerFollowerList;
     private PlayerBallCounter _playerBallCounter;
     private BallController _ballController;
@@ -52,6 +55,7 @@ public class WallValue : MonoBehaviour
     {
         _ballController = GameObject.FindWithTag("BallController").GetComponent<BallController>();
         _uiManager = GameObject.FindWithTag("UIManager").GetComponent<UIManager>();
+        wallValue.text = unlockRequire.ToString();
     }
 
     public void UnlockCalculate(bool unlock)
