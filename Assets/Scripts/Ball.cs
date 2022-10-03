@@ -58,7 +58,7 @@ public class Ball : MonoBehaviour
 
                 if (ballAnimator!=null)
                 {
-                    ballAnimator.SetBool("Jump", true);
+                    ballAnimator.SetBool("Anim", true);
                 }
 
                 
@@ -74,7 +74,7 @@ public class Ball : MonoBehaviour
             {
                 if (ballAnimator!=null)
                 {
-                    ballAnimator.SetBool("Jump", false);
+                    ballAnimator.SetBool("Anim", false);
                 }
                 agent.speed = GameManager.current.playerSpeed;
             }
@@ -145,26 +145,50 @@ public class Ball : MonoBehaviour
         else if (_BallValue == 128)
         {
             _Colors[6].SetActive(true);
+            if (_Colors[5].GetComponent<Animator>() != null)
+            {
+                ballAnimator = _Colors[5].GetComponent<Animator>();
+            }
         }
         else if (_BallValue == 256)
         {
             _Colors[7].SetActive(true);
+            if (_Colors[5].GetComponent<Animator>() != null)
+            {
+                ballAnimator = _Colors[5].GetComponent<Animator>();
+            }
         }
         else if (_BallValue == 512)
         {
             _Colors[8].SetActive(true);
+            if (_Colors[5].GetComponent<Animator>() != null)
+            {
+                ballAnimator = _Colors[5].GetComponent<Animator>();
+            }
         }
         else if (_BallValue == 1024)
         {
             _Colors[9].SetActive(true);
+            if (_Colors[5].GetComponent<Animator>() != null)
+            {
+                ballAnimator = _Colors[5].GetComponent<Animator>();
+            }
         }
         else if (_BallValue == 2048)
         {
             _Colors[10].SetActive(true);
+            if (_Colors[5].GetComponent<Animator>() != null)
+            {
+                ballAnimator = _Colors[5].GetComponent<Animator>();
+            }
         }
         else if (_BallValue == 4096)
         {
             _Colors[11].SetActive(true);
+            if (_Colors[5].GetComponent<Animator>() != null)
+            {
+                ballAnimator = _Colors[5].GetComponent<Animator>();
+            }
         }
     }
     
@@ -180,7 +204,7 @@ public class Ball : MonoBehaviour
         _GoMerge = true;
         if (ballAnimator!=null)
         {
-            ballAnimator.SetBool("Jump", false);
+            ballAnimator.SetBool("Anim", false);
             ballAnimator = null;
         }
         ballRb.interpolation = RigidbodyInterpolation.None;
@@ -235,7 +259,7 @@ public class Ball : MonoBehaviour
         _GoMerge = true;
         if (ballAnimator!=null)
         {
-            ballAnimator.SetBool("Jump", false);
+            ballAnimator.SetBool("Anim", false);
             ballAnimator = null;
         }
         ballRb.interpolation = RigidbodyInterpolation.None;
@@ -273,7 +297,7 @@ public class Ball : MonoBehaviour
         ballRb.isKinematic = false;
         if (ballAnimator!=null)
         {
-            ballAnimator.SetBool("Jump", false);
+            ballAnimator.SetBool("Anim", false);
             ballAnimator = null;
         }
         ballRb.interpolation = RigidbodyInterpolation.None;
