@@ -9,46 +9,27 @@ public class FollowerList : MonoBehaviour
     public List<GameObject> follower;
     public bool clearList = false;
 
-    private void Start()
-    {
-        // GameEventHandler.current.OnPlayerMergeArea += RemoveBall;
-        // GameEventHandler.current.OnPlayerUpgradeArea += RemoveBall;
-        // GameEventHandler.current.OnPlayerLevelUnlockArea += RemoveBall;
-    }
+    // public void RemoveBall(bool work)
+    // {
+    //     clearList = work;
+    //     
+    // }
 
-    private void SetNewBall(GameObject go)
-    {
-        follower.Add(go);
-    }
-
-    private void OnDisable()
-    {
-        // GameEventHandler.current.OnPlayerMergeArea -= RemoveBall;
-        // GameEventHandler.current.OnPlayerUpgradeArea -= RemoveBall;
-        // GameEventHandler.current.OnPlayerLevelUnlockArea -= RemoveBall;
-    }
-
-    private void RemoveBall(bool work)
-    {
-        //clearList = work;
-        
-    }
-
-    private void FixedUpdate()
+    private void Update()
     {
         follower.RemoveAll((obje => obje == null));
-        // if (clearList)
-        // {
-        //     if (follower.Count > 1)
-        //     {
-        //         var ballIndex = follower.Find(x => x.name == "ballwithTexture(Clone)");
-        //         follower.Remove(ballIndex);
-        //     }
-        //     else
-        //     {
-        //         clearList = false;
-        //     }
-        // }
+        if (clearList)
+        {
+            if (follower.Count > 0)
+            {
+                var ballIndex = follower.Find(x => x.name == "ballwithTexture(Clone)");
+                follower.Remove(ballIndex);
+            }
+            else
+            {
+                clearList = false;
+            }
+        }
 
         
     }

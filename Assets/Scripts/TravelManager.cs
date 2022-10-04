@@ -12,6 +12,8 @@ public class TravelManager : MonoBehaviour
     [SerializeField] private Transform greenLevel;
     [SerializeField] private Transform purpleLevel;
 
+    [SerializeField] private BallController ballController;
+
     private Collider _collider;
     private Transform _travelPoint;
 
@@ -55,9 +57,11 @@ public class TravelManager : MonoBehaviour
             var player = other.GetComponent<PlayerCollisionHandler>();
             player.closePart[0].SetActive(false);
             player.closePart[1].SetActive(false);
-            player.gameObject.transform.DOMove(new Vector3(travelPos.x,travelPos.y+0.5f,travelPos.z), 1.0f)
+            player.gameObject.transform.DOMove(new Vector3(travelPos.x,travelPos.y+0.6f,travelPos.z), 2.0f)
                 .OnComplete((() =>
                 {
+                    player.transform.forward = Vector3.forward;
+                    ballController.GoTravelPoint(_travelPoint);
                     player.closePart[0].SetActive(true);
                     player.closePart[1].SetActive(true);
                 }));

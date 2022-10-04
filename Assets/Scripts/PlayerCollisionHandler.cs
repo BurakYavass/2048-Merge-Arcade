@@ -47,6 +47,7 @@ public class PlayerCollisionHandler : MonoBehaviour
             GameEventHandler.current.PlayerLeftArea(false);
             GameEventHandler.current.PlayerRightArea(false);
             playerController.CameraChanger(0);
+            //ballController.ReloadGame();
         }
        
         if (other.CompareTag("MergeMachine"))
@@ -74,10 +75,6 @@ public class PlayerCollisionHandler : MonoBehaviour
             }
         }
         
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
         if (other.CompareTag("EmptyBall"))
         {
             if (i>2)
@@ -94,6 +91,10 @@ public class PlayerCollisionHandler : MonoBehaviour
             }
         }
         
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
         if (other.gameObject.CompareTag("Chest") && !_hit)
         {
             _hit = true;

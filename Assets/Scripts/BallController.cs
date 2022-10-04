@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,11 +14,12 @@ public class BallController : MonoBehaviour
     [SerializeField] private GameObject mergeBallPos;
     [SerializeField] private GameObject upgradeBallPos;
     private Transform _unlockWallPos;
-    //[SerializeField] private Animator animator;
+    private Transform _targetTravel;
     private Vector3 _distance;
     private bool _goMerge;
     private bool _goUpgrade;
     private bool _goUnlock;
+    private bool _goTravelPoint;
     private bool _waiter = false;
     private float _tempSpeed;
     private float _tempTimeMerge;
@@ -25,6 +27,11 @@ public class BallController : MonoBehaviour
     private int j = 0;
 
     void Start()
+    {
+        ReloadGame();
+    }
+
+    public void ReloadGame()
     {
         if (PlayerPrefs.GetInt("BallSaveCount") > 0)
         {
@@ -53,8 +60,9 @@ public class BallController : MonoBehaviour
         PlayerPrefs.DeleteKey("BallSaveCount");
     }
     
-    private void FixedUpdate()
+    private void Update()
     {
+        balls.RemoveAll((obje => obje == null));
         if (_goUpgrade)
         {
             if (balls.Count > 0)
@@ -64,7 +72,7 @@ public class BallController : MonoBehaviour
                     if (!_waiter)
                     {
                         _waiter = true;
-                        StartCoroutine(DelayMerge());
+                        StartCoroutine(Delay());
                         balls[i].GetComponent<Ball>().SetGoUpgrade(upgradeBallPos);
                         _delayMerge += .5f;
                         balls.RemoveAt(i);
@@ -89,7 +97,7 @@ public class BallController : MonoBehaviour
                     if (!_waiter)
                     {
                         _waiter = true;
-                        StartCoroutine(DelayMerge());
+                        StartCoroutine(Delay());
                         balls[i].GetComponent<Ball>().SetGoMerge(mergeBallPos,_delayMerge);
                         _delayMerge += .5f;
                         balls.RemoveAt(i);
@@ -113,18 +121,38 @@ public class BallController : MonoBehaviour
                     if (!_waiter)
                     {
                         _waiter = true;
-                        StartCoroutine(DelayMerge());
+                        StartCoroutine(Delay());
                         balls[i].GetComponent<Ball>().SetGoUnlock(_unlockWallPos);
                         balls.RemoveAt(i);
                     }
-                    // balls[i].GetComponent<Ball>().SetGoUnlock(_unlockWallPos);
-                    // balls.RemoveAt(i);
                 }
             }
             else
             {
                 _goUnlock = false;
-                _delayMerge = 0;
+            }
+        }
+
+        if (_goTravelPoint)
+        {
+            if (balls.Count > 0)
+            {
+                for (int i = 0; i < balls.Count; i++)
+                {
+                    //_playerFollowerList.playerFollowPoints[i].clearList = true;
+                    balls[i].GetComponent<Ball>().SetGoTravel(_targetTravel);
+                    // balls.RemoveAt(i);
+                    PlayerPrefs.SetInt("BallSave" + i, (int)(balls[i].GetComponent<Ball>().GetValue()));
+                    PlayerPrefs.SetInt("BallSaveCount", balls.Count);
+                    PlayerPrefs.Save();
+                    Destroy(balls[i].gameObject);
+                    balls.RemoveAll((obje => obje == null));
+                }
+            }
+            else
+            {
+                StartCoroutine(Reload());
+                _goTravelPoint = false;
             }
         }
     }
@@ -152,6 +180,13 @@ public class BallController : MonoBehaviour
         _goUpgrade = true;
     }
 
+    public void GoTravelPoint(Transform travelPoint)
+    {
+        _goTravelPoint = true;
+        _targetTravel = travelPoint;
+        
+    }
+
     void OnApplicationFocus(bool hasFocus)
     {
         if (!hasFocus)
@@ -168,10 +203,16 @@ public class BallController : MonoBehaviour
         }
     }
     
-    IEnumerator DelayMerge()
+    IEnumerator Delay()
     {
         yield return new WaitForSeconds(.2f);
         _waiter = false;
+    }
+
+    IEnumerator Reload()
+    {
+        yield return new WaitForSeconds(1);
+        ReloadGame();
     }
 
 }

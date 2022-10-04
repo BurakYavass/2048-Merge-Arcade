@@ -515,11 +515,7 @@ public class WallValue : MonoBehaviour
                                 GetComponent<Collider>().enabled = false;
                                 unlockWall = true;
                                 gameObject.GetComponent<MeshRenderer>().enabled = false;
-                            }))
-                            .OnComplete((() =>
-                            {
                                 openGameObject.active = true;
-                                gameObject.SetActive(false);
                             }));
     }
 }
