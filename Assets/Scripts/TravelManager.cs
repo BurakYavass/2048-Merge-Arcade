@@ -11,14 +11,19 @@ public class TravelManager : MonoBehaviour
     [SerializeField] private Transform yellowLevel;
     [SerializeField] private Transform greenLevel;
     [SerializeField] private Transform purpleLevel;
-
+    [SerializeField] private ParticleSystem _particleSystem;
+    [SerializeField] private GameObject[] openPart;
+    [SerializeField] private GameObject firstTimePlay;
     [SerializeField] private BallController ballController;
+
+    [SerializeField] private float travelDelay;
 
     private Collider _collider;
     private Transform _travelPoint;
 
     public bool active;
-    
+    private PlayerCollisionHandler _player;
+
     void Start()
     {
         _collider = GetComponent<Collider>();
@@ -42,9 +47,17 @@ public class TravelManager : MonoBehaviour
         if (active)
         {
             _collider.enabled = true;
+            foreach (var particle in openPart)
+            {
+                particle.SetActive(true);
+            }
         }
         else
         {
+            foreach (var particle in openPart)
+            {
+                particle.SetActive(false);
+            }
             _collider.enabled = false;
         }
     }
@@ -53,18 +66,12 @@ public class TravelManager : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            var travelPos = _travelPoint.transform.position;
-            var player = other.GetComponent<PlayerCollisionHandler>();
-            player.closePart[0].SetActive(false);
-            player.closePart[1].SetActive(false);
-            player.gameObject.transform.DOMove(new Vector3(travelPos.x,travelPos.y+0.6f,travelPos.z), 2.0f)
-                .OnComplete((() =>
-                {
-                    player.transform.forward = Vector3.forward;
-                    ballController.GoTravelPoint(_travelPoint);
-                    player.closePart[0].SetActive(true);
-                    player.closePart[1].SetActive(true);
-                }));
+            firstTimePlay.SetActive(true);
+           
+            _player = other.GetComponent<PlayerCollisionHandler>();
+            _player.closePart[0].SetActive(false);
+            _player.closePart[1].SetActive(false);
+            StartCoroutine(TravelWaiter());
         }
     }
 
@@ -73,5 +80,21 @@ public class TravelManager : MonoBehaviour
         YellowStage,
         GreenStage,
         PurpleStage,
+    }
+
+    IEnumerator TravelWaiter()
+    {
+        yield return new WaitForSeconds(travelDelay);
+        var travelPos = _travelPoint.transform.position;
+        _player.gameObject.transform.DOMove(new Vector3(travelPos.x,travelPos.y+0.6f,travelPos.z), 2.0f)
+            .OnComplete((() =>
+            {
+                firstTimePlay.SetActive(false);
+                _player.transform.forward = Vector3.forward;
+                ballController.GoTravelPoint();
+                _player.closePart[0].SetActive(true);
+                _player.closePart[1].SetActive(true);
+            }));
+        
     }
 }
