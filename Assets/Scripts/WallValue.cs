@@ -13,6 +13,7 @@ public class WallValue : MonoBehaviour
     [SerializeField] private Animator wallAnimator;
     [SerializeField] private GameObject ballPrefab;
     [SerializeField] private TextMeshProUGUI wallValue;
+    [SerializeField] private TravelManager openGameObject;
     private PlayerCollisionHandler _playerFollowerList;
     private PlayerBallCounter _playerBallCounter;
     private BallController _ballController;
@@ -514,6 +515,11 @@ public class WallValue : MonoBehaviour
                                 GetComponent<Collider>().enabled = false;
                                 unlockWall = true;
                                 gameObject.GetComponent<MeshRenderer>().enabled = false;
+                            }))
+                            .OnComplete((() =>
+                            {
+                                openGameObject.active = true;
+                                gameObject.SetActive(false);
                             }));
     }
 }

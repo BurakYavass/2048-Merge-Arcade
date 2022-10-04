@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class PlayerCollisionHandler : MonoBehaviour
@@ -11,6 +12,7 @@ public class PlayerCollisionHandler : MonoBehaviour
     [SerializeField] private WeaponsHit weaponsHit;
     [SerializeField] private BallController ballController;
     public List<FollowerList> playerFollowPoints;
+    public GameObject[] closePart;
     private ChestController _chestController;
     private PlayerBallCounter _playerBallCounter;
     private Vector3 _lastposition;

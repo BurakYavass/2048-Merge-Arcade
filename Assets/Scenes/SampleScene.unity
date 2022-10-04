@@ -600,6 +600,10 @@ PrefabInstance:
       propertyPath: unlockRequire
       value: 512
       objectReference: {fileID: 0}
+    - target: {fileID: 1926578700708386295, guid: 7e4ce001bcf131841847e3e2ff6b05a2, type: 3}
+      propertyPath: openGameObject
+      value: 
+      objectReference: {fileID: 7563244082168608358}
     - target: {fileID: 4789551658513418839, guid: 7e4ce001bcf131841847e3e2ff6b05a2, type: 3}
       propertyPath: m_Name
       value: Level3Unlock
@@ -6375,7 +6379,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1389044263}
   m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
-  m_LocalPosition: {x: 0, y: 15.5, z: -20}
+  m_LocalPosition: {x: 0, y: 15.6, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6797,7 +6801,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1525185632}
   m_LocalRotation: {x: 0.2588191, y: -0, z: -0, w: 0.9659258}
-  m_LocalPosition: {x: -1.9031792, y: 2.8660002, z: -5.596403}
+  m_LocalPosition: {x: -1.9031792, y: 2.9660006, z: -5.596403}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11882,6 +11886,10 @@ PrefabInstance:
       propertyPath: m_fontSize
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 1926578700708386295, guid: 7e4ce001bcf131841847e3e2ff6b05a2, type: 3}
+      propertyPath: openGameObject
+      value: 
+      objectReference: {fileID: 3959966553742838033}
     - target: {fileID: 4789551658513418839, guid: 7e4ce001bcf131841847e3e2ff6b05a2, type: 3}
       propertyPath: m_Name
       value: Level2Unlock
@@ -14626,6 +14634,7 @@ MonoBehaviour:
   yellowLevel: {fileID: 8343962592088307497}
   greenLevel: {fileID: 87893810}
   purpleLevel: {fileID: 9009218084598397508}
+  active: 0
 --- !u!136 &3959966553742838034
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -14634,8 +14643,8 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3031138948541075228}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
+  m_IsTrigger: 1
+  m_Enabled: 0
   m_Radius: 2.8085103
   m_Height: 2.5635586
   m_Direction: 1
@@ -19552,6 +19561,7 @@ MonoBehaviour:
   yellowLevel: {fileID: 8343962592088307497}
   greenLevel: {fileID: 87893810}
   purpleLevel: {fileID: 9009218084598397508}
+  active: 1
 --- !u!136 &6665243347800164161
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -19560,7 +19570,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4581450350011635576}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 2.8085103
   m_Height: 2.5635586
@@ -19835,7 +19845,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4531743358513300116}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -19926,6 +19936,9 @@ MonoBehaviour:
   - {fileID: 1770751745}
   - {fileID: 966652526}
   - {fileID: 1178738074}
+  closePart:
+  - {fileID: 5059710149949369103}
+  - {fileID: 330140268876748916}
 --- !u!114 &6862496077275605885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20761,6 +20774,7 @@ MonoBehaviour:
   yellowLevel: {fileID: 8343962592088307497}
   greenLevel: {fileID: 87893810}
   purpleLevel: {fileID: 9009218084598397508}
+  active: 0
 --- !u!136 &7563244082168608359
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -20769,8 +20783,8 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6488984477954846819}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
+  m_IsTrigger: 1
+  m_Enabled: 0
   m_Radius: 2.8085103
   m_Height: 2.5635586
   m_Direction: 1
