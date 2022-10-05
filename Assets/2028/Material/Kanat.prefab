@@ -44,7 +44,8 @@ Animation:
   m_Enabled: 1
   serializedVersion: 3
   m_Animation: {fileID: 7400000, guid: c3dab48b66a1b884e9603d732166c86d, type: 2}
-  m_Animations: []
+  m_Animations:
+  - {fileID: 7400000, guid: c3dab48b66a1b884e9603d732166c86d, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
@@ -110,7 +111,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -7298270813207966763, guid: b74550bf38f0be94e9fbd2c49075de3e, type: 3}
+  - {fileID: 2100000, guid: c6ca48ea7265cbf4f8da2b1b021ade98, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -193,7 +194,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -7298270813207966763, guid: b74550bf38f0be94e9fbd2c49075de3e, type: 3}
+  - {fileID: 2100000, guid: c6ca48ea7265cbf4f8da2b1b021ade98, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
