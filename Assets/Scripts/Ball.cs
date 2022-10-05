@@ -69,6 +69,7 @@ public class Ball : MonoBehaviour
                 var currentVelocity = Vector3.zero;
                 agent.SetDestination(targetObjePos);
                 transform.position = Vector3.SmoothDamp(transform.position,agent.nextPosition, ref currentVelocity, 0.1f);
+                //agent.destination = Vector3.SmoothDamp(transform.position,targetObjePos, ref currentVelocity,Time.smoothDeltaTime);
             }
             else
             {

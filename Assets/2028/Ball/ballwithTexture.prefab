@@ -510,10 +510,11 @@ MonoBehaviour:
   agent: {fileID: 6420056463189566397}
   targetObje: {fileID: 0}
   ballRb: {fileID: -777706355118972414}
-  _Go: 0
-  _GoMerge: 0
-  _GoUpgrade: 0
-  _GoUnlock: 0
+  go: 0
+  goMerge: 0
+  goUpgrade: 0
+  goUnlock: 0
+  goTravel: 0
 --- !u!135 &4123675069864074240
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -560,7 +561,7 @@ NavMeshAgent:
   m_AutoRepath: 1
   m_Height: 1.3
   m_BaseOffset: 0.67
-  m_WalkableMask: 1
+  m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 0
 --- !u!95 &4002081892510004580
 Animator:

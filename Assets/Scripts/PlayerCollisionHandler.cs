@@ -1,9 +1,7 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
-using UnityEngine.UI;
-using Random = UnityEngine.Random;
 
 public class PlayerCollisionHandler : MonoBehaviour
 {
@@ -158,9 +156,10 @@ public class PlayerCollisionHandler : MonoBehaviour
 
     private void WeaponHit()
     {
-        if (_chestController != null)
+        if (_chestController != null && _hit)
         {
             _chestController.Hit(weaponsHit._damageValue);
+            _chestController.transform.parent.DOPunchScale(new Vector3(0.1f, 0.1f, 0.1f), 0.5f).SetEase(Ease.InBounce);
         }
         GameEventHandler.current.PlayerHit(false);
     }

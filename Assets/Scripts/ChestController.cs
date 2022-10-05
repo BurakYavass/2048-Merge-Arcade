@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Linq;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -46,7 +45,6 @@ public class ChestController : MonoBehaviour
             if (_ChestHealthValueCurrent>=1)
             {
                 _ChestHealthValueCurrent = Mathf.Lerp(_ChestHealthValueCurrent, _ChestHealthValueCurrentTemp, .1f);
-                //_CurrentHealth.text = (Mathf.Round(_ChestHealthValueCurrent)).ToString();
                 _CurrentHealth.text = _ChestHealthValueCurrent.ToString("00");
                 _SliderValue.fillAmount = (1 * (_ChestHealthValueCurrent / _ChestHealthValue));
             }
@@ -55,7 +53,7 @@ public class ChestController : MonoBehaviour
                 var collider = GetComponent<Collider>();
                 collider.isTrigger = false;
                 StartCoroutine(CloseDelay());
-                transform.DOScale(Vector3.zero, 1f);
+                transform.DOScale(Vector3.zero, 0.5f);
                 for (int i = 0; i < _ClosePart.Length; i++)
                 {
                     _ClosePart[i].transform.localScale = Vector3.Lerp(_ClosePart[i].transform.localScale,Vector3.zero,.1f);
@@ -83,20 +81,11 @@ public class ChestController : MonoBehaviour
         if (gameObject.activeInHierarchy)
         {
             _TempDamage = damage;
-            _ChestHealthValueCurrentTemp = _ChestHealthValueCurrent - _TempDamage;
+            _ChestHealthValueCurrentTemp = Mathf.Clamp(_ChestHealthValueCurrent - _TempDamage, 0, _ChestHealthValue);
             _Hitting = true;
-            //_HealthBar.SetActive(true);
-            StartCoroutine(HitClose());
         }
     }
-
-    IEnumerator HitClose()
-    {
-        animator.SetBool("Hit",true);
-        yield return new WaitForSeconds(0.5f);
-        animator.SetBool("Hit",false);
-        _Hitting = false;
-    }
+    
 
     IEnumerator CloseDelay()
     {
