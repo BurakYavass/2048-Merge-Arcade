@@ -27,7 +27,7 @@ public class UIManager : MonoBehaviour
     {
         if (!gameManager.damageMax)
         {
-            damageLevel.text = "Level - " + (gameManager._damageState+1).ToString();
+            damageLevel.text = "Level - " + (gameManager._damageState).ToString();
             damageText.text = gameManager.ReturnDamageState().ToString();
         }
         else
@@ -39,7 +39,7 @@ public class UIManager : MonoBehaviour
 
         if (!gameManager.armorMax)
         {
-            armorLevel.text = "Level - " + (gameManager._armorState+1);
+            armorLevel.text = "Level - " + (gameManager._armorState);
             armorText.text = gameManager.ReturnArmorState().ToString();
         }
         else
@@ -51,7 +51,7 @@ public class UIManager : MonoBehaviour
 
         if (!gameManager.speedMax)
         {
-            speedLevel.text = "Level - " + (gameManager._speedState+1).ToString();
+            speedLevel.text = "Level - " + (gameManager._speedState).ToString();
             speedText.text = gameManager.ReturnSpeedState().ToString();
         }
         else

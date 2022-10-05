@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     [NonSerialized]
     public int _damageState = 0;
     [NonSerialized]
-    public int _armorState = 0;
+    public int _armorState;
 
     private int playerMoney;
 
@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
         _damageState = PlayerPrefs.GetInt("damageState", 0);
         _playerArmor = PlayerPrefs.GetFloat("PlayerArmor", startArmor);
         _armorState = PlayerPrefs.GetInt("ArmorState", 0);
-        if (_armorState == 2)
+        if (_armorState == 3)
         {
             armorMax = true;
         }
@@ -108,28 +108,28 @@ public class GameManager : MonoBehaviour
         if (playerBallCounter.stackValue >=_armorUpgradeRequire)
         {
             _armorUpgradeRequire = armorUpgradeState[_armorState];
-            if (_armorState==0)
+            _armorState++;
+            Debug.Log(_armorState);
+            if (_armorState==1)
             {
                 _playerArmor += 50f;
                 upgradeMachine.UpgradeCalculate(_armorUpgradeRequire);
                 PlayerPrefs.SetFloat("PlayerArmor",_playerArmor);
                 playerBallCounter.stackValue -= _armorUpgradeRequire;
-                _armorState++;
                 playerUpgradableItems.ArmorChanger(_armorState);
                 PlayerPrefs.SetInt("ArmorState",_armorState);
             }
-            else if (_armorState== 1)
+            else if (_armorState== 2)
             {
                 _playerArmor += 50f;
                 upgradeMachine.UpgradeCalculate(_armorUpgradeRequire);
                 PlayerPrefs.SetFloat("PlayerArmor",_playerArmor);
                 playerBallCounter.stackValue -= _armorUpgradeRequire;
-                _armorState++;
                 playerUpgradableItems.ArmorChanger(_armorState);
                 PlayerPrefs.SetInt("ArmorState",_armorState);
                 
             }
-            else if (_armorState == 2)
+            else if (_armorState == 3)
             {
                 _playerArmor += 50f;
                 upgradeMachine.UpgradeCalculate(_armorUpgradeRequire);
@@ -139,6 +139,10 @@ public class GameManager : MonoBehaviour
                 PlayerPrefs.SetInt("ArmorState",_armorState);
                 armorMax = true;
                 Debug.Log("max");
+            }
+            else
+            {
+                
             }
         }
     }
