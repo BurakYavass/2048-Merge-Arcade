@@ -46,7 +46,8 @@ public class ChestController : MonoBehaviour
             if (_ChestHealthValueCurrent>=1)
             {
                 _ChestHealthValueCurrent = Mathf.Lerp(_ChestHealthValueCurrent, _ChestHealthValueCurrentTemp, .1f);
-                _CurrentHealth.text = (Mathf.Round(_ChestHealthValueCurrent)).ToString();
+                //_CurrentHealth.text = (Mathf.Round(_ChestHealthValueCurrent)).ToString();
+                _CurrentHealth.text = _ChestHealthValueCurrent.ToString("00");
                 _SliderValue.fillAmount = (1 * (_ChestHealthValueCurrent / _ChestHealthValue));
             }
             else

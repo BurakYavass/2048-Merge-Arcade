@@ -105,7 +105,7 @@ public class PlayerController : MonoBehaviour
             
             Vector3 temp = transform.position + transform.forward* (speed * Time.fixedDeltaTime);
             UnityEngine.AI.NavMeshHit hit;
-            bool isvalid = UnityEngine.AI.NavMesh.SamplePosition(temp, out hit, .3f, UnityEngine.AI.NavMesh.AllAreas);
+            bool isvalid = UnityEngine.AI.NavMesh.SamplePosition(temp, out hit, .1f, UnityEngine.AI.NavMesh.AllAreas);
             if (isvalid)
             {
                 if ((transform.position - hit.position).magnitude >= 0.1f)
@@ -133,10 +133,4 @@ public class PlayerController : MonoBehaviour
             walking = false;
         }
     }
-
-    public float GetJoystickValue()
-    {
-        return _joystickValue;
-    }
-    
 }

@@ -69,7 +69,6 @@ public class Ball : MonoBehaviour
                 var currentVelocity = Vector3.zero;
                 agent.SetDestination(targetObjePos);
                 transform.position = Vector3.SmoothDamp(transform.position,agent.nextPosition, ref currentVelocity, 0.1f);
-                //agent.destination = Vector3.SmoothDamp(transform.position, targetObjePos, ref currentVelocity, Time.fixedDeltaTime);
             }
             else
             {
@@ -314,42 +313,13 @@ public class Ball : MonoBehaviour
             transform.DOKill();
         }
     }
-    public void SetGoTravel(Transform target)
+    public void SetGoTravel()
     {
-        //gameObject.tag = "EmptyBall";
-        //var renderer = gameObject.GetComponentInChildren<MeshRenderer>();
-        //renderer.enabled = false;
         go = false;
         goMerge = false;
         goUnlock = false;
         goTravel = true;
-        // agent.enabled = false;
-        // ballRb.isKinematic = false;
-        // _collider.isTrigger = false;
-        //
-        // var targetPos = targetObje.transform.position;
-        // var offset = new Vector3(targetPos.x, targetPos.y + agent.radius, targetPos.z + agent.radius);
-        // if (gameObject.activeInHierarchy)
-        // {
-        //     agent.transform.DOJump(offset, 1,1,1f)
-        //         .OnComplete((() =>
-        //         {
-        //             renderer.enabled = true;
-        //             agent.enabled = true;
-        //             ballRb.useGravity = true;
-        //             ballRb.isKinematic = true;
-        //             _collider.isTrigger = true;
-        //             goTravel = false;
-        //             go = true;
-        //         }));
-        // }
-        // else
-        // {
-        //     transform.DOKill();
-        // }
     }
-    
-    
     
     public int GetValue()
     {

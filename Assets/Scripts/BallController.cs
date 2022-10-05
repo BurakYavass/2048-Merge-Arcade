@@ -14,7 +14,6 @@ public class BallController : MonoBehaviour
     [SerializeField] private GameObject mergeBallPos;
     [SerializeField] private GameObject upgradeBallPos;
     private Transform _unlockWallPos;
-    private Transform _targetTravel;
     private Vector3 _distance;
     private bool _goMerge;
     private bool _goUpgrade;
@@ -140,7 +139,8 @@ public class BallController : MonoBehaviour
                 for (int i = 0; i < balls.Count; i++)
                 {
                     //_playerFollowerList.playerFollowPoints[i].clearList = true;
-                    balls[i].GetComponent<Ball>().SetGoTravel(_targetTravel);
+                    balls[i].GetComponent<Ball>().SetGoTravel();
+                    balls[i].SetActive(false);
                     // balls.RemoveAt(i);
                     PlayerPrefs.SetInt("BallSave" + i, (int)(balls[i].GetComponent<Ball>().GetValue()));
                     PlayerPrefs.SetInt("BallSaveCount", balls.Count);
@@ -180,11 +180,9 @@ public class BallController : MonoBehaviour
         _goUpgrade = true;
     }
 
-    public void GoTravelPoint(Transform travelPoint)
+    public void GoTravelPoint()
     {
         _goTravelPoint = true;
-        _targetTravel = travelPoint;
-        
     }
 
     void OnApplicationFocus(bool hasFocus)

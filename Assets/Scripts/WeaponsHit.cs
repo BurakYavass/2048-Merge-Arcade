@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class WeaponsHit : MonoBehaviour
 {
-    public int _damageValue;
+    public float _damageValue;
     public WeaponState weapon;
 
     private void Start()
@@ -25,19 +25,19 @@ public class WeaponsHit : MonoBehaviour
         switch (weapons)
         {
             case WeaponState.Sword1:
-                _damageValue = 5;
+                _damageValue = 5.01f;
                 break;
             case WeaponState.Sword2:
-                _damageValue = 10;
+                _damageValue = 10.01f;
                 break;
             case WeaponState.Gurz:
-                _damageValue = 15;
+                _damageValue = 15.01f;
                 break;
             case WeaponState.Axe1:
-                _damageValue = 40;
+                _damageValue = 40.01f;
                 break;
             case WeaponState.Axe2:
-                _damageValue = 50;
+                _damageValue = 50.01f;
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
