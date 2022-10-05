@@ -202,11 +202,8 @@ public class Ball : MonoBehaviour
         gameObject.transform.parent = target.transform.parent;
         go = false;
         goMerge = true;
-        if (ballAnimator!=null)
-        {
-            ballAnimator.SetBool("Anim", false);
-            ballAnimator = null;
-        }
+        ballAnimator.SetBool("Anim", false);
+        ballAnimator = null;
         ballRb.interpolation = RigidbodyInterpolation.None;
         gameObject.tag = "UpgradeBall";
         if (gameObject.activeInHierarchy)
@@ -252,11 +249,8 @@ public class Ball : MonoBehaviour
         go = false;
         goUnlock = false;
         goMerge = true;
-        if (ballAnimator!=null)
-        {
-            ballAnimator.SetBool("Anim", false);
-            ballAnimator = null;
-        }
+        ballAnimator.SetBool("Anim", false);
+        ballAnimator = null;
         ballRb.interpolation = RigidbodyInterpolation.None;
         gameObject.tag = "MergeBall";
         if (gameObject.activeInHierarchy)

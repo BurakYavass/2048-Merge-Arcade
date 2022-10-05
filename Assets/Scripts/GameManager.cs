@@ -6,12 +6,14 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager current;
-   
-    public float playerSpeed;
- 
-    public float _playerArmor;
+    [SerializeField] private float startSpeed;
+    [NonSerialized] public float playerSpeed;
 
-    public float playerDamage;
+    [SerializeField] private float startArmor;
+    [NonSerialized] public float _playerArmor;
+
+    [SerializeField] private float startDamage;
+    [NonSerialized] public float playerDamage;
     private int _speedUpgradeRequire;
     private int _damageUpgradeRequire;
     private int _armorUpgradeRequire;
@@ -57,11 +59,11 @@ public class GameManager : MonoBehaviour
         _damageUpgradeRequire = damageUpgradeState[_damageState];
         _armorUpgradeRequire = armorUpgradeState[_armorState];
 
-        playerSpeed = PlayerPrefs.GetFloat("PlayerSpeed",12f);
+        playerSpeed = PlayerPrefs.GetFloat("PlayerSpeed",startSpeed);
         _speedState = PlayerPrefs.GetInt("SpeedState", 0);
-        playerDamage = PlayerPrefs.GetFloat("PlayerDamage", 15f);
+        playerDamage = PlayerPrefs.GetFloat("PlayerDamage", startDamage);
         _damageState = PlayerPrefs.GetInt("damageState", 0);
-        _playerArmor = PlayerPrefs.GetFloat("PlayerArmor", 100f);
+        _playerArmor = PlayerPrefs.GetFloat("PlayerArmor", startArmor);
         _armorState = PlayerPrefs.GetInt("ArmorState", 0);
         if (_armorState == 2)
         {
@@ -112,8 +114,8 @@ public class GameManager : MonoBehaviour
                 upgradeMachine.UpgradeCalculate(_armorUpgradeRequire);
                 PlayerPrefs.SetFloat("PlayerArmor",_playerArmor);
                 playerBallCounter.stackValue -= _armorUpgradeRequire;
-                playerUpgradableItems.ArmorChanger(_armorState);
                 _armorState++;
+                playerUpgradableItems.ArmorChanger(_armorState);
                 PlayerPrefs.SetInt("ArmorState",_armorState);
             }
             else if (_armorState== 1)
@@ -122,8 +124,8 @@ public class GameManager : MonoBehaviour
                 upgradeMachine.UpgradeCalculate(_armorUpgradeRequire);
                 PlayerPrefs.SetFloat("PlayerArmor",_playerArmor);
                 playerBallCounter.stackValue -= _armorUpgradeRequire;
-                playerUpgradableItems.ArmorChanger(_armorState);
                 _armorState++;
+                playerUpgradableItems.ArmorChanger(_armorState);
                 PlayerPrefs.SetInt("ArmorState",_armorState);
                 
             }

@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using Unity.VisualScripting;
+using UnityEditor.UI;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TravelManager : MonoBehaviour
 {
@@ -11,7 +13,7 @@ public class TravelManager : MonoBehaviour
     [SerializeField] private Transform yellowLevel;
     [SerializeField] private Transform greenLevel;
     [SerializeField] private Transform purpleLevel;
-    [SerializeField] private ParticleSystem _particleSystem;
+    [SerializeField] private Image fillImage;
     [SerializeField] private GameObject[] openPart;
     [SerializeField] private GameObject firstTimePlay;
     [SerializeField] private BallController ballController;
@@ -67,11 +69,16 @@ public class TravelManager : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             firstTimePlay.SetActive(true);
-           
             _player = other.GetComponent<PlayerCollisionHandler>();
-            _player.closePart[0].SetActive(false);
-            _player.closePart[1].SetActive(false);
+            //_player.gameObject.transform.GetChild(0).gameObject.SetActive(false);
+            foreach (var closeObject in _player.closePart)
+            {
+                closeObject.SetActive(false);
+            }
             StartCoroutine(TravelWaiter());
+            fillImage.DOFillAmount(1, travelDelay).OnComplete((() => fillImage.fillAmount = 0));
+            firstTimePlay.transform.DOLocalMoveY(0.43f,travelDelay);
+            
         }
     }
 
@@ -86,14 +93,16 @@ public class TravelManager : MonoBehaviour
     {
         yield return new WaitForSeconds(travelDelay);
         var travelPos = _travelPoint.transform.position;
-        _player.gameObject.transform.DOMove(new Vector3(travelPos.x,travelPos.y+0.6f,travelPos.z), 2.0f)
+        _player.gameObject.transform.DOMove(new Vector3(travelPos.x,travelPos.y+1f,travelPos.z), 2.0f)
             .OnComplete((() =>
             {
                 firstTimePlay.SetActive(false);
                 _player.transform.forward = Vector3.forward;
                 ballController.GoTravelPoint();
-                _player.closePart[0].SetActive(true);
-                _player.closePart[1].SetActive(true);
+                foreach (var closeObject in _player.closePart)
+                {
+                    closeObject.SetActive(true);
+                }
             }));
         
     }

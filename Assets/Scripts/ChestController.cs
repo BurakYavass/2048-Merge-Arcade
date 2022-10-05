@@ -78,7 +78,7 @@ public class ChestController : MonoBehaviour
             _HealthBar.SetActive(false);
         }
     }
-    public void Hit(int damage)
+    public void Hit(float damage)
     {
         if (gameObject.activeInHierarchy)
         {

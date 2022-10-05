@@ -35,19 +35,16 @@ public class PlayerCollisionHandler : MonoBehaviour
             GameEventHandler.current.PlayerRightArea(true);
             playerController.CameraChanger(1);
         }
-        
         if (other.CompareTag("BaseLeft"))
         {
             GameEventHandler.current.PlayerLeftArea(true);
             playerController.CameraChanger(2);
         }
-        
         if (other.CompareTag("Ground"))
         {
             GameEventHandler.current.PlayerLeftArea(false);
             GameEventHandler.current.PlayerRightArea(false);
             playerController.CameraChanger(0);
-            //ballController.ReloadGame();
         }
        
         if (other.CompareTag("MergeMachine"))
