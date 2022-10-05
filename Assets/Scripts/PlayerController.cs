@@ -14,8 +14,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public Rigidbody _rb;
     [SerializeField] private CinemachineVirtualCamera _virtualCamera;
 
-    private float _joystickValue;
-
     public bool walking = false;
     private bool upgradeArea = false;
 
@@ -33,7 +31,7 @@ public class PlayerController : MonoBehaviour
         DOTween.Init();
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         GameEventHandler.current.OnPlayerUpgradeArea -= OnPlayerUpgradeArea;
     }
@@ -104,29 +102,26 @@ public class PlayerController : MonoBehaviour
             var movementVector = inputVector.x * cameraRightHorizontal + inputVector.z * cameraForwardHorizontal;
             
             Vector3 temp = transform.position + transform.forward* (speed * Time.fixedDeltaTime);
-            UnityEngine.AI.NavMeshHit hit;
-            bool isvalid = UnityEngine.AI.NavMesh.SamplePosition(temp, out hit, .1f, UnityEngine.AI.NavMesh.AllAreas);
-            if (isvalid)
-            {
-                if ((transform.position - hit.position).magnitude >= 0.1f)
-                {
-                    _joystickValue = (transform.position - hit.position).magnitude;
-                    transform.position = temp;
-                    var lerp = Vector3.Lerp(transform.forward, movementVector, speed * Time.fixedDeltaTime);
-                    transform.rotation = Quaternion.LookRotation(lerp);
-                    // if (!once)
-                    // {
-                    //     walking = true;
-                    //     once = true;
-                    // }
-                    
-                    walking = true;
-                }
-            }
-            else
-            {
-                walking = false;
-            }
+            // UnityEngine.AI.NavMeshHit hit;
+            // bool isvalid = UnityEngine.AI.NavMesh.SamplePosition(temp, out hit, .3f, UnityEngine.AI.NavMesh.AllAreas);
+            // if (isvalid)
+            // {
+            //     if ((transform.position - hit.position).magnitude >= 0.1f)
+            //     {
+            //         transform.position = temp;
+            //         var lerp = Vector3.Lerp(transform.forward, movementVector, speed * Time.fixedDeltaTime);
+            //         transform.rotation = Quaternion.LookRotation(lerp);
+            //         walking = true;
+            //     }
+            // }
+            // else
+            // {
+            //     walking = false;
+            // }
+            transform.position = temp;
+            var lerp = Vector3.Lerp(transform.forward, movementVector, speed * Time.fixedDeltaTime);
+            transform.rotation = Quaternion.LookRotation(lerp);
+            walking = true;
         }
         else
         {
