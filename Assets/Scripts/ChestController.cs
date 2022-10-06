@@ -24,7 +24,7 @@ public class ChestController : MonoBehaviour
     [SerializeField] private int[] _CreatValue;
     [SerializeField] private float _CreatCount;
     [SerializeField] private float _ChestHealthValue; 
-    private float _ChestHealthValueCurrent;
+    public float _ChestHealthValueCurrent;
     private float _ChestHealthValueCurrentTemp;
     private float _TempDamage;
     

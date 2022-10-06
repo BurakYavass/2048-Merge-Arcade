@@ -51,23 +51,9 @@ public class MergeController : MonoBehaviour
     
     private void Update()
     {
-        if (!_MergeTime)
+        if (_TotalValue != 0&& GameObject.FindGameObjectsWithTag("MergeBall").Length<1)
         {
-            if (_TotalValue != 0&& GameObject.FindGameObjectsWithTag("MergeBall").Length<1)
-            {
-                SetMerge();
-            }
-        }
-       
-        _TempTime += Time.deltaTime;
-        
-        if (_IsDone!=0 && _MergeTime)
-        {
-            if (_TempTime>.2f)
-            {
-                TotalValue();
-                _TempTime = 0;
-            }
+            SetMerge();
         }
     }
     private void OnBallMergeArea(bool enterExit)

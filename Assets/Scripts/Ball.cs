@@ -259,7 +259,7 @@ public class Ball : MonoBehaviour
         gameObject.tag = "MergeBall";
         if (gameObject.activeInHierarchy)
         {
-            transform.DOJump(target.transform.position, 2, 1, 1f).SetEase(Ease.OutQuint)
+            transform.DOJump(target.transform.position, 2, 1, 1.5f).SetEase(Ease.OutQuint)
                 .OnUpdate((() =>
                 {
                     ballRb.mass = 0.01f;

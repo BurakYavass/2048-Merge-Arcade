@@ -50,7 +50,6 @@ public class WallValue : MonoBehaviour
     List<GameObject> _4096 = new List<GameObject>();
     
     private int _totalValue;
-    private bool _calculate = false;
     private bool unlockWall;
     private bool _playerWallArea = false;
     private bool once = false;
@@ -414,7 +413,6 @@ public class WallValue : MonoBehaviour
                  mainObject.GetComponent<CloseDelay>().CloseObje();
                  //transform.parent.gameObject.SetActive(true);
              }
-             _calculate = false;
              _totalValue = 0;
          }
      }

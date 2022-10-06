@@ -15,8 +15,7 @@ public class GameEventHandler : MonoBehaviour
         }
     }
     public event Action<bool> OnPlayerUpgradeArea;
-    public event Action<bool> OnPlayerMergeArea; 
-    public event Action<bool> OnPlayerHit;
+    public event Action<bool> OnPlayerMergeArea;
     public event Action<bool> OnPlayerRightArea;
     public event Action<bool> OnPlayerLeftArea;
     public event Action<bool> OnBallMergeArea;
@@ -44,11 +43,6 @@ public class GameEventHandler : MonoBehaviour
     public void PlayerMergeArea(bool enterExit)
     {
         OnPlayerMergeArea?.Invoke(enterExit);
-    }
-
-    public void PlayerHit(bool hit)
-    {
-        OnPlayerHit?.Invoke(hit);
     }
 
 }

@@ -10,18 +10,9 @@ public class PlayerAnimationHandler : MonoBehaviour
     [SerializeField] private PlayerController playerController;
 
     private bool playerHit = false;
+    
 
-    private void Start()
-    {
-        GameEventHandler.current.OnPlayerHit += CurrentPlayerHit;
-    }
-
-    private void OnDisable()
-    {
-        GameEventHandler.current.OnPlayerHit -= CurrentPlayerHit;
-    }
-
-    private void CurrentPlayerHit(bool hit)
+    public void CurrentPlayerHit(bool hit)
     {
         playerHit = hit;
     }
