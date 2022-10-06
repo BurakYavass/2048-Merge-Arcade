@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerCollisionHandler : MonoBehaviour
 {
@@ -11,9 +12,12 @@ public class PlayerCollisionHandler : MonoBehaviour
     [SerializeField] private PlayerAnimationHandler animationHandler;
     [SerializeField] private WeaponsHit weaponsHit;
     [SerializeField] private BallController ballController;
+    [SerializeField] private ChestController chestController;
+    public Image joystickImage;
     public List<FollowerList> playerFollowPoints;
     public GameObject[] closePart;
-    [SerializeField] private ChestController _chestController;
+    
+    
     private PlayerBallCounter _playerBallCounter;
     private Vector3 _lastposition;
     
@@ -30,12 +34,12 @@ public class PlayerCollisionHandler : MonoBehaviour
 
     private void Update()
     {
-        if (_chestController != null)
+        if (chestController != null)
         {
-            if (_chestController._ChestHealthValueCurrent < 1)
+            if (chestController._ChestHealthValueCurrent < 1)
             {
                 animationHandler.CurrentPlayerHit(false);
-                _chestController = null;
+                chestController = null;
             }
         }
         
@@ -48,18 +52,16 @@ public class PlayerCollisionHandler : MonoBehaviour
             gameEventHandler.PlayerRightArea(true);
             playerController.CameraChanger(1);
         }
-        if (other.CompareTag("BaseLeft"))
+        else if (other.CompareTag("BaseLeft"))
         {
             gameEventHandler.PlayerLeftArea(true);
             playerController.CameraChanger(2);
         }
-        if (other.CompareTag("Ground"))
+        else
         {
-            gameEventHandler.PlayerLeftArea(false);
-            gameEventHandler.PlayerRightArea(false);
             playerController.CameraChanger(0);
         }
-       
+
         if (other.CompareTag("MergeMachine"))
         {
             if (!_onMergeMachine)
@@ -75,13 +77,14 @@ public class PlayerCollisionHandler : MonoBehaviour
         
         if (other.CompareTag("UpgradeTrigger"))
         {
+            //StartCoroutine(UpgradeDelay(true));
             ballController.GoUpgrade();
+            playerController.CameraChanger(3);
             gameEventHandler.PlayerUpgradeArea(true);
             if (!_upgradeArea)
             {
                 _upgradeArea = true;
                 _playerBallCounter.BallCountCheck();
-                playerController.CameraChanger(3);
             }
         }
         
@@ -107,7 +110,7 @@ public class PlayerCollisionHandler : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Chest"))
         {
-            _chestController= other.GetComponent<ChestController>();
+            chestController= other.GetComponent<ChestController>();
             if (!_hit)
             {
                 _hit = true;
@@ -124,14 +127,12 @@ public class PlayerCollisionHandler : MonoBehaviour
             gameEventHandler.PlayerRightArea(false);
             playerController.CameraChanger(0);
         }
-        
-        if (other.CompareTag("BaseLeft"))
+        else if (other.CompareTag("BaseLeft"))
         {
             gameEventHandler.PlayerLeftArea(false);
             playerController.CameraChanger(0);
         }
-
-        if (other.CompareTag("LevelWall"))
+        else if (other.CompareTag("LevelWall"))
         {
             //gameEventHandler.PlayerLevelUnlockArea(false);
             _playerBallCounter.stackValue = 0;
@@ -140,7 +141,7 @@ public class PlayerCollisionHandler : MonoBehaviour
         
         if (other.gameObject.CompareTag("Chest"))
         {
-            _chestController = null;
+            chestController = null;
             animationHandler.CurrentPlayerHit(false);
             //GameEventHandler.current.PlayerHit(false);
         }
@@ -156,7 +157,7 @@ public class PlayerCollisionHandler : MonoBehaviour
         {
             _upgradeArea = false;
             //GameEventHandler.current.BallUpgradeArea(false,null);
-            gameEventHandler.PlayerUpgradeArea(false);
+            //gameEventHandler.PlayerUpgradeArea(false);
             playerController.CameraChanger(0);
             _playerBallCounter.stackValue = 0;
         }
@@ -173,14 +174,15 @@ public class PlayerCollisionHandler : MonoBehaviour
         yield return new WaitForSeconds(1f);
         _hit = false;
     }
-
+    
     private void WeaponHit()
     {
-        if (_chestController != null)
+        if (chestController != null)
         {
-            _chestController.Hit(weaponsHit._damageValue);
-            _chestController.transform.parent.DOPunchScale(new Vector3(0.1f, 0.1f, 0.1f), 0.5f).SetEase(Ease.InBounce);
+            chestController.Hit(weaponsHit._damageValue);
+            chestController.transform.parent.DOPunchScale(new Vector3(0.1f, 0.1f, 0.1f), 0.5f).SetEase(Ease.InBounce);
         }
         //animationHandler.CurrentPlayerHit(false);
     }
+    
 }

@@ -10,7 +10,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private List<CinemachineVirtualCamera> virtualCameras;
     [SerializeField] private Joystick joystick;
     [SerializeField] private RectTransform handle;
-    [SerializeField] public Rigidbody _rb;
     [SerializeField] private CinemachineVirtualCamera _virtualCamera;
 
     public bool walking = false;
@@ -37,6 +36,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnPlayerUpgradeArea(bool enterExit)
     {
+        
         if (enterExit)
         {
             transform.DOMove(new Vector3(37f, 0.63f, 24.75f), 1.0f).OnUpdate((() =>
@@ -52,9 +52,20 @@ public class PlayerController : MonoBehaviour
                 }));
             
         }
-        else 
+        else
         {
-            upgradeArea = false;
+            walking = true;
+            transform.DOMove(new Vector3(24.0f, 0.63f, 26.0f), 1.0f)
+                .OnUpdate((() =>
+                {
+                    upgradeArea = true;
+                }))
+                .OnComplete((() =>
+                {
+                    upgradeArea = false;
+                    walking = false;
+                }));
+            
         }
         
     }
@@ -73,14 +84,15 @@ public class PlayerController : MonoBehaviour
 
     public void CameraChanger(int cam)
     {
-        if (cam == 3)
-        {
-            _virtualCamera = virtualCameras[cam];
-        }
-        else
-        {
-            _virtualCamera = virtualCameras[cam];
-        }
+        _virtualCamera = virtualCameras[0];
+        // if (cam == 3)
+        // {
+        //     _virtualCamera = virtualCameras[cam];
+        // }
+        // else
+        // {
+        //     _virtualCamera = virtualCameras[cam];
+        // }
     }
 
     private void Movement()
@@ -118,7 +130,7 @@ public class PlayerController : MonoBehaviour
             //     walking = false;
             // }
             transform.position = temp;
-            var lerp = Vector3.Lerp(transform.forward, movementVector, speed * Time.fixedDeltaTime);
+            var lerp = Vector3.Lerp(transform.forward, movementVector, (speed *1.3f)* Time.fixedDeltaTime);
             transform.rotation = Quaternion.LookRotation(lerp);
             walking = true;
         }

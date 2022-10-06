@@ -11,9 +11,6 @@ public class ChestController : MonoBehaviour
     [SerializeField] private GameObject _CreatBall;
     [SerializeField] private GameObject[] _ClosePart; 
     [SerializeField] private GameObject[] _OpenPart;
-    
-    [SerializeField] private Animator animator;
-    
     [SerializeField] private GameObject _HealthBar;
     [SerializeField] private TextMeshProUGUI _FullHealth;
     [SerializeField] private TextMeshProUGUI _CurrentHealth;
@@ -89,7 +86,6 @@ public class ChestController : MonoBehaviour
 
     IEnumerator CloseDelay()
     {
-        animator.SetBool("Hit",false);
         yield return new WaitForSeconds(.1f);
         for (int i = 0; i < _ClosePart.Length; i++)
         {
