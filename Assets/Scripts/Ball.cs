@@ -15,6 +15,7 @@ public class Ball : MonoBehaviour
     [SerializeField] private RuntimeAnimatorController merge;
     [SerializeField] private BallController ballController;
     [SerializeField] private Animator ballAnimator;
+    [SerializeField] private ParticleSystem dustParticle;
     public NavMeshAgent agent;
     public GameObject targetObje;
     public Rigidbody ballRb;
@@ -205,6 +206,7 @@ public class Ball : MonoBehaviour
         goMerge = true;
         ballAnimator.SetBool("Anim", false);
         ballAnimator = null;
+        dustParticle.Stop();
         ballRb.interpolation = RigidbodyInterpolation.None;
         gameObject.tag = "UpgradeBall";
         if (gameObject.activeInHierarchy)
@@ -237,7 +239,8 @@ public class Ball : MonoBehaviour
         agent.enabled = true;
         _collider.isTrigger = true;
         var pos = transform.position;
-        transform.DOJump(new Vector3(pos.x,pos.y,pos.z), 1, 1, 1.0f).SetEase(Ease.OutBounce);
+        transform.DOJump(new Vector3(pos.x,pos.y,pos.z), 1, 1, 1.0f)
+                                                    .SetEase(Ease.OutBounce).OnComplete((() => dustParticle.Play()));
     }
     
     public void SetGoMerge(GameObject target,float delay)
@@ -256,7 +259,7 @@ public class Ball : MonoBehaviour
         gameObject.tag = "MergeBall";
         if (gameObject.activeInHierarchy)
         {
-            transform.DOJump(target.transform.position, 1, 1, 1.5f).SetEase(Ease.OutSine)
+            transform.DOJump(target.transform.position, 2, 1, 1f).SetEase(Ease.OutQuint)
                 .OnUpdate((() =>
                 {
                     ballRb.mass = 0.01f;
@@ -277,6 +280,9 @@ public class Ball : MonoBehaviour
 
     public void SetGoUnlock(Transform target)
     {
+        dustParticle.Stop();
+        ballAnimator.SetBool("Anim", false);
+        ballAnimator = null;
         go = false;
         goMerge = false;
         goTravel = false;
@@ -286,20 +292,18 @@ public class Ball : MonoBehaviour
         triggerCollider.enabled = false;
         _collider.isTrigger = true;
         ballRb.isKinematic = false;
-        ballAnimator.SetBool("Anim", false);
-        ballAnimator = null;
         ballRb.interpolation = RigidbodyInterpolation.None;
         gameObject.tag = "UnlockBall";
         if (gameObject.activeInHierarchy)
         {
-            transform.DOMove(target.position, 2)
+            transform.DOMove(target.position, 1.5f).SetEase(Ease.OutBounce)
                 .OnUpdate((() =>
                 {
                     transform.localScale -= new Vector3(.3f, .3f, .3f) * Time.deltaTime;
                 })).OnComplete((() =>
                 {
                     transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
-                    target.transform.DOPunchScale(new Vector3(0.5f, 0.5f, 0.5f), 0.5f).SetEase(Ease.InBounce);
+                    //target.gameObject.transform.DOPunchScale(new Vector3(0.5f, 0.5f, 0.5f), 0.5f).SetEase(Ease.OutBounce);
                     goUnlock = false;
                 }));
         }
@@ -378,4 +382,9 @@ public class Ball : MonoBehaviour
         GetComponent<Animator>().runtimeAnimatorController = merge;
         triggerCollider.isTrigger = true;
     }
+
+    // public void PlayParticle()
+    // {
+    //     dustParticle.Play();
+    // }
 }

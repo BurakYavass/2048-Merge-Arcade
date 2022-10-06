@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         gameEventHandler.OnPlayerUpgradeArea += OnPlayerUpgradeArea;
-        gameEventHandler.OnPlayerLevelUnlockArea += PlayerLevelUnlockArea;
+        //gameEventHandler.OnPlayerLevelUnlockArea += PlayerLevelUnlockArea;
         Application.targetFrameRate = 60;
         _speedUpgradeRequire = speedUpgradeState[_speedState];
         _damageUpgradeRequire = damageUpgradeState[_damageState];
@@ -89,13 +89,13 @@ public class GameManager : MonoBehaviour
     private void OnDisable()
     {
         gameEventHandler.OnPlayerUpgradeArea -= OnPlayerUpgradeArea;
-        gameEventHandler.OnPlayerLevelUnlockArea -= PlayerLevelUnlockArea;
+        //gameEventHandler.OnPlayerLevelUnlockArea -= PlayerLevelUnlockArea;
     }
     
-    private void PlayerLevelUnlockArea(bool openClose)
-    {
-        uiManager.LevelUnlockPanel(openClose);
-    }
+    // private void PlayerLevelUnlockArea(bool openClose)
+    // {
+    //     uiManager.LevelUnlockPanel(openClose);
+    // }
 
     private void OnPlayerUpgradeArea(bool openClose)
     {

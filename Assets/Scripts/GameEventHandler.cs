@@ -14,8 +14,6 @@ public class GameEventHandler : MonoBehaviour
             current = this;
         }
     }
-
-    public event Action<bool> OnPlayerLevelUnlockArea; 
     public event Action<bool> OnPlayerUpgradeArea;
     public event Action<bool> OnPlayerMergeArea; 
     public event Action<bool> OnPlayerHit;
@@ -53,9 +51,4 @@ public class GameEventHandler : MonoBehaviour
         OnPlayerHit?.Invoke(hit);
     }
 
-    public void PlayerLevelUnlockArea(bool enterExit)
-    {
-        OnPlayerLevelUnlockArea?.Invoke(enterExit);
-    }
-    
 }

@@ -156,7 +156,7 @@ public class PlayerCollisionHandler : MonoBehaviour
 
     private void WeaponHit()
     {
-        if (_chestController != null && _hit)
+        if (_chestController != null)
         {
             _chestController.Hit(weaponsHit._damageValue);
             _chestController.transform.parent.DOPunchScale(new Vector3(0.1f, 0.1f, 0.1f), 0.5f).SetEase(Ease.InBounce);
