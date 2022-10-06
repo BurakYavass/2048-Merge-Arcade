@@ -11,9 +11,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Joystick joystick;
     [SerializeField] private RectTransform handle;
     [SerializeField] private CinemachineVirtualCamera _virtualCamera;
+    public GameObject[] closePart;
 
     public bool walking = false;
     private bool upgradeArea = false;
+    private bool teleporting = false;
 
     private void Awake()
     {
@@ -70,9 +72,14 @@ public class PlayerController : MonoBehaviour
         
     }
 
+    public void OnPlayerTeleport(bool teleport)
+    {
+        teleporting = teleport;
+    }
+
     void FixedUpdate()
     {
-        if (joystick.isActiveAndEnabled && _virtualCamera != null && !upgradeArea)
+        if (joystick.isActiveAndEnabled && _virtualCamera != null && !upgradeArea && !teleporting)
         {
             Movement();
         }

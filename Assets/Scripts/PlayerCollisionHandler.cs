@@ -13,11 +13,8 @@ public class PlayerCollisionHandler : MonoBehaviour
     [SerializeField] private WeaponsHit weaponsHit;
     [SerializeField] private BallController ballController;
     [SerializeField] private ChestController chestController;
-    public Image joystickImage;
     public List<FollowerList> playerFollowPoints;
-    public GameObject[] closePart;
-    
-    
+
     private PlayerBallCounter _playerBallCounter;
     private Vector3 _lastposition;
     

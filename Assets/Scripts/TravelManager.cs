@@ -1,5 +1,6 @@
 using System.Collections;
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,14 +14,13 @@ public class TravelManager : MonoBehaviour
     [SerializeField] private GameObject[] openPart;
     [SerializeField] private GameObject firstTimePlay;
     [SerializeField] private BallController ballController;
-
     [SerializeField] private float travelDelay;
 
     private Collider _collider;
     private Transform _travelPoint;
 
     public bool active;
-    private PlayerCollisionHandler _player;
+    private PlayerController _player;
 
     void Start()
     {
@@ -38,10 +38,7 @@ public class TravelManager : MonoBehaviour
         {
             _travelPoint = purpleLevel;
         }
-    }
-    
-    private void Update()
-    {
+
         if (active)
         {
             _collider.enabled = true;
@@ -59,14 +56,26 @@ public class TravelManager : MonoBehaviour
             _collider.enabled = false;
         }
     }
+    
+    private void Update()
+    {
+        if (active)
+        {
+            _collider.enabled = true;
+            foreach (var particle in openPart)
+            {
+                particle.SetActive(true);
+            }
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             firstTimePlay.SetActive(true);
-            _player = other.GetComponent<PlayerCollisionHandler>();
-            //_player.gameObject.transform.GetChild(0).gameObject.SetActive(false);
+            _player = other.GetComponent<PlayerController>();
+            _player.OnPlayerTeleport(true);
             foreach (var closeObject in _player.closePart)
             {
                 closeObject.SetActive(false);
@@ -95,6 +104,7 @@ public class TravelManager : MonoBehaviour
                 firstTimePlay.SetActive(false);
                 _player.transform.forward = Vector3.forward;
                 ballController.GoTravelPoint();
+                _player.OnPlayerTeleport(false);
                 foreach (var closeObject in _player.closePart)
                 {
                     closeObject.SetActive(true);

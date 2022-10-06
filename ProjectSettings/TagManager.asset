@@ -29,6 +29,7 @@ TagManager:
   - UnlockBall
   - UIManager
   - Ground
+  - Portal
   layers:
   - Default
   - TransparentFX
