@@ -128,6 +128,7 @@ MonoBehaviour:
   _CreatValue: 02000000
   _CreatCount: 2
   _ChestHealthValue: 20
+  _ChestHealthValueCurrent: 0
 --- !u!95 &1413927957
 Animator:
   serializedVersion: 4
@@ -309,6 +310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 196967a8b71d7c54cb48f66a5d7c28bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  delay: 0.5
 --- !u!1001 &228000448619107554
 PrefabInstance:
   m_ObjectHideFlags: 0
