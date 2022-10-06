@@ -153,10 +153,10 @@ public class BallController : MonoBehaviour
         }
     }
 
-    public void GoUnlock(Transform target)
+    public void GoUnlock(Transform target , bool go)
     {
         _unlockWallPos = target;
-        _goUnlock = true;
+        _goUnlock = go;
     }
     public GameObject LastObje()
     {

@@ -12291,7 +12291,7 @@ PrefabInstance:
     - target: {fileID: 5983197739325306432, guid: 3b223bce23459354295dc598cfca51ce, type: 3}
       propertyPath: greenLevel
       value: 
-      objectReference: {fileID: 87893810}
+      objectReference: {fileID: 341302385}
     - target: {fileID: 5983197739325306432, guid: 3b223bce23459354295dc598cfca51ce, type: 3}
       propertyPath: purpleLevel
       value: 
@@ -12303,7 +12303,7 @@ PrefabInstance:
     - target: {fileID: 5983197739325306432, guid: 3b223bce23459354295dc598cfca51ce, type: 3}
       propertyPath: yellowLevel
       value: 
-      objectReference: {fileID: 1816194315}
+      objectReference: {fileID: 5125471225328146744}
     - target: {fileID: 5983197739325306432, guid: 3b223bce23459354295dc598cfca51ce, type: 3}
       propertyPath: ballController
       value: 
@@ -16017,8 +16017,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   travelType: 0
   yellowLevel: {fileID: 5125471225328146744}
-  greenLevel: {fileID: 87893810}
-  purpleLevel: {fileID: 9009218084598397508}
+  greenLevel: {fileID: 341302385}
+  purpleLevel: {fileID: 9004354480797941927}
   fillImage: {fileID: 1758462843}
   openPart:
   - {fileID: 606169865}

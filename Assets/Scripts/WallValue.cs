@@ -18,8 +18,7 @@ public class WallValue : MonoBehaviour
     [SerializeField] private GameObject ballPrefab;
     [SerializeField] private TextMeshProUGUI wallValue;
     [SerializeField] private TravelManager openGameObject;
-    [SerializeField] private GameObject closePart;
-    [SerializeField] private NavMeshObstacle parentCollider;
+    [SerializeField] private GameObject mainObject;
     private PlayerCollisionHandler _playerFollowerList;
     private PlayerBallCounter _playerBallCounter;
     private BallController _ballController;
@@ -70,11 +69,11 @@ public class WallValue : MonoBehaviour
     {
         var playerValue = _playerBallCounter;
         
-        if (unlock)
+        if (unlock && unlockCurrent != 0)
         {
             playerValue.stackValue -= unlockRequire;
             //_uiManager.LevelUnlockPanel(false);
-            _ballController.GoUnlock(transform);
+            _ballController.GoUnlock(transform,true);
         }
         else
         {
@@ -89,11 +88,14 @@ public class WallValue : MonoBehaviour
         wallValue.text = unlockCurrent.ToString();
         var delay = _ballController.balls.Count;
         
-        if (unlockCurrent == 0 && !once)
+        if (unlockCurrent == 0)
         {
-            once = true;
-            StartCoroutine(Delay());
-            UnlockCalculate(false);
+            wallValue.text = " ";
+            if (!once)
+            {
+                once = true;
+                StartCoroutine(Delay());
+            }
         }
         
         if (unlockWall)
@@ -409,7 +411,8 @@ public class WallValue : MonoBehaviour
          {
              if (unlockWall)
              {
-                 transform.parent.gameObject.SetActive(true);
+                 mainObject.GetComponent<CloseDelay>().CloseObje();
+                 //transform.parent.gameObject.SetActive(true);
              }
              _calculate = false;
              _totalValue = 0;
@@ -538,10 +541,7 @@ public class WallValue : MonoBehaviour
         transform.parent.transform.DOMoveY(-10f, 2.0f).SetEase(Ease.InBounce).
                             OnComplete((() =>
                             {
-                                //parentCollider.enabled = false;
                                 _totalValue = Mathf.Clamp(_totalValue - unlockRequire, 0, 4096);
-                                Debug.Log(_totalValue);
-                                GetComponent<Collider>().enabled = false;
                                 unlockWall = true;
                                 gameObject.GetComponent<MeshRenderer>().enabled = false;
                                 openGameObject.active = true;

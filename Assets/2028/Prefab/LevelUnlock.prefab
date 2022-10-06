@@ -220,8 +220,7 @@ MonoBehaviour:
   ballPrefab: {fileID: 6986705099755840392, guid: 0f2efdd3da2d21d489df375a833720ad, type: 3}
   wallValue: {fileID: 222145895774587457}
   openGameObject: {fileID: 0}
-  closePart: {fileID: 4789551658513418839}
-  parentCollider: {fileID: 2592157439465469869}
+  mainObject: {fileID: 4789551658513418839}
   _2: []
   _4: []
   _8: []
@@ -247,6 +246,7 @@ GameObject:
   - component: {fileID: 6446651813960412034}
   - component: {fileID: 1926578700708386294}
   - component: {fileID: 2592157439465469869}
+  - component: {fileID: 7538188934660863547}
   m_Layer: 0
   m_Name: LevelUnlock
   m_TagString: Untagged
@@ -349,6 +349,18 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &7538188934660863547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4789551658513418839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 196967a8b71d7c54cb48f66a5d7c28bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8726982355525780514
 GameObject:
   m_ObjectHideFlags: 0
