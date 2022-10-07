@@ -87,7 +87,7 @@ public class PlayerCollisionHandler : MonoBehaviour
         {
             if (!_upgradeArea)
             {
-                _playerBallCounter.BallCountCheck();
+                //_playerBallCounter.BallCountCheck();
                 _triggerDelay = StartCoroutine(UpgradeDelay(true));
             }
         }

@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 4759583007022332123}
   m_LocalRotation: {x: 0.16810527, y: 0.16810527, z: 0.6868338, w: 0.6868338}
   m_LocalPosition: {x: -80.23331, y: 1.4117241, z: -25.711851}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2594492123033113118}
@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 196967a8b71d7c54cb48f66a5d7c28bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  delay: 0.5
 --- !u!1 &6958094918265991490
 GameObject:
   m_ObjectHideFlags: 0
@@ -189,7 +190,6 @@ MonoBehaviour:
   - {fileID: 8335021468148914725}
   _OpenPart:
   - {fileID: 4715319328057577654}
-  animator: {fileID: 3053534652529999782}
   _HealthBar: {fileID: 1468260189916560935}
   _FullHealth: {fileID: 8383247900339632768}
   _CurrentHealth: {fileID: 6754163905329425649}
@@ -197,6 +197,7 @@ MonoBehaviour:
   _CreatValue: 0400000008000000
   _CreatCount: 3
   _ChestHealthValue: 30
+  _ChestHealthValueCurrent: 0
 --- !u!1 &8335021468148914725
 GameObject:
   m_ObjectHideFlags: 0
@@ -365,18 +366,6 @@ PrefabInstance:
     - target: {fileID: 6363530414472190775, guid: 9b1adda6c447de24a83feb8f6c6f0bbf, type: 3}
       propertyPath: m_SizeDelta.y
       value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 6363530414472190775, guid: 9b1adda6c447de24a83feb8f6c6f0bbf, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.008
-      objectReference: {fileID: 0}
-    - target: {fileID: 6363530414472190775, guid: 9b1adda6c447de24a83feb8f6c6f0bbf, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.008
-      objectReference: {fileID: 0}
-    - target: {fileID: 6363530414472190775, guid: 9b1adda6c447de24a83feb8f6c6f0bbf, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.008
       objectReference: {fileID: 0}
     - target: {fileID: 6363530414472190775, guid: 9b1adda6c447de24a83feb8f6c6f0bbf, type: 3}
       propertyPath: m_LocalPosition.x

@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 3202818396577974641}
   m_LocalRotation: {x: -0.25241897, y: -0.25241897, z: 0.6605185, w: 0.6605185}
   m_LocalPosition: {x: -59.03, y: 2.08, z: -36.86}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5367904883907290036}
@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 196967a8b71d7c54cb48f66a5d7c28bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  delay: 0.5
 --- !u!1001 &1255554814195579339
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -159,7 +160,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6363530414472190774, guid: 9b1adda6c447de24a83feb8f6c6f0bbf, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6363530414472190775, guid: 9b1adda6c447de24a83feb8f6c6f0bbf, type: 3}
       propertyPath: m_Pivot.x
@@ -199,15 +200,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6363530414472190775, guid: 9b1adda6c447de24a83feb8f6c6f0bbf, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.006
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 6363530414472190775, guid: 9b1adda6c447de24a83feb8f6c6f0bbf, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.006
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 6363530414472190775, guid: 9b1adda6c447de24a83feb8f6c6f0bbf, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.006
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 6363530414472190775, guid: 9b1adda6c447de24a83feb8f6c6f0bbf, type: 3}
       propertyPath: m_LocalPosition.x
@@ -537,7 +538,6 @@ MonoBehaviour:
   - {fileID: 0}
   _OpenPart:
   - {fileID: 3391193107276439836}
-  animator: {fileID: 545125218598824944}
   _HealthBar: {fileID: 8799913854462201741}
   _FullHealth: {fileID: 1884926143838587690}
   _CurrentHealth: {fileID: 3730178489634790747}
@@ -545,6 +545,7 @@ MonoBehaviour:
   _CreatValue: 0400000008000000
   _CreatCount: 3
   _ChestHealthValue: 75
+  _ChestHealthValueCurrent: 0
 --- !u!4 &5367904883907290036 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7461999369491134434, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}

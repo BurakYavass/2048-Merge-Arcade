@@ -214,7 +214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unlockRequire: 32
   unlockCurrent: 0
-  playerWaitTime: 0
+  playerWaitTime: 1
   wallUnlockDelay: 1
   wallAnimator: {fileID: 0}
   ballPrefab: {fileID: 6986705099755840392, guid: 0f2efdd3da2d21d489df375a833720ad, type: 3}

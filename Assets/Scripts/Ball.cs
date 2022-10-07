@@ -205,19 +205,18 @@ public class Ball : MonoBehaviour
         go = false;
         goMerge = true;
         ballAnimator.SetBool("Anim", false);
-        ballAnimator = null;
         dustParticle.Stop();
         ballRb.interpolation = RigidbodyInterpolation.None;
         gameObject.tag = "UpgradeBall";
         if (gameObject.activeInHierarchy)
         {
-            transform.DOMove(target.transform.position, 1).SetEase(Ease.Flash)
+            transform.DOMove(target.transform.position, 0.7f).SetEase(Ease.Flash)
                 .OnUpdate((() =>
                 {
-                    transform.localScale -= new Vector3(.3f, .3f, .3f) * Time.deltaTime;
+                    transform.localScale -= new Vector3(.3f, .3f, .3f) * Time.fixedDeltaTime;
                 })).OnComplete((() =>
                 {
-                    transform.localScale = new Vector3(1f, 1f, 1f);
+                    transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
                     goUpgrade = false;
                 }));
         }
@@ -388,9 +387,4 @@ public class Ball : MonoBehaviour
         GetComponent<Animator>().runtimeAnimatorController = merge;
         triggerCollider.isTrigger = true;
     }
-
-    // public void PlayParticle()
-    // {
-    //     dustParticle.Play();
-    // }
 }
