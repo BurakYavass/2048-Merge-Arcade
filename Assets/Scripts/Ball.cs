@@ -32,7 +32,7 @@ public class Ball : MonoBehaviour
     {
         ballController = GameObject.FindGameObjectWithTag("BallController").GetComponent<BallController>();
         BallChanger();
-        StartCoroutine(DelayKinematic());
+        //StartCoroutine(DelayKinematic());
         ballRb.isKinematic = false;
         ballRb.interpolation = RigidbodyInterpolation.None;
     }
@@ -53,13 +53,13 @@ public class Ball : MonoBehaviour
             {
                 var speed = GameManager.current.playerSpeed;
                 agent.speed = speed;
-                if (distance > 10.0f)
+                if (distance > 6.0f)
                 {
-                    agent.speed = Mathf.Clamp(agent.speed + 0.5f *Time.fixedDeltaTime,12,50);
+                    agent.speed += 0.5f;
                 }
                 else
                 {
-                    agent.speed = Mathf.Clamp(agent.speed - 0.5f* Time.fixedDeltaTime,12,50);
+                    agent.speed = Mathf.Clamp(agent.speed - 0.5f* Time.fixedDeltaTime,speed,50);
                 }
                 
                 if (ballAnimator!=null)
@@ -358,20 +358,25 @@ public class Ball : MonoBehaviour
             triggerCollider.enabled = false;
             goUnlock = false;
         }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("BallPool"))
+        
+        if (other.CompareTag("MergeMachine"))
         {
             GameEventHandler.current.BallMergeArea(false);
         }
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        // if (other.CompareTag("MergeMachine"))
+        // {
+        //     GameEventHandler.current.BallMergeArea(false);
+        // }
+    }
+
     IEnumerator DelayKinematic()
     {
         ballRb.useGravity = true;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.1f);
         triggerCollider.enabled = true;
         ballRb.interpolation = RigidbodyInterpolation.Interpolate;
     }

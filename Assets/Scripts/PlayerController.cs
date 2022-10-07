@@ -41,14 +41,14 @@ public class PlayerController : MonoBehaviour
         
         if (enterExit)
         {
-            transform.DOMove(new Vector3(37f, 0.63f, 24.75f), 1.0f).OnUpdate((() =>
+            transform.DOMove(new Vector3(37f, 0.63f, 24.75f), 0.1f).OnUpdate((() =>
                 {
                     upgradeArea = true;
                     walking = true;
                 }))
                 .OnComplete((() =>
                 {
-                    transform.DORotate(new Vector3(0, -66, 0), 1.0f);
+                    transform.DORotate(new Vector3(0, -66, 0), 0.1f);
                     upgradeArea = true;
                     walking = false;
                 }));
@@ -56,17 +56,18 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            walking = true;
-            transform.DOMove(new Vector3(24.0f, 0.63f, 26.0f), 1.0f)
-                .OnUpdate((() =>
-                {
-                    upgradeArea = true;
-                }))
-                .OnComplete((() =>
-                {
-                    upgradeArea = false;
-                    walking = false;
-                }));
+            walking = false;
+            upgradeArea = false;
+            // transform.DOMove(new Vector3(24.0f, 0.63f, 26.0f), 1.0f)
+            //     .OnUpdate((() =>
+            //     {
+            //         upgradeArea = true;
+            //     }))
+            //     .OnComplete((() =>
+            //     {
+            //         upgradeArea = false;
+            //         walking = false;
+            //     }));
             
         }
         
@@ -137,7 +138,7 @@ public class PlayerController : MonoBehaviour
             //     walking = false;
             // }
             transform.position = temp;
-            var lerp = Vector3.Lerp(transform.forward, movementVector, (speed *1.3f)* Time.fixedDeltaTime);
+            var lerp = Vector3.Lerp(transform.forward, movementVector, (speed *1.1f)* Time.fixedDeltaTime);
             transform.rotation = Quaternion.LookRotation(lerp);
             walking = true;
         }

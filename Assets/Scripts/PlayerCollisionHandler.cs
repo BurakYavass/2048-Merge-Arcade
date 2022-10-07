@@ -13,10 +13,15 @@ public class PlayerCollisionHandler : MonoBehaviour
     [SerializeField] private WeaponsHit weaponsHit;
     [SerializeField] private BallController ballController;
     [SerializeField] private ChestController chestController;
+    [SerializeField] private Image filledImage;
+    [SerializeField] private GameObject progressBar;
     public List<FollowerList> playerFollowPoints;
 
     private PlayerBallCounter _playerBallCounter;
     private Vector3 _lastposition;
+
+    private Coroutine _triggerDelay;
+    private Coroutine _mergeTriggerDelay;
     
     private bool _onMergeMachine = false;
     private bool _hit = false;
@@ -38,6 +43,11 @@ public class PlayerCollisionHandler : MonoBehaviour
                 animationHandler.CurrentPlayerHit(false);
                 chestController = null;
             }
+        }
+
+        if (progressBar.activeInHierarchy)
+        {
+            progressBar.transform.LookAt(Camera.main.transform.position);
         }
         
     }
@@ -66,7 +76,8 @@ public class PlayerCollisionHandler : MonoBehaviour
                 _onMergeMachine = true;
                 if (ballController.balls.Count > 1)
                 {
-                    ballController.GoMerge();
+                    _mergeTriggerDelay = StartCoroutine(MergeDelay(true));
+                    
                     //GameEventHandler.current.PlayerMergeArea(true);
                 }
             }
@@ -74,12 +85,9 @@ public class PlayerCollisionHandler : MonoBehaviour
         
         if (other.CompareTag("UpgradeTrigger"))
         {
-            //StartCoroutine(UpgradeDelay(true));
-            ballController.GoUpgrade();
-            playerController.CameraChanger(3);
-            gameEventHandler.PlayerUpgradeArea(true);
             if (!_upgradeArea)
             {
+                _triggerDelay = StartCoroutine(UpgradeDelay(true));
                 _upgradeArea = true;
                 _playerBallCounter.BallCountCheck();
             }
@@ -145,25 +153,48 @@ public class PlayerCollisionHandler : MonoBehaviour
 
         if (other.CompareTag("MergeMachine"))
         {
+            if (_mergeTriggerDelay != null)
+            {
+                StopCoroutine(_mergeTriggerDelay);
+            }
+            filledImage.DOKill();
+            filledImage.fillAmount = 0;
+            progressBar.SetActive(false);
             _onMergeMachine = false;
-            gameEventHandler.PlayerMergeArea(false);
+            
             //GameEventHandler.current.BallMergeArea(false,null);
         }
 
         if (other.CompareTag("UpgradeTrigger"))
         {
+            if (_triggerDelay != null)
+            {
+                StopCoroutine(_triggerDelay);
+            }
+            filledImage.DOKill();
+            filledImage.fillAmount = 0;
+            progressBar.SetActive(false);
             _upgradeArea = false;
             //GameEventHandler.current.BallUpgradeArea(false,null);
             //gameEventHandler.PlayerUpgradeArea(false);
-            playerController.CameraChanger(0);
-            _playerBallCounter.stackValue = 0;
+
         }
         
     }
 
     public void ExitUpgrade()
     {
+        _upgradeArea = false;
+        if (_triggerDelay != null)
+        {
+            StopCoroutine(_triggerDelay);
+        }
+        filledImage.DOKill();
         gameEventHandler.PlayerUpgradeArea(false);
+        playerController.CameraChanger(0);
+        _playerBallCounter.stackValue = 0;
+        progressBar.SetActive(false);
+        filledImage.fillAmount = 0;
     }
     
     IEnumerator HitDelay()
@@ -171,7 +202,33 @@ public class PlayerCollisionHandler : MonoBehaviour
         yield return new WaitForSeconds(1f);
         _hit = false;
     }
-    
+
+    IEnumerator MergeDelay(bool inOut)
+    {
+        progressBar.SetActive(inOut);
+        filledImage.fillAmount = 0;
+        yield return new WaitForSeconds(0.5f);
+        filledImage.DOFillAmount(1, 1f).OnComplete((() =>
+        {
+            filledImage.fillAmount = 0;
+            progressBar.SetActive(false);
+            ballController.GoMerge();
+        }));
+    }
+
+    IEnumerator UpgradeDelay(bool inOut)
+    {
+        progressBar.SetActive(inOut);
+        filledImage.fillAmount = 0;
+        yield return new WaitForSeconds(0.5f);
+        filledImage.DOFillAmount(1, 1f).OnComplete((() =>
+        {
+            ballController.GoUpgrade();
+            playerController.CameraChanger(3);
+            gameEventHandler.PlayerUpgradeArea(true);
+        }));
+    }
+
     private void WeaponHit()
     {
         if (chestController != null)

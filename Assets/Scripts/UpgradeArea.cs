@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using Unity.VisualScripting;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -377,6 +378,8 @@ public class UpgradeArea : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
+        
+        
         if (other.CompareTag("UpgradeBall"))
         {
             float tempvalue = other.GetComponent<Ball>().GetValue();

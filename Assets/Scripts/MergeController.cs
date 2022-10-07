@@ -58,7 +58,7 @@ public class MergeController : MonoBehaviour
     }
     private void OnBallMergeArea(bool enterExit)
     {
-        machineAnimator.SetBool("vibration" , true);
+        machineAnimator.SetBool("vibration" , enterExit);
     }
 
     public void SetMerge()
@@ -193,6 +193,7 @@ public class MergeController : MonoBehaviour
          {
              _TotalValue = 0;
              _IsDone = 0;
+             machineAnimator.SetBool("vibration" , false);
          }
          if (_IsDone <= 0)
          {
