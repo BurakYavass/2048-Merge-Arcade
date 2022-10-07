@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 196967a8b71d7c54cb48f66a5d7c28bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  delay: 0.5
 --- !u!1 &6799037083379863155
 GameObject:
   m_ObjectHideFlags: 0
@@ -424,6 +425,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2287741638534487717}
     m_Modifications:
+    - target: {fileID: 1311728381372591371, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
+      propertyPath: m_Size.y
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311728381372591371, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
+      propertyPath: m_Size.z
+      value: 3.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2427762038273416378, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
       propertyPath: m_Size.x
       value: 1
@@ -552,26 +561,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2530805582524634302, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
   m_PrefabInstance: {fileID: 3310420505606345814}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &545125218598824944
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1076293986582331624}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0089696eaf307754e98222b7ff91e700, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &576502241043074002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -592,7 +581,6 @@ MonoBehaviour:
   - {fileID: 6799037083379863155}
   _OpenPart:
   - {fileID: 3391193107276439836}
-  animator: {fileID: 545125218598824944}
   _HealthBar: {fileID: 8799913854462201741}
   _FullHealth: {fileID: 1884926143838587690}
   _CurrentHealth: {fileID: 3730178489634790747}
@@ -600,6 +588,7 @@ MonoBehaviour:
   _CreatValue: 0400000008000000
   _CreatCount: 3
   _ChestHealthValue: 75
+  _ChestHealthValueCurrent: 0
 --- !u!4 &5367904883907290036 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7461999369491134434, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}

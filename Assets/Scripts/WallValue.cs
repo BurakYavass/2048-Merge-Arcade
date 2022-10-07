@@ -426,7 +426,6 @@ public class WallValue : MonoBehaviour
                 _playerWallArea = true;
                 _playerFollowerList = other.GetComponent<PlayerCollisionHandler>();
                 _playerBallCounter = other.GetComponent<PlayerBallCounter>();
-                _playerBallCounter.BallCountCheck();
                 StartCoroutine(TriggerDelay(true));
             }
         }

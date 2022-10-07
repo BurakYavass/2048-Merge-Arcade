@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 196967a8b71d7c54cb48f66a5d7c28bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  delay: 0.5
 --- !u!1001 &4868149522888730108
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -54,6 +55,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8196671434637389583}
     m_Modifications:
+    - target: {fileID: 1311728381372591371, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
+      propertyPath: m_Size.y
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311728381372591371, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
+      propertyPath: m_Size.z
+      value: 3.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2427762038273416378, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
       propertyPath: m_Size.x
       value: 1
@@ -170,7 +179,8 @@ PrefabInstance:
       propertyPath: m_ReceiveShadows
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7633444843680717402, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ab3820484e729b2469d54cfd093b33ec, type: 3}
 --- !u!4 &2594492123033113118 stripped
 Transform:

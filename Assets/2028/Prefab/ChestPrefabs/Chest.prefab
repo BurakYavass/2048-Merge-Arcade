@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 9125106667903028836}
   - component: {fileID: 8085266752041353350}
   - component: {fileID: 1311728381372591371}
-  - component: {fileID: 7633444843680717402}
   - component: {fileID: 7385895005598399096}
   m_Layer: 0
   m_Name: Chest
@@ -102,26 +101,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.8698362, y: 3.2, z: 3.1115205}
   m_Center: {x: 0.54285896, y: 0.0012009783, z: -0.19154297}
---- !u!95 &7633444843680717402
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2530805582524634302}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0089696eaf307754e98222b7ff91e700, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &7385895005598399096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,7 +121,6 @@ MonoBehaviour:
   - {fileID: 3469132838090080217}
   _OpenPart:
   - {fileID: 0}
-  animator: {fileID: 7633444843680717402}
   _HealthBar: {fileID: 0}
   _FullHealth: {fileID: 0}
   _CurrentHealth: {fileID: 0}
@@ -150,6 +128,7 @@ MonoBehaviour:
   _CreatValue: 0400000008000000
   _CreatCount: 3
   _ChestHealthValue: 30
+  _ChestHealthValueCurrent: 0
 --- !u!1 &3469132838090080217
 GameObject:
   m_ObjectHideFlags: 0
