@@ -21,6 +21,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button damageButton;
     [SerializeField] private Button speedButton;
     [SerializeField] private Button armorButton;
+    [SerializeField] private GameObject closeButton;
+    [SerializeField] private float delay;
 
 
     private void Update()
@@ -68,16 +70,25 @@ public class UIManager : MonoBehaviour
         {
             upgradePanel.SetActive(true);
             upgradePanel.transform.DOScale(Vector3.one, 0.5f);
+            StartCoroutine(CloseButtonDelay());
         }
         else
         {
+            StopCoroutine(CloseButtonDelay());
             upgradePanel.transform.DOScale(Vector3.zero, 0.5f)
                         .OnComplete((() =>
                         {
+                            closeButton.SetActive(false);
                             upgradePanel.SetActive(false);
                             joyStickPanel.SetActive(true);
                         }));
         }
+    }
+
+    IEnumerator CloseButtonDelay()
+    {
+        yield return new WaitForSeconds(delay);
+        closeButton.SetActive(true);
     }
     
 }

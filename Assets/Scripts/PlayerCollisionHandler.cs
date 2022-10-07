@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -49,7 +50,6 @@ public class PlayerCollisionHandler : MonoBehaviour
         {
             progressBar.transform.LookAt(Camera.main.transform.position);
         }
-        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -87,9 +87,8 @@ public class PlayerCollisionHandler : MonoBehaviour
         {
             if (!_upgradeArea)
             {
-                _triggerDelay = StartCoroutine(UpgradeDelay(true));
-                _upgradeArea = true;
                 _playerBallCounter.BallCountCheck();
+                _triggerDelay = StartCoroutine(UpgradeDelay(true));
             }
         }
         
@@ -167,34 +166,34 @@ public class PlayerCollisionHandler : MonoBehaviour
 
         if (other.CompareTag("UpgradeTrigger"))
         {
+            _playerBallCounter.stackValue = 0;
+            filledImage.fillAmount = 0;
             if (_triggerDelay != null)
             {
                 StopCoroutine(_triggerDelay);
             }
             filledImage.DOKill();
-            filledImage.fillAmount = 0;
             progressBar.SetActive(false);
             _upgradeArea = false;
             //GameEventHandler.current.BallUpgradeArea(false,null);
             //gameEventHandler.PlayerUpgradeArea(false);
-
         }
         
     }
 
     public void ExitUpgrade()
     {
+        _playerBallCounter.stackValue = 0;
+        progressBar.SetActive(false);
         _upgradeArea = false;
         if (_triggerDelay != null)
         {
             StopCoroutine(_triggerDelay);
         }
+        filledImage.fillAmount = 0;
         filledImage.DOKill();
         gameEventHandler.PlayerUpgradeArea(false);
         playerController.CameraChanger(0);
-        _playerBallCounter.stackValue = 0;
-        progressBar.SetActive(false);
-        filledImage.fillAmount = 0;
     }
     
     IEnumerator HitDelay()
@@ -205,7 +204,7 @@ public class PlayerCollisionHandler : MonoBehaviour
 
     IEnumerator MergeDelay(bool inOut)
     {
-        progressBar.SetActive(inOut);
+        progressBar.SetActive(true);
         filledImage.fillAmount = 0;
         yield return new WaitForSeconds(0.5f);
         filledImage.DOFillAmount(1, 1f).OnComplete((() =>
@@ -219,8 +218,9 @@ public class PlayerCollisionHandler : MonoBehaviour
     IEnumerator UpgradeDelay(bool inOut)
     {
         progressBar.SetActive(inOut);
+        _upgradeArea = inOut;
         filledImage.fillAmount = 0;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.7f);
         filledImage.DOFillAmount(1, 1f).OnComplete((() =>
         {
             ballController.GoUpgrade();

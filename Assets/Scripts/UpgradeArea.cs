@@ -37,7 +37,7 @@ public class UpgradeArea : MonoBehaviour
     [SerializeField]
     List<GameObject> _4096 = new List<GameObject>();
     
-    private int _totalValue;
+    public int _totalValue;
     private bool _calculate = false;
     private int _dicreaseValue;
     [SerializeField] private Animator upgradeAnimator;
@@ -378,8 +378,6 @@ public class UpgradeArea : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        
-        
         if (other.CompareTag("UpgradeBall"))
         {
             float tempvalue = other.GetComponent<Ball>().GetValue();

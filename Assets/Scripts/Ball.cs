@@ -211,7 +211,7 @@ public class Ball : MonoBehaviour
         gameObject.tag = "UpgradeBall";
         if (gameObject.activeInHierarchy)
         {
-            transform.DOMove(target.transform.position, 2)
+            transform.DOMove(target.transform.position, 1).SetEase(Ease.Flash)
                 .OnUpdate((() =>
                 {
                     transform.localScale -= new Vector3(.3f, .3f, .3f) * Time.deltaTime;
@@ -239,7 +239,8 @@ public class Ball : MonoBehaviour
         agent.enabled = true;
         _collider.isTrigger = true;
         var pos = transform.position;
-        transform.DOJump(new Vector3(pos.x,pos.y,pos.z), 1, 1, 1.0f)
+        transform.DOJump(new Vector3(pos.x,pos.y,pos.z), 1, 1, 1.0f).SetEase(Ease.OutBounce)
+            .OnComplete((() => transform.DOJump(targetObje.transform.position,1,1,0.5f)))
                                                     .SetEase(Ease.OutBounce).OnComplete((() => dustParticle.Play()));
     }
     
