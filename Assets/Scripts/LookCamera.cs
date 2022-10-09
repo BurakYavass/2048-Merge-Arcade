@@ -9,7 +9,7 @@ public class LookCamera : MonoBehaviour
 
     private void Start()
     {
-        _camera = GameObject.FindWithTag("MainCamera").transform;
+        _camera = Camera.main.transform;
     }
 
     void LateUpdate()

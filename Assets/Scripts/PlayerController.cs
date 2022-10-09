@@ -121,7 +121,7 @@ public class PlayerController : MonoBehaviour
             var movementVector = inputVector.x * cameraRightHorizontal + inputVector.z * cameraForwardHorizontal;
             
             Vector3 temp = transform.position + transform.forward* (speed * Time.fixedDeltaTime);
-            // UnityEngine.AI.NavMeshHit hit;
+            /* UnityEngine.AI.NavMeshHit hit;
             // bool isvalid = UnityEngine.AI.NavMesh.SamplePosition(temp, out hit, .3f, UnityEngine.AI.NavMesh.AllAreas);
             // if (isvalid)
             // {
@@ -136,7 +136,7 @@ public class PlayerController : MonoBehaviour
             // else
             // {
             //     walking = false;
-            // }
+             }*/
             transform.position = temp;
             var lerp = Vector3.Lerp(transform.forward, movementVector, (speed *1.1f)* Time.fixedDeltaTime);
             transform.rotation = Quaternion.LookRotation(lerp);

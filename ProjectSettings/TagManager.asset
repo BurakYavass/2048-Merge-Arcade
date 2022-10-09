@@ -30,6 +30,7 @@ TagManager:
   - UIManager
   - Ground
   - Portal
+  - Enemy
   layers:
   - Default
   - TransparentFX

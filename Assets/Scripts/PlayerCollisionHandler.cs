@@ -14,6 +14,7 @@ public class PlayerCollisionHandler : MonoBehaviour
     [SerializeField] private WeaponsHit weaponsHit;
     [SerializeField] private BallController ballController;
     [SerializeField] private ChestController chestController;
+    [SerializeField] private EnemyController enemyController;
     [SerializeField] private Image filledImage;
     [SerializeField] private GameObject progressBar;
     public List<FollowerList> playerFollowPoints;
@@ -122,6 +123,17 @@ public class PlayerCollisionHandler : MonoBehaviour
             }
             animationHandler.CurrentPlayerHit(true);
         }
+        
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            enemyController= other.GetComponent<EnemyController>();
+            if (!_hit)
+            {
+                _hit = true;
+                StartCoroutine(HitDelay());
+            }
+            animationHandler.CurrentPlayerHit(true);
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -146,6 +158,12 @@ public class PlayerCollisionHandler : MonoBehaviour
         if (other.gameObject.CompareTag("Chest"))
         {
             chestController = null;
+            animationHandler.CurrentPlayerHit(false);
+            //GameEventHandler.current.PlayerHit(false);
+        }
+        if (other.gameObject.CompareTag("Chest"))
+        {
+            enemyController = null;
             animationHandler.CurrentPlayerHit(false);
             //GameEventHandler.current.PlayerHit(false);
         }
@@ -235,6 +253,13 @@ public class PlayerCollisionHandler : MonoBehaviour
         {
             chestController.Hit(weaponsHit._damageValue);
             chestController.transform.parent.DOPunchScale(new Vector3(0.1f, 0.1f, 0.1f), 0.5f).SetEase(Ease.InBounce);
+        }
+
+        if (enemyController != null)
+        {
+            enemyController.GetHit(weaponsHit._damageValue);
+            enemyController.transform.DOPunchScale(new Vector3(0.1f, 0.1f, 0.1f), 0.5f).SetEase(Ease.InBounce);
+
         }
         //animationHandler.CurrentPlayerHit(false);
     }
