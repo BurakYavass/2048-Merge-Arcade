@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using DG.Tweening;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -19,7 +20,9 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI fullHealth;
     [SerializeField] private TextMeshProUGUI currentHealth;
     [SerializeField] private Image sliderValue;
+    [SerializeField] private Transform rayCastObject;
     private Transform _playerTransform;
+    
     
     [SerializeField] private int[] creatValue;
     [SerializeField] private float creatCount;
@@ -28,7 +31,8 @@ public class EnemyController : MonoBehaviour
     private float _enemyHealthValueCurrentTemp;
     private float _tempDamage;
     
-    bool _Hitting;
+    private bool _getHitting;
+    private bool _hitting;
     
     public float wanderRadius;
     public float wanderTimer;
@@ -53,7 +57,7 @@ public class EnemyController : MonoBehaviour
     {
         timer += Time.deltaTime;
         
-        if (_Hitting)
+        if (_getHitting)
         {
             if (enemyHealthValueCurrent>=1)
             {
@@ -80,28 +84,31 @@ public class EnemyController : MonoBehaviour
         }
 
         var distance = Vector3.Distance(transform.position, _playerTransform.position);
-        if (Mathf.Abs(enemyAgent.stoppingDistance - distance) < 10.0f)
+        if (Mathf.Abs(enemyAgent.stoppingDistance - distance) < 15.0f)
         {
             healthBar.SetActive(true);
             enemyAgent.destination = _playerTransform.position;
             enemyAnimator.SetBool("Walking",true);
             enemyAnimator.SetBool("Idle",false);
-
-            if (Mathf.Abs(enemyAgent.stoppingDistance - distance) < 5.0f)
+            RaycastHit hit;
+            if (Physics.Raycast(rayCastObject.transform.position, rayCastObject.forward, out hit, 4))
             {
-                
-                enemyAgent.isStopped = true;
-                enemyAnimator.SetBool("Walking",false);
-                enemyAnimator.SetBool("Idle",false);
-                enemyAnimator.SetBool("Attack",true);
-
+                if (hit.collider.CompareTag("Player"))
+                {
+                    enemyAgent.isStopped = true;
+                    enemyAnimator.SetBool("Walking",false);
+                    enemyAnimator.SetBool("Idle",false);
+                    enemyAnimator.SetBool("Attack",true);
+                }
             }
             else
             {
                 enemyAgent.isStopped = false;
                 enemyAnimator.SetBool("Attack",false);
                 enemyAnimator.SetBool("Walking",true);
+                enemyAnimator.SetBool("Idle",false);
             }
+            
         }
         else
         {
@@ -110,12 +117,14 @@ public class EnemyController : MonoBehaviour
                 Vector3 newPos = RandomNavSphere(transform.position, wanderRadius, -1);
                 enemyAgent.SetDestination(newPos);
                 enemyAnimator.SetBool("Idle",false);
+                enemyAnimator.SetBool("Attack",false);
                 enemyAnimator.SetBool("Walking",true);
                 timer = 0;
             }
             else
             {
                 enemyAnimator.SetBool("Walking",false);
+                enemyAnimator.SetBool("Attack",false);
                 enemyAnimator.SetBool("Idle",true);
             }
         }
@@ -139,7 +148,7 @@ public class EnemyController : MonoBehaviour
         {
             _tempDamage = damage;
             _enemyHealthValueCurrentTemp = Mathf.Clamp(enemyHealthValueCurrent - _tempDamage, 0, enemyHealthValue);
-            _Hitting = true;
+            _getHitting = true;
         }
     }
 

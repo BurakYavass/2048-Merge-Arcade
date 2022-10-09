@@ -161,7 +161,7 @@ public class PlayerCollisionHandler : MonoBehaviour
             animationHandler.CurrentPlayerHit(false);
             //GameEventHandler.current.PlayerHit(false);
         }
-        if (other.gameObject.CompareTag("Chest"))
+        if (other.gameObject.CompareTag("Enemy"))
         {
             enemyController = null;
             animationHandler.CurrentPlayerHit(false);
