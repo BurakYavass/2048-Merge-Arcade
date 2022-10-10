@@ -21,9 +21,9 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI currentHealth;
     [SerializeField] private Image sliderValue;
     [SerializeField] private Transform rayCastObject;
-    private Transform _playerTransform;
-    
-    
+    private PlayerController _playerController;
+
+    [SerializeField] private float enemyDamage;
     [SerializeField] private int[] creatValue;
     [SerializeField] private float creatCount;
     [SerializeField] private float enemyHealthValue; 
@@ -49,7 +49,7 @@ public class EnemyController : MonoBehaviour
         enemyHealthValueCurrent = enemyHealthValue;
         fullHealth.text = (Mathf.Round(enemyHealthValue)).ToString();
         currentHealth.text = (Mathf.Round(enemyHealthValueCurrent)).ToString();
-        _playerTransform = PlayerController.Current.transform;
+        _playerController = PlayerController.Current;
     }
 
  
@@ -83,11 +83,11 @@ public class EnemyController : MonoBehaviour
             }
         }
 
-        var distance = Vector3.Distance(transform.position, _playerTransform.position);
+        var distance = Vector3.Distance(transform.position, _playerController.transform.position);
         if (Mathf.Abs(enemyAgent.stoppingDistance - distance) < 15.0f)
         {
             healthBar.SetActive(true);
-            enemyAgent.destination = _playerTransform.position;
+            enemyAgent.destination = _playerController.transform.position;
             enemyAnimator.SetBool("Walking",true);
             enemyAnimator.SetBool("Idle",false);
             RaycastHit hit;
@@ -194,5 +194,15 @@ public class EnemyController : MonoBehaviour
         }
         mainObje.SetActive(false);
         //mainObje.GetComponent<CloseDelay>().CloseObje();
+    }
+
+    private void WeaponHit()
+    {
+        Debug.Log("weapon hit");
+        if (_playerController != null)
+        {
+            _playerController.Hit(enemyDamage);
+            _playerController.transform.parent.DOPunchScale(new Vector3(0.1f, 0.1f, 0.1f), 0.5f).SetEase(Ease.InBounce);
+        }
     }
 }

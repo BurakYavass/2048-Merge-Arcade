@@ -1,7 +1,10 @@
+using System;
 using System.Collections.Generic;
 using Cinemachine;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class PlayerController : MonoBehaviour
@@ -11,11 +14,19 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Joystick joystick;
     [SerializeField] private RectTransform handle;
     [SerializeField] private CinemachineVirtualCamera _virtualCamera;
+    [SerializeField] private TextMeshProUGUI fullHealth;
+    [SerializeField] private TextMeshProUGUI currentHealth;
+    [SerializeField] private Image sliderValue;
     public GameObject[] closePart;
+    private float _playerHealthValue;
+    public float playerHealthValueCurrent;
+    private float _playerHealthValueCurrentTemp;
+    private float _tempDamage;
 
     public bool walking = false;
-    private bool upgradeArea = false;
-    private bool teleporting = false;
+    private bool _upgradeArea = false;
+    private bool _teleporting = false;
+    private bool _gethit;
 
     private void Awake()
     {
@@ -27,6 +38,10 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        _playerHealthValue = GameManager.current._playerArmor;
+        playerHealthValueCurrent = _playerHealthValue;
+        fullHealth.text = (Mathf.Round(_playerHealthValue)).ToString();
+        currentHealth.text = (Mathf.Round(playerHealthValueCurrent)).ToString();
         GameEventHandler.current.OnPlayerUpgradeArea += OnPlayerUpgradeArea;
         DOTween.Init();
     }
@@ -43,13 +58,13 @@ public class PlayerController : MonoBehaviour
         {
             transform.DOMove(new Vector3(37f, 0.63f, 24.75f), 0.1f).OnUpdate((() =>
                 {
-                    upgradeArea = true;
+                    _upgradeArea = true;
                     walking = true;
                 }))
                 .OnComplete((() =>
                 {
                     transform.DORotate(new Vector3(0, -66, 0), 0.1f);
-                    upgradeArea = true;
+                    _upgradeArea = true;
                     walking = false;
                 }));
             
@@ -57,7 +72,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             walking = false;
-            upgradeArea = false;
+            _upgradeArea = false;
             // transform.DOMove(new Vector3(24.0f, 0.63f, 26.0f), 1.0f)
             //     .OnUpdate((() =>
             //     {
@@ -75,18 +90,40 @@ public class PlayerController : MonoBehaviour
 
     public void OnPlayerTeleport(bool teleport)
     {
-        teleporting = teleport;
+        _teleporting = teleport;
     }
 
     void FixedUpdate()
     {
-        if (joystick.isActiveAndEnabled && _virtualCamera != null && !upgradeArea && !teleporting)
+        if (joystick.isActiveAndEnabled && _virtualCamera != null && !_upgradeArea && !_teleporting)
         {
             Movement();
         }
         else
         {
             handle.anchoredPosition = Vector2.zero;
+        }
+    }
+
+    private void Update()
+    {
+        if (_gethit)
+        {
+            if (playerHealthValueCurrent>=1)
+            {
+                playerHealthValueCurrent = Mathf.Lerp(playerHealthValueCurrent, _playerHealthValueCurrentTemp, .1f);
+                currentHealth.text = playerHealthValueCurrent.ToString("00");
+                sliderValue.fillAmount = (1 * (playerHealthValueCurrent / _playerHealthValue));
+            }
+            else
+            {
+                var collider = GetComponent<Collider>();
+                collider.isTrigger = false;
+                for (int i = 0; i < closePart.Length; i++)
+                {
+                    closePart[i].SetActive(true);
+                }
+            }
         }
     }
 
@@ -145,6 +182,17 @@ public class PlayerController : MonoBehaviour
         else
         {
             walking = false;
+        }
+    }
+
+    public void Hit(float damage)
+    {
+        Debug.Log("player hit");
+        if (gameObject.activeInHierarchy)
+        {
+            _tempDamage = damage;
+            _playerHealthValueCurrentTemp = Mathf.Clamp(playerHealthValueCurrent - _tempDamage, 0, _playerHealthValue);
+            _gethit = true;
         }
     }
 }
