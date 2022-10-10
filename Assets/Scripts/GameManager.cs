@@ -30,15 +30,18 @@ public class GameManager : MonoBehaviour
 
     private int playerMoney;
 
+    [SerializeField] private GameObject player;
     [SerializeField] private GameEventHandler gameEventHandler;
     [SerializeField] private UIManager uiManager;
-    [SerializeField] private PlayerBallCounter playerBallCounter;
-    [SerializeField] private UpgradableItem playerUpgradableItems;
     [SerializeField] private BallController ballController;
     [SerializeField] private UpgradeArea upgradeMachine;
     [SerializeField] public List<int> speedUpgradeState = new List<int>();
     [SerializeField] public List<int> damageUpgradeState = new List<int>();
     [SerializeField] public List<int> armorUpgradeState = new List<int>();
+    
+    private PlayerBallCounter _playerBallCounter;
+    private UpgradableItem _playerUpgradableItems;
+    private ParticlesController _playerParticles;
    
 
     private void Awake()
@@ -51,6 +54,9 @@ public class GameManager : MonoBehaviour
     
     void Start()
     {
+        _playerBallCounter = player.GetComponent<PlayerBallCounter>();
+        _playerUpgradableItems = player.GetComponent<UpgradableItem>();
+        _playerParticles = player.GetComponent<ParticlesController>();
         gameEventHandler.OnPlayerUpgradeArea += OnPlayerUpgradeArea;
         Application.targetFrameRate = 60;
         _speedUpgradeRequire = speedUpgradeState[_speedState];
@@ -75,14 +81,14 @@ public class GameManager : MonoBehaviour
         {
             damageMax = true;
         }
-        playerUpgradableItems.ArmorChanger(_armorState);
-        playerUpgradableItems.WeaponChanger(_damageState);
+        _playerUpgradableItems.ArmorChanger(_armorState);
+        _playerUpgradableItems.WeaponChanger(_damageState);
         
     }
 
     private void Update()
     {
-        playerMoney = playerBallCounter.stackValue;
+        playerMoney = _playerBallCounter.stackValue;
     }
 
     private void OnDisable()
@@ -97,54 +103,54 @@ public class GameManager : MonoBehaviour
 
     public void PlayerArmor()
     {
-        if (playerBallCounter.stackValue >=_armorUpgradeRequire)
+        if (_playerBallCounter.stackValue >=_armorUpgradeRequire)
         {
             _armorUpgradeRequire = armorUpgradeState[_armorState];
-            playerBallCounter.stackValue -= _armorUpgradeRequire;
+            _playerBallCounter.stackValue -= _armorUpgradeRequire;
             _armorState++;
             if (_armorState==1)
             {
                 _playerArmor += 50f;
+                _playerParticles.PlayerUpgrade();
                 upgradeMachine.UpgradeCalculate(_armorUpgradeRequire);
                 PlayerPrefs.SetFloat("PlayerArmor",_playerArmor);
-                playerUpgradableItems.ArmorChanger(_armorState);
+                _playerUpgradableItems.ArmorChanger(_armorState);
                 PlayerPrefs.SetInt("ArmorState",_armorState);
             }
             else if (_armorState== 2)
             {
                 _playerArmor += 50f;
+                _playerParticles.PlayerUpgrade();
                 upgradeMachine.UpgradeCalculate(_armorUpgradeRequire);
                 PlayerPrefs.SetFloat("PlayerArmor",_playerArmor);
-                playerUpgradableItems.ArmorChanger(_armorState);
+                _playerUpgradableItems.ArmorChanger(_armorState);
                 PlayerPrefs.SetInt("ArmorState",_armorState);
                 
             }
             else if (_armorState == 3)
             {
                 _playerArmor += 50f;
+                _playerParticles.PlayerUpgrade();
                 upgradeMachine.UpgradeCalculate(_armorUpgradeRequire);
                 PlayerPrefs.SetFloat("PlayerArmor",_playerArmor);
-                playerUpgradableItems.ArmorChanger(_armorState);
+                _playerUpgradableItems.ArmorChanger(_armorState);
                 PlayerPrefs.SetInt("ArmorState",_armorState);
                 armorMax = true;
                 Debug.Log("max");
-            }
-            else
-            {
-                
             }
         }
     }
 
     public void PlayerSpeed()
     {
-        if (playerBallCounter.stackValue >= _speedUpgradeRequire)
+        if (_playerBallCounter.stackValue >= _speedUpgradeRequire)
         {
             _speedUpgradeRequire = speedUpgradeState[_speedState];
-            playerBallCounter.stackValue -= _speedUpgradeRequire;
+            _playerBallCounter.stackValue -= _speedUpgradeRequire;
             if (_speedState==0)
             {
                 playerSpeed += 2.0f;
+                _playerParticles.PlayerUpgrade();
                 upgradeMachine.UpgradeCalculate(_speedUpgradeRequire);
                 PlayerPrefs.SetFloat("PlayerSpeed",playerSpeed);
                 _speedState++;
@@ -153,6 +159,7 @@ public class GameManager : MonoBehaviour
             else if (_speedState == 1)
             {
                 playerSpeed += 2.0f;
+                _playerParticles.PlayerUpgrade();
                 upgradeMachine.UpgradeCalculate(_speedUpgradeRequire);
                 PlayerPrefs.SetFloat("PlayerSpeed",playerSpeed);
                 _speedState++;
@@ -161,6 +168,7 @@ public class GameManager : MonoBehaviour
             else if (_speedState == 2)
             {
                 playerSpeed += 2.0f;
+                _playerParticles.PlayerUpgrade();
                 upgradeMachine.UpgradeCalculate(_speedUpgradeRequire);
                 PlayerPrefs.SetFloat("PlayerSpeed",playerSpeed);
                 speedMax = true;
@@ -176,14 +184,15 @@ public class GameManager : MonoBehaviour
     
     public void PlayerDamage()
     {
-        if (playerBallCounter.stackValue >= _damageUpgradeRequire)
+        if (_playerBallCounter.stackValue >= _damageUpgradeRequire)
         {
             _damageUpgradeRequire = damageUpgradeState[_damageState];
-            playerBallCounter.stackValue -= _damageUpgradeRequire;
+            _playerBallCounter.stackValue -= _damageUpgradeRequire;
             if (_damageState==0)
             {
                 upgradeMachine.UpgradeCalculate(_damageUpgradeRequire);
                 playerDamage += 5.01f;
+                _playerParticles.PlayerUpgrade();
                 PlayerPrefs.SetFloat("PlayerDamage",playerDamage);
                 _damageState++;
                 PlayerPrefs.SetInt("damageState",_damageState);
@@ -192,8 +201,9 @@ public class GameManager : MonoBehaviour
             {
                 upgradeMachine.UpgradeCalculate(_damageUpgradeRequire);
                 playerDamage += 5.01f;
+                _playerParticles.PlayerUpgrade();
                 PlayerPrefs.SetFloat("PlayerDamage",playerDamage);
-                playerUpgradableItems.WeaponChanger(_damageState);
+                _playerUpgradableItems.WeaponChanger(_damageState);
                 _damageState++;
                 PlayerPrefs.SetInt("damageState",_damageState);
             }
@@ -201,8 +211,9 @@ public class GameManager : MonoBehaviour
             {
                 upgradeMachine.UpgradeCalculate(_damageUpgradeRequire);
                 playerDamage += 5.01f;
+                _playerParticles.PlayerUpgrade();
                 PlayerPrefs.SetFloat("PlayerDamage",playerDamage);
-                playerUpgradableItems.WeaponChanger(_damageState);
+                _playerUpgradableItems.WeaponChanger(_damageState);
                 damageMax = true;
                 Debug.Log("MaxLevel");
             }

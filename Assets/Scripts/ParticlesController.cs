@@ -1,16 +1,17 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class ParticlesController : MonoBehaviour
 {
     [SerializeField] private GameObject healParticle;
     [SerializeField] private ParticleSystem hitParticle;
+    [SerializeField] private ParticleSystem upgradeParticle;
     private PlayerController _playerController;
     private PlayerCollisionHandler _playerCollisionHandler;
 
     private bool _healArea;
     private bool _hit;
     
-    // Start is called before the first frame update
     void Start()
     {
         _playerController = GetComponent<PlayerController>();
@@ -41,5 +42,15 @@ public class ParticlesController : MonoBehaviour
             healParticle.SetActive(false);
         }
         
+    }
+
+    public void PlayerHit()
+    {
+        
+    }
+
+    public void PlayerUpgrade()
+    {
+        upgradeParticle.Play();
     }
 }
