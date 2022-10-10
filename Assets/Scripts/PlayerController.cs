@@ -228,7 +228,7 @@ public class PlayerController : MonoBehaviour
     {
         if (gameObject.activeInHierarchy)
         {
-            if (healArea)
+            if (Math.Abs(_playerHealthValue - playerHealthValueCurrent)> .1f)
             {
                 _tempHeal = heal;
                 _playerHealthValueCurrentTemp = Mathf.Clamp(playerHealthValueCurrent + _tempHeal, 0, _playerHealthValue);
