@@ -198,7 +198,6 @@ public class EnemyController : MonoBehaviour
 
     private void WeaponHit()
     {
-        Debug.Log("weapon hit");
         if (_playerController != null)
         {
             _playerController.Hit(enemyDamage);

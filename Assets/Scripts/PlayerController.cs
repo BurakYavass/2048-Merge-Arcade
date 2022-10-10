@@ -187,7 +187,6 @@ public class PlayerController : MonoBehaviour
 
     public void Hit(float damage)
     {
-        Debug.Log("player hit");
         if (gameObject.activeInHierarchy)
         {
             _tempDamage = damage;
