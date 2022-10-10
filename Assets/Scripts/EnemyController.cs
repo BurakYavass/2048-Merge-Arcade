@@ -156,7 +156,25 @@ public class EnemyController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            
+            var playerTransform = other.transform.position;
+            enemyAgent.updateRotation = false;
+            enemyAgent.transform.LookAt(playerTransform);
+            enemyAgent.isStopped = true;
+            enemyAnimator.SetBool("Walking",false);
+            enemyAnimator.SetBool("Idle",false);
+            enemyAnimator.SetBool("Attack",true);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            enemyAgent.updateRotation = true;
+            enemyAgent.isStopped = false;
+            enemyAnimator.SetBool("Walking",false);
+            enemyAnimator.SetBool("Idle",false);
+            enemyAnimator.SetBool("Attack",true);
         }
     }
 

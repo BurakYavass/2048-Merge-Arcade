@@ -22,11 +22,13 @@ public class PlayerController : MonoBehaviour
     public float playerHealthValueCurrent;
     private float _playerHealthValueCurrentTemp;
     private float _tempDamage;
+    private float _tempHeal;
 
     public bool walking = false;
     private bool _upgradeArea = false;
     private bool _teleporting = false;
     private bool _gethit;
+    private bool _healing;
 
     private void Awake()
     {
@@ -107,6 +109,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        _playerHealthValue = GameManager.current._playerArmor;
         if (_gethit)
         {
             if (playerHealthValueCurrent>=1)
@@ -123,6 +126,16 @@ public class PlayerController : MonoBehaviour
                 {
                     closePart[i].SetActive(true);
                 }
+            }
+        }
+
+        if (_healing)
+        {
+            if (playerHealthValueCurrent < _playerHealthValue)
+            {
+                playerHealthValueCurrent = Mathf.Lerp(playerHealthValueCurrent, _playerHealthValueCurrentTemp, .1f);
+                sliderValue.fillAmount = (1 * (playerHealthValueCurrent / _playerHealthValue));
+                
             }
         }
     }
@@ -191,6 +204,16 @@ public class PlayerController : MonoBehaviour
         {
             _tempDamage = damage;
             _playerHealthValueCurrentTemp = Mathf.Clamp(playerHealthValueCurrent - _tempDamage, 0, _playerHealthValue);
+            _gethit = true;
+        }
+    }
+
+    public void Healing(float heal)
+    {
+        if (gameObject.activeInHierarchy)
+        {
+            _tempHeal = heal;
+            _playerHealthValueCurrentTemp = Mathf.Clamp(playerHealthValueCurrent + _tempHeal, 0, _playerHealthValue);
             _gethit = true;
         }
     }

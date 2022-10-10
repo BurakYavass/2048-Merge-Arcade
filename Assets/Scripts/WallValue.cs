@@ -13,8 +13,6 @@ public class WallValue : MonoBehaviour
     public int unlockCurrent;
     [SerializeField] private float playerWaitTime;
     [SerializeField] private float wallUnlockDelay;
-    //[SerializeField] private UIManager _uiManager;
-    [SerializeField] private Animator wallAnimator;
     [SerializeField] private GameObject ballPrefab;
     [SerializeField] private TextMeshProUGUI wallValue;
     [SerializeField] private TravelManager openGameObject;
