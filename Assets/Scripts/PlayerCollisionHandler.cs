@@ -26,7 +26,7 @@ public class PlayerCollisionHandler : MonoBehaviour
     private Coroutine _mergeTriggerDelay;
     
     private bool _onMergeMachine = false;
-    private bool _hit = false;
+    public bool _hit = false;
     private bool _upgradeArea = false;
     private bool _unlockArea = false;
     private int i = 0;

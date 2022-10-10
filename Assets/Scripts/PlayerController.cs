@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Joystick joystick;
     [SerializeField] private RectTransform handle;
     [SerializeField] private CinemachineVirtualCamera _virtualCamera;
+    [SerializeField] private GameObject healthBar;
     [SerializeField] private TextMeshProUGUI fullHealth;
     [SerializeField] private TextMeshProUGUI currentHealth;
     [SerializeField] private Image sliderValue;
@@ -28,7 +29,7 @@ public class PlayerController : MonoBehaviour
     private bool _upgradeArea = false;
     private bool _teleporting = false;
     private bool _gethit;
-    private bool _healing;
+    public bool _healing = false;
 
     private void Awake()
     {
@@ -110,6 +111,22 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         _playerHealthValue = GameManager.current._playerArmor;
+        if (Math.Abs(_playerHealthValue - playerHealthValueCurrent) > .1f )
+        {
+            if (_upgradeArea)
+            {
+                healthBar.SetActive(false);
+            }
+            else
+            {
+                healthBar.SetActive(true);
+            }
+        }
+        else
+        {
+            healthBar.SetActive(false);
+        }
+        
         if (_gethit)
         {
             if (playerHealthValueCurrent>=1)
@@ -135,7 +152,6 @@ public class PlayerController : MonoBehaviour
             {
                 playerHealthValueCurrent = Mathf.Lerp(playerHealthValueCurrent, _playerHealthValueCurrentTemp, .1f);
                 sliderValue.fillAmount = (1 * (playerHealthValueCurrent / _playerHealthValue));
-                
             }
         }
     }
@@ -208,13 +224,20 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void Healing(float heal)
+    public void Healing(float heal , bool healArea)
     {
         if (gameObject.activeInHierarchy)
         {
-            _tempHeal = heal;
-            _playerHealthValueCurrentTemp = Mathf.Clamp(playerHealthValueCurrent + _tempHeal, 0, _playerHealthValue);
-            _gethit = true;
+            if (Math.Abs(_playerHealthValue - playerHealthValueCurrent)> .1f)
+            {
+                _tempHeal = heal;
+                _playerHealthValueCurrentTemp = Mathf.Clamp(playerHealthValueCurrent + _tempHeal, 0, _playerHealthValue);
+                _healing = healArea;
+            }
+            else
+            {
+                _healing = false;
+            }
         }
     }
 }

@@ -1,7 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class RestoreHeal : MonoBehaviour
@@ -11,19 +8,21 @@ public class RestoreHeal : MonoBehaviour
 
     private void Update()
     {
-        if (playerController != null)
-        {
-            playerController.Healing(healTemp);
-        }
+        // if (playerController != null)
+        // {
+        //     playerController.Healing(healTemp,true);
+        // }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             if (other.GetComponent<PlayerController>() != null)
             {
                 playerController = other.GetComponent<PlayerController>();
+                playerController.Healing(healTemp,true);
+                StopCoroutine(Delay());
             }
             
         }
@@ -33,7 +32,14 @@ public class RestoreHeal : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            playerController = null;
+            playerController.Healing(0, false);
+            StartCoroutine(Delay());
         }
+    }
+
+    IEnumerator Delay()
+    {
+        yield return new WaitForSeconds(.5f);
+        playerController = null;
     }
 }
