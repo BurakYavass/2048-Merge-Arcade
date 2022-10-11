@@ -94,103 +94,131 @@ public class Ball : MonoBehaviour
         {
             _Colors[i].SetActive(false);
         }
-        if (_BallValue==2)
+
+        switch (_BallValue)
         {
-            _Colors[0].SetActive(true);
-            _Colors[0].transform.DOLocalJump(
-                new Vector3(Random.Range(0, 3), Random.Range(3, 5),Random.Range(0, 3)),
-                                    1,1,2.0f);
-            if (_Colors[0].GetComponent<Animator>() != null)
+            case 2:
             {
-                ballAnimator = _Colors[0].GetComponent<Animator>();
+                _Colors[0].SetActive(true);
+                _Colors[0].transform.DOLocalJump(
+                    new Vector3(Random.Range(0, 3), Random.Range(3, 5),Random.Range(0, 3)),
+                    1,1,2.0f);
+                if (_Colors[0].GetComponent<Animator>() != null)
+                {
+                    ballAnimator = _Colors[0].GetComponent<Animator>();
+                }
+
+                break;
             }
-        }
-        else if (_BallValue == 4)
-        {
-            _Colors[1].SetActive(true);
-            if (_Colors[1].GetComponent<Animator>() != null)
+            case 4:
             {
-                ballAnimator = _Colors[1].GetComponent<Animator>();
+                _Colors[1].SetActive(true);
+                if (_Colors[1].GetComponent<Animator>() != null)
+                {
+                    ballAnimator = _Colors[1].GetComponent<Animator>();
+                }
+
+                break;
             }
-        }
-        else if (_BallValue == 8)
-        {
-            _Colors[2].SetActive(true);
-            if (_Colors[2].GetComponent<Animator>() != null)
+            case 8:
             {
-                ballAnimator = _Colors[2].GetComponent<Animator>();
+                _Colors[2].SetActive(true);
+                if (_Colors[2].GetComponent<Animator>() != null)
+                {
+                    ballAnimator = _Colors[2].GetComponent<Animator>();
+                }
+
+                break;
             }
-        }
-        else if (_BallValue == 16)
-        {
-            _Colors[3].SetActive(true);
-            if (_Colors[3].GetComponent<Animator>() != null)
+            case 16:
             {
-                ballAnimator = _Colors[3].GetComponent<Animator>();
+                _Colors[3].SetActive(true);
+                if (_Colors[3].GetComponent<Animator>() != null)
+                {
+                    ballAnimator = _Colors[3].GetComponent<Animator>();
+                }
+
+                break;
             }
-        }
-        else if (_BallValue == 32)
-        {
-            _Colors[4].SetActive(true);
-            if (_Colors[4].GetComponent<Animator>() != null)
+            case 32:
             {
-                ballAnimator = _Colors[4].GetComponent<Animator>();
+                _Colors[4].SetActive(true);
+                if (_Colors[4].GetComponent<Animator>() != null)
+                {
+                    ballAnimator = _Colors[4].GetComponent<Animator>();
+                }
+
+                break;
             }
-        }
-        else if (_BallValue == 64)
-        {
-            _Colors[5].SetActive(true);
-            if (_Colors[5].GetComponent<Animator>() != null)
+            case 64:
             {
-                ballAnimator = _Colors[5].GetComponent<Animator>();
+                _Colors[5].SetActive(true);
+                if (_Colors[5].GetComponent<Animator>() != null)
+                {
+                    ballAnimator = _Colors[5].GetComponent<Animator>();
+                }
+
+                break;
             }
-        }
-        else if (_BallValue == 128)
-        {
-            _Colors[6].SetActive(true);
-            if (_Colors[6].GetComponent<Animator>() != null)
+            case 128:
             {
-                ballAnimator = _Colors[6].GetComponent<Animator>();
+                _Colors[6].SetActive(true);
+                if (_Colors[6].GetComponent<Animator>() != null)
+                {
+                    ballAnimator = _Colors[6].GetComponent<Animator>();
+                }
+
+                break;
             }
-        }
-        else if (_BallValue == 256)
-        {
-            _Colors[7].SetActive(true);
-            if (_Colors[7].GetComponent<Animator>() != null)
+            case 256:
             {
-                ballAnimator = _Colors[7].GetComponent<Animator>();
+                _Colors[7].SetActive(true);
+                if (_Colors[7].GetComponent<Animator>() != null)
+                {
+                    ballAnimator = _Colors[7].GetComponent<Animator>();
+                }
+
+                break;
             }
-        }
-        else if (_BallValue == 512)
-        {
-            _Colors[8].SetActive(true);
-            if (_Colors[8].GetComponent<Animator>() != null)
+            case 512:
             {
-                ballAnimator = _Colors[8].GetComponent<Animator>();
+                _Colors[8].SetActive(true);
+                if (_Colors[8].GetComponent<Animator>() != null)
+                {
+                    ballAnimator = _Colors[8].GetComponent<Animator>();
+                }
+
+                break;
             }
-        }
-        else if (_BallValue == 1024)
-        {
-            _Colors[9].SetActive(true);
-            if (_Colors[9].GetComponent<Animator>() != null)
+            case 1024:
             {
-                ballAnimator = _Colors[9].GetComponent<Animator>();
+                _Colors[9].SetActive(true);
+                if (_Colors[9].GetComponent<Animator>() != null)
+                {
+                    ballAnimator = _Colors[9].GetComponent<Animator>();
+                }
+
+                break;
             }
-        }
-        else if (_BallValue == 2048)
-        {
-            _Colors[10].SetActive(true);
-            if (_Colors[10].GetComponent<Animator>() != null)
+            case 2048:
             {
-                ballAnimator = _Colors[10].GetComponent<Animator>();
+                _Colors[10].SetActive(true);
+                if (_Colors[10].GetComponent<Animator>() != null)
+                {
+                    ballAnimator = _Colors[10].GetComponent<Animator>();
+                }
+
+                break;
             }
-        }
-        else if (_BallValue == 4096)
-        {
-            _Colors[11].SetActive(true);
-            if (_Colors[11].GetComponent<Animator>() != null)
+            case 4096:
             {
-                ballAnimator = _Colors[11].GetComponent<Animator>();
+                _Colors[11].SetActive(true);
+                if (_Colors[11].GetComponent<Animator>() != null)
+                {
+                    ballAnimator = _Colors[11].GetComponent<Animator>();
+                }
+
+                break;
             }
         }
     }
@@ -338,6 +366,9 @@ public class Ball : MonoBehaviour
             goMerge = false;
             GetComponentInChildren<MeshRenderer>().enabled = false;
             GameEventHandler.current.BallMergeArea(true);
+            other.transform.parent.transform.DOPunchScale(new Vector3(0.01f, 0.01f, 0.01f), 0.1f).SetEase(Ease.InBounce)
+                .OnComplete((() => other.transform.parent.transform.localScale = Vector3.one));
+            Debug.Log(other.transform.parent.transform);
         }
         
         if (other.CompareTag("BallUpgrade"))
@@ -360,11 +391,6 @@ public class Ball : MonoBehaviour
             triggerCollider.enabled = false;
             goUnlock = false;
         }
-        
-        if (other.CompareTag("MergeMachine"))
-        {
-            GameEventHandler.current.BallMergeArea(false);
-        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -372,6 +398,11 @@ public class Ball : MonoBehaviour
         if (other.CompareTag("BallPool"))
         {
             GetComponentInChildren<MeshRenderer>().enabled = true;
+        }
+
+        if (other.CompareTag("MergeController"))
+        {
+            GameEventHandler.current.BallMergeArea(false);
         }
     }
 

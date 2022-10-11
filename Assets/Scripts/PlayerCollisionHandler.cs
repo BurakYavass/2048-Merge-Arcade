@@ -16,7 +16,6 @@ public class PlayerCollisionHandler : MonoBehaviour
     [SerializeField] private ChestController chestController;
     [SerializeField] private EnemyController enemyController;
     [SerializeField] private Image filledImage;
-    [SerializeField] private GameObject progressBar;
     public List<FollowerList> playerFollowPoints;
 
     private PlayerBallCounter _playerBallCounter;
@@ -55,11 +54,7 @@ public class PlayerCollisionHandler : MonoBehaviour
                 enemyController = null;
             }
         }
-
-        if (progressBar.activeInHierarchy)
-        {
-            progressBar.transform.LookAt(Camera.main.transform.position);
-        }
+        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -86,8 +81,9 @@ public class PlayerCollisionHandler : MonoBehaviour
                 _onMergeMachine = true;
                 if (ballController.balls.Count > 1)
                 {
+                    filledImage = other.GetComponent<TriggerArea>().filledImage;
                     _mergeTriggerDelay = StartCoroutine(MergeAreaDelay(true));
-                    
+
                     //GameEventHandler.current.PlayerMergeArea(true);
                 }
             }
@@ -98,6 +94,7 @@ public class PlayerCollisionHandler : MonoBehaviour
             if (!_upgradeArea)
             {
                 //_playerBallCounter.BallCountCheck();
+                filledImage = other.GetComponent<TriggerArea>().filledImage;
                 _triggerDelay = StartCoroutine(UpgradeAreaDelay(true));
             }
         }
@@ -183,26 +180,30 @@ public class PlayerCollisionHandler : MonoBehaviour
 
         if (other.CompareTag("MergeMachine"))
         {
+            if (filledImage != null)
+                filledImage.fillAmount = 0;
+            
             if (_mergeTriggerDelay != null)
             {
                 StopCoroutine(_mergeTriggerDelay);
             }
             filledImage.DOKill();
-            filledImage.fillAmount = 0;
-            progressBar.SetActive(false);
+            filledImage = null;
             _onMergeMachine = false;
         }
 
         if (other.CompareTag("UpgradeTrigger"))
         {
+            if (filledImage != null)
+                filledImage.fillAmount = 0;
+            
             _playerBallCounter.stackValue = 0;
-            filledImage.fillAmount = 0;
             if (_triggerDelay != null)
             {
                 StopCoroutine(_triggerDelay);
             }
             filledImage.DOKill();
-            progressBar.SetActive(false);
+            filledImage = null;
             _upgradeArea = false;
         }
         
@@ -211,14 +212,11 @@ public class PlayerCollisionHandler : MonoBehaviour
     public void ExitUpgrade()
     {
         _playerBallCounter.stackValue = 0;
-        progressBar.SetActive(false);
         _upgradeArea = false;
         if (_triggerDelay != null)
         {
             StopCoroutine(_triggerDelay);
         }
-        filledImage.fillAmount = 0;
-        filledImage.DOKill();
         gameEventHandler.PlayerUpgradeArea(false);
         playerController.CameraChanger(0);
     }
@@ -231,20 +229,17 @@ public class PlayerCollisionHandler : MonoBehaviour
 
     IEnumerator MergeAreaDelay(bool inOut)
     {
-        progressBar.SetActive(true);
         filledImage.fillAmount = 0;
         yield return new WaitForSeconds(0.5f);
         filledImage.DOFillAmount(1, 1f).OnComplete((() =>
         {
             filledImage.fillAmount = 0;
-            progressBar.SetActive(false);
             ballController.GoMerge();
         }));
     }
 
     IEnumerator UpgradeAreaDelay(bool inOut)
     {
-        progressBar.SetActive(inOut);
         _upgradeArea = inOut;
         filledImage.fillAmount = 0;
         yield return new WaitForSeconds(0.7f);
