@@ -98,8 +98,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3, y: 3, z: 2.1919804}
-  m_Center: {x: 0.0000028610234, y: 0.0000019073489, z: 0.0943408}
+  m_Size: {x: 2.5, y: 2.5, z: 2.1919804}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &867958145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,7 +120,6 @@ MonoBehaviour:
   - {fileID: 6585889938406903764}
   _OpenPart:
   - {fileID: 3985093878464985370}
-  animator: {fileID: 1413927957}
   _HealthBar: {fileID: 6585889938406903764}
   _FullHealth: {fileID: 4274691549940058995}
   _CurrentHealth: {fileID: 1350546166024903938}
@@ -128,6 +127,7 @@ MonoBehaviour:
   _CreatValue: 04000000
   _CreatCount: 2
   _ChestHealthValue: 20
+  _ChestHealthValueCurrent: 0
 --- !u!95 &1413927957
 Animator:
   serializedVersion: 4
@@ -309,6 +309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 196967a8b71d7c54cb48f66a5d7c28bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  delay: 0.5
 --- !u!1001 &228000448619107554
 PrefabInstance:
   m_ObjectHideFlags: 0

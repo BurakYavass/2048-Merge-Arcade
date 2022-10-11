@@ -22,7 +22,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 735687d4845c6bd4597a114833982069, type: 2}
+  m_Motion: {fileID: 7400000, guid: e6665bc54b1e12d4c92d3c5cf514521c, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -134,7 +134,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -3780516532778130023, guid: 8b31b492ef3463d4296c7d22f0c1c7e6, type: 3}
+  m_Motion: {fileID: 7400000, guid: 931295f42b501164dbdc4be8aaa394d4, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -146,7 +146,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CrabMonsterAnimator
+  m_Name: Crab
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Attack
@@ -311,7 +311,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 11a54fca8475e384bb0b7fb82a31b3bd, type: 2}
+  m_Motion: {fileID: 7400000, guid: 67c961ffee1bcfd4c9e666468b46a897, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
