@@ -47,6 +47,15 @@ public class PlayerCollisionHandler : MonoBehaviour
             }
         }
 
+        if (enemyController != null)
+        {
+            if (enemyController.enemyHealthValueCurrent < 1)
+            {
+                animationHandler.CurrentPlayerHit(false);
+                enemyController = null;
+            }
+        }
+
         if (progressBar.activeInHierarchy)
         {
             progressBar.transform.LookAt(Camera.main.transform.position);
@@ -77,7 +86,7 @@ public class PlayerCollisionHandler : MonoBehaviour
                 _onMergeMachine = true;
                 if (ballController.balls.Count > 1)
                 {
-                    _mergeTriggerDelay = StartCoroutine(MergeDelay(true));
+                    _mergeTriggerDelay = StartCoroutine(MergeAreaDelay(true));
                     
                     //GameEventHandler.current.PlayerMergeArea(true);
                 }
@@ -89,7 +98,7 @@ public class PlayerCollisionHandler : MonoBehaviour
             if (!_upgradeArea)
             {
                 //_playerBallCounter.BallCountCheck();
-                _triggerDelay = StartCoroutine(UpgradeDelay(true));
+                _triggerDelay = StartCoroutine(UpgradeAreaDelay(true));
             }
         }
         
@@ -119,9 +128,10 @@ public class PlayerCollisionHandler : MonoBehaviour
             if (!_hit)
             {
                 _hit = true;
+                animationHandler.CurrentPlayerHit(true);
                 StartCoroutine(HitDelay());
+                
             }
-            animationHandler.CurrentPlayerHit(true);
         }
         
         if (other.gameObject.CompareTag("Enemy"))
@@ -130,9 +140,10 @@ public class PlayerCollisionHandler : MonoBehaviour
             if (!_hit)
             {
                 _hit = true;
+                animationHandler.CurrentPlayerHit(true);
                 StartCoroutine(HitDelay());
+                
             }
-            animationHandler.CurrentPlayerHit(true);
         }
     }
 
@@ -159,11 +170,13 @@ public class PlayerCollisionHandler : MonoBehaviour
         {
             chestController = null;
             animationHandler.CurrentPlayerHit(false);
+            //StopCoroutine(HitDelay());
             //GameEventHandler.current.PlayerHit(false);
         }
         if (other.gameObject.CompareTag("Enemy"))
         {
             enemyController = null;
+            //StopCoroutine(HitDelay());
             animationHandler.CurrentPlayerHit(false);
             //GameEventHandler.current.PlayerHit(false);
         }
@@ -178,8 +191,6 @@ public class PlayerCollisionHandler : MonoBehaviour
             filledImage.fillAmount = 0;
             progressBar.SetActive(false);
             _onMergeMachine = false;
-            
-            //GameEventHandler.current.BallMergeArea(false,null);
         }
 
         if (other.CompareTag("UpgradeTrigger"))
@@ -193,8 +204,6 @@ public class PlayerCollisionHandler : MonoBehaviour
             filledImage.DOKill();
             progressBar.SetActive(false);
             _upgradeArea = false;
-            //GameEventHandler.current.BallUpgradeArea(false,null);
-            //gameEventHandler.PlayerUpgradeArea(false);
         }
         
     }
@@ -220,7 +229,7 @@ public class PlayerCollisionHandler : MonoBehaviour
         _hit = false;
     }
 
-    IEnumerator MergeDelay(bool inOut)
+    IEnumerator MergeAreaDelay(bool inOut)
     {
         progressBar.SetActive(true);
         filledImage.fillAmount = 0;
@@ -233,7 +242,7 @@ public class PlayerCollisionHandler : MonoBehaviour
         }));
     }
 
-    IEnumerator UpgradeDelay(bool inOut)
+    IEnumerator UpgradeAreaDelay(bool inOut)
     {
         progressBar.SetActive(inOut);
         _upgradeArea = inOut;

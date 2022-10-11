@@ -35,6 +35,8 @@ public class Ball : MonoBehaviour
         //StartCoroutine(DelayKinematic());
         ballRb.isKinematic = false;
         ballRb.interpolation = RigidbodyInterpolation.None;
+        var speed = GameManager.current.playerSpeed;
+        agent.speed = speed;
     }
 
     private void Awake()
@@ -52,10 +54,9 @@ public class Ball : MonoBehaviour
             if (Mathf.Abs(agent.stoppingDistance - distance) > 3.0f)
             {
                 var speed = GameManager.current.playerSpeed;
-                agent.speed = speed;
                 if (distance > 6.0f)
                 {
-                    agent.speed += Mathf.Clamp(agent.speed + 0.5f* Time.fixedDeltaTime,speed,50);
+                    agent.speed = Mathf.Clamp(agent.speed + 0.5f* Time.fixedDeltaTime,speed,50);
                 }
                 else
                 {

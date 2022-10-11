@@ -86,7 +86,7 @@ public class EnemyController : MonoBehaviour
         }
 
         var distance = Vector3.Distance(transform.position, _playerController.transform.position);
-        if (Mathf.Abs(enemyAgent.stoppingDistance - distance) < 15.0f)
+        if (distance < 15.0f)
         {
             healthBar.SetActive(true);
             enemyAgent.destination = _playerController.transform.position;
