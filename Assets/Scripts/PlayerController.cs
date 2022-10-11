@@ -10,6 +10,7 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     public static PlayerController Current;
+    private GameManager _gameManager;
     [SerializeField] private List<CinemachineVirtualCamera> virtualCameras;
     [SerializeField] private Joystick joystick;
     [SerializeField] private RectTransform handle;
@@ -37,11 +38,14 @@ public class PlayerController : MonoBehaviour
         {
             Current = this;
         }
+
+        _gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+        
     }
 
     private void Start()
     {
-        _playerHealthValue = GameManager.current._playerArmor;
+        _playerHealthValue = _gameManager._playerArmor;
         playerHealthValueCurrent = _playerHealthValue;
         fullHealth.text = (Mathf.Round(_playerHealthValue)).ToString();
         currentHealth.text = (Mathf.Round(playerHealthValueCurrent)).ToString();
@@ -60,33 +64,22 @@ public class PlayerController : MonoBehaviour
         if (enterExit)
         {
             transform.DOMove(new Vector3(37f, 0.63f, 24.75f), 0.1f).OnUpdate((() =>
-                {
-                    _upgradeArea = true;
-                    walking = true;
-                }))
-                .OnComplete((() =>
-                {
-                    transform.DORotate(new Vector3(0, -66, 0), 0.1f);
-                    _upgradeArea = true;
-                    walking = false;
-                }));
+            {
+                _upgradeArea = true;
+                walking = true;
+            }))
+            .OnComplete((() =>
+            {
+                transform.DORotate(new Vector3(0, -66, 0), 0.1f);
+                _upgradeArea = true;
+                walking = false;
+            }));
             
         }
         else
         {
             walking = false;
             _upgradeArea = false;
-            // transform.DOMove(new Vector3(24.0f, 0.63f, 26.0f), 1.0f)
-            //     .OnUpdate((() =>
-            //     {
-            //         upgradeArea = true;
-            //     }))
-            //     .OnComplete((() =>
-            //     {
-            //         upgradeArea = false;
-            //         walking = false;
-            //     }));
-            
         }
         
     }

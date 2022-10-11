@@ -50,6 +50,36 @@ public class GameManager : MonoBehaviour
         {
             current = this;
         }
+        
+        _playerBallCounter = player.GetComponent<PlayerBallCounter>();
+        _playerUpgradableItems = player.GetComponent<UpgradableItem>();
+        _playerParticles = player.GetComponent<ParticlesController>();
+        gameEventHandler.OnPlayerUpgradeArea += OnPlayerUpgradeArea;
+        Application.targetFrameRate = 60;
+        _speedUpgradeRequire = speedUpgradeState[_speedState];
+        _damageUpgradeRequire = damageUpgradeState[_damageState];
+        _armorUpgradeRequire = armorUpgradeState[_armorState];
+
+        playerSpeed = PlayerPrefs.GetFloat("PlayerSpeed",startSpeed);
+        _speedState = PlayerPrefs.GetInt("SpeedState", 0);
+        playerDamage = PlayerPrefs.GetFloat("PlayerDamage", startDamage);
+        _damageState = PlayerPrefs.GetInt("damageState", 0);
+        _playerArmor = PlayerPrefs.GetFloat("PlayerArmor", startArmor);
+        _armorState = PlayerPrefs.GetInt("ArmorState", 0);
+        if (_armorState == 3)
+        {
+            armorMax = true;
+        }
+        if (_speedState == 2)
+        {
+            speedMax = true;
+        }
+        if (_damageState == 2)
+        {
+            damageMax = true;
+        }
+        _playerUpgradableItems.ArmorChanger(_armorState);
+        _playerUpgradableItems.WeaponChanger(_damageState);
     }
     
     void Start()

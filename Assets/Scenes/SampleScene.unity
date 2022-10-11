@@ -920,7 +920,7 @@ GameObject:
   - component: {fileID: 156980964}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1215,6 +1215,37 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6363530414472190774, guid: 9b1adda6c447de24a83feb8f6c6f0bbf, type: 3}
   m_PrefabInstance: {fileID: 1511594010}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &273245767
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 273245768}
+  m_Layer: 0
+  m_Name: RayPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &273245768
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 273245767}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.25, z: 0.33}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6862496077275605879}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &276946740
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7306,6 +7337,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Crab (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4495684834263159538, guid: 52ff561b7b652304281cddfcf4fd692f, type: 3}
+      propertyPath: m_Radius
+      value: 0.22
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52ff561b7b652304281cddfcf4fd692f, type: 3}
 --- !u!1 &1192758959
@@ -13372,6 +13407,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6692565517973654361, guid: 41e8c98699272124e91448227517df00, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6692565517973654361, guid: 41e8c98699272124e91448227517df00, type: 3}
+      propertyPath: m_Center.y
+      value: 1.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 6692565517973654361, guid: 41e8c98699272124e91448227517df00, type: 3}
+      propertyPath: m_Center.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6692565517973654361, guid: 41e8c98699272124e91448227517df00, type: 3}
+      propertyPath: m_Direction
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6692565517973654361, guid: 41e8c98699272124e91448227517df00, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6692565517973654363, guid: 41e8c98699272124e91448227517df00, type: 3}
       propertyPath: _upgradeArea
       value: 
@@ -13405,6 +13460,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1775210468}
     - target: {fileID: 6692565517973654436, guid: 41e8c98699272124e91448227517df00, type: 3}
+      propertyPath: rayCastObject
+      value: 
+      objectReference: {fileID: 273245768}
+    - target: {fileID: 6692565517973654436, guid: 41e8c98699272124e91448227517df00, type: 3}
       propertyPath: ballController
       value: 
       objectReference: {fileID: 1074502071}
@@ -13412,6 +13471,18 @@ PrefabInstance:
       propertyPath: gameEventHandler
       value: 
       objectReference: {fileID: 156980964}
+    - target: {fileID: 6692565517973654439, guid: 41e8c98699272124e91448227517df00, type: 3}
+      propertyPath: m_Radius
+      value: 0.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 6692565517973654439, guid: 41e8c98699272124e91448227517df00, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6692565517973654439, guid: 41e8c98699272124e91448227517df00, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6692565517973654447, guid: 41e8c98699272124e91448227517df00, type: 3}
       propertyPath: m_RootOrder
       value: 6

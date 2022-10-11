@@ -32,7 +32,7 @@ public class EnemyController : MonoBehaviour
     private float _tempDamage;
     
     private bool _getHitting;
-    private bool _hitting;
+    private bool _hitting = false;
     
     public float wanderRadius;
     public float wanderTimer;
@@ -86,37 +86,12 @@ public class EnemyController : MonoBehaviour
         }
 
         var distance = Vector3.Distance(transform.position, _playerController.transform.position);
-        if (distance < 15.0f)
+        if (distance < 15.0f && !_hitting)
         {
             healthBar.SetActive(true);
             enemyAgent.destination = _playerController.transform.position;
             enemyAnimator.SetBool("Walking",true);
             enemyAnimator.SetBool("Idle",false);
-            // RaycastHit hit;
-            // if (Physics.Raycast(rayCastObject.transform.position, rayCastObject.forward, out hit, 3))
-            // {
-            //     if (hit.collider.CompareTag("Player"))
-            //     {
-            //         // enemyAgent.isStopped = true;
-            //         // enemyAnimator.SetBool("Walking",false);
-            //         // enemyAnimator.SetBool("Idle",false);
-            //         // enemyAnimator.SetBool("Attack",true);
-            //         _hitting = true;
-            //     }
-            //     else
-            //     {
-            //         _hitting = false;
-            //     }
-            // }
-            // else
-            // {
-            //     enemyAgent.isStopped = false;
-            //     enemyAnimator.SetBool("Attack",false);
-            //     enemyAnimator.SetBool("Walking",true);
-            //     enemyAnimator.SetBool("Idle",false);
-            // }
-            enemyAnimator.SetBool("Attack",false);
-
         }
         else
         {
@@ -160,13 +135,12 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             var playerTransform = other.transform.position;
-            enemyAgent.transform.LookAt(playerTransform);
-            enemyAgent.isStopped = true;
+            enemyAgent.transform.LookAt(playerTransform,Vector3.up);
             enemyAnimator.SetBool("Walking",false);
             enemyAnimator.SetBool("Idle",false);
             enemyAnimator.SetBool("Attack",true);
@@ -180,6 +154,7 @@ public class EnemyController : MonoBehaviour
             enemyAgent.updateRotation = true;
             enemyAgent.isStopped = false;
             enemyAnimator.SetBool("Attack",false);
+            _hitting = false;
         }
     }
 
@@ -224,7 +199,7 @@ public class EnemyController : MonoBehaviour
         if (_playerController != null)
         {
             _playerController.Hit(enemyDamage);
-            _playerController.transform.parent.DOPunchScale(new Vector3(0.1f, 0.1f, 0.1f), 0.5f).SetEase(Ease.InBounce);
+            _playerController.transform.DOPunchScale(new Vector3(0.1f, 0.1f, 0.1f), 0.1f).SetEase(Ease.InBounce);
         }
     }
 }

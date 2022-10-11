@@ -29,6 +29,7 @@ public class PlayerCollisionHandler : MonoBehaviour
     private bool _upgradeArea = false;
     private bool _unlockArea = false;
     private int i = 0;
+    [SerializeField] private Transform rayCastObject;
 
     private void Start()
     {
@@ -122,25 +123,46 @@ public class PlayerCollisionHandler : MonoBehaviour
         if (other.gameObject.CompareTag("Chest"))
         {
             chestController= other.GetComponent<ChestController>();
-            if (!_hit)
+            RaycastHit hit;
+            if (Physics.Raycast(rayCastObject.transform.position, rayCastObject.forward, out hit, 3))
             {
-                _hit = true;
-                animationHandler.CurrentPlayerHit(true);
-                StartCoroutine(HitDelay());
-                
+                if (hit.collider.CompareTag("Chest"))
+                {
+                    _hit = true;
+                    animationHandler.CurrentPlayerHit(true);
+                    StartCoroutine(HitDelay());
+                }
+                Debug.DrawRay(rayCastObject.transform.position,rayCastObject.forward,Color.red);
             }
+            // if (!_hit)
+            // {
+            //     _hit = true;
+            //     animationHandler.CurrentPlayerHit(true);
+            //     StartCoroutine(HitDelay());
+            //     
+            // }
         }
         
         if (other.gameObject.CompareTag("Enemy"))
         {
             enemyController= other.GetComponent<EnemyController>();
-            if (!_hit)
+            RaycastHit hit;
+            if (Physics.Raycast(rayCastObject.transform.position, rayCastObject.forward, out hit, 4))
             {
-                _hit = true;
-                animationHandler.CurrentPlayerHit(true);
-                StartCoroutine(HitDelay());
-                
+                if (hit.collider.CompareTag("Enemy"))
+                {
+                    _hit = true;
+                    animationHandler.CurrentPlayerHit(true);
+                    StartCoroutine(HitDelay());
+                }
+                Debug.DrawRay(rayCastObject.transform.position,rayCastObject.forward,Color.red);
             }
+            // if (!_hit)
+            // {
+            //     _hit = true;
+            //     animationHandler.CurrentPlayerHit(true);
+            //     StartCoroutine(HitDelay());
+            // }
         }
     }
 

@@ -31,6 +31,7 @@ TagManager:
   - Ground
   - Portal
   - Enemy
+  - GameManager
   layers:
   - Default
   - TransparentFX
