@@ -41,7 +41,7 @@ public class EnemyController : MonoBehaviour
     private float timer;
     
     void OnEnable () {
-        timer = wanderTimer;
+        
     }
     
     void Start()
@@ -50,6 +50,8 @@ public class EnemyController : MonoBehaviour
         fullHealth.text = (Mathf.Round(enemyHealthValue)).ToString();
         currentHealth.text = (Mathf.Round(enemyHealthValueCurrent)).ToString();
         _playerController = PlayerController.Current;
+        wanderTimer = Random.Range(3, 10);
+        timer = wanderTimer;
     }
 
  
