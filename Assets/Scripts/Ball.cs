@@ -55,7 +55,7 @@ public class Ball : MonoBehaviour
                 agent.speed = speed;
                 if (distance > 6.0f)
                 {
-                    agent.speed += 0.5f;
+                    agent.speed += Mathf.Clamp(agent.speed + 0.5f* Time.fixedDeltaTime,speed,50);
                 }
                 else
                 {
@@ -335,6 +335,7 @@ public class Ball : MonoBehaviour
         {
             //transform.DOKill();
             goMerge = false;
+            GetComponentInChildren<MeshRenderer>().enabled = false;
             GameEventHandler.current.BallMergeArea(true);
         }
         
@@ -367,10 +368,10 @@ public class Ball : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        // if (other.CompareTag("MergeMachine"))
-        // {
-        //     GameEventHandler.current.BallMergeArea(false);
-        // }
+        if (other.CompareTag("BallPool"))
+        {
+            GetComponentInChildren<MeshRenderer>().enabled = true;
+        }
     }
 
     IEnumerator DelayKinematic()
@@ -383,7 +384,7 @@ public class Ball : MonoBehaviour
     IEnumerator DelayMergeTime(float delay)
     {
         //triggerCollider.isTrigger = false;
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSeconds(.1f);
         GetComponent<Animator>().runtimeAnimatorController = merge;
         triggerCollider.isTrigger = true;
     }

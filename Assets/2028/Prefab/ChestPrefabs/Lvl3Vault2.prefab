@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 5007045499827327968}
   m_LocalRotation: {x: -0.7031652, y: 0.07455713, z: 0.07455713, w: 0.7031652}
   m_LocalPosition: {x: -12.742017, y: 2.1109006, z: -6.8026752}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 753036162425397664}
@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 196967a8b71d7c54cb48f66a5d7c28bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  delay: 0.5
 --- !u!1 &6517947367660024308
 GameObject:
   m_ObjectHideFlags: 0
@@ -291,7 +292,6 @@ MonoBehaviour:
   - {fileID: 6517947367660024308}
   _OpenPart:
   - {fileID: 8275626844309018207}
-  animator: {fileID: 4295468014896123164}
   _HealthBar: {fileID: 5694403111967700042}
   _FullHealth: {fileID: 3400670873461207277}
   _CurrentHealth: {fileID: 494630568769136284}
@@ -299,6 +299,7 @@ MonoBehaviour:
   _CreatValue: 0400000008000000
   _CreatCount: 4
   _ChestHealthValue: 110
+  _ChestHealthValueCurrent: 0
 --- !u!65 &3346624419376715203
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -310,7 +311,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3, y: 3, z: 2.852723}
+  m_Size: {x: 2, y: 2, z: 2.852723}
   m_Center: {x: 0.17100239, y: 0.6835102, z: -0.2632963}
 --- !u!1001 &1677969400700137340
 PrefabInstance:

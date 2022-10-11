@@ -130,7 +130,6 @@ MonoBehaviour:
   - {fileID: 2780241604651673947}
   _OpenPart:
   - {fileID: 5752362029378241074}
-  animator: {fileID: 6172697938694641464}
   _HealthBar: {fileID: 2780241604651673947}
   _FullHealth: {fileID: 5089751835017539068}
   _CurrentHealth: {fileID: 8020547642934721421}
@@ -138,6 +137,7 @@ MonoBehaviour:
   _CreatValue: 0400000008000000
   _CreatCount: 4
   _ChestHealthValue: 50
+  _ChestHealthValueCurrent: 0
 --- !u!65 &8237917836032764395
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -149,7 +149,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3, y: 3, z: 2.348044}
+  m_Size: {x: 2, y: 2, z: 2.348044}
   m_Center: {x: 0.12321115, y: 0.6379971, z: 0.012846053}
 --- !u!1 &4369667952031720640
 GameObject:
@@ -312,6 +312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 196967a8b71d7c54cb48f66a5d7c28bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  delay: 0.5
 --- !u!1001 &8194069258994883301
 PrefabInstance:
   m_ObjectHideFlags: 0
