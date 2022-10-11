@@ -92,25 +92,31 @@ public class EnemyController : MonoBehaviour
             enemyAgent.destination = _playerController.transform.position;
             enemyAnimator.SetBool("Walking",true);
             enemyAnimator.SetBool("Idle",false);
-            RaycastHit hit;
-            if (Physics.Raycast(rayCastObject.transform.position, rayCastObject.forward, out hit, 4))
-            {
-                if (hit.collider.CompareTag("Player"))
-                {
-                    enemyAgent.isStopped = true;
-                    enemyAnimator.SetBool("Walking",false);
-                    enemyAnimator.SetBool("Idle",false);
-                    enemyAnimator.SetBool("Attack",true);
-                }
-            }
-            else
-            {
-                enemyAgent.isStopped = false;
-                enemyAnimator.SetBool("Attack",false);
-                enemyAnimator.SetBool("Walking",true);
-                enemyAnimator.SetBool("Idle",false);
-            }
-            
+            // RaycastHit hit;
+            // if (Physics.Raycast(rayCastObject.transform.position, rayCastObject.forward, out hit, 3))
+            // {
+            //     if (hit.collider.CompareTag("Player"))
+            //     {
+            //         // enemyAgent.isStopped = true;
+            //         // enemyAnimator.SetBool("Walking",false);
+            //         // enemyAnimator.SetBool("Idle",false);
+            //         // enemyAnimator.SetBool("Attack",true);
+            //         _hitting = true;
+            //     }
+            //     else
+            //     {
+            //         _hitting = false;
+            //     }
+            // }
+            // else
+            // {
+            //     enemyAgent.isStopped = false;
+            //     enemyAnimator.SetBool("Attack",false);
+            //     enemyAnimator.SetBool("Walking",true);
+            //     enemyAnimator.SetBool("Idle",false);
+            // }
+            enemyAnimator.SetBool("Attack",false);
+
         }
         else
         {
@@ -159,7 +165,6 @@ public class EnemyController : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             var playerTransform = other.transform.position;
-            enemyAgent.updateRotation = false;
             enemyAgent.transform.LookAt(playerTransform);
             enemyAgent.isStopped = true;
             enemyAnimator.SetBool("Walking",false);
@@ -174,9 +179,7 @@ public class EnemyController : MonoBehaviour
         {
             enemyAgent.updateRotation = true;
             enemyAgent.isStopped = false;
-            enemyAnimator.SetBool("Walking",false);
-            enemyAnimator.SetBool("Idle",false);
-            enemyAnimator.SetBool("Attack",true);
+            enemyAnimator.SetBool("Attack",false);
         }
     }
 
