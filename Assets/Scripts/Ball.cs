@@ -368,7 +368,6 @@ public class Ball : MonoBehaviour
             GameEventHandler.current.BallMergeArea(true);
             other.transform.parent.transform.DOPunchScale(new Vector3(0.01f, 0.01f, 0.01f), 0.1f).SetEase(Ease.InBounce)
                 .OnComplete((() => other.transform.parent.transform.localScale = Vector3.one));
-            Debug.Log(other.transform.parent.transform);
         }
         
         if (other.CompareTag("BallUpgrade"))

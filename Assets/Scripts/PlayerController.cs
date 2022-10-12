@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
 {
     public static PlayerController Current;
     private GameManager _gameManager;
+    [NonSerialized] public float PlayerSpeed;
+    [SerializeField] private float acceleration;
     [SerializeField] private List<CinemachineVirtualCamera> virtualCameras;
     [SerializeField] private Joystick joystick;
     [SerializeField] private RectTransform handle;
@@ -31,7 +33,8 @@ public class PlayerController : MonoBehaviour
     private bool _teleporting = false;
     private bool _gethit;
     public bool _healing = false;
-
+    private float _currentMoveMultiplier;
+    
     private void Awake()
     {
         if (Current == null)
@@ -60,7 +63,6 @@ public class PlayerController : MonoBehaviour
 
     private void OnPlayerUpgradeArea(bool enterExit)
     {
-        
         if (enterExit)
         {
             transform.DOMove(new Vector3(37f, 0.63f, 24.75f), 0.1f).OnUpdate((() =>
@@ -164,10 +166,13 @@ public class PlayerController : MonoBehaviour
 
     private void Movement()
     {
-        var speed = GameManager.current.playerSpeed;
-        Vector3 inputVector = new Vector3(joystick.Horizontal, 0f, joystick.Vertical);
+       
+        Vector3 inputVector = new Vector3(InputController.Joystick.x, 0f, InputController.Joystick.y);
 
-        inputVector = Vector3.ClampMagnitude(inputVector, speed);
+        //inputVector = Vector3.ClampMagnitude(inputVector, speed);
+
+        var speed = GameManager.current.playerSpeed * inputVector.magnitude;
+        PlayerSpeed = inputVector.magnitude;
         if (inputVector != Vector3.zero)
         {
             var cameraTransform = _virtualCamera.transform;
@@ -179,7 +184,20 @@ public class PlayerController : MonoBehaviour
 
             var movementVector = inputVector.x * cameraRightHorizontal + inputVector.z * cameraForwardHorizontal;
             
-            Vector3 temp = transform.position + transform.forward* (speed * Time.fixedDeltaTime);
+            var dot = Mathf.Clamp(Vector3.Dot(transform.forward, inputVector),0.3f,1);
+
+            _currentMoveMultiplier = Mathf.Lerp(_currentMoveMultiplier, dot, acceleration * Time.fixedDeltaTime);
+        
+            var position = transform.position + transform.forward.normalized * (speed * dot * Time.fixedDeltaTime);
+            
+            //Vector3 temp = transform.position + transform.forward* (speed * Time.fixedDeltaTime);
+            transform.position = position;
+            
+            var newrotation = Quaternion.LookRotation(movementVector);
+            var lerp = Quaternion.Lerp(transform.rotation, newrotation, 2 * (speed * Time.fixedDeltaTime));
+            transform.rotation = lerp;
+            walking = true;
+            
             /* UnityEngine.AI.NavMeshHit hit;
             // bool isvalid = UnityEngine.AI.NavMesh.SamplePosition(temp, out hit, .3f, UnityEngine.AI.NavMesh.AllAreas);
             // if (isvalid)
@@ -196,10 +214,6 @@ public class PlayerController : MonoBehaviour
             // {
             //     walking = false;
              }*/
-            transform.position = temp;
-            var lerp = Vector3.Lerp(transform.forward, movementVector, (speed *1.1f)* Time.fixedDeltaTime);
-            transform.rotation = Quaternion.LookRotation(lerp);
-            walking = true;
         }
         else
         {
@@ -207,13 +221,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void Hit(float damage)
+    public void GetHit(float damage)
     {
         if (gameObject.activeInHierarchy)
         {
             _tempDamage = damage;
             _playerHealthValueCurrentTemp = Mathf.Clamp(playerHealthValueCurrent - _tempDamage, 0, _playerHealthValue);
             _gethit = true;
+            _virtualCamera.GetComponent<CinemachineShake>().ShakeCamera(.55f,.1f);
         }
     }
 
