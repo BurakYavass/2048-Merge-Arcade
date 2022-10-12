@@ -322,6 +322,7 @@ MonoBehaviour:
   enemyHealthValueCurrent: 0
   wanderRadius: 10
   wanderTimer: 6
+  boss: 0
 --- !u!195 &4495684834263159538
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -21,28 +21,26 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI currentHealth;
     [SerializeField] private Image sliderValue;
     [SerializeField] private Transform rayCastObject;
-    private PlayerController _playerController;
-
     [SerializeField] private float enemyDamage;
     [SerializeField] private int[] creatValue;
     [SerializeField] private float creatCount;
     [SerializeField] private float enemyHealthValue; 
+    
+    private PlayerController _playerController;
+    private Transform _target;
+    private Vector3 _newPos;
+    
     public float enemyHealthValueCurrent;
-    private float _enemyHealthValueCurrentTemp;
-    private float _tempDamage;
-    
-    private bool _getHitting;
-    private bool _hitting = false;
-    
     public float wanderRadius;
     public float wanderTimer;
- 
-    private Transform target;
-    private float timer;
+
+    public bool boss;
     
-    void OnEnable () {
-        
-    }
+    private float _enemyHealthValueCurrentTemp;
+    private float _tempDamage;
+    private float _timer;
+    private bool _getHitting;
+    private bool _hitting = false;
     
     void Start()
     {
@@ -50,14 +48,14 @@ public class EnemyController : MonoBehaviour
         fullHealth.text = (Mathf.Round(enemyHealthValue)).ToString();
         currentHealth.text = (Mathf.Round(enemyHealthValueCurrent)).ToString();
         _playerController = PlayerController.Current;
-        wanderTimer = Random.Range(3, 10);
-        timer = wanderTimer;
+        wanderTimer = Random.Range(5, 15);
+        _timer = wanderTimer;
     }
 
  
     void Update()
     {
-        timer += Time.deltaTime;
+        _timer += Time.deltaTime;
         
         if (_getHitting)
         {
@@ -96,31 +94,46 @@ public class EnemyController : MonoBehaviour
         else
         {
             healthBar.SetActive(false);
-            if (timer >= wanderTimer) {
-                Vector3 newPos = RandomNavSphere(transform.position, wanderRadius, -1);
-                enemyAgent.SetDestination(newPos);
-                enemyAnimator.SetBool("Idle",false);
-                enemyAnimator.SetBool("Attack",false);
-                enemyAnimator.SetBool("Walking",true);
-                timer = 0;
+            if (_timer >= wanderTimer)
+            {
+                if (!boss)
+                {
+                    _newPos = RandomNavSphere(transform.position, Random.Range(5f,wanderRadius), -1);
+                    enemyAgent.SetDestination(_newPos);
+                }
+                _timer = 0;
             }
-            else
+            
+            var dist = Vector3.Distance(transform.position, _newPos);
+            if (dist < 3f)
             {
                 enemyAnimator.SetBool("Walking",false);
                 enemyAnimator.SetBool("Attack",false);
                 enemyAnimator.SetBool("Idle",true);
             }
+            else
+            {
+                if (!boss)
+                {
+                    enemyAnimator.SetBool("Walking",true);
+                    enemyAnimator.SetBool("Idle", false);
+                }
+            }
         }
     }
     
-    public static Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask) {
-        Vector3 randDirection = Random.insideUnitSphere * dist;
+    public static Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
+    {
+        
+        Vector3 randDirection = Random.insideUnitCircle.normalized;
+
+        Vector3 randomVector3 = new Vector3(randDirection.x, 0, randDirection.y) * dist;
  
-        randDirection += origin;
+        randomVector3 += origin;
  
         NavMeshHit navHit;
  
-        NavMesh.SamplePosition (randDirection, out navHit, dist, layermask);
+        NavMesh.SamplePosition (randomVector3, out navHit, dist, layermask);
  
         return navHit.position;
     }
@@ -198,8 +211,8 @@ public class EnemyController : MonoBehaviour
     {
         if (_playerController != null)
         {
-            _playerController.Hit(enemyDamage);
-            _playerController.transform.DOPunchScale(new Vector3(0.1f, 0.1f, 0.1f), 0.1f).SetEase(Ease.InBounce);
+            _playerController.GetHit(enemyDamage);
+            //Camera.main.transform.DOPunchPosition(new Vector3(0.5f, 0.5f, 0.5f), 0.1f).SetEase(Ease.InBounce);
         }
     }
 }
