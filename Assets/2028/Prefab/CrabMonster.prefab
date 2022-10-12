@@ -322,6 +322,7 @@ MonoBehaviour:
   enemyHealthValueCurrent: 0
   wanderRadius: 10
   wanderTimer: 6
+  waitTime: 0
   boss: 0
 --- !u!195 &4495684834263159538
 NavMeshAgent:
@@ -370,7 +371,7 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.62228227
-  m_Height: 3
+  m_Height: 2.14
   m_Direction: 2
   m_Center: {x: 0, y: 1.76, z: 1.1422822}
 --- !u!1 &2108235053447172279

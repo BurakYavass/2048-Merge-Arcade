@@ -26,6 +26,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float creatCount;
     [SerializeField] private float enemyHealthValue; 
     
+    private Transform _playerTransform;
     private PlayerController _playerController;
     private Transform _target;
     private Vector3 _newPos;
@@ -33,7 +34,8 @@ public class EnemyController : MonoBehaviour
     public float enemyHealthValueCurrent;
     public float wanderRadius;
     public float wanderTimer;
-
+    public float waitTime;
+    
     public bool boss;
     
     private float _enemyHealthValueCurrentTemp;
@@ -41,14 +43,15 @@ public class EnemyController : MonoBehaviour
     private float _timer;
     private bool _getHitting;
     private bool _hitting = false;
+    private bool _hittable;
     
     void Start()
     {
         enemyHealthValueCurrent = enemyHealthValue;
         fullHealth.text = (Mathf.Round(enemyHealthValue)).ToString();
         currentHealth.text = (Mathf.Round(enemyHealthValueCurrent)).ToString();
-        _playerController = PlayerController.Current;
         wanderTimer = Random.Range(5, 15);
+        _playerTransform = PlayerController.Current.transform;
         _timer = wanderTimer;
     }
 
@@ -83,11 +86,11 @@ public class EnemyController : MonoBehaviour
             }
         }
 
-        var distance = Vector3.Distance(transform.position, _playerController.transform.position);
+        var distance = Vector3.Distance(transform.position, _playerTransform.position);
         if (distance < 15.0f && !_hitting)
         {
             healthBar.SetActive(true);
-            enemyAgent.destination = _playerController.transform.position;
+            enemyAgent.destination = _playerTransform.position;
             enemyAnimator.SetBool("Walking",true);
             enemyAnimator.SetBool("Idle",false);
         }
@@ -152,6 +155,7 @@ public class EnemyController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            _playerController = other.GetComponent<PlayerController>();
             var playerTransform = other.transform.position;
             enemyAgent.transform.LookAt(playerTransform,Vector3.up);
             enemyAnimator.SetBool("Walking",false);
@@ -164,6 +168,7 @@ public class EnemyController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            _playerController = null;
             enemyAgent.updateRotation = true;
             enemyAgent.isStopped = false;
             enemyAnimator.SetBool("Attack",false);
@@ -209,10 +214,18 @@ public class EnemyController : MonoBehaviour
 
     private void WeaponHit()
     {
+        //StartCoroutine(HitWaiter());
         if (_playerController != null)
         {
             _playerController.GetHit(enemyDamage);
             //Camera.main.transform.DOPunchPosition(new Vector3(0.5f, 0.5f, 0.5f), 0.1f).SetEase(Ease.InBounce);
         }
+        
+    }
+
+    IEnumerator HitWaiter()
+    {
+        yield return new WaitForSeconds(waitTime);
+        
     }
 }
