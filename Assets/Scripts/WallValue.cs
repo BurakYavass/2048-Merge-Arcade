@@ -92,7 +92,7 @@ public class WallValue : MonoBehaviour
             }
         }
         
-        if (unlockWall)
+        if (unlockWall && GameObject.FindGameObjectsWithTag("UnlockBall").Length<1 )
         {
             TotalValue();
         }
