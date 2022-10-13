@@ -83,11 +83,6 @@ public class Ball : MonoBehaviour
                 agent.speed = GameManager.current.playerSpeed;
             }
         }
-
-        if (goFree)
-        {
-            
-        }
     }
     public void SetValue(int ballvalue)
     {
@@ -361,6 +356,7 @@ public class Ball : MonoBehaviour
     {
         _collider.isTrigger = false;
         targetObje = null;
+        agent.enabled = false;
         go = false;
         goMerge = false;
         goUnlock = false;
@@ -370,7 +366,14 @@ public class Ball : MonoBehaviour
         ballAnimator.SetBool("Anim", false);
         ballRb.isKinematic = false;
         ballRb.interpolation = RigidbodyInterpolation.None;
+        ballRb.AddForce(new Vector3(Random.Range(2,5), Random.Range(3, 5), Random.Range(2, 3)),ForceMode.VelocityChange);
         goFree = false;
+        // var pos = transform.position;
+        // transform.DOJump(
+        //         new Vector3(pos.x+ Random.Range(1,3),pos.y+ Random.Range(3, 5),pos.z+ Random.Range(1, 3)), 
+        //             1, 1, .5f)
+        //                         .SetEase(Ease.InBounce)
+        //                             .OnComplete((() => goFree =false));
 
     }
     
@@ -381,10 +384,6 @@ public class Ball : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
-        {
-            agent.enabled = true;
-        }
         if (other.CompareTag("BallPool"))
         {
             //transform.DOKill();

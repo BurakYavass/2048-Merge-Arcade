@@ -116,8 +116,13 @@ public class UIManager : MonoBehaviour
         }
         else
         {
+            
             RevivePanel.transform.DOScale(Vector3.zero, 0.5f)
-                .OnComplete((() => ReviveCanvas.SetActive(false)));
+                .OnComplete((() =>
+                {
+                    filledImage.fillAmount = 0;
+                    ReviveCanvas.SetActive(false);
+                }));
         }
     }
     
