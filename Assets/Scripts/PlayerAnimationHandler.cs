@@ -19,7 +19,7 @@ public class PlayerAnimationHandler : MonoBehaviour
 
     void Update()
     {
-        animator.SetFloat("WalkingSpeed" , playerController.PlayerSpeed);
+        animator.SetFloat("WalkingSpeed" , playerController.PlayerSpeed/10);
         if (playerController.walking)
         {
             animator.SetBool("Idle", false);

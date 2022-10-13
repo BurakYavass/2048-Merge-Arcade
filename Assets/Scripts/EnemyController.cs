@@ -108,7 +108,7 @@ public class EnemyController : MonoBehaviour
             }
             
             var dist = Vector3.Distance(transform.position, _newPos);
-            if (dist < 3f)
+            if (dist <= 3f)
             {
                 enemyAnimator.SetBool("Walking",false);
                 enemyAnimator.SetBool("Attack",false);

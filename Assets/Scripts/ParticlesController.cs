@@ -22,7 +22,7 @@ public class ParticlesController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _healArea = _playerController._healing;
+        _healArea = _playerController.healing;
 
         // if (_hit)
         // {

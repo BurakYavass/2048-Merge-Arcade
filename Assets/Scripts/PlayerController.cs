@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 using DG.Tweening;
@@ -25,6 +26,7 @@ public class PlayerController : MonoBehaviour
     private float _playerHealthValue;
     public float playerHealthValueCurrent;
     private float _playerHealthValueCurrentTemp;
+    private float _currentMoveMultiplier;
     private float _tempDamage;
     private float _tempHeal;
 
@@ -32,8 +34,9 @@ public class PlayerController : MonoBehaviour
     private bool _upgradeArea = false;
     private bool _teleporting = false;
     private bool _gethit;
-    public bool _healing = false;
-    private float _currentMoveMultiplier;
+    public bool healing = false;
+    public bool playerDie;
+    
     
     private void Awake()
     {
@@ -93,7 +96,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (joystick.isActiveAndEnabled && _virtualCamera != null && !_upgradeArea && !_teleporting)
+        if (joystick.isActiveAndEnabled && _virtualCamera != null && !_upgradeArea && !_teleporting && !playerDie)
         {
             Movement();
         }
@@ -134,14 +137,16 @@ public class PlayerController : MonoBehaviour
             {
                 var collider = GetComponent<Collider>();
                 collider.isTrigger = false;
+                playerHealthValueCurrent = 0;
                 for (int i = 0; i < closePart.Length; i++)
                 {
-                    closePart[i].SetActive(true);
+                    closePart[i].SetActive(false);
                 }
+                playerDie = true;
             }
         }
 
-        if (_healing)
+        if (healing)
         {
             if (playerHealthValueCurrent < _playerHealthValue)
             {
@@ -154,25 +159,14 @@ public class PlayerController : MonoBehaviour
     public void CameraChanger(int cam)
     {
         _virtualCamera = virtualCameras[0];
-        // if (cam == 3)
-        // {
-        //     _virtualCamera = virtualCameras[cam];
-        // }
-        // else
-        // {
-        //     _virtualCamera = virtualCameras[cam];
-        // }
     }
 
     private void Movement()
     {
-       
         Vector3 inputVector = new Vector3(InputController.Joystick.x, 0f, InputController.Joystick.y);
 
-        //inputVector = Vector3.ClampMagnitude(inputVector, speed);
-
-        var speed = GameManager.current.playerSpeed * inputVector.magnitude;
-        PlayerSpeed = inputVector.magnitude;
+        PlayerSpeed = GameManager.current.playerSpeed * inputVector.magnitude;
+        //PlayerSpeed = speed + inputVector.magnitude;
         if (inputVector != Vector3.zero)
         {
             var cameraTransform = _virtualCamera.transform;
@@ -188,13 +182,13 @@ public class PlayerController : MonoBehaviour
 
             _currentMoveMultiplier = Mathf.Lerp(_currentMoveMultiplier, dot, acceleration * Time.fixedDeltaTime);
         
-            var position = transform.position + transform.forward.normalized * (speed * dot * Time.fixedDeltaTime);
+            var position = transform.position + transform.forward.normalized * (PlayerSpeed * dot * Time.fixedDeltaTime);
             
             //Vector3 temp = transform.position + transform.forward* (speed * Time.fixedDeltaTime);
             transform.position = position;
             
             var newrotation = Quaternion.LookRotation(movementVector);
-            var lerp = Quaternion.Lerp(transform.rotation, newrotation, 2 * (speed * Time.fixedDeltaTime));
+            var lerp = Quaternion.Lerp(transform.rotation, newrotation, 2 * (PlayerSpeed * Time.fixedDeltaTime));
             transform.rotation = lerp;
             walking = true;
             
@@ -223,7 +217,7 @@ public class PlayerController : MonoBehaviour
 
     public void GetHit(float damage)
     {
-        if (gameObject.activeInHierarchy)
+        if (gameObject.activeInHierarchy && !playerDie)
         {
             _tempDamage = damage;
             _playerHealthValueCurrentTemp = Mathf.Clamp(playerHealthValueCurrent - _tempDamage, 0, _playerHealthValue);
@@ -240,12 +234,14 @@ public class PlayerController : MonoBehaviour
             {
                 _tempHeal = heal;
                 _playerHealthValueCurrentTemp = Mathf.Clamp(playerHealthValueCurrent + _tempHeal, 0, _playerHealthValue);
-                _healing = healArea;
+                healing = healArea;
             }
             else
             {
-                _healing = false;
+                healing = false;
             }
         }
     }
+
+    
 }

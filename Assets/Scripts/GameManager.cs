@@ -1,10 +1,13 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager current;
+    [SerializeField] private float playerReviveDelay;
     [SerializeField] private float startSpeed;
     [NonSerialized] public float playerSpeed;
 
@@ -19,6 +22,8 @@ public class GameManager : MonoBehaviour
     public bool speedMax =false;
     public bool armorMax =false;
     public bool damageMax =false;
+
+    private bool _once = false;
     
 
     [NonSerialized]
@@ -42,6 +47,7 @@ public class GameManager : MonoBehaviour
     private PlayerBallCounter _playerBallCounter;
     private UpgradableItem _playerUpgradableItems;
     private ParticlesController _playerParticles;
+    private PlayerController _playerController;
    
 
     private void Awake()
@@ -54,6 +60,7 @@ public class GameManager : MonoBehaviour
         _playerBallCounter = player.GetComponent<PlayerBallCounter>();
         _playerUpgradableItems = player.GetComponent<UpgradableItem>();
         _playerParticles = player.GetComponent<ParticlesController>();
+        _playerController = player.GetComponent<PlayerController>();
         gameEventHandler.OnPlayerUpgradeArea += OnPlayerUpgradeArea;
         Application.targetFrameRate = 60;
         _speedUpgradeRequire = speedUpgradeState[_speedState];
@@ -115,15 +122,54 @@ public class GameManager : MonoBehaviour
         _playerUpgradableItems.WeaponChanger(_damageState);
         
     }
+    private void OnDisable()
+    {
+        gameEventHandler.OnPlayerUpgradeArea -= OnPlayerUpgradeArea;
+    }
 
     private void Update()
     {
         playerMoney = _playerBallCounter.stackValue;
+        if (_playerController.playerDie)
+        {
+            // if ("reklam izlersen vb.")
+            // {
+            //     PlayerRevive();
+            // }
+            // else
+            // {
+            //     StartCoroutine(ReviveDelay(playerReviveDelay));
+            // }
+            StartCoroutine(ReviveDelay(playerReviveDelay));
+            if (!_once)
+            {
+                _once = true;
+                uiManager.PlayerRevive(true,playerReviveDelay);
+            }
+        }
+       
+    }
+    
+    private IEnumerator ReviveDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        PlayerRevive();
     }
 
-    private void OnDisable()
+    private void PlayerRevive()
     {
-        gameEventHandler.OnPlayerUpgradeArea -= OnPlayerUpgradeArea;
+        _playerController.transform.DOMove(new Vector3(0, 0.6f, 9.26f), 1).OnComplete((() =>
+        {
+            _playerController.playerHealthValueCurrent = _playerArmor-10;
+            uiManager.PlayerRevive(false,playerReviveDelay);
+            _playerController.playerDie = false;
+            _once = false;
+            for (int i = 0; i < _playerController.closePart.Length; i++)
+            {
+                _playerController.closePart[i].SetActive(true);
+            }
+            
+        }));
     }
 
     private void OnPlayerUpgradeArea(bool openClose)

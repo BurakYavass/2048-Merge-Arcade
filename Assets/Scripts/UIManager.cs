@@ -24,6 +24,13 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject closeButton;
     [SerializeField] private float delay;
 
+    [Header("Revive Canvas")] 
+    [SerializeField] private GameObject RevivePanel;
+    [SerializeField] private GameObject ReviveCanvas;
+    [SerializeField] private TextMeshProUGUI counterText;
+    [SerializeField] private Image filledImage;
+    
+
 
     private void Update()
     {
@@ -89,6 +96,29 @@ public class UIManager : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         closeButton.SetActive(true);
+    }
+
+    public void PlayerRevive(bool openClose,float delay)
+    {
+        if (openClose)
+        {
+            ReviveCanvas.SetActive(true);
+            counterText.text = delay.ToString();
+            RevivePanel.transform.DOScale(Vector3.one, 0.5f)
+                                .OnComplete((() =>
+                                {
+                                    var text = delay;
+                                    filledImage.DOFillAmount(delay, delay)
+                                                    .OnUpdate((() => counterText.text = text.ToString("0")));;
+                                    DOTween.To(x => text = x, text, 0, delay);
+
+                                }));
+        }
+        else
+        {
+            RevivePanel.transform.DOScale(Vector3.zero, 0.5f)
+                .OnComplete((() => ReviveCanvas.SetActive(false)));
+        }
     }
     
 }
