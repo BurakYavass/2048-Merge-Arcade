@@ -127,45 +127,27 @@ public class PlayerCollisionHandler : MonoBehaviour
         {
             chestController= other.GetComponent<ChestController>();
             RaycastHit hit;
-            if (Physics.Raycast(rayCastObject.transform.position, rayCastObject.forward, out hit, 3))
+            if (Physics.Raycast(rayCastObject.transform.position, rayCastObject.forward ,out hit,3))
             {
                 if (hit.collider.CompareTag("Chest"))
                 {
-                    _hit = true;
                     animationHandler.CurrentPlayerHit(true);
-                    StartCoroutine(HitDelay());
                 }
-                Debug.DrawRay(rayCastObject.transform.position,rayCastObject.forward,Color.red);
             }
-            // if (!_hit)
-            // {
-            //     _hit = true;
-            //     animationHandler.CurrentPlayerHit(true);
-            //     StartCoroutine(HitDelay());
-            //     
-            // }
         }
         
         if (other.gameObject.CompareTag("Enemy"))
         {
             enemyController= other.GetComponent<EnemyController>();
-            RaycastHit hit;
-            if (Physics.Raycast(rayCastObject.transform.position, rayCastObject.forward, out hit, 4))
+            if (other.gameObject.CompareTag("Enemy"))
             {
-                if (hit.collider.CompareTag("Enemy"))
-                {
-                    _hit = true;
-                    animationHandler.CurrentPlayerHit(true);
-                    StartCoroutine(HitDelay());
-                }
-                Debug.DrawRay(rayCastObject.transform.position,rayCastObject.forward,Color.red);
+                animationHandler.CurrentPlayerHit(true);
             }
-            // if (!_hit)
-            // {
-            //     _hit = true;
-            //     animationHandler.CurrentPlayerHit(true);
-            //     StartCoroutine(HitDelay());
-            // }
+            else
+            {
+                enemyController = null;
+            }
+           
         }
     }
 
@@ -191,16 +173,12 @@ public class PlayerCollisionHandler : MonoBehaviour
         if (other.gameObject.CompareTag("Chest"))
         {
             chestController = null;
-            animationHandler.CurrentPlayerHit(false);
-            //StopCoroutine(HitDelay());
-            //GameEventHandler.current.PlayerHit(false);
+            //animationHandler.CurrentPlayerHit(false);
         }
         if (other.gameObject.CompareTag("Enemy"))
         {
             enemyController = null;
-            //StopCoroutine(HitDelay());
-            animationHandler.CurrentPlayerHit(false);
-            //GameEventHandler.current.PlayerHit(false);
+            //animationHandler.CurrentPlayerHit(false);
         }
 
         if (other.CompareTag("MergeMachine"))
@@ -291,6 +269,11 @@ public class PlayerCollisionHandler : MonoBehaviour
 
         }
         //animationHandler.CurrentPlayerHit(false);
+    }
+
+    private void AnimationOver()
+    {
+        animationHandler.CurrentPlayerHit(false);
     }
     
 }

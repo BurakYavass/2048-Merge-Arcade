@@ -2,15 +2,14 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 8
+  serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: color 459
   m_Shader: {fileID: 4800000, guid: ccfc7d68845db8341944b3091b59be55, type: 3}
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
+  m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -60,7 +59,6 @@ Material:
         m_Texture: {fileID: 2800000, guid: abc83c21d57d4a74cabe12065fa1a8b2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    m_Ints: []
     m_Floats:
     - _BumpScale: 1
     - _Cutoff: 0.5
@@ -81,8 +79,8 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.18039213, g: 0.78431374, b: 0.36326087, a: 1}
+    - _Color: {r: 0.45820147, g: 0.6698113, b: 0.38229796, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _HColor: {r: 0.56630355, g: 0.9433962, b: 0.5562478, a: 1}
-    - _SColor: {r: 0.41960785, g: 0.47843137, b: 0.627451, a: 1}
+    - _HColor: {r: 0.40610537, g: 0.735849, b: 0.56468314, a: 1}
+    - _SColor: {r: 0.3921569, g: 0.75294125, b: 0.2627451, a: 1}
   m_BuildTextureStacks: []

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class PlayerAnimationHandler : MonoBehaviour
@@ -19,28 +20,21 @@ public class PlayerAnimationHandler : MonoBehaviour
 
     void Update()
     {
+        //animator.SetLayerWeight(1,playerHit ? 1 : 0);
+        animator.SetBool("Hit", playerHit);
+        
+
         animator.SetFloat("WalkingSpeed" , playerController.PlayerSpeed/10);
-        if (playerController.walking)
+        if (playerController.PlayerSpeed > .1f)
         {
             animator.SetBool("Idle", false);
             animator.SetBool("Walking", true);
-            animator.SetBool("Hit", false);
-            //stackPointAnimation.Play("StackPointAnim");
-        }
-        else if (playerHit)
-        {
-            //playerHit = false;
-            animator.SetBool("Hit", true);
-            animator.SetBool("Idle", false);
-            animator.SetBool("Walking", false);
-            //stackPointAnimation.Stop("StackPointAnim");
         }
         else
         {
             animator.SetBool("Idle", true);
             animator.SetBool("Walking", false);
-            animator.SetBool("Hit", false);
-            //stackPointAnimation.Stop("StackPointAnim");
+
         }
     }
 }
