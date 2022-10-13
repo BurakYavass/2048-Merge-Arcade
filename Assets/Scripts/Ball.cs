@@ -15,7 +15,7 @@ public class Ball : MonoBehaviour
     [SerializeField] private RuntimeAnimatorController merge;
     [SerializeField] private BallController ballController;
     [SerializeField] private Animator ballAnimator;
-    [SerializeField] private ParticleSystem dustParticle;
+    [SerializeField] private GameObject dustParticle;
     public NavMeshAgent agent;
     public GameObject targetObje;
     public Rigidbody ballRb;
@@ -27,6 +27,7 @@ public class Ball : MonoBehaviour
     public bool goUpgrade;
     public bool goUnlock;
     public bool goTravel;
+    public bool goFree;
 
     void Start()
     {
@@ -81,6 +82,11 @@ public class Ball : MonoBehaviour
                 }
                 agent.speed = GameManager.current.playerSpeed;
             }
+        }
+
+        if (goFree)
+        {
+            
         }
     }
     public void SetValue(int ballvalue)
@@ -234,7 +240,7 @@ public class Ball : MonoBehaviour
         go = false;
         goMerge = true;
         ballAnimator.SetBool("Anim", false);
-        dustParticle.Stop();
+        dustParticle.SetActive(false);
         ballRb.interpolation = RigidbodyInterpolation.None;
         gameObject.tag = "UpgradeBall";
         if (gameObject.activeInHierarchy)
@@ -269,7 +275,7 @@ public class Ball : MonoBehaviour
         var pos = transform.position;
         transform.DOJump(new Vector3(pos.x,pos.y,pos.z), 1, 1, 1.0f).SetEase(Ease.OutBounce)
             .OnComplete((() => transform.DOJump(targetObje.transform.position,1,1,0.5f)))
-                                                    .SetEase(Ease.OutBounce).OnComplete((() => dustParticle.Play()));
+                                                    .SetEase(Ease.OutBounce).OnComplete((() => dustParticle.SetActive(true)));
     }
     
     public void SetGoMerge(GameObject target,float delay)
@@ -309,7 +315,7 @@ public class Ball : MonoBehaviour
 
     public void SetGoUnlock(Transform target)
     {
-        dustParticle.Stop();
+        dustParticle.SetActive(false);
         ballAnimator.SetBool("Anim", false);
         ballAnimator = null;
         go = false;
@@ -347,6 +353,25 @@ public class Ball : MonoBehaviour
         goMerge = false;
         goUnlock = false;
         goTravel = true;
+        
+
+    }
+
+    public void SetGoFree()
+    {
+        _collider.isTrigger = false;
+        targetObje = null;
+        go = false;
+        goMerge = false;
+        goUnlock = false;
+        goTravel = false;
+        gameObject.tag = "EmptyBall";
+        dustParticle.SetActive(false);
+        ballAnimator.SetBool("Anim", false);
+        ballRb.isKinematic = false;
+        ballRb.interpolation = RigidbodyInterpolation.None;
+        goFree = false;
+
     }
     
     public int GetValue()

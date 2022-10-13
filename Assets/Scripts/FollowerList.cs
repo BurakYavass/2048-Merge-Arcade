@@ -23,10 +23,7 @@ public class FollowerList : MonoBehaviour
                 var ballIndex = follower.Find(x => x.name == "ballwithTexture(Clone)");
                 follower.Remove(ballIndex);
             }
-            else
-            {
-                clearList = false;
-            }
+            clearList = false;
         }
 
         

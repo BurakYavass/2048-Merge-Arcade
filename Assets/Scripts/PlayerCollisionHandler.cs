@@ -30,8 +30,9 @@ public class PlayerCollisionHandler : MonoBehaviour
     private bool _unlockArea = false;
     private int i = 0;
     [SerializeField] private Transform rayCastObject;
+    
 
-    private void Start()
+    private void OnEnable()
     {
         _playerBallCounter = playerController.GetComponent<PlayerBallCounter>();
     }
@@ -60,62 +61,64 @@ public class PlayerCollisionHandler : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("BaseRight"))
+        if (enabled)
         {
-            gameEventHandler.PlayerRightArea(true);
-            playerController.CameraChanger(1);
-        }
-        else if (other.CompareTag("BaseLeft"))
-        {
-            gameEventHandler.PlayerLeftArea(true);
-            playerController.CameraChanger(2);
-        }
-        else
-        {
-            playerController.CameraChanger(0);
-        }
-
-        if (other.CompareTag("MergeMachine"))
-        {
-            if (!_onMergeMachine)
+            if (other.CompareTag("BaseRight"))
             {
-                _onMergeMachine = true;
-                if (ballController.balls.Count > 1)
-                {
-                    filledImage = other.GetComponent<TriggerArea>().filledImage;
-                    _mergeTriggerDelay = StartCoroutine(MergeAreaDelay(true));
+                gameEventHandler.PlayerRightArea(true);
+                playerController.CameraChanger(1);
+            }
+            else if (other.CompareTag("BaseLeft"))
+            {
+                gameEventHandler.PlayerLeftArea(true);
+                playerController.CameraChanger(2);
+            }
+            else
+            {
+                playerController.CameraChanger(0);
+            }
 
-                    //GameEventHandler.current.PlayerMergeArea(true);
+            if (other.CompareTag("MergeMachine"))
+            {
+                if (!_onMergeMachine)
+                {
+                    _onMergeMachine = true;
+                    if (ballController.balls.Count > 1)
+                    {
+                        filledImage = other.GetComponent<TriggerArea>().filledImage;
+                        _mergeTriggerDelay = StartCoroutine(MergeAreaDelay(true));
+
+                        //GameEventHandler.current.PlayerMergeArea(true);
+                    }
+                }
+            }
+        
+            if (other.CompareTag("UpgradeTrigger"))
+            {
+                if (!_upgradeArea)
+                {
+                    //_playerBallCounter.BallCountCheck();
+                    filledImage = other.GetComponent<TriggerArea>().filledImage;
+                    _triggerDelay = StartCoroutine(UpgradeAreaDelay(true));
+                }
+            }
+        
+            if (other.CompareTag("EmptyBall"))
+            {
+                if (i>2)
+                {
+                    i = 0;
+                }
+                if (i < 3)
+                {
+                    other.tag = "StackBall";
+                    other.gameObject.GetComponent<Ball>().SetGoTarget(playerFollowPoints[i].ReturnLast().transform);
+                    playerFollowPoints[i].SaveBall(other.gameObject);
+                    i++;
+                    ballController.SetNewBall(other.gameObject);
                 }
             }
         }
-        
-        if (other.CompareTag("UpgradeTrigger"))
-        {
-            if (!_upgradeArea)
-            {
-                //_playerBallCounter.BallCountCheck();
-                filledImage = other.GetComponent<TriggerArea>().filledImage;
-                _triggerDelay = StartCoroutine(UpgradeAreaDelay(true));
-            }
-        }
-        
-        if (other.CompareTag("EmptyBall"))
-        {
-            if (i>2)
-            {
-                i = 0;
-            }
-            if (i < 3)
-            {
-                other.tag = "StackBall";
-                other.gameObject.GetComponent<Ball>().SetGoTarget(playerFollowPoints[i].ReturnLast().transform);
-                playerFollowPoints[i].SaveBall(other.gameObject);
-                i++;
-                ballController.SetNewBall(other.gameObject);
-            }
-        }
-        
     }
 
     private void OnTriggerStay(Collider other)

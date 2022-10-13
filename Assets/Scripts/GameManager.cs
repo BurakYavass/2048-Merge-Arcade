@@ -91,35 +91,7 @@ public class GameManager : MonoBehaviour
     
     void Start()
     {
-        _playerBallCounter = player.GetComponent<PlayerBallCounter>();
-        _playerUpgradableItems = player.GetComponent<UpgradableItem>();
-        _playerParticles = player.GetComponent<ParticlesController>();
-        gameEventHandler.OnPlayerUpgradeArea += OnPlayerUpgradeArea;
-        Application.targetFrameRate = 60;
-        _speedUpgradeRequire = speedUpgradeState[_speedState];
-        _damageUpgradeRequire = damageUpgradeState[_damageState];
-        _armorUpgradeRequire = armorUpgradeState[_armorState];
-
-        playerSpeed = PlayerPrefs.GetFloat("PlayerSpeed",startSpeed);
-        _speedState = PlayerPrefs.GetInt("SpeedState", 0);
-        playerDamage = PlayerPrefs.GetFloat("PlayerDamage", startDamage);
-        _damageState = PlayerPrefs.GetInt("damageState", 0);
-        _playerArmor = PlayerPrefs.GetFloat("PlayerArmor", startArmor);
-        _armorState = PlayerPrefs.GetInt("ArmorState", 0);
-        if (_armorState == 3)
-        {
-            armorMax = true;
-        }
-        if (_speedState == 2)
-        {
-            speedMax = true;
-        }
-        if (_damageState == 2)
-        {
-            damageMax = true;
-        }
-        _playerUpgradableItems.ArmorChanger(_armorState);
-        _playerUpgradableItems.WeaponChanger(_damageState);
+        
         
     }
     private void OnDisable()
@@ -140,11 +112,20 @@ public class GameManager : MonoBehaviour
             // {
             //     StartCoroutine(ReviveDelay(playerReviveDelay));
             // }
-            StartCoroutine(ReviveDelay(playerReviveDelay));
+            
             if (!_once)
             {
                 _once = true;
+                StartCoroutine(ReviveDelay(playerReviveDelay));
                 uiManager.PlayerRevive(true,playerReviveDelay);
+                ballController.GoFree();
+            }
+
+            var playerFollowerList = _playerController.playerCollisionHandler.playerFollowPoints;
+
+            for (int i = 0; i < playerFollowerList.Count; i++)
+            {
+                playerFollowerList[i].clearList = true;
             }
         }
        
@@ -158,18 +139,23 @@ public class GameManager : MonoBehaviour
 
     private void PlayerRevive()
     {
-        _playerController.transform.DOMove(new Vector3(0, 0.6f, 9.26f), 1).OnComplete((() =>
+        if (_once)
         {
-            _playerController.playerHealthValueCurrent = _playerArmor-10;
-            uiManager.PlayerRevive(false,playerReviveDelay);
-            _playerController.playerDie = false;
-            _once = false;
-            for (int i = 0; i < _playerController.closePart.Length; i++)
+            _playerController.transform.DOMove(new Vector3(0, 0.6f, 9.26f), 1).OnComplete((() =>
             {
-                _playerController.closePart[i].SetActive(true);
-            }
+                _playerController.playerHealthValueCurrent = _playerArmor-10;
+                uiManager.PlayerRevive(false,playerReviveDelay);
+                _playerController.playerDie = false;
+                _playerController.playerCollisionHandler.enabled = true;
+                for (int i = 0; i < _playerController.closePart.Length; i++)
+                {
+                    _playerController.closePart[i].SetActive(true);
+                }
+                _once = false;
             
-        }));
+            }));
+        }
+        
     }
 
     private void OnPlayerUpgradeArea(bool openClose)

@@ -536,7 +536,7 @@ MonoBehaviour:
   merge: {fileID: 9100000, guid: 72c4e1134b7a66a45b4d90a240e30894, type: 2}
   ballController: {fileID: 0}
   ballAnimator: {fileID: 0}
-  dustParticle: {fileID: 5963909669401384017}
+  dustParticle: {fileID: 5963909669381692999}
   agent: {fileID: 6420056463189566397}
   targetObje: {fileID: 0}
   ballRb: {fileID: -777706355118972414}
@@ -2491,6 +2491,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98402d9b454c9144e8a3c3eedebde193, type: 3}
+--- !u!1 &5963909669381692999 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 551838633323391236, guid: 98402d9b454c9144e8a3c3eedebde193, type: 3}
+  m_PrefabInstance: {fileID: 6155460195076060995}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5963909669381943225 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 551838633323632890, guid: 98402d9b454c9144e8a3c3eedebde193, type: 3}
