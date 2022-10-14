@@ -545,6 +545,7 @@ MonoBehaviour:
   goUpgrade: 0
   goUnlock: 0
   goTravel: 0
+  goFree: 0
 --- !u!135 &4123675069864074240
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2457,6 +2458,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 551838633341069340, guid: 98402d9b454c9144e8a3c3eedebde193, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 551838633342956024, guid: 98402d9b454c9144e8a3c3eedebde193, type: 3}
       propertyPath: looping
       value: 0
@@ -2475,6 +2480,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 551838633343017746, guid: 98402d9b454c9144e8a3c3eedebde193, type: 3}
       propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 551838633343017746, guid: 98402d9b454c9144e8a3c3eedebde193, type: 3}
+      propertyPath: EmissionModule.enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 551838633343022818, guid: 98402d9b454c9144e8a3c3eedebde193, type: 3}

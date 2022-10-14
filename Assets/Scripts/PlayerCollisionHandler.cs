@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine.Utility;
 using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -13,8 +14,8 @@ public class PlayerCollisionHandler : MonoBehaviour
     [SerializeField] private PlayerAnimationHandler animationHandler;
     [SerializeField] private WeaponsHit weaponsHit;
     [SerializeField] private BallController ballController;
-    [SerializeField] private ChestController chestController;
-    [SerializeField] private EnemyController enemyController;
+    [SerializeField] public ChestController chestController;
+    [SerializeField] public EnemyController enemyController;
     [SerializeField] private Image filledImage;
     public List<FollowerList> playerFollowPoints;
 
@@ -46,6 +47,10 @@ public class PlayerCollisionHandler : MonoBehaviour
                 animationHandler.CurrentPlayerHit(false);
                 chestController = null;
             }
+            else
+            {
+                animationHandler.CurrentPlayerHit(true);
+            }
         }
 
         if (enemyController != null)
@@ -54,6 +59,10 @@ public class PlayerCollisionHandler : MonoBehaviour
             {
                 animationHandler.CurrentPlayerHit(false);
                 enemyController = null;
+            }
+            else
+            {
+                animationHandler.CurrentPlayerHit(true);
             }
         }
         
@@ -123,32 +132,38 @@ public class PlayerCollisionHandler : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.CompareTag("Chest"))
-        {
-            chestController= other.GetComponent<ChestController>();
-            RaycastHit hit;
-            if (Physics.Raycast(rayCastObject.transform.position, rayCastObject.forward ,out hit,3))
-            {
-                if (hit.collider.CompareTag("Chest"))
-                {
-                    animationHandler.CurrentPlayerHit(true);
-                }
-            }
-        }
-        
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            enemyController= other.GetComponent<EnemyController>();
-            if (other.gameObject.CompareTag("Enemy"))
-            {
-                animationHandler.CurrentPlayerHit(true);
-            }
-            else
-            {
-                enemyController = null;
-            }
-           
-        }
+        // if (other.gameObject.CompareTag("Chest"))
+        // {
+        //     chestController= other.GetComponent<ChestController>();
+        //     // RaycastHit hit;
+        //     // var rayCastObje = rayCastObject.transform.position;
+        //     // if (Physics.Raycast(rayCastObje,rayCastObject.transform.forward,out hit,10))
+        //     // {
+        //     //     if (hit.collider.CompareTag("Chest"))
+        //     //     {
+        //     //         animationHandler.CurrentPlayerHit(true);
+        //     //     }
+        //     // }
+        //     animationHandler.CurrentPlayerHit(true);
+        // }
+        //
+        // if (other.gameObject.CompareTag("Enemy"))
+        // {
+        //     enemyController= other.GetComponent<EnemyController>();
+        //     // RaycastHit hit;
+        //     // var rayCastObje = rayCastObject.transform.position;
+        //     //
+        //     // if (Physics.CapsuleCast(rayCastObje, rayCastObje+Vector3.up*2,0.7f,rayCastObject.transform.forward,out hit,10))
+        //     // {
+        //     //     if (hit.collider.CompareTag("Enemy"))
+        //     //     {
+        //     //         animationHandler.CurrentPlayerHit(true);
+        //     //     }
+        //     // }
+        //     
+        //     animationHandler.CurrentPlayerHit(true);
+        //    
+        // }
     }
 
     private void OnTriggerExit(Collider other)

@@ -189,27 +189,22 @@ public class PlayerController : MonoBehaviour
             //Vector3 temp = transform.position + transform.forward* (speed * Time.fixedDeltaTime);
             transform.position = position;
             
-            var newrotation = Quaternion.LookRotation(movementVector);
-            var lerp = Quaternion.Lerp(transform.rotation, newrotation, 2 * (PlayerSpeed * Time.fixedDeltaTime));
-            transform.rotation = lerp;
-            walking = true;
-            
-            /* UnityEngine.AI.NavMeshHit hit;
-            // bool isvalid = UnityEngine.AI.NavMesh.SamplePosition(temp, out hit, .3f, UnityEngine.AI.NavMesh.AllAreas);
+            // UnityEngine.AI.NavMeshHit hit;
+            // bool isvalid = UnityEngine.AI.NavMesh.SamplePosition(position, out hit, .3f, UnityEngine.AI.NavMesh.AllAreas);
             // if (isvalid)
             // {
-            //     if ((transform.position - hit.position).magnitude >= 0.1f)
-            //     {
-            //         transform.position = temp;
-            //         var lerp = Vector3.Lerp(transform.forward, movementVector, speed * Time.fixedDeltaTime);
-            //         transform.rotation = Quaternion.LookRotation(lerp);
-            //         walking = true;
-            //     }
+            //     transform.position = position;
+            //     walking = true;
             // }
             // else
             // {
             //     walking = false;
-             }*/
+            // }
+            
+            var newrotation = Quaternion.LookRotation(movementVector);
+            var lerp = Quaternion.Lerp(transform.rotation, newrotation, 2 * (PlayerSpeed * Time.fixedDeltaTime));
+            transform.rotation = lerp;
+            walking = true;
         }
         else
         {

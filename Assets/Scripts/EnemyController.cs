@@ -20,7 +20,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI fullHealth;
     [SerializeField] private TextMeshProUGUI currentHealth;
     [SerializeField] private Image sliderValue;
-    [SerializeField] private Transform rayCastObject;
+    [SerializeField] private ParticleSystem bloodParticle;
     [SerializeField] private float enemyDamage;
     [SerializeField] private int[] creatValue;
     [SerializeField] private float creatCount;
@@ -146,6 +146,7 @@ public class EnemyController : MonoBehaviour
         if (gameObject.activeInHierarchy)
         {
             _tempDamage = damage;
+            bloodParticle.Play();
             _enemyHealthValueCurrentTemp = Mathf.Clamp(enemyHealthValueCurrent - _tempDamage, 0, enemyHealthValue);
             _getHitting = true;
         }
@@ -187,7 +188,6 @@ public class EnemyController : MonoBehaviour
         for (int i = 0; i < creatCount; i++)
         {
             GameObject go = Instantiate(creatBall, transform.position, Quaternion.LookRotation(Vector3.forward));
-            //go.GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(0,3), Random.Range(3, 5)*3, Random.Range(0, 3)));
             if (creatValue.Length > 1)
             {
                 int rdnm=Random.Range(0,100);
@@ -214,18 +214,10 @@ public class EnemyController : MonoBehaviour
 
     private void WeaponHit()
     {
-        //StartCoroutine(HitWaiter());
         if (_playerController != null)
         {
             _playerController.GetHit(enemyDamage);
-            //Camera.main.transform.DOPunchPosition(new Vector3(0.5f, 0.5f, 0.5f), 0.1f).SetEase(Ease.InBounce);
         }
-        
-    }
-
-    IEnumerator HitWaiter()
-    {
-        yield return new WaitForSeconds(waitTime);
         
     }
 }

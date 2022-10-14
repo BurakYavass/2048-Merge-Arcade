@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     [NonSerialized] public float playerSpeed;
 
     [SerializeField] private float startArmor;
-    [NonSerialized] public float _playerArmor;
+    public float _playerArmor;
 
     [SerializeField] private float startDamage;
     [NonSerialized] public float playerDamage;
@@ -177,6 +177,7 @@ public class GameManager : MonoBehaviour
                 upgradeMachine.UpgradeCalculate(_armorUpgradeRequire);
                 PlayerPrefs.SetFloat("PlayerArmor",_playerArmor);
                 _playerUpgradableItems.ArmorChanger(_armorState);
+                _playerController.playerHealthValueCurrent = _playerArmor;
                 PlayerPrefs.SetInt("ArmorState",_armorState);
             }
             else if (_armorState== 2)
@@ -186,6 +187,7 @@ public class GameManager : MonoBehaviour
                 upgradeMachine.UpgradeCalculate(_armorUpgradeRequire);
                 PlayerPrefs.SetFloat("PlayerArmor",_playerArmor);
                 _playerUpgradableItems.ArmorChanger(_armorState);
+                _playerController.playerHealthValueCurrent = _playerArmor;
                 PlayerPrefs.SetInt("ArmorState",_armorState);
                 
             }
@@ -196,6 +198,7 @@ public class GameManager : MonoBehaviour
                 upgradeMachine.UpgradeCalculate(_armorUpgradeRequire);
                 PlayerPrefs.SetFloat("PlayerArmor",_playerArmor);
                 _playerUpgradableItems.ArmorChanger(_armorState);
+                _playerController.playerHealthValueCurrent = _playerArmor;
                 PlayerPrefs.SetInt("ArmorState",_armorState);
                 armorMax = true;
                 Debug.Log("max");
