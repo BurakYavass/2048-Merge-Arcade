@@ -240,6 +240,7 @@ GameObject:
   - component: {fileID: 4495684834263159538}
   - component: {fileID: 3891604207796679489}
   - component: {fileID: 7395550553599760692}
+  - component: {fileID: 6728451099097509963}
   m_Layer: 0
   m_Name: CrabMonster
   m_TagString: Enemy
@@ -321,7 +322,7 @@ MonoBehaviour:
   creatCount: 2
   enemyHealthValue: 100
   enemyHealthValueCurrent: 0
-  wanderRadius: 10
+  wanderRadius: 15
   wanderTimer: 6
   waitTime: 0
   boss: 0
@@ -357,7 +358,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.9874922
+  m_Radius: 0.87
   m_Height: 3.7862895
   m_Direction: 1
   m_Center: {x: 0.10493958, y: 1.7604045, z: 0.28580868}
@@ -371,10 +372,24 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.62228227
-  m_Height: 2.14
-  m_Direction: 2
+  m_Radius: 0.5
+  m_Height: 2.45
+  m_Direction: 0
   m_Center: {x: 0, y: 1.76, z: 1.1422822}
+--- !u!136 &6728451099097509963
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2031462846630961090}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 3.03
+  m_Direction: 0
+  m_Center: {x: 0, y: 1.76, z: 2.03}
 --- !u!1 &2108235053447172279
 GameObject:
   m_ObjectHideFlags: 0

@@ -187,19 +187,19 @@ public class PlayerController : MonoBehaviour
             var position = transform.position + transform.forward.normalized * (PlayerSpeed * dot * Time.fixedDeltaTime);
             
             //Vector3 temp = transform.position + transform.forward* (speed * Time.fixedDeltaTime);
-            transform.position = position;
+            //transform.position = position;
             
-            // UnityEngine.AI.NavMeshHit hit;
-            // bool isvalid = UnityEngine.AI.NavMesh.SamplePosition(position, out hit, .3f, UnityEngine.AI.NavMesh.AllAreas);
-            // if (isvalid)
-            // {
-            //     transform.position = position;
-            //     walking = true;
-            // }
-            // else
-            // {
-            //     walking = false;
-            // }
+            UnityEngine.AI.NavMeshHit hit;
+            bool isvalid = UnityEngine.AI.NavMesh.SamplePosition(position, out hit, .3f, UnityEngine.AI.NavMesh.AllAreas);
+            if (isvalid)
+            {
+                transform.position = position;
+                walking = true;
+            }
+            else
+            {
+                walking = false;
+            }
             
             var newrotation = Quaternion.LookRotation(movementVector);
             var lerp = Quaternion.Lerp(transform.rotation, newrotation, 2 * (PlayerSpeed * Time.fixedDeltaTime));
