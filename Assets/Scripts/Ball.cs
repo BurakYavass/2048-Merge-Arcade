@@ -41,6 +41,10 @@ public class Ball : MonoBehaviour
         ballRb.interpolation = RigidbodyInterpolation.None;
         var speed = GameManager.current.playerSpeed;
         agent.speed = speed;
+        if (_BallValue >= 128)
+        {
+            ballRb.freezeRotation = true;
+        }
     }
 
     private void Awake()
@@ -110,6 +114,7 @@ public class Ball : MonoBehaviour
             {
                 _Colors[0].SetActive(true);
                 closePart = _Colors[0].GetComponent<MeshRenderer>();
+                
                 _Colors[0].transform.DOLocalJump(
                     new Vector3(Random.Range(0, 3), Random.Range(3, 5),Random.Range(0, 3)),
                     1,1,2.0f);
@@ -193,6 +198,7 @@ public class Ball : MonoBehaviour
             case 128:
             {
                 _Colors[6].SetActive(true);
+                wing =  _Colors[6].transform.GetChild(0).gameObject;
                 wing.SetActive(true);
                 closePart = _Colors[6].GetComponent<MeshRenderer>();
                 _Colors[6].transform.DOLocalJump(
@@ -209,6 +215,7 @@ public class Ball : MonoBehaviour
             case 256:
             {
                 _Colors[7].SetActive(true);
+                wing =  _Colors[7].transform.GetChild(0).gameObject;
                 wing.SetActive(true);
                 _Colors[7].transform.DOLocalJump(
                     new Vector3(Random.Range(0, 3), Random.Range(3, 5),Random.Range(0, 3)),
@@ -224,6 +231,7 @@ public class Ball : MonoBehaviour
             case 512:
             {
                 _Colors[8].SetActive(true);
+                wing =  _Colors[8].transform.GetChild(0).gameObject;
                 wing.SetActive(true);
                 closePart = _Colors[8].GetComponent<MeshRenderer>();
                 _Colors[8].transform.DOLocalJump(
@@ -239,6 +247,7 @@ public class Ball : MonoBehaviour
             case 1024:
             {
                 _Colors[9].SetActive(true);
+                wing =  _Colors[9].transform.GetChild(0).gameObject;
                 wing.SetActive(true);
                 closePart = _Colors[9].GetComponent<MeshRenderer>();
                 _Colors[9].transform.DOLocalJump(
@@ -254,6 +263,7 @@ public class Ball : MonoBehaviour
             case 2048:
             {
                 _Colors[10].SetActive(true);
+                wing =  _Colors[10].transform.GetChild(0).gameObject;
                 wing.SetActive(true);
                 closePart = _Colors[10].GetComponent<MeshRenderer>();
                 _Colors[10].transform.DOLocalJump(
@@ -269,6 +279,7 @@ public class Ball : MonoBehaviour
             case 4096:
             {
                 _Colors[11].SetActive(true);
+                wing = _Colors[11].transform.GetChild(0).gameObject;
                 wing.SetActive(true);
                 closePart = _Colors[11].GetComponent<MeshRenderer>();
                 _Colors[11].transform.DOLocalJump(
