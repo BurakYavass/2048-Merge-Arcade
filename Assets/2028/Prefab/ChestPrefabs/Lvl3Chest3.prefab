@@ -100,8 +100,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.5, y: 2.5, z: 2.5}
-  m_Center: {x: -0.08312309, y: 0, z: 0}
+  m_Size: {x: 2, y: 2.12, z: 2.41}
+  m_Center: {x: -0.25, y: 0, z: -0.13}
 --- !u!95 &545125218598824944
 Animator:
   serializedVersion: 4
@@ -258,11 +258,11 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.6, y: 0.6, z: 0.6}
+  m_Extents: {x: 0.765, y: 1, z: 1}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: -0.6, y: 0, z: 0}
   m_TimeToStationary: 0.5
 --- !u!1 &3202818396577974641
 GameObject:

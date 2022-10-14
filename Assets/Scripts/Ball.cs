@@ -22,6 +22,7 @@ public class Ball : MonoBehaviour
 
     private float _delayMerge;
     private float _distance;
+    private bool _once = false;
     public bool go;
     public bool goMerge;
     public bool goUpgrade;
@@ -70,8 +71,12 @@ public class Ball : MonoBehaviour
                 }
                 
                 var currentVelocity = Vector3.zero;
-                agent.SetDestination(targetObjePos);
-                transform.position = Vector3.SmoothDamp(transform.position,agent.nextPosition, ref currentVelocity, 0.1f);
+                
+                if (agent.isOnNavMesh)
+                {
+                    agent.SetDestination(targetObjePos);
+                    transform.position = Vector3.SmoothDamp(transform.position,agent.nextPosition, ref currentVelocity, 0.1f);
+                }
                 //agent.destination = Vector3.SmoothDamp(transform.position,targetObjePos, ref currentVelocity,Time.smoothDeltaTime);
             }
             else
@@ -260,17 +265,26 @@ public class Ball : MonoBehaviour
     public void SetGoTarget(Transform target)
     {
         targetObje = target.gameObject;
-        go = true;
         goUnlock = false;
         goMerge = false;
         goTravel = false;
-        ballRb.isKinematic = true;
-        agent.enabled = true;
-        _collider.isTrigger = true;
         var pos = transform.position;
-        transform.DOJump(new Vector3(pos.x,pos.y,pos.z), 1, 1, 1.0f).SetEase(Ease.OutBounce)
-            .OnComplete((() => transform.DOJump(targetObje.transform.position,1,1,0.5f)))
-                                                    .SetEase(Ease.OutBounce).OnComplete((() => dustParticle.SetActive(true)));
+        if (!_once)
+        {
+            _once = true;
+            transform.DOKill();
+            transform.DOJump(new Vector3(pos.x,pos.y,pos.z), 1, 1, 1.0f).SetEase(Ease.OutBounce)
+                .SetEase(Ease.OutBounce).OnComplete((() =>
+                {
+                    go = true;
+                    agent.enabled = true;
+                    _collider.isTrigger = true;
+                    ballRb.isKinematic = true;
+                    dustParticle.SetActive(true);
+                    _once = false;
+                }));
+        }
+        
     }
     
     public void SetGoMerge(GameObject target,float delay)

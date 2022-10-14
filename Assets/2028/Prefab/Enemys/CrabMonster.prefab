@@ -2308,7 +2308,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 441778, guid: 67a02ea392505844bab240611d904cc0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.06
+      value: 1.51
       objectReference: {fileID: 0}
     - target: {fileID: 441778, guid: 67a02ea392505844bab240611d904cc0, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2413,6 +2413,18 @@ PrefabInstance:
     - target: {fileID: 19891620, guid: 67a02ea392505844bab240611d904cc0, type: 3}
       propertyPath: InitialModule.maxNumParticles
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 19891620, guid: 67a02ea392505844bab240611d904cc0, type: 3}
+      propertyPath: InitialModule.startSize.minMaxState
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19891620, guid: 67a02ea392505844bab240611d904cc0, type: 3}
+      propertyPath: InitialModule.startSizeY.minMaxState
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19891620, guid: 67a02ea392505844bab240611d904cc0, type: 3}
+      propertyPath: InitialModule.startSizeZ.minMaxState
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 19891620, guid: 67a02ea392505844bab240611d904cc0, type: 3}
       propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.scalar
