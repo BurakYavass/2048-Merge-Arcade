@@ -54,8 +54,9 @@ public class Ball : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (go && agent.enabled && targetObje != null )
+        if (go && targetObje != null )
         {
+            agent.enabled = true;
             ballRb.freezeRotation = false;
             ballRb.isKinematic = true;
             var targetObjePos = targetObje.transform.position;
@@ -81,6 +82,7 @@ public class Ball : MonoBehaviour
                 
                 if (agent.isOnNavMesh)
                 {
+                    _once = false;
                     agent.SetDestination(targetObjePos);
                     transform.position = Vector3.SmoothDamp(transform.position,agent.nextPosition, ref currentVelocity, 0.1f);
                 }
@@ -114,10 +116,13 @@ public class Ball : MonoBehaviour
             {
                 _Colors[0].SetActive(true);
                 closePart = _Colors[0].GetComponent<MeshRenderer>();
-                
-                _Colors[0].transform.DOLocalJump(
-                    new Vector3(Random.Range(0, 3), Random.Range(3, 5),Random.Range(0, 3)),
-                    1,1,2.0f);
+
+                if (!targetObje)
+                {
+                    _Colors[0].transform.DOLocalJump(
+                        new Vector3(Random.Range(0, 3), Random.Range(3, 5),Random.Range(0, 3)),
+                        1,1,2.0f);
+                }
                 if (_Colors[0].GetComponent<Animator>() != null)
                 {
                     ballAnimator = _Colors[0].GetComponent<Animator>();
@@ -129,9 +134,12 @@ public class Ball : MonoBehaviour
             {
                 _Colors[1].SetActive(true);
                 closePart = _Colors[1].GetComponent<MeshRenderer>();
-                _Colors[1].transform.DOLocalJump(
-                    new Vector3(Random.Range(0, 3), Random.Range(3, 5),Random.Range(0, 3)),
-                    1,1,2.0f);
+                if (!targetObje)
+                {
+                    _Colors[1].transform.DOLocalJump(
+                        new Vector3(Random.Range(0, 3), Random.Range(3, 5),Random.Range(0, 3)),
+                        1,1,2.0f);
+                }
                 if (_Colors[1].GetComponent<Animator>() != null)
                 {
                     ballAnimator = _Colors[1].GetComponent<Animator>();
@@ -143,9 +151,12 @@ public class Ball : MonoBehaviour
             {
                 _Colors[2].SetActive(true);
                 closePart = _Colors[2].GetComponent<MeshRenderer>();
-                _Colors[2].transform.DOLocalJump(
-                    new Vector3(Random.Range(0, 3), Random.Range(3, 5),Random.Range(0, 3)),
-                    1,1,2.0f);
+                if (!targetObje)
+                {
+                    _Colors[2].transform.DOLocalJump(
+                        new Vector3(Random.Range(0, 3), Random.Range(3, 5),Random.Range(0, 3)),
+                        1,1,2.0f);
+                }
                 if (_Colors[2].GetComponent<Animator>() != null)
                 {
                     ballAnimator = _Colors[2].GetComponent<Animator>();
@@ -157,9 +168,12 @@ public class Ball : MonoBehaviour
             {
                 _Colors[3].SetActive(true);
                 closePart = _Colors[3].GetComponent<MeshRenderer>();
-                _Colors[3].transform.DOLocalJump(
-                    new Vector3(Random.Range(0, 3), Random.Range(3, 5),Random.Range(0, 3)),
-                    1,1,2.0f);
+                if (!targetObje)
+                {
+                    _Colors[3].transform.DOLocalJump(
+                        new Vector3(Random.Range(0, 3), Random.Range(3, 5),Random.Range(0, 3)),
+                        1,1,2.0f);
+                }
                 if (_Colors[3].GetComponent<Animator>() != null)
                 {
                     ballAnimator = _Colors[3].GetComponent<Animator>();
@@ -171,9 +185,13 @@ public class Ball : MonoBehaviour
             {
                 _Colors[4].SetActive(true);
                 closePart = _Colors[4].GetComponent<MeshRenderer>();
-                _Colors[4].transform.DOLocalJump(
-                    new Vector3(Random.Range(0, 3), Random.Range(3, 5),Random.Range(0, 3)),
-                    1,1,2.0f);
+
+                if (!targetObje)
+                {
+                    _Colors[4].transform.DOLocalJump(
+                        new Vector3(Random.Range(0, 3), Random.Range(3, 5),Random.Range(0, 3)),
+                        1,1,2.0f);
+                }
                 if (_Colors[4].GetComponent<Animator>() != null)
                 {
                     ballAnimator = _Colors[4].GetComponent<Animator>();
@@ -185,9 +203,12 @@ public class Ball : MonoBehaviour
             {
                 _Colors[5].SetActive(true);
                 closePart = _Colors[5].GetComponent<MeshRenderer>();
-                _Colors[5].transform.DOLocalJump(
-                    new Vector3(Random.Range(0, 3), Random.Range(3, 5),Random.Range(0, 3)),
-                    1,1,2.0f);
+                if (!targetObje)
+                {
+                    _Colors[5].transform.DOLocalJump(
+                        new Vector3(Random.Range(0, 3), Random.Range(3, 5),Random.Range(0, 3)),
+                        1,1,2.0f);
+                }
                 if (_Colors[5].GetComponent<Animator>() != null)
                 {
                     ballAnimator = _Colors[5].GetComponent<Animator>();
@@ -201,9 +222,12 @@ public class Ball : MonoBehaviour
                 wing =  _Colors[6].transform.GetChild(0).gameObject;
                 wing.SetActive(true);
                 closePart = _Colors[6].GetComponent<MeshRenderer>();
-                _Colors[6].transform.DOLocalJump(
-                    new Vector3(Random.Range(0, 3), Random.Range(3, 5),Random.Range(0, 3)),
-                    1,1,2.0f);
+                if (!targetObje)
+                {
+                    _Colors[6].transform.DOLocalJump(
+                        new Vector3(Random.Range(0, 3), Random.Range(3, 5),Random.Range(0, 3)),
+                        1,1,2.0f);
+                }
                 if (_Colors[6].GetComponent<Animator>() != null)
                 {
                     ballAnimator = _Colors[6].GetComponent<Animator>();
@@ -217,10 +241,14 @@ public class Ball : MonoBehaviour
                 _Colors[7].SetActive(true);
                 wing =  _Colors[7].transform.GetChild(0).gameObject;
                 wing.SetActive(true);
-                _Colors[7].transform.DOLocalJump(
-                    new Vector3(Random.Range(0, 3), Random.Range(3, 5),Random.Range(0, 3)),
-                    1,1,2.0f);
                 closePart = _Colors[7].GetComponent<MeshRenderer>();
+                if (!targetObje)
+                {
+                    _Colors[7].transform.DOLocalJump(
+                        new Vector3(Random.Range(0, 3), Random.Range(3, 5),Random.Range(0, 3)),
+                        1,1,2.0f);
+                }
+                
                 if (_Colors[7].GetComponent<Animator>() != null)
                 {
                     ballAnimator = _Colors[7].GetComponent<Animator>();
@@ -234,9 +262,12 @@ public class Ball : MonoBehaviour
                 wing =  _Colors[8].transform.GetChild(0).gameObject;
                 wing.SetActive(true);
                 closePart = _Colors[8].GetComponent<MeshRenderer>();
-                _Colors[8].transform.DOLocalJump(
-                    new Vector3(Random.Range(0, 3), Random.Range(3, 5),Random.Range(0, 3)),
-                    1,1,2.0f);
+                if (!targetObje)
+                {
+                    _Colors[8].transform.DOLocalJump(
+                        new Vector3(Random.Range(0, 3), Random.Range(3, 5),Random.Range(0, 3)),
+                        1,1,2.0f);
+                }
                 if (_Colors[8].GetComponent<Animator>() != null)
                 {
                     ballAnimator = _Colors[8].GetComponent<Animator>();
@@ -250,9 +281,13 @@ public class Ball : MonoBehaviour
                 wing =  _Colors[9].transform.GetChild(0).gameObject;
                 wing.SetActive(true);
                 closePart = _Colors[9].GetComponent<MeshRenderer>();
-                _Colors[9].transform.DOLocalJump(
-                    new Vector3(Random.Range(0, 3), Random.Range(3, 5),Random.Range(0, 3)),
-                    1,1,2.0f);
+                if (!targetObje)
+                {
+                    _Colors[9].transform.DOLocalJump(
+                        new Vector3(Random.Range(0, 3), Random.Range(3, 5),Random.Range(0, 3)),
+                        1,1,2.0f);
+                }
+                
                 if (_Colors[9].GetComponent<Animator>() != null)
                 {
                     ballAnimator = _Colors[9].GetComponent<Animator>();
@@ -266,9 +301,13 @@ public class Ball : MonoBehaviour
                 wing =  _Colors[10].transform.GetChild(0).gameObject;
                 wing.SetActive(true);
                 closePart = _Colors[10].GetComponent<MeshRenderer>();
-                _Colors[10].transform.DOLocalJump(
-                    new Vector3(Random.Range(0, 3), Random.Range(3, 5),Random.Range(0, 3)),
-                    1,1,2.0f);
+                if (!targetObje)
+                {
+                    _Colors[10].transform.DOLocalJump(
+                        new Vector3(Random.Range(0, 3), Random.Range(3, 5),Random.Range(0, 3)),
+                        1,1,2.0f);
+                }
+                
                 if (_Colors[10].GetComponent<Animator>() != null)
                 {
                     ballAnimator = _Colors[10].GetComponent<Animator>();
@@ -282,9 +321,12 @@ public class Ball : MonoBehaviour
                 wing = _Colors[11].transform.GetChild(0).gameObject;
                 wing.SetActive(true);
                 closePart = _Colors[11].GetComponent<MeshRenderer>();
-                _Colors[11].transform.DOLocalJump(
-                    new Vector3(Random.Range(0, 3), Random.Range(3, 5),Random.Range(0, 3)),
-                    1,1,2.0f);
+                if (!targetObje)
+                {
+                    _Colors[11].transform.DOLocalJump(
+                        new Vector3(Random.Range(0, 3), Random.Range(3, 5),Random.Range(0, 3)),
+                        1,1,2.0f);
+                }
                 if (_Colors[11].GetComponent<Animator>() != null)
                 {
                     ballAnimator = _Colors[11].GetComponent<Animator>();
@@ -327,7 +369,7 @@ public class Ball : MonoBehaviour
         }
         
     }
-    
+
     public void SetGoTarget(Transform target)
     {
         targetObje = target.gameObject;
@@ -343,11 +385,10 @@ public class Ball : MonoBehaviour
                 .SetEase(Ease.OutBounce).OnComplete((() =>
                 {
                     go = true;
-                    agent.enabled = true;
                     _collider.isTrigger = true;
                     ballRb.isKinematic = true;
                     dustParticle.SetActive(true);
-                    _once = false;
+                    
                 }));
         }
         
@@ -504,8 +545,10 @@ public class Ball : MonoBehaviour
         if (other.CompareTag("MergeController"))
         {
             GameEventHandler.current.BallMergeArea(false);
-            wing.SetActive(true);
-            
+            if (wing !=null)
+            {
+                wing.SetActive(true);
+            }
         }
     }
 

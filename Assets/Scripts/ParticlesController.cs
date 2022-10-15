@@ -44,11 +44,6 @@ public class ParticlesController : MonoBehaviour
         
     }
 
-    public void PlayerHit()
-    {
-        
-    }
-
     public void PlayerUpgrade()
     {
         upgradeParticle.Play();

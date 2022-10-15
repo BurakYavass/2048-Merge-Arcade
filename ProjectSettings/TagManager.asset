@@ -32,6 +32,8 @@ TagManager:
   - Portal
   - Enemy
   - GameManager
+  - Sword
+  - PlayerHitPoint
   layers:
   - Default
   - TransparentFX

@@ -44,6 +44,7 @@ public class EnemyController : MonoBehaviour
     private bool _getHitting;
     private bool _hitting = false;
     private bool _hittable;
+    private bool _playerHit;
     
     void Start()
     {
@@ -53,9 +54,52 @@ public class EnemyController : MonoBehaviour
         wanderTimer = Random.Range(5, 15);
         _playerTransform = PlayerController.Current.transform;
         _timer = wanderTimer;
+        
+    }
+    
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("PlayerHitPoint"))
+        {
+            GameEventHandler.current.OnPlayerHit += HitTaken;
+            //_playerHit = true;
+        }
     }
 
- 
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("PlayerHitPoint"))
+        {
+            GameEventHandler.current.OnPlayerHit -= HitTaken;
+            //_playerHit = false;
+        }
+        if (other.CompareTag("Player"))
+        {
+            _playerController = null;
+            enemyAgent.updateRotation = true;
+            enemyAgent.isStopped = false;
+            enemyAnimator.SetBool("Attack",false);
+            _hitting = false;
+        }
+    }
+   
+
+    private void HitTaken(float damage)
+    {
+        transform.position -= Vector3.back;
+        _tempDamage = damage;
+        bloodParticle.Play();
+        _enemyHealthValueCurrentTemp = Mathf.Clamp(enemyHealthValueCurrent - _tempDamage, 0, enemyHealthValue);
+        _getHitting = true;
+        transform.DOKill();
+        transform.DOPunchScale(new Vector3(0.1f, 0.1f, 0.1f), 0.5f).SetEase(Ease.InBounce).OnComplete((() =>
+        {
+            transform.localScale = Vector3.one;
+        }));
+    }
+
+
     void Update()
     {
         _timer += Time.deltaTime;
@@ -141,16 +185,6 @@ public class EnemyController : MonoBehaviour
         return navHit.position;
     }
     
-    public void GetHit(float damage)
-    {
-        if (gameObject.activeInHierarchy)
-        {
-            _tempDamage = damage;
-            bloodParticle.Play();
-            _enemyHealthValueCurrentTemp = Mathf.Clamp(enemyHealthValueCurrent - _tempDamage, 0, enemyHealthValue);
-            _getHitting = true;
-        }
-    }
 
     private void OnTriggerStay(Collider other)
     {
@@ -165,17 +199,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            _playerController = null;
-            enemyAgent.updateRotation = true;
-            enemyAgent.isStopped = false;
-            enemyAnimator.SetBool("Attack",false);
-            _hitting = false;
-        }
-    }
+  
 
 
     IEnumerator CloseDelay()
@@ -212,12 +236,11 @@ public class EnemyController : MonoBehaviour
         //mainObje.GetComponent<CloseDelay>().CloseObje();
     }
 
-    private void WeaponHit()
+    private void EnemyHit()
     {
         if (_playerController != null)
         {
-            _playerController.GetHit(enemyDamage);
+            _playerController.HitTaken(enemyDamage);
         }
-        
     }
 }

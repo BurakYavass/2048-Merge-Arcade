@@ -11,12 +11,9 @@ public class PlayerCollisionHandler : MonoBehaviour
 {
     [SerializeField] private GameEventHandler gameEventHandler;
     [SerializeField] private PlayerController playerController;
-    [SerializeField] private PlayerAnimationHandler animationHandler;
-    [SerializeField] private WeaponsHit weaponsHit;
     [SerializeField] private BallController ballController;
-    [SerializeField] public ChestController chestController;
-    [SerializeField] public EnemyController enemyController;
     [SerializeField] private Image filledImage;
+    private ChestController _chestController;
     public List<FollowerList> playerFollowPoints;
 
     private PlayerBallCounter _playerBallCounter;
@@ -26,46 +23,28 @@ public class PlayerCollisionHandler : MonoBehaviour
     private Coroutine _mergeTriggerDelay;
     
     private bool _onMergeMachine = false;
-    public bool _hit = false;
     private bool _upgradeArea = false;
     private bool _unlockArea = false;
     private int i = 0;
-    [SerializeField] private Transform rayCastObject;
-    
+    [SerializeField] private PlayerAnimationHandler animationHandler;
+
 
     private void OnEnable()
     {
         _playerBallCounter = playerController.GetComponent<PlayerBallCounter>();
+        
     }
 
     private void Update()
     {
-        if (chestController != null)
-        {
-            if (chestController._ChestHealthValueCurrent < 1)
-            {
-                animationHandler.CurrentPlayerHit(false);
-                chestController = null;
-            }
-            else
-            {
-                animationHandler.CurrentPlayerHit(true);
-            }
-        }
-
-        if (enemyController != null)
-        {
-            if (enemyController.enemyHealthValueCurrent < 1)
-            {
-                animationHandler.CurrentPlayerHit(false);
-                enemyController = null;
-            }
-            else
-            {
-                animationHandler.CurrentPlayerHit(true);
-            }
-        }
-        
+        // if (_chestController != null)
+        // {
+        //     if (_chestController.chestHealthCurrent < 1)
+        //     {
+        //         animationHandler.HitAnimation(false);
+        //         _chestController = null;
+        //     }
+        // }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -129,42 +108,17 @@ public class PlayerCollisionHandler : MonoBehaviour
             }
         }
     }
-
+    
     private void OnTriggerStay(Collider other)
     {
         // if (other.gameObject.CompareTag("Chest"))
         // {
-        //     chestController= other.GetComponent<ChestController>();
-        //     // RaycastHit hit;
-        //     // var rayCastObje = rayCastObject.transform.position;
-        //     // if (Physics.Raycast(rayCastObje,rayCastObject.transform.forward,out hit,10))
-        //     // {
-        //     //     if (hit.collider.CompareTag("Chest"))
-        //     //     {
-        //     //         animationHandler.CurrentPlayerHit(true);
-        //     //     }
-        //     // }
-        //     animationHandler.CurrentPlayerHit(true);
-        // }
-        //
-        // if (other.gameObject.CompareTag("Enemy"))
-        // {
-        //     enemyController= other.GetComponent<EnemyController>();
-        //     // RaycastHit hit;
-        //     // var rayCastObje = rayCastObject.transform.position;
-        //     //
-        //     // if (Physics.CapsuleCast(rayCastObje, rayCastObje+Vector3.up*2,0.7f,rayCastObject.transform.forward,out hit,10))
-        //     // {
-        //     //     if (hit.collider.CompareTag("Enemy"))
-        //     //     {
-        //     //         animationHandler.CurrentPlayerHit(true);
-        //     //     }
-        //     // }
-        //     
-        //     animationHandler.CurrentPlayerHit(true);
-        //    
+        //     _chestController= other.GetComponent<ChestController>();
+        //     animationHandler.HitAnimation(true);
         // }
     }
+        
+
 
     private void OnTriggerExit(Collider other)
     {
@@ -184,18 +138,6 @@ public class PlayerCollisionHandler : MonoBehaviour
             _playerBallCounter.stackValue = 0;
             _unlockArea = false;
         }
-        
-        if (other.gameObject.CompareTag("Chest"))
-        {
-            chestController = null;
-            //animationHandler.CurrentPlayerHit(false);
-        }
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            enemyController = null;
-            //animationHandler.CurrentPlayerHit(false);
-        }
-
         if (other.CompareTag("MergeMachine"))
         {
             if (filledImage != null)
@@ -239,12 +181,6 @@ public class PlayerCollisionHandler : MonoBehaviour
         playerController.CameraChanger(0);
     }
     
-    IEnumerator HitDelay()
-    {
-        yield return new WaitForSeconds(.5f);
-        _hit = false;
-    }
-
     IEnumerator MergeAreaDelay(bool inOut)
     {
         filledImage.fillAmount = 0;
@@ -268,27 +204,10 @@ public class PlayerCollisionHandler : MonoBehaviour
             gameEventHandler.PlayerUpgradeArea(true);
         }));
     }
-
-    private void WeaponHit()
-    {
-        if (chestController != null)
-        {
-            chestController.Hit(weaponsHit._damageValue);
-            chestController.transform.parent.DOPunchScale(new Vector3(0.1f, 0.1f, 0.1f), 0.5f).SetEase(Ease.InBounce);
-        }
-
-        if (enemyController != null)
-        {
-            enemyController.GetHit(weaponsHit._damageValue);
-            enemyController.transform.DOPunchScale(new Vector3(0.1f, 0.1f, 0.1f), 0.5f).SetEase(Ease.InBounce);
-
-        }
-        //animationHandler.CurrentPlayerHit(false);
-    }
-
-    private void AnimationOver()
-    {
-        animationHandler.CurrentPlayerHit(false);
-    }
     
+    private void WeaponDamage()
+    {
+        var playerDamage = GameManager.current.playerDamage;
+        GameEventHandler.current.PlayerAnimationHit(playerDamage);
+    }
 }

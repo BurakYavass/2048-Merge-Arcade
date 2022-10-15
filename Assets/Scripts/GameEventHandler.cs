@@ -18,7 +18,9 @@ public class GameEventHandler : MonoBehaviour
     public event Action<bool> OnPlayerRightArea;
     public event Action<bool> OnPlayerLeftArea;
     public event Action<bool> OnBallMergeArea;
-    
+
+    public event Action<float> OnPlayerHit; 
+
     public void BallMergeArea(bool enterExit)
     {
         OnBallMergeArea?.Invoke(enterExit);
@@ -38,6 +40,10 @@ public class GameEventHandler : MonoBehaviour
     {
         OnPlayerUpgradeArea?.Invoke(onUpgrade);
     }
-    
 
+
+    public void PlayerAnimationHit(float damage)
+    {
+        OnPlayerHit?.Invoke(damage);
+    }
 }

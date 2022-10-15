@@ -1,13 +1,15 @@
+using System;
 using System.Collections;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class ChestController : MonoBehaviour
 {
+    private Transform _playerTransform;
     [SerializeField] private GameObject _MainObje;
-
     [SerializeField] private GameObject _CreatBall;
     [SerializeField] private GameObject[] _ClosePart; 
     [SerializeField] private GameObject[] _OpenPart;
@@ -15,35 +17,62 @@ public class ChestController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _FullHealth;
     [SerializeField] private TextMeshProUGUI _CurrentHealth;
     [SerializeField] private Image _SliderValue;
-
-    private Transform playerTransform;
     
     [SerializeField] private int[] _CreatValue;
     [SerializeField] private float _CreatCount;
     [SerializeField] private float _ChestHealthValue; 
-    public float _ChestHealthValueCurrent;
-    private float _ChestHealthValueCurrentTemp;
-    private float _TempDamage;
+    public float chestHealthCurrent;
+    private float _chestHealthValueCurrentTemp;
+    private float _tempDamage;
     
-    bool _Hitting;
+    private bool _hitTake;
+    private bool _playerHit;
     void Start()
     {
-        _ChestHealthValueCurrent = _ChestHealthValue;
+        chestHealthCurrent = _ChestHealthValue;
         _FullHealth.text = (Mathf.Round(_ChestHealthValue)).ToString();
-        _CurrentHealth.text = (Mathf.Round(_ChestHealthValueCurrent)).ToString();
-        playerTransform = PlayerController.Current.transform;
+        _CurrentHealth.text = (Mathf.Round(chestHealthCurrent)).ToString();
+        _playerTransform = PlayerController.Current.transform;
     }
 
- 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("PlayerHitPoint"))
+        {
+            GameEventHandler.current.OnPlayerHit += HitTaken;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("PlayerHitPoint"))
+        {
+            GameEventHandler.current.OnPlayerHit -= HitTaken;
+        }
+    }
+
+    private void HitTaken(float damage)
+    {
+        _tempDamage = damage;
+        _chestHealthValueCurrentTemp = Mathf.Clamp(chestHealthCurrent - _tempDamage, 0, _ChestHealthValue);
+        _hitTake = true;
+        transform.DOKill();
+        transform.DOPunchScale(new Vector3(0.1f, 0.1f, 0.1f), 0.5f).SetEase(Ease.InBounce).OnComplete((() =>
+        {
+            transform.localScale = Vector3.one;
+        }));
+    }
+
+
     void Update()
     {
-        if (_Hitting)
+        if (_hitTake)
         {
-            if (_ChestHealthValueCurrent>=1)
+            if (chestHealthCurrent>=1)
             {
-                _ChestHealthValueCurrent = Mathf.Lerp(_ChestHealthValueCurrent, _ChestHealthValueCurrentTemp, .1f);
-                _CurrentHealth.text = _ChestHealthValueCurrent.ToString("00");
-                _SliderValue.fillAmount = (1 * (_ChestHealthValueCurrent / _ChestHealthValue));
+                chestHealthCurrent = Mathf.Lerp(chestHealthCurrent, _chestHealthValueCurrentTemp, .1f);
+                _CurrentHealth.text = chestHealthCurrent.ToString("00");
+                _SliderValue.fillAmount = (1 * (chestHealthCurrent / _ChestHealthValue));
             }
             else
             {
@@ -63,7 +92,7 @@ public class ChestController : MonoBehaviour
             }
         }
 
-        var distance = Vector3.Distance(transform.position, playerTransform.position);
+        var distance = Vector3.Distance(transform.position, _playerTransform.position);
         if (distance < 10f)
         {
             _HealthBar.SetActive(true);
@@ -73,15 +102,10 @@ public class ChestController : MonoBehaviour
             _HealthBar.SetActive(false);
         }
     }
-    public void Hit(float damage)
-    {
-        if (gameObject.activeInHierarchy)
-        {
-            _TempDamage = damage;
-            _ChestHealthValueCurrentTemp = Mathf.Clamp(_ChestHealthValueCurrent - _TempDamage, 0, _ChestHealthValue);
-            _Hitting = true;
-        }
-    }
+
+   
+
+  
     
 
     IEnumerator CloseDelay()

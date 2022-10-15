@@ -16,16 +16,7 @@ public class PlayerBallCounter : MonoBehaviour
     {
         stackValue = _upgradeArea._totalValue;
     }
-
-    public void BallCountCheck()
-    {
-        // foreach (var ball in _ballController.balls)
-        // {
-        //     stackValue += ball.GetComponent<Ball>().GetValue();
-        // }
-        
-
-    }
+    
     public float GetValue()
     {
         return stackValue;

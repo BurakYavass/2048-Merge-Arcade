@@ -1,21 +1,27 @@
+using System;
 using UnityEngine;
 
 public class TargetDetected : MonoBehaviour
 {
     public bool targetEnterExit;
     [SerializeField] private PlayerCollisionHandler playerCollisionHandler;
+    [SerializeField] private PlayerAnimationHandler playerAnimationHandler;
+    [SerializeField] private ChestController chestController;
+    
 
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.CompareTag("Chest"))
         {
-            playerCollisionHandler.chestController = other.GetComponent<ChestController>();
+            //chestController = other.GetComponent<ChestController>();
+            playerAnimationHandler.HitAnimation(true);
             targetEnterExit = true;
         }
 
         if (other.gameObject.CompareTag("Enemy"))
         {
-            playerCollisionHandler.enemyController = other.GetComponent<EnemyController>();
+            //playerCollisionHandler.enemyController = other.GetComponent<EnemyController>();
+            playerAnimationHandler.HitAnimation(true);
             targetEnterExit = true;
         }
         
@@ -25,13 +31,15 @@ public class TargetDetected : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Chest"))
         {
-            playerCollisionHandler.chestController = null;
+            //chestController = null;
+            playerAnimationHandler.HitAnimation(false);
             targetEnterExit = false;
         }
 
         if (other.gameObject.CompareTag("Enemy"))
         {
-            playerCollisionHandler.enemyController = null;
+           //playerCollisionHandler.enemyController = null;
+           playerAnimationHandler.HitAnimation(false);
             targetEnterExit = false;
         }
     }

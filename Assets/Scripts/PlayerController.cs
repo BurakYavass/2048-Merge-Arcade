@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     public float playerHealthValueCurrent;
     private float _playerHealthValueCurrentTemp;
     private float _currentMoveMultiplier;
-    private float _tempDamage;
+    private float _takenDamage;
     private float _tempHeal;
 
     public bool walking = false;
@@ -211,13 +211,15 @@ public class PlayerController : MonoBehaviour
             walking = false;
         }
     }
+    
+    
 
-    public void GetHit(float damage)
+    public void HitTaken(float damage)
     {
         if (gameObject.activeInHierarchy && !playerDie)
         {
-            _tempDamage = damage;
-            _playerHealthValueCurrentTemp = Mathf.Clamp(playerHealthValueCurrent - _tempDamage, 0, _playerHealthValue);
+            _takenDamage = damage;
+            _playerHealthValueCurrentTemp = Mathf.Clamp(playerHealthValueCurrent - _takenDamage, 0, _playerHealthValue);
             _gethit = true;
             _virtualCamera.GetComponent<CinemachineShake>().ShakeCamera(.55f,.1f);
         }
