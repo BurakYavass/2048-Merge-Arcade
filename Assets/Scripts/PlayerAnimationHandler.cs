@@ -17,22 +17,23 @@ public class PlayerAnimationHandler : MonoBehaviour
     public void CurrentPlayerHit(bool hit)
     {
         playerHit = hit;
-        if (!_once)
-        {
-            _once = true;
-            animator.Play("Hit",1,0);
-        }
-
-        if (!playerHit)
-        {
-            _once = false;
-        }
+        // if (!_once)
+        // {
+        //     _once = true;
+        //     animator.Play("Hit",1,0);
+        // }
+        //
+        // if (!playerHit)
+        // {
+        //     animator.SetBool("Hit", playerHit);
+        //     _once = false;
+        // }
     }
 
     void Update()
     {
-        animator.SetLayerWeight(1,playerHit ? 1 : 0);
-        //animator.SetBool("Hit", playerHit);
+        //animator.SetLayerWeight(1,playerHit ? 1 : 0);
+        animator.SetBool("Hit", playerHit);
         
 
         animator.SetFloat("WalkingSpeed" , playerController.PlayerSpeed/10);
