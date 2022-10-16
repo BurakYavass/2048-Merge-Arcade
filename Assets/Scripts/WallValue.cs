@@ -1,10 +1,7 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
-using TMPro;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.UI;
 
 public class WallValue : MonoBehaviour
@@ -17,48 +14,19 @@ public class WallValue : MonoBehaviour
     [SerializeField] private Image wallValueTexture;
     [SerializeField] private TravelManager openGameObject;
     [SerializeField] private GameObject mainObject;
+    [SerializeField] private List<Sprite> images;
+    [SerializeField] private Image filledImage;
     private PlayerCollisionHandler _playerFollowerList;
     private PlayerBallCounter _playerBallCounter;
     private BallController _ballController;
-    [SerializeField] private List<Sprite> images;
-
-
-    // [SerializeField]
-    // List<GameObject> _2 = new List<GameObject>(); 
-    // [SerializeField]
-    // List<GameObject> _4 = new List<GameObject>();
-    // [SerializeField]
-    // List<GameObject> _8 = new List<GameObject>();
-    // [SerializeField]
-    // List<GameObject> _16 = new List<GameObject>();
-    // [SerializeField]
-    // List<GameObject> _32 = new List<GameObject>();
-    // [SerializeField]
-    // List<GameObject> _64 = new List<GameObject>();
-    // [SerializeField]
-    // List<GameObject> _128 = new List<GameObject>();
-    // [SerializeField]
-    // List<GameObject> _256 = new List<GameObject>();
-    // [SerializeField]
-    // List<GameObject> _512 = new List<GameObject>();
-    // [SerializeField]
-    // List<GameObject> _1024 = new List<GameObject>();     
-    // [SerializeField]
-    // List<GameObject> _2048 = new List<GameObject>();
-    // [SerializeField]
-    // List<GameObject> _4096 = new List<GameObject>();
     
+
     private int _totalValue;
     private bool unlockWall;
     private bool _playerWallArea = false;
     private bool once = false;
     private int _dicreaseValue;
     private int j;
-
-    private void Awake()
-    {
-       
-    }
 
     private void Start()
     {
@@ -84,7 +52,6 @@ public class WallValue : MonoBehaviour
     {
         if (unlockCurrent == 0)
         {
-            
             if (!once)
             {
                 once = true;
@@ -92,7 +59,7 @@ public class WallValue : MonoBehaviour
             }
         }
         
-        if (unlockWall && GameObject.FindGameObjectsWithTag("UnlockBall").Length<1 )
+        if (unlockWall && GameObject.FindGameObjectsWithTag("StackBall").Length<1 )
         {
             TotalValue();
         }
@@ -149,20 +116,28 @@ public class WallValue : MonoBehaviour
                 _playerWallArea = true;
                 _playerFollowerList = other.GetComponent<PlayerCollisionHandler>();
                 _playerBallCounter = other.GetComponent<PlayerBallCounter>();
-                StartCoroutine(TriggerDelay(true));
+                filledImage.DOKill();
+                filledImage.DOFillAmount(1, playerWaitTime).OnComplete((() =>
+                {
+                    UnlockCalculate(true);
+                    filledImage.fillAmount = 0;
+                }));
+                
+                //StartCoroutine(TriggerDelay(true));
             }
         }
         
         if (other.CompareTag("UnlockBall"))
         {
             transform.DOKill();
+            Destroy(other.gameObject);
             var scale = transform.localScale;
             transform.DOPunchScale(new Vector3(0.1f, 0.1f, 0.1f), 0.1f).SetEase(Ease.OutBounce)
                                                 .OnComplete((() => transform.localScale = scale));
             int tempvalue = other.GetComponent<Ball>().GetValue();
             _totalValue += tempvalue;
             unlockCurrent = Mathf.Clamp(unlockCurrent - tempvalue,0,unlockCurrent);
-            Destroy(other.gameObject);
+            
         }
     }
 
@@ -170,19 +145,22 @@ public class WallValue : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (_playerWallArea)
-            {
-                _playerWallArea = false;
-                StopCoroutine(TriggerDelay(false));
-            }
+            filledImage.DOKill();
+            filledImage.fillAmount = 0;
+            UnlockCalculate(false);
+            // if (_playerWallArea)
+            // {
+            //     _playerWallArea = false;
+            //     //StopCoroutine(TriggerDelay(false));
+            // }
         }
     }
 
-    IEnumerator TriggerDelay(bool unlock)
-    {
-        yield return new WaitForSeconds(playerWaitTime);
-        UnlockCalculate(unlock);
-    }
+    // IEnumerator TriggerDelay(bool unlock)
+    // {
+    //     yield return new WaitForSeconds(playerWaitTime);
+    //     UnlockCalculate(unlock);
+    // }
 
     IEnumerator Delay()
     {

@@ -5000,18 +5000,6 @@ MonoBehaviour:
   blackSmith: {fileID: 5267045264400700469}
   blackSmithAnimator: {fileID: 4288301857335782909}
   ballPrefab: {fileID: 6986705099755840392, guid: 0f2efdd3da2d21d489df375a833720ad, type: 3}
-  _2: []
-  _4: []
-  _8: []
-  _16: []
-  _32: []
-  _64: []
-  _128: []
-  _256: []
-  _512: []
-  _1024: []
-  _2048: []
-  _4096: []
   _totalValue: 0
   upgradeAnimator: {fileID: 0}
   _playerFollowerList: {fileID: 0}
@@ -9893,7 +9881,6 @@ GameObject:
   - component: {fileID: 8341209620565881062}
   - component: {fileID: 8341209620565881061}
   - component: {fileID: 8341209620565881060}
-  - component: {fileID: 8341209620565881063}
   m_Layer: 0
   m_Name: UpgradeTrigger
   m_TagString: UpgradeTrigger
@@ -9966,19 +9953,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8341209620565881063
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8341209620565881057}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.8542844, y: 1.1877726, z: 3.3254004}
-  m_Center: {x: 0.097141676, y: -0.09388651, z: 1.162701}
 --- !u!1001 &2969770003195345866
 PrefabInstance:
   m_ObjectHideFlags: 0
