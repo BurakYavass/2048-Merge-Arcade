@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 867958145}
   - component: {fileID: 1413927957}
   m_Layer: 0
-  m_Name: Lvl3Chest1
+  m_Name: Lvl3Box
   m_TagString: Chest
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
@@ -32,8 +32,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 7612797951319232166}
+  m_Children: []
   m_Father: {fileID: 4704370139685902565}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: -14.513}
@@ -127,7 +126,7 @@ MonoBehaviour:
   _CreatValue: 04000000
   _CreatCount: 2
   _ChestHealthValue: 20
-  _ChestHealthValueCurrent: 0
+  chestHealthCurrent: 0
 --- !u!95 &1413927957
 Animator:
   serializedVersion: 4
@@ -175,13 +174,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3595257437724797892}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0049999016, y: 0, z: -0.04144457}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.004999359, y: 0, z: -0.04143716}
+  m_LocalScale: {x: 1.4999999, y: 1.5, z: 1.4999999}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8388495092198234400}
-  m_RootOrder: 0
+  m_Father: {fileID: 4704370139685902565}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1520709263237482664
 MeshFilter:
@@ -292,6 +291,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8388495092198234400}
+  - {fileID: 7612797951319232166}
   - {fileID: 6585889938406903765}
   - {fileID: 3985093878464649432}
   m_Father: {fileID: 0}
@@ -419,7 +419,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6363530414472190775, guid: 9b1adda6c447de24a83feb8f6c6f0bbf, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6363530414472190775, guid: 9b1adda6c447de24a83feb8f6c6f0bbf, type: 3}
       propertyPath: m_AnchorMax.x
@@ -569,9 +569,33 @@ PrefabInstance:
       propertyPath: InitialModule.startLifetime.scalar
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 4495525202183280355, guid: 20926bcdb8c5a21419f68cf9e2d8961c, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.7058824
+      objectReference: {fileID: 0}
+    - target: {fileID: 4495525202183280355, guid: 20926bcdb8c5a21419f68cf9e2d8961c, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.23137257
+      objectReference: {fileID: 0}
+    - target: {fileID: 4495525202183280355, guid: 20926bcdb8c5a21419f68cf9e2d8961c, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.909804
+      objectReference: {fileID: 0}
+    - target: {fileID: 4495525202183280355, guid: 20926bcdb8c5a21419f68cf9e2d8961c, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key0.b
+      value: 0.69803923
+      objectReference: {fileID: 0}
+    - target: {fileID: 4495525202183280355, guid: 20926bcdb8c5a21419f68cf9e2d8961c, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key0.g
+      value: 0.227451
+      objectReference: {fileID: 0}
+    - target: {fileID: 4495525202183280355, guid: 20926bcdb8c5a21419f68cf9e2d8961c, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key0.r
+      value: 0.9058824
+      objectReference: {fileID: 0}
     - target: {fileID: 4495525202198444309, guid: 20926bcdb8c5a21419f68cf9e2d8961c, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4495525202198444309, guid: 20926bcdb8c5a21419f68cf9e2d8961c, type: 3}
       propertyPath: m_LocalScale.x

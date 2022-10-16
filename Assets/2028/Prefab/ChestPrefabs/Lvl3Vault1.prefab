@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5719732980240196602}
   - component: {fileID: 715310551044110893}
   - component: {fileID: 5201489013424348734}
-  - component: {fileID: 6172697938694641464}
   - component: {fileID: 1604891899713586142}
   - component: {fileID: 8237917836032764395}
   m_Layer: 0
@@ -32,8 +31,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 5567578334481824010}
+  m_Children: []
   m_Father: {fileID: 5724743012027968684}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -90,26 +88,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!95 &6172697938694641464
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2337107493192002877}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0089696eaf307754e98222b7ff91e700, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &1604891899713586142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,8 +103,8 @@ MonoBehaviour:
   _MainObje: {fileID: 6919639931698802679}
   _CreatBall: {fileID: 6986705099755840392, guid: 0f2efdd3da2d21d489df375a833720ad, type: 3}
   _ClosePart:
-  - {fileID: 2337107493192002877}
   - {fileID: 4369667952031720640}
+  - {fileID: 2337107493192002877}
   - {fileID: 2780241604651673947}
   _OpenPart:
   - {fileID: 5752362029378241074}
@@ -137,7 +115,7 @@ MonoBehaviour:
   _CreatValue: 0400000008000000
   _CreatCount: 4
   _ChestHealthValue: 50
-  _ChestHealthValueCurrent: 0
+  chestHealthCurrent: 0
 --- !u!65 &8237917836032764395
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -179,12 +157,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4369667952031720640}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.04}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 2}
+  m_LocalPosition: {x: 0, y: 0, z: 0.03999996}
+  m_LocalScale: {x: 1.4999999, y: 1.4999999, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5719732980240196602}
-  m_RootOrder: 0
+  m_Father: {fileID: 5724743012027968684}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2892455040881005864
 MeshFilter:
@@ -295,6 +273,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5719732980240196602}
+  - {fileID: 5567578334481824010}
   - {fileID: 5752362029378446320}
   - {fileID: 2780241604651673946}
   m_Father: {fileID: 0}
@@ -322,19 +301,31 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4495525202183280355, guid: 20926bcdb8c5a21419f68cf9e2d8961c, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
-      value: 0.45098042
+      value: 0.47058827
       objectReference: {fileID: 0}
     - target: {fileID: 4495525202183280355, guid: 20926bcdb8c5a21419f68cf9e2d8961c, type: 3}
       propertyPath: InitialModule.startColor.maxColor.g
-      value: 0.627451
+      value: 0.42352945
       objectReference: {fileID: 0}
     - target: {fileID: 4495525202183280355, guid: 20926bcdb8c5a21419f68cf9e2d8961c, type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
-      value: 0.13333334
+      value: 0.9333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 4495525202183280355, guid: 20926bcdb8c5a21419f68cf9e2d8961c, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key0.b
+      value: 0.4666667
+      objectReference: {fileID: 0}
+    - target: {fileID: 4495525202183280355, guid: 20926bcdb8c5a21419f68cf9e2d8961c, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key0.g
+      value: 0.41960788
+      objectReference: {fileID: 0}
+    - target: {fileID: 4495525202183280355, guid: 20926bcdb8c5a21419f68cf9e2d8961c, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key0.r
+      value: 0.92549026
       objectReference: {fileID: 0}
     - target: {fileID: 4495525202198444309, guid: 20926bcdb8c5a21419f68cf9e2d8961c, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4495525202198444309, guid: 20926bcdb8c5a21419f68cf9e2d8961c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -417,7 +408,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6363530414472190775, guid: 9b1adda6c447de24a83feb8f6c6f0bbf, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6363530414472190775, guid: 9b1adda6c447de24a83feb8f6c6f0bbf, type: 3}
       propertyPath: m_AnchorMax.x

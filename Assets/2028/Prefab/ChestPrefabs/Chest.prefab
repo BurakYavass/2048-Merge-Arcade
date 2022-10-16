@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 9125106667903028836}
   - component: {fileID: 8085266752041353350}
   - component: {fileID: 1311728381372591371}
-  - component: {fileID: 7385895005598399096}
   m_Layer: 0
   m_Name: Chest
   m_TagString: Chest
@@ -101,34 +100,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.5, y: 1.7, z: 2}
   m_Center: {x: 0.54285896, y: 0.0012009783, z: -0.19154297}
---- !u!114 &7385895005598399096
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2530805582524634302}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a13ccf0e8f9d6c48850ab9a81476fcd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _MainObje: {fileID: 0}
-  _CreatBall: {fileID: 6986705099755840392, guid: 0f2efdd3da2d21d489df375a833720ad, type: 3}
-  _ClosePart:
-  - {fileID: 0}
-  - {fileID: 2530805582524634302}
-  - {fileID: 3469132838090080217}
-  _OpenPart:
-  - {fileID: 0}
-  _HealthBar: {fileID: 0}
-  _FullHealth: {fileID: 0}
-  _CurrentHealth: {fileID: 0}
-  _SliderValue: {fileID: 0}
-  _CreatValue: 0400000008000000
-  _CreatCount: 3
-  _ChestHealthValue: 30
-  _ChestHealthValueCurrent: 0
 --- !u!1 &3469132838090080217
 GameObject:
   m_ObjectHideFlags: 0

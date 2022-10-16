@@ -147,6 +147,13 @@ public class GameManager : MonoBehaviour
                 uiManager.PlayerRevive(false,playerReviveDelay);
                 _playerController.playerDie = false;
                 _playerController.playerCollisionHandler.enabled = true;
+                
+                var colliders = _playerController.GetComponents<Collider>();
+                foreach (var cllider in colliders)
+                {
+                    cllider.enabled = true;
+                }
+                _playerController.rb.isKinematic = false;
                 for (int i = 0; i < _playerController.closePart.Length; i++)
                 {
                     _playerController.closePart[i].SetActive(true);

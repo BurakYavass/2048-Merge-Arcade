@@ -136,7 +136,7 @@ MonoBehaviour:
   _CreatValue: 0400000008000000
   _CreatCount: 4
   _ChestHealthValue: 110
-  _ChestHealthValueCurrent: 0
+  chestHealthCurrent: 0
 --- !u!65 &4876488456519774557
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -330,6 +330,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4495525202183280355, guid: 20926bcdb8c5a21419f68cf9e2d8961c, type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.11764707
+      objectReference: {fileID: 0}
+    - target: {fileID: 4495525202183280355, guid: 20926bcdb8c5a21419f68cf9e2d8961c, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key0.b
+      value: 0.37647063
+      objectReference: {fileID: 0}
+    - target: {fileID: 4495525202183280355, guid: 20926bcdb8c5a21419f68cf9e2d8961c, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key0.g
+      value: 0.56078434
+      objectReference: {fileID: 0}
+    - target: {fileID: 4495525202183280355, guid: 20926bcdb8c5a21419f68cf9e2d8961c, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key0.r
       value: 0.11764707
       objectReference: {fileID: 0}
     - target: {fileID: 4495525202198444309, guid: 20926bcdb8c5a21419f68cf9e2d8961c, type: 3}

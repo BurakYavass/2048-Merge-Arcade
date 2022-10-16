@@ -12,10 +12,9 @@ GameObject:
   - component: {fileID: 6003893980624673330}
   - component: {fileID: 6756625039642481872}
   - component: {fileID: 4595021726786992477}
-  - component: {fileID: 545125218598824944}
   - component: {fileID: 576502241043074002}
   m_Layer: 0
-  m_Name: lvl3chst3
+  m_Name: lvl3Chest1
   m_TagString: Chest
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,8 +31,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 758520142983695324}
+  m_Children: []
   m_Father: {fileID: 2287741638534487717}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -102,26 +100,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2, y: 2.12, z: 2.41}
   m_Center: {x: -0.25, y: 0, z: -0.13}
---- !u!95 &545125218598824944
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1076293986582331624}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0089696eaf307754e98222b7ff91e700, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &576502241043074002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,9 +115,9 @@ MonoBehaviour:
   _MainObje: {fileID: 3202818396577974641}
   _CreatBall: {fileID: 6986705099755840392, guid: 0f2efdd3da2d21d489df375a833720ad, type: 3}
   _ClosePart:
-  - {fileID: 8799913854462201741}
+  - {fileID: 2149391328739699599}
   - {fileID: 1076293986582331624}
-  - {fileID: 0}
+  - {fileID: 8799913854462201741}
   _OpenPart:
   - {fileID: 3391193107276439836}
   _HealthBar: {fileID: 8799913854462201741}
@@ -149,7 +127,7 @@ MonoBehaviour:
   _CreatValue: 0400000008000000
   _CreatCount: 3
   _ChestHealthValue: 75
-  _ChestHealthValueCurrent: 0
+  chestHealthCurrent: 0
 --- !u!1 &2149391328739699599
 GameObject:
   m_ObjectHideFlags: 0
@@ -177,13 +155,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2149391328739699599}
-  m_LocalRotation: {x: 0.000000022351742, y: -0.000000022351742, z: 0.000000029802322, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.11869982}
+  m_LocalRotation: {x: 0.000000014901161, y: -0.000000014901161, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.000011470169, z: -0.118688725}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5367904883907290036}
-  m_RootOrder: 0
+  m_Father: {fileID: 2287741638534487717}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1194754768789423314
 MeshFilter:
@@ -275,7 +253,7 @@ GameObject:
   - component: {fileID: 2287741638534487717}
   - component: {fileID: 5278633608939663903}
   m_Layer: 0
-  m_Name: Lvl3Chest3
+  m_Name: Lvl3Chest1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -294,6 +272,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5367904883907290036}
+  - {fileID: 758520142983695324}
   - {fileID: 3391193107276103902}
   - {fileID: 8799913854462201740}
   m_Father: {fileID: 0}
@@ -319,9 +298,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2287741638534487717}
     m_Modifications:
+    - target: {fileID: 4495525202183280355, guid: 20926bcdb8c5a21419f68cf9e2d8961c, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.63529414
+      objectReference: {fileID: 0}
+    - target: {fileID: 4495525202183280355, guid: 20926bcdb8c5a21419f68cf9e2d8961c, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.20784315
+      objectReference: {fileID: 0}
+    - target: {fileID: 4495525202183280355, guid: 20926bcdb8c5a21419f68cf9e2d8961c, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.8235295
+      objectReference: {fileID: 0}
+    - target: {fileID: 4495525202183280355, guid: 20926bcdb8c5a21419f68cf9e2d8961c, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key0.b
+      value: 0.6117647
+      objectReference: {fileID: 0}
+    - target: {fileID: 4495525202183280355, guid: 20926bcdb8c5a21419f68cf9e2d8961c, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key0.g
+      value: 0.21960786
+      objectReference: {fileID: 0}
+    - target: {fileID: 4495525202183280355, guid: 20926bcdb8c5a21419f68cf9e2d8961c, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key0.r
+      value: 0.7960785
+      objectReference: {fileID: 0}
     - target: {fileID: 4495525202198444309, guid: 20926bcdb8c5a21419f68cf9e2d8961c, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4495525202198444309, guid: 20926bcdb8c5a21419f68cf9e2d8961c, type: 3}
       propertyPath: m_LocalScale.x
@@ -436,7 +439,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6363530414472190775, guid: 9b1adda6c447de24a83feb8f6c6f0bbf, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6363530414472190775, guid: 9b1adda6c447de24a83feb8f6c6f0bbf, type: 3}
       propertyPath: m_AnchorMax.x

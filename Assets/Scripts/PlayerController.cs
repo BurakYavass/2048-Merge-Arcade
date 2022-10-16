@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public static PlayerController Current;
     private GameManager _gameManager;
     public PlayerCollisionHandler playerCollisionHandler;
+    [SerializeField] public Rigidbody rb;
     [NonSerialized] public float PlayerSpeed;
     [SerializeField] private float acceleration;
     [SerializeField] private List<CinemachineVirtualCamera> virtualCameras;
@@ -136,8 +137,12 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                var collider = GetComponent<Collider>();
-                collider.isTrigger = false;
+                rb.isKinematic = true;
+                var colliders = GetComponents<Collider>();
+                foreach (var collider in colliders)
+                {
+                    collider.enabled = false;
+                }
                 playerCollisionHandler.enabled = false;
                 playerHealthValueCurrent = 0;
                 for (int i = 0; i < closePart.Length; i++)

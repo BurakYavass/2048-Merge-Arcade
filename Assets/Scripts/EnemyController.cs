@@ -21,6 +21,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI currentHealth;
     [SerializeField] private Image sliderValue;
     [SerializeField] private ParticleSystem bloodParticle;
+    [SerializeField] private Rigidbody _rb;
     [SerializeField] private float enemyDamage;
     [SerializeField] private int[] creatValue;
     [SerializeField] private float creatCount;
@@ -66,6 +67,19 @@ public class EnemyController : MonoBehaviour
             //_playerHit = true;
         }
     }
+    
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            _playerController = other.GetComponent<PlayerController>();
+            var playerTransform = other.transform.position;
+            enemyAgent.transform.LookAt(playerTransform,Vector3.up);
+            enemyAnimator.SetBool("Walking",false);
+            enemyAnimator.SetBool("Idle",false);
+            enemyAnimator.SetBool("Attack",true);
+        }
+    }
 
     private void OnTriggerExit(Collider other)
     {
@@ -78,7 +92,6 @@ public class EnemyController : MonoBehaviour
         {
             _playerController = null;
             enemyAgent.updateRotation = true;
-            enemyAgent.isStopped = false;
             enemyAnimator.SetBool("Attack",false);
             _hitting = false;
         }
@@ -87,14 +100,20 @@ public class EnemyController : MonoBehaviour
 
     private void HitTaken(float damage)
     {
-        transform.position -= Vector3.back;
         _tempDamage = damage;
         bloodParticle.Play();
+        enemyAgent.updatePosition = false;
+        enemyAgent.enabled = false;
+        _rb.isKinematic = false;
+        _rb.AddForce(-transform.forward/2,ForceMode.Impulse);
         _enemyHealthValueCurrentTemp = Mathf.Clamp(enemyHealthValueCurrent - _tempDamage, 0, enemyHealthValue);
         _getHitting = true;
         transform.DOKill();
         transform.DOPunchScale(new Vector3(0.1f, 0.1f, 0.1f), 0.5f).SetEase(Ease.InBounce).OnComplete((() =>
         {
+            _rb.isKinematic = true;
+            enemyAgent.enabled = true;
+            enemyAgent.updatePosition = true;
             transform.localScale = Vector3.one;
         }));
     }
@@ -130,40 +149,43 @@ public class EnemyController : MonoBehaviour
             }
         }
 
-        var distance = Vector3.Distance(transform.position, _playerTransform.position);
-        if (distance < 15.0f && !_hitting)
+        if (enemyAgent.enabled)
         {
-            healthBar.SetActive(true);
-            enemyAgent.destination = _playerTransform.position;
-            enemyAnimator.SetBool("Walking",true);
-            enemyAnimator.SetBool("Idle",false);
-        }
-        else
-        {
-            healthBar.SetActive(false);
-            if (_timer >= wanderTimer)
+            var distance = Vector3.Distance(transform.position, _playerTransform.position);
+            if (distance < 15.0f && !_hitting)
             {
-                if (!boss)
-                {
-                    _newPos = RandomNavSphere(transform.position, Random.Range(5f,wanderRadius), -1);
-                    enemyAgent.SetDestination(_newPos);
-                }
-                _timer = 0;
-            }
-            
-            var dist = Vector3.Distance(transform.position, _newPos);
-            if (dist <= 3f)
-            {
-                enemyAnimator.SetBool("Walking",false);
-                enemyAnimator.SetBool("Attack",false);
-                enemyAnimator.SetBool("Idle",true);
+                healthBar.SetActive(true);
+                enemyAgent.destination = _playerTransform.position;
+                enemyAnimator.SetBool("Walking",true);
+                enemyAnimator.SetBool("Idle",false);
             }
             else
             {
-                if (!boss)
+                healthBar.SetActive(false);
+                if (_timer >= wanderTimer)
                 {
-                    enemyAnimator.SetBool("Walking",true);
-                    enemyAnimator.SetBool("Idle", false);
+                    if (!boss)
+                    {
+                        _newPos = RandomNavSphere(transform.position, Random.Range(5f,wanderRadius), -1);
+                        enemyAgent.SetDestination(_newPos);
+                    }
+                    _timer = 0;
+                }
+            
+                var dist = Vector3.Distance(transform.position, _newPos);
+                if (dist <= 5f)
+                {
+                    enemyAnimator.SetBool("Walking",false);
+                    enemyAnimator.SetBool("Attack",false);
+                    enemyAnimator.SetBool("Idle",true);
+                }
+                else
+                {
+                    if (!boss)
+                    {
+                        enemyAnimator.SetBool("Walking",true);
+                        enemyAnimator.SetBool("Idle", false);
+                    }
                 }
             }
         }
@@ -186,21 +208,7 @@ public class EnemyController : MonoBehaviour
     }
     
 
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            _playerController = other.GetComponent<PlayerController>();
-            var playerTransform = other.transform.position;
-            enemyAgent.transform.LookAt(playerTransform,Vector3.up);
-            enemyAnimator.SetBool("Walking",false);
-            enemyAnimator.SetBool("Idle",false);
-            enemyAnimator.SetBool("Attack",true);
-        }
-    }
-
-  
-
+    
 
     IEnumerator CloseDelay()
     {

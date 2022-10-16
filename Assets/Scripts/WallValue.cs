@@ -16,6 +16,7 @@ public class WallValue : MonoBehaviour
     [SerializeField] private GameObject mainObject;
     [SerializeField] private List<Sprite> images;
     [SerializeField] private Image filledImage;
+    [SerializeField] private Image triggerFilled;
     private PlayerCollisionHandler _playerFollowerList;
     private PlayerBallCounter _playerBallCounter;
     private BallController _ballController;
@@ -33,6 +34,7 @@ public class WallValue : MonoBehaviour
         _ballController = GameObject.FindWithTag("BallController").GetComponent<BallController>();
         var image= images.Find((texture => texture.name == unlockRequire.ToString()));
         wallValueTexture.sprite = image;
+        filledImage.sprite = image;
         unlockCurrent = unlockRequire;
     }
 
@@ -62,6 +64,7 @@ public class WallValue : MonoBehaviour
         if (unlockWall && GameObject.FindGameObjectsWithTag("StackBall").Length<1 )
         {
             TotalValue();
+            _ballController.GoUnlock(transform,false);
         }
     }
 
@@ -116,11 +119,11 @@ public class WallValue : MonoBehaviour
                 _playerWallArea = true;
                 _playerFollowerList = other.GetComponent<PlayerCollisionHandler>();
                 _playerBallCounter = other.GetComponent<PlayerBallCounter>();
-                filledImage.DOKill();
-                filledImage.DOFillAmount(1, playerWaitTime).OnComplete((() =>
+                triggerFilled.DOKill();
+                triggerFilled.DOFillAmount(1, playerWaitTime).OnComplete((() =>
                 {
                     UnlockCalculate(true);
-                    filledImage.fillAmount = 0;
+                    triggerFilled.fillAmount = 0;
                 }));
                 
                 //StartCoroutine(TriggerDelay(true));
@@ -137,7 +140,8 @@ public class WallValue : MonoBehaviour
             int tempvalue = other.GetComponent<Ball>().GetValue();
             _totalValue += tempvalue;
             unlockCurrent = Mathf.Clamp(unlockCurrent - tempvalue,0,unlockCurrent);
-            
+            filledImage.DOKill();
+            filledImage.fillAmount += 1.0f/  unlockRequire;
         }
     }
 
@@ -145,14 +149,20 @@ public class WallValue : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            filledImage.DOKill();
-            filledImage.fillAmount = 0;
+            triggerFilled.DOKill();
+            triggerFilled.fillAmount = 0;
             UnlockCalculate(false);
+            _playerWallArea = false;
             // if (_playerWallArea)
             // {
             //     _playerWallArea = false;
             //     //StopCoroutine(TriggerDelay(false));
             // }
+        }
+
+        if (other.CompareTag("UnlockBall"))
+        {
+            filledImage.DOPause();
         }
     }
 

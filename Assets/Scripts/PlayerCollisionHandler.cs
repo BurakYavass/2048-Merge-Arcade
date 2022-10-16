@@ -15,6 +15,7 @@ public class PlayerCollisionHandler : MonoBehaviour
 
     private PlayerBallCounter _playerBallCounter;
 
+    private bool _active = false;
     private bool _unlockArea = false;
     private int i = 0;
     [SerializeField] private PlayerController playerController;
@@ -24,6 +25,16 @@ public class PlayerCollisionHandler : MonoBehaviour
     {
         _playerBallCounter = GetComponent<PlayerBallCounter>();
         playerController = GetComponent<PlayerController>();
+    }
+
+    private void OnEnable()
+    {
+        _active = true;
+    }
+
+    private void OnDisable()
+    {
+        _active = false;
     }
 
     private void Update()
@@ -40,7 +51,7 @@ public class PlayerCollisionHandler : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (enabled)
+        if (_active)
         {
             if (other.CompareTag("EmptyBall"))
             {

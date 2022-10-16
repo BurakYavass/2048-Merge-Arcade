@@ -1326,7 +1326,6 @@ GameObject:
   - component: {fileID: 4001288794217600324}
   - component: {fileID: 4001288794217600325}
   - component: {fileID: 7947560771197877128}
-  - component: {fileID: 7504333408828576443}
   m_Layer: 0
   m_Name: NewCharacter
   m_TagString: Player
@@ -1427,7 +1426,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 2714442481954738373}
   playerController: {fileID: 4001288794217600441}
-  weaponDamage: {fileID: 0}
 --- !u!114 &4001288794217600444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1440,15 +1438,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44237c7d87ee38b4d951ad39ed9ec12d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameEventHandler: {fileID: 0}
-  playerController: {fileID: 4001288794217600441}
   ballController: {fileID: 0}
-  filledImage: {fileID: 0}
   playerFollowPoints:
   - {fileID: 7546648860791863745}
   - {fileID: 7546648861596224686}
   - {fileID: 7546648860518736730}
-  animationHandler: {fileID: 4001288794217600440}
+  playerController: {fileID: 4001288794217600441}
 --- !u!136 &4001288794217600447
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1544,22 +1539,6 @@ CapsuleCollider:
   m_Height: 2.88
   m_Direction: 0
   m_Center: {x: 0, y: 0.93, z: 1.57}
---- !u!208 &7504333408828576443
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6221979848021818452}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 0
-  m_Extents: {x: 1.06, y: 2.175, z: 1.06}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 1.44, z: 0}
-  m_TimeToStationary: 0.5
 --- !u!1 &6550718733014511501
 GameObject:
   m_ObjectHideFlags: 0
