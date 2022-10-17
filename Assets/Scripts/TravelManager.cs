@@ -98,7 +98,7 @@ public class TravelManager : MonoBehaviour
     {
         yield return new WaitForSeconds(travelDelay);
         var travelPos = _travelPoint.transform.position;
-        _player.gameObject.transform.DOMove(new Vector3(travelPos.x,travelPos.y+1f,travelPos.z), 2.0f)
+        _player.gameObject.transform.DOMove(new Vector3(travelPos.x,travelPos.y+.5f,travelPos.z), 2.0f)
             .OnComplete((() =>
             {
                 firstTimePlay.SetActive(false);

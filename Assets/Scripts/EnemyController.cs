@@ -51,13 +51,18 @@ public class EnemyController : MonoBehaviour
     {
         enemyHealthValueCurrent = enemyHealthValue;
         fullHealth.text = (Mathf.Round(enemyHealthValue)).ToString();
-        currentHealth.text = (Mathf.Round(enemyHealthValueCurrent)).ToString();
+        currentHealth.text = (Mathf.Round(enemyHealthValueCurrent)).ToString("0");
         wanderTimer = Random.Range(5, 15);
         _playerTransform = PlayerController.Current.transform;
         _timer = wanderTimer;
         
     }
-    
+
+    private void OnDisable()
+    {
+        GameEventHandler.current.OnPlayerHit -= HitTaken;
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -105,7 +110,7 @@ public class EnemyController : MonoBehaviour
         enemyAgent.updatePosition = false;
         enemyAgent.enabled = false;
         _rb.isKinematic = false;
-        _rb.AddForce(-transform.forward/2,ForceMode.Impulse);
+        _rb.AddForce(-transform.forward/3,ForceMode.Impulse);
         _enemyHealthValueCurrentTemp = Mathf.Clamp(enemyHealthValueCurrent - _tempDamage, 0, enemyHealthValue);
         _getHitting = true;
         transform.DOKill();
@@ -128,13 +133,16 @@ public class EnemyController : MonoBehaviour
             if (enemyHealthValueCurrent>=1)
             {
                 enemyHealthValueCurrent = Mathf.Lerp(enemyHealthValueCurrent, _enemyHealthValueCurrentTemp, .1f);
-                currentHealth.text = enemyHealthValueCurrent.ToString("00");
+                currentHealth.text = enemyHealthValueCurrent.ToString("0");
                 sliderValue.fillAmount = (1 * (enemyHealthValueCurrent / enemyHealthValue));
             }
             else
             {
-                var collider = GetComponent<Collider>();
-                collider.isTrigger = false;
+                var colliders = GetComponents<Collider>();
+                foreach (var collider in colliders)
+                {
+                    collider.enabled = false;
+                }
                 StartCoroutine(CloseDelay());
                 transform.DOScale(Vector3.zero, 0.5f);
                 for (int i = 0; i < closePart.Length; i++)

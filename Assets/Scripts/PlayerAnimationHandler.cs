@@ -10,11 +10,12 @@ public class PlayerAnimationHandler : MonoBehaviour
     [SerializeField] private PlayerController playerController;
 
     private bool _once = false;
-    
+
 
     public void HitAnimation(bool hittable)
     {
         animator.SetBool("Hit", hittable);
+        
     }
     
     private void AnimationOver()

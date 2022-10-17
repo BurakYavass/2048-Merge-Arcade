@@ -31,7 +31,7 @@ public class ChestController : MonoBehaviour
     {
         chestHealthCurrent = _ChestHealthValue;
         _FullHealth.text = (Mathf.Round(_ChestHealthValue)).ToString();
-        _CurrentHealth.text = (Mathf.Round(chestHealthCurrent)).ToString();
+        _CurrentHealth.text = (Mathf.Round(chestHealthCurrent)).ToString("0");
         _playerTransform = PlayerController.Current.transform;
     }
 
@@ -71,7 +71,7 @@ public class ChestController : MonoBehaviour
             if (chestHealthCurrent>=1)
             {
                 chestHealthCurrent = Mathf.Lerp(chestHealthCurrent, _chestHealthValueCurrentTemp, .1f);
-                _CurrentHealth.text = chestHealthCurrent.ToString("00");
+                _CurrentHealth.text = chestHealthCurrent.ToString("0");
                 _SliderValue.fillAmount = (1 * (chestHealthCurrent / _ChestHealthValue));
             }
             else
@@ -103,11 +103,6 @@ public class ChestController : MonoBehaviour
         }
     }
 
-   
-
-  
-    
-
     IEnumerator CloseDelay()
     {
         yield return new WaitForSeconds(.1f);
@@ -118,7 +113,7 @@ public class ChestController : MonoBehaviour
         for (int i = 0; i < _CreatCount; i++)
         {
             GameObject go = Instantiate(_CreatBall, transform.position, Quaternion.LookRotation(Vector3.forward));
-            //go.GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(0,3), Random.Range(3, 5)*3, Random.Range(0, 3)));
+            go.GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(0,2), Random.Range(3, 5)*3, Random.Range(0, 2)),ForceMode.Impulse);
             if (_CreatValue.Length > 1)
             {
                 int rdnm=Random.Range(0,100);

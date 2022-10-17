@@ -72,10 +72,9 @@ public class WallValue : MonoBehaviour
     {
         if (_totalValue == 0)
         {
-            mainObject.GetComponent<CloseDelay>().CloseObje();
             return;
         }
-
+        
         var sayi = 4096;
         while (_totalValue > 0)
         {
@@ -107,6 +106,11 @@ public class WallValue : MonoBehaviour
                 _ballController.SetNewBall(go);
                 j++;
             }
+        }
+        
+        if (_totalValue == 0)
+        {
+            mainObject.GetComponent<CloseDelay>().CloseObje();
         }
     }
 
@@ -140,8 +144,8 @@ public class WallValue : MonoBehaviour
             int tempvalue = other.GetComponent<Ball>().GetValue();
             _totalValue += tempvalue;
             unlockCurrent = Mathf.Clamp(unlockCurrent - tempvalue,0,unlockCurrent);
-            filledImage.DOKill();
-            filledImage.fillAmount += 1.0f/  unlockRequire;
+            var bolum = (float)tempvalue / (float)unlockRequire;
+            filledImage.fillAmount += bolum /1.0f;
         }
     }
 
@@ -162,7 +166,7 @@ public class WallValue : MonoBehaviour
 
         if (other.CompareTag("UnlockBall"))
         {
-            filledImage.DOPause();
+            filledImage.DOKill();
         }
     }
 
@@ -182,6 +186,7 @@ public class WallValue : MonoBehaviour
                                 unlockWall = true;
                                 gameObject.GetComponent<MeshRenderer>().enabled = false;
                                 openGameObject.active = true;
+                                
                             }));
     }
 }

@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI fullHealth;
     [SerializeField] private TextMeshProUGUI currentHealth;
     [SerializeField] private Image sliderValue;
+    [SerializeField] private Image damageTake;
     public GameObject[] closePart;
     private float _playerHealthValue;
     public float playerHealthValueCurrent;
@@ -38,6 +39,7 @@ public class PlayerController : MonoBehaviour
     private bool _gethit;
     public bool healing = false;
     public bool playerDie;
+    
     
     
     private void Awake()
@@ -56,7 +58,7 @@ public class PlayerController : MonoBehaviour
         _playerHealthValue = _gameManager._playerArmor;
         playerHealthValueCurrent = _playerHealthValue;
         fullHealth.text = (Mathf.Round(_playerHealthValue)).ToString();
-        currentHealth.text = (Mathf.Round(playerHealthValueCurrent)).ToString();
+        currentHealth.text = (Mathf.Round(playerHealthValueCurrent)).ToString("0");
         GameEventHandler.current.OnPlayerUpgradeArea += OnPlayerUpgradeArea;
         DOTween.Init();
     }
@@ -132,7 +134,7 @@ public class PlayerController : MonoBehaviour
             if (playerHealthValueCurrent>=1)
             {
                 playerHealthValueCurrent = Mathf.Lerp(playerHealthValueCurrent, _playerHealthValueCurrentTemp, .1f);
-                currentHealth.text = playerHealthValueCurrent.ToString("00");
+                currentHealth.text = playerHealthValueCurrent.ToString("0");
                 sliderValue.fillAmount = (1 * (playerHealthValueCurrent / _playerHealthValue));
             }
             else
@@ -151,6 +153,27 @@ public class PlayerController : MonoBehaviour
                 }
                 playerDie = true;
             }
+
+            // if (Math.Abs(playerHealthValueCurrent - _playerHealthValue) > 0.3f)
+            // {
+            //     if (!_once)
+            //     {
+            //         _once = true;
+            //         damageTake.DOKill();
+            //         damageTake.DOFade(.3f, .5f).SetLoops(-1, LoopType.Yoyo);
+            //     }
+            //
+            //     //damageTake.enabled = true;
+            //
+            // }
+            // else
+            // {
+            //     damageTake.DOKill();
+            //     var imageColor = damageTake.color;
+            //     imageColor.a = 0;
+            //     damageTake.color = imageColor;
+            //     _once = false;
+            // }
         }
 
         if (healing)
@@ -226,7 +249,12 @@ public class PlayerController : MonoBehaviour
             _takenDamage = damage;
             _playerHealthValueCurrentTemp = Mathf.Clamp(playerHealthValueCurrent - _takenDamage, 0, _playerHealthValue);
             _gethit = true;
-            _virtualCamera.GetComponent<CinemachineShake>().ShakeCamera(.55f,.1f);
+            damageTake.DOKill();
+            damageTake.DOFade(.2f, .5f).OnComplete((() =>
+            {
+                damageTake.DOFade(0, 1f);
+            }));
+            _virtualCamera.GetComponent<CinemachineShake>().ShakeCamera(.7f,.1f);
         }
     }
 
