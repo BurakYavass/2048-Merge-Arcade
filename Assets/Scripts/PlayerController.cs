@@ -112,6 +112,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+      
         _playerHealthValue = GameManager.current._playerArmor;
         if (Math.Abs(_playerHealthValue - playerHealthValueCurrent) > .1f )
         {

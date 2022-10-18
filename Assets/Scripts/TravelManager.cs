@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using DG.Tweening;
 using Unity.VisualScripting;
@@ -20,23 +21,44 @@ public class TravelManager : MonoBehaviour
     private Transform _travelPoint;
 
     public bool active;
+    private bool _once = false;
     private PlayerController _player;
+    
 
     void Start()
     {
+        PlayerPrefs.GetInt("yellow", 0);
+        PlayerPrefs.GetInt("purple", 0);
         _collider = GetComponent<Collider>();
         
         if (travelType == TravelType.YellowStage)
         {
             _travelPoint = yellowLevel;
+            if (PlayerPrefs.GetInt("yellow")==1)
+            {
+                active = true;
+            }
+            else
+            {
+                active = false;
+            }
         }
         else if (travelType == TravelType.GreenStage)
         {
             _travelPoint = greenLevel;
+            
         }
         else if (travelType == TravelType.PurpleStage)
         {
             _travelPoint = purpleLevel;
+            if (PlayerPrefs.GetInt("purple") == 1)
+            {
+                active = true;
+            }
+            else
+            {
+                active = false;
+            }
         }
 
         if (active)
@@ -61,10 +83,23 @@ public class TravelManager : MonoBehaviour
     {
         if (active)
         {
-            _collider.enabled = true;
-            foreach (var particle in openPart)
+            if (!_once)
             {
-                particle.SetActive(true);
+                _collider.enabled = true;
+                foreach (var particle in openPart)
+                {
+                    particle.SetActive(true);
+                }
+
+                if (travelType == TravelType.YellowStage)
+                {
+                    PlayerPrefs.SetInt("yellow", 1);
+                }
+                else if (travelType == TravelType.PurpleStage)
+                {
+                    PlayerPrefs.SetInt("purple",1);
+                }
+                
             }
         }
     }

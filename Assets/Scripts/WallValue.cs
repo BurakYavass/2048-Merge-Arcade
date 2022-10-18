@@ -57,11 +57,12 @@ public class WallValue : MonoBehaviour
             if (!once)
             {
                 once = true;
-                StartCoroutine(Delay());
+                _totalValue = Mathf.Clamp(_totalValue - unlockRequire, 0, 4096);
+                unlockWall = true;
             }
         }
         
-        if (unlockWall && GameObject.FindGameObjectsWithTag("StackBall").Length<1 )
+        if (unlockWall && GameObject.FindGameObjectsWithTag("UnlockBall").Length<1 )
         {
             TotalValue();
             _ballController.GoUnlock(transform,false);
@@ -72,6 +73,8 @@ public class WallValue : MonoBehaviour
     {
         if (_totalValue == 0)
         {
+            unlockWall = false;
+            StartCoroutine(Delay());
             return;
         }
         
@@ -110,7 +113,7 @@ public class WallValue : MonoBehaviour
         
         if (_totalValue == 0)
         {
-            mainObject.GetComponent<CloseDelay>().CloseObje();
+            
         }
     }
 
@@ -129,8 +132,6 @@ public class WallValue : MonoBehaviour
                     UnlockCalculate(true);
                     triggerFilled.fillAmount = 0;
                 }));
-                
-                //StartCoroutine(TriggerDelay(true));
             }
         }
         
@@ -157,24 +158,9 @@ public class WallValue : MonoBehaviour
             triggerFilled.fillAmount = 0;
             UnlockCalculate(false);
             _playerWallArea = false;
-            // if (_playerWallArea)
-            // {
-            //     _playerWallArea = false;
-            //     //StopCoroutine(TriggerDelay(false));
-            // }
-        }
-
-        if (other.CompareTag("UnlockBall"))
-        {
-            filledImage.DOKill();
         }
     }
-
-    // IEnumerator TriggerDelay(bool unlock)
-    // {
-    //     yield return new WaitForSeconds(playerWaitTime);
-    //     UnlockCalculate(unlock);
-    // }
+    
 
     IEnumerator Delay()
     {
@@ -182,11 +168,9 @@ public class WallValue : MonoBehaviour
         transform.parent.transform.DOMoveY(-10f, 2.0f).SetEase(Ease.InBounce).
                             OnComplete((() =>
                             {
-                                _totalValue = Mathf.Clamp(_totalValue - unlockRequire, 0, 4096);
-                                unlockWall = true;
                                 gameObject.GetComponent<MeshRenderer>().enabled = false;
                                 openGameObject.active = true;
-                                
+                                mainObject.GetComponent<CloseDelay>().CloseObje();
                             }));
     }
 }

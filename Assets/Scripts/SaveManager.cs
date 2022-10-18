@@ -36,6 +36,8 @@ public class SaveManager : MonoBehaviour
             _AllObje.Add(chest3.gameObject);
         }
         
+        
+        
         if (_Test)
         {
             for (int i = 0; i < _AllObje.Count; i++)
