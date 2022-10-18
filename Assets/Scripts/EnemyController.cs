@@ -110,11 +110,15 @@ public class EnemyController : MonoBehaviour
         enemyAgent.updatePosition = false;
         enemyAgent.enabled = false;
         _rb.isKinematic = false;
-        var random = Random.Range(4, 6);
-        _rb.AddForce(_playerTransform.forward,ForceMode.Impulse);
-        transform.DOKill();
-        // var pos = transform.position;
-        // transform.DOPunchPosition(new Vector3(pos.x,pos.y,pos.z-1), 0.1f);
+        var random = GameManager.current._damageState;
+        if (random > 0)
+        {
+            _rb.AddForce(_playerTransform.forward*random,ForceMode.Impulse);
+        }
+        else
+        {
+            _rb.AddForce(_playerTransform.forward,ForceMode.Impulse);
+        }
         _enemyHealthValueCurrentTemp = Mathf.Clamp(enemyHealthValueCurrent - _tempDamage, 0, enemyHealthValue);
         _getHitting = true;
         transform.DOKill();

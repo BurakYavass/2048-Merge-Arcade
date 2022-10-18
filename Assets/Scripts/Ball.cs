@@ -265,38 +265,38 @@ public class Ball : MonoBehaviour
         }
     }
     
-    public void SetGoUpgrade(GameObject target)
-    {
-        agent.enabled = false;
-        ballRb.useGravity = false;
-        triggerCollider.enabled = false;
-        _collider.isTrigger = true;
-        ballRb.isKinematic = false;
-        gameObject.transform.parent = target.transform.parent;
-        go = false;
-        goMerge = true;
-        ballAnimator.SetBool("Anim", false);
-        dustParticle.SetActive(false);
-        ballRb.interpolation = RigidbodyInterpolation.None;
-        gameObject.tag = "UpgradeBall";
-        if (gameObject.activeInHierarchy)
-        {
-            transform.DOMove(target.transform.position, 0.7f).SetEase(Ease.Flash)
-                .OnUpdate((() =>
-                {
-                    transform.localScale -= new Vector3(.3f, .3f, .3f) * Time.fixedDeltaTime;
-                })).OnComplete((() =>
-                {
-                    transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
-                    goUpgrade = false;
-                }));
-        }
-        else
-        {
-            transform.DOKill();
-        }
-        
-    }
+    // public void SetGoUpgrade(GameObject target)
+    // {
+    //     agent.enabled = false;
+    //     ballRb.useGravity = false;
+    //     triggerCollider.enabled = false;
+    //     _collider.isTrigger = true;
+    //     ballRb.isKinematic = false;
+    //     gameObject.transform.parent = target.transform.parent;
+    //     go = false;
+    //     goMerge = true;
+    //     ballAnimator.SetBool("Anim", false);
+    //     dustParticle.SetActive(false);
+    //     ballRb.interpolation = RigidbodyInterpolation.None;
+    //     gameObject.tag = "UpgradeBall";
+    //     if (gameObject.activeInHierarchy)
+    //     {
+    //         transform.DOMove(target.transform.position, 0.7f).SetEase(Ease.Flash)
+    //             .OnUpdate((() =>
+    //             {
+    //                 transform.localScale -= new Vector3(.3f, .3f, .3f) * Time.fixedDeltaTime;
+    //             })).OnComplete((() =>
+    //             {
+    //                 transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
+    //                 goUpgrade = false;
+    //             }));
+    //     }
+    //     else
+    //     {
+    //         transform.DOKill();
+    //     }
+    //     
+    // }
 
     public void SetGoTarget(Transform target)
     {
@@ -444,7 +444,7 @@ public class Ball : MonoBehaviour
                 .OnComplete((() => other.transform.parent.transform.localScale = Vector3.one));
         }
 
-        if (other.CompareTag("Ground"))
+        if (other.CompareTag("Ground") || other.CompareTag("Player"))
         {
             dustParticle.SetActive(true);
             StartCoroutine(DelayKinematic());
@@ -487,7 +487,7 @@ public class Ball : MonoBehaviour
     {
         //ballRb.useGravity = true;
         agent.enabled = true;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         if (targetObje == null)
         {
             gameObject.tag = "EmptyBall";
