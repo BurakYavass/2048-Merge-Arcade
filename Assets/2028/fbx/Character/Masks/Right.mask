@@ -40,7 +40,7 @@ AvatarMask:
   - m_Path: mixamorig:Hips/mixamorig:RightUpLeg/mixamorig:RightLeg/mixamorig:RightFoot/mixamorig:RightToeBase/mixamorig:RightToe_End
     m_Weight: 0
   - m_Path: mixamorig:Hips/mixamorig:Spine
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1
     m_Weight: 1
   - m_Path: mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2
@@ -100,4 +100,4 @@ AvatarMask:
   - m_Path: mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandThumb1/mixamorig:RightHandThumb2/mixamorig:RightHandThumb3/mixamorig:RightHandThumb4
     m_Weight: 1
   - m_Path: Vert
-    m_Weight: 0
+    m_Weight: 1

@@ -28,7 +28,7 @@ public class BallController : MonoBehaviour
         ReloadGame();
     }
 
-    public void ReloadGame()
+    private void ReloadGame()
     {
         if (PlayerPrefs.GetInt("BallSaveCount") > 0)
         {

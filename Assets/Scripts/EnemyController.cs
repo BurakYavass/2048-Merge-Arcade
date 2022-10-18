@@ -110,17 +110,23 @@ public class EnemyController : MonoBehaviour
         enemyAgent.updatePosition = false;
         enemyAgent.enabled = false;
         _rb.isKinematic = false;
-        _rb.AddForce(-transform.forward/3,ForceMode.Impulse);
+        var random = Random.Range(4, 6);
+        _rb.AddForce(_playerTransform.forward,ForceMode.Impulse);
+        transform.DOKill();
+        // var pos = transform.position;
+        // transform.DOPunchPosition(new Vector3(pos.x,pos.y,pos.z-1), 0.1f);
         _enemyHealthValueCurrentTemp = Mathf.Clamp(enemyHealthValueCurrent - _tempDamage, 0, enemyHealthValue);
         _getHitting = true;
         transform.DOKill();
+        var monsterScale = transform.lossyScale;
         transform.DOPunchScale(new Vector3(0.1f, 0.1f, 0.1f), 0.5f).SetEase(Ease.InBounce).OnComplete((() =>
         {
             _rb.isKinematic = true;
             enemyAgent.enabled = true;
             enemyAgent.updatePosition = true;
-            transform.localScale = Vector3.one;
+            transform.localScale = monsterScale;
         }));
+        
     }
 
 
