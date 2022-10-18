@@ -110,10 +110,11 @@ public class EnemyController : MonoBehaviour
         enemyAgent.updatePosition = false;
         enemyAgent.enabled = false;
         _rb.isKinematic = false;
-        var random = GameManager.current._damageState;
-        if (random > 0)
+        var damageState = GameManager.current._damageState;
+        if (damageState > 0)
         {
-            _rb.AddForce(_playerTransform.forward*random,ForceMode.Impulse);
+            damageState += 1;
+            _rb.AddForce(_playerTransform.forward*damageState,ForceMode.Impulse);
         }
         else
         {
@@ -203,6 +204,11 @@ public class EnemyController : MonoBehaviour
                     {
                         enemyAnimator.SetBool("Walking",true);
                         enemyAnimator.SetBool("Idle", false);
+                    }
+                    else
+                    {
+                        enemyAnimator.SetBool("Walking",false);
+                        enemyAnimator.SetBool("Idle", true);
                     }
                 }
             }

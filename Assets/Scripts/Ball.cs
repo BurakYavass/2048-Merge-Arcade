@@ -45,6 +45,10 @@ public class Ball : MonoBehaviour
         {
             ballRb.freezeRotation = true;
         }
+        else
+        {
+            ballRb.freezeRotation = false;
+        }
     }
 
     private void Awake()
@@ -56,7 +60,6 @@ public class Ball : MonoBehaviour
     {
         if (go && targetObje != null && agent.enabled)
         {
-            ballRb.freezeRotation = false;
             var targetObjePos = targetObje.transform.position;
             var distance = Vector3.Distance(transform.position , targetObjePos);
             if (Mathf.Abs(agent.stoppingDistance - distance) > 3.0f)
