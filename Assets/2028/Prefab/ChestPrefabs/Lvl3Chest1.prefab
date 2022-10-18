@@ -126,7 +126,7 @@ MonoBehaviour:
   _SliderValue: {fileID: 4567155383597520898}
   _CreatValue: 0400000008000000
   _CreatCount: 3
-  _ChestHealthValue: 75
+  _ChestHealthValue: 30
   chestHealthCurrent: 0
 --- !u!1 &2149391328739699599
 GameObject:
@@ -467,15 +467,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6363530414472190775, guid: 9b1adda6c447de24a83feb8f6c6f0bbf, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.01
+      value: 0.008
       objectReference: {fileID: 0}
     - target: {fileID: 6363530414472190775, guid: 9b1adda6c447de24a83feb8f6c6f0bbf, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.01
+      value: 0.008
       objectReference: {fileID: 0}
     - target: {fileID: 6363530414472190775, guid: 9b1adda6c447de24a83feb8f6c6f0bbf, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.01
+      value: 0.008
       objectReference: {fileID: 0}
     - target: {fileID: 6363530414472190775, guid: 9b1adda6c447de24a83feb8f6c6f0bbf, type: 3}
       propertyPath: m_LocalPosition.x

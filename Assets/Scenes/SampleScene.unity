@@ -19568,6 +19568,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1203922195}
     m_Modifications:
+    - target: {fileID: 1468260189916560934, guid: 49330101a0e4df443841ca812f779b06, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1468260189916560935, guid: 49330101a0e4df443841ca812f779b06, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4759583007022332123, guid: 49330101a0e4df443841ca812f779b06, type: 3}
       propertyPath: m_Name
       value: Lvl3Chest
@@ -22750,18 +22758,6 @@ PrefabInstance:
       value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 6482293435532754944, guid: ab754b435636e2e4883c824c55d64fab, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6482293435532754944, guid: ab754b435636e2e4883c824c55d64fab, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6482293435532754944, guid: ab754b435636e2e4883c824c55d64fab, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6482293435532754944, guid: ab754b435636e2e4883c824c55d64fab, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.295004
       objectReference: {fileID: 0}
@@ -23819,18 +23815,6 @@ PrefabInstance:
     - target: {fileID: 4704370139685902565, guid: 100456629a595514a9c7a3a0f3d1d264, type: 3}
       propertyPath: m_RootOrder
       value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4704370139685902565, guid: 100456629a595514a9c7a3a0f3d1d264, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4704370139685902565, guid: 100456629a595514a9c7a3a0f3d1d264, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4704370139685902565, guid: 100456629a595514a9c7a3a0f3d1d264, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4704370139685902565, guid: 100456629a595514a9c7a3a0f3d1d264, type: 3}
       propertyPath: m_LocalPosition.x
@@ -25648,7 +25632,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4527607570000659369, guid: fdd3c1e1c13ff034ca10d88beec33482, type: 3}
       propertyPath: m_Shadows.m_Type
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4527607570000659369, guid: fdd3c1e1c13ff034ca10d88beec33482, type: 3}
       propertyPath: m_Shadows.m_Resolution
@@ -28120,6 +28104,10 @@ PrefabInstance:
     - target: {fileID: 3202818396577974641, guid: ecd53bf5948809c498ad05071a4bd727, type: 3}
       propertyPath: m_Name
       value: Lvl2Chest3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8799913854462201741, guid: ecd53bf5948809c498ad05071a4bd727, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ecd53bf5948809c498ad05071a4bd727, type: 3}
@@ -33155,29 +33143,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lvl2Vault2
       objectReference: {fileID: 0}
-    - target: {fileID: 5694403111967700038, guid: 2e0d8f984800d5d4297499474468d138, type: 3}
-      propertyPath: m_AdditionalShaderChannelsFlag
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 5694403111967700042, guid: 2e0d8f984800d5d4297499474468d138, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6482293435532754944, guid: 2e0d8f984800d5d4297499474468d138, type: 3}
       propertyPath: m_RootOrder
       value: 28
-      objectReference: {fileID: 0}
-    - target: {fileID: 6482293435532754944, guid: 2e0d8f984800d5d4297499474468d138, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6482293435532754944, guid: 2e0d8f984800d5d4297499474468d138, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6482293435532754944, guid: 2e0d8f984800d5d4297499474468d138, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6482293435532754944, guid: 2e0d8f984800d5d4297499474468d138, type: 3}
       propertyPath: m_LocalPosition.x
