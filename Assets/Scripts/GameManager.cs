@@ -132,15 +132,14 @@ public class GameManager : MonoBehaviour
     {
         if (_once)
         {
-            _playerController.transform.DOMove(new Vector3(0, 0.6f, 9.26f), 1).OnComplete((() =>
+            _playerController.gameObject.transform.DOMove(new Vector3(0, 0.6f, 9.26f), 1).OnComplete((() =>
             {
                 _playerController.playerHealthValueCurrent = _playerArmor-10;
                 uiManager.PlayerRevive(false,playerReviveDelay);
                 _playerController.playerDie = false;
                 _playerController.playerCollisionHandler.enabled = true;
                 
-                var colliders = _playerController.GetComponents<Collider>();
-                foreach (var cllider in colliders)
+                foreach (var cllider in _playerController.colliders)
                 {
                     cllider.enabled = true;
                 }

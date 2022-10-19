@@ -69,6 +69,7 @@ public class UpgradeArea : MonoBehaviour
                  ball.SetValue(sayi);
                  follower.SaveBall(ball.gameObject);
                  ball.SetGoTarget(last.transform);
+                 ball.StartDelay();
                  _totalValue -= sayi;
                  _ballController.SetNewBall(go);
                  j++;

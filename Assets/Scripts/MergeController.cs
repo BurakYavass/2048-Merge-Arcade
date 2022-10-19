@@ -76,6 +76,7 @@ public class MergeController : MonoBehaviour
                  ball.SetValue(sayi);
                  follower.SaveBall(ball.gameObject);
                  ball.SetGoTarget(last.transform);
+                 ball.StartDelay();
                  totalValue -= sayi;
                  _ballController.SetNewBall(go);
                  j++;

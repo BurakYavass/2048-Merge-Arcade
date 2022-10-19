@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class WallValue : MonoBehaviour
 {
     public int unlockRequire;
-    public int unlockCurrent;
+    public int unlockRequireCurrent;
     [SerializeField] private float playerWaitTime;
     [SerializeField] private float wallUnlockDelay;
     [SerializeField] private GameObject ballPrefab;
@@ -22,12 +22,14 @@ public class WallValue : MonoBehaviour
     private BallController _ballController;
     
 
-    private int _totalValue;
+    public int _totalValue;
     private bool unlockWall;
     private bool _playerWallArea = false;
-    private bool once = false;
+    private bool _once = false;
+    private bool _on = false;
     private int _dicreaseValue;
     private int j;
+    private Vector3 _scale;
 
     private void Start()
     {
@@ -35,38 +37,27 @@ public class WallValue : MonoBehaviour
         var image= images.Find((texture => texture.name == unlockRequire.ToString()));
         wallValueTexture.sprite = image;
         filledImage.sprite = image;
-        unlockCurrent = unlockRequire;
+        unlockRequireCurrent = unlockRequire;
+        _scale = transform.localScale;
     }
 
     public void UnlockCalculate(bool unlock)
     {
-        var playerValue = _playerBallCounter;
-        
-        if (unlock && unlockCurrent != 0)
-        {
-            playerValue.stackValue -= unlockRequire;
-            //_uiManager.LevelUnlockPanel(false);
-            _ballController.GoUnlock(transform,true);
-        }
+        _ballController.GoUnlock(transform,true);
     }
 
     private void Update()
     {
-        if (unlockCurrent == 0)
+        if (_ballController.balls.Count == 0)
         {
-            if (!once)
-            {
-                once = true;
-                _totalValue = Mathf.Clamp(_totalValue - unlockRequire, 0, 4096);
-                unlockWall = true;
-            }
+            _ballController.GoUnlock(null,false);
+        }
+        if (unlockRequireCurrent == 0 && GameObject.FindGameObjectsWithTag("UnlockBall").Length<1)
+        {
+            _totalValue = Mathf.Clamp(_totalValue - unlockRequire, 0, 4096);
+            TotalValue();
         }
         
-        if (unlockWall && GameObject.FindGameObjectsWithTag("UnlockBall").Length<1 )
-        {
-            TotalValue();
-            _ballController.GoUnlock(transform,false);
-        }
     }
 
     void TotalValue()
@@ -74,7 +65,12 @@ public class WallValue : MonoBehaviour
         if (_totalValue == 0)
         {
             unlockWall = false;
-            StartCoroutine(Delay());
+            gameObject.GetComponent<Collider>().enabled = false;
+            if (!_once)
+            {
+                _once = true;
+                StartCoroutine(WallDelay());
+            }
             return;
         }
         
@@ -105,15 +101,11 @@ public class WallValue : MonoBehaviour
                 ball.SetValue(sayi);
                 follower.SaveBall(ball.gameObject);
                 ball.SetGoTarget(last.transform);
+                ball.StartDelay();
                 _totalValue -= sayi;
                 _ballController.SetNewBall(go);
                 j++;
             }
-        }
-        
-        if (_totalValue == 0)
-        {
-            
         }
     }
 
@@ -139,12 +131,12 @@ public class WallValue : MonoBehaviour
         {
             transform.DOKill();
             Destroy(other.gameObject);
-            var scale = transform.localScale;
+            
             transform.DOPunchScale(new Vector3(0.1f, 0.1f, 0.1f), 0.1f).SetEase(Ease.OutBounce)
-                                                .OnComplete((() => transform.localScale = scale));
+                                                .OnComplete((() => transform.localScale = _scale));
             int tempvalue = other.GetComponent<Ball>().GetValue();
             _totalValue += tempvalue;
-            unlockCurrent = Mathf.Clamp(unlockCurrent - tempvalue,0,unlockCurrent);
+            unlockRequireCurrent = Mathf.Clamp(unlockRequireCurrent - tempvalue,0,unlockRequireCurrent);
             var bolum = (float)tempvalue / (float)unlockRequire;
             filledImage.fillAmount += bolum /1.0f;
         }
@@ -160,15 +152,15 @@ public class WallValue : MonoBehaviour
             _playerWallArea = false;
         }
     }
-    
 
-    IEnumerator Delay()
+    IEnumerator WallDelay()
     {
         yield return new WaitForSeconds(wallUnlockDelay);
-        transform.parent.transform.DOMoveY(-10f, 2.0f).SetEase(Ease.InBounce).
+        transform.parent.transform.DOMoveY(-10f, 2f).SetEase(Ease.OutBounce).
                             OnComplete((() =>
                             {
                                 gameObject.GetComponent<MeshRenderer>().enabled = false;
+                                
                                 openGameObject.active = true;
                                 mainObject.GetComponent<CloseDelay>().CloseObje();
                             }));

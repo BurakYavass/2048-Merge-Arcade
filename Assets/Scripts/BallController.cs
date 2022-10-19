@@ -50,6 +50,7 @@ public class BallController : MonoBehaviour
                     ball.SetValue(PlayerPrefs.GetInt("BallSave" + (i)));
                     follower.SaveBall(ball.gameObject);
                     ball.SetGoTarget(last.transform);
+                    ball.StartDelay();
                     SetNewBall(go);
                     j++;
                 }

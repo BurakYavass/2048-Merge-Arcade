@@ -67,7 +67,7 @@ public class PlayerCollisionHandler : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (!other.CompareTag("BaseLeft")&& !other.CompareTag("BaseRight"))
+        if (other.CompareTag("Ground"))
         {
             playerController.CameraChanger(0);
         }

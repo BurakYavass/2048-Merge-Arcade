@@ -292,7 +292,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unlockRequire: 128
-  unlockCurrent: 0
+  unlockRequireCurrent: 0
   playerWaitTime: 1.5
   wallUnlockDelay: 1
   ballPrefab: {fileID: 6986705099755840392, guid: 0f2efdd3da2d21d489df375a833720ad, type: 3}
@@ -308,6 +308,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: b2a3996edaf2e4148889ed26d8001a10, type: 3}
   filledImage: {fileID: 474353774570393580}
   triggerFilled: {fileID: 3120857580507264699}
+  _totalValue: 0
 --- !u!1 &4768245228990942153
 GameObject:
   m_ObjectHideFlags: 0

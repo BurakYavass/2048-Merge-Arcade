@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Image sliderValue;
     [SerializeField] private Image damageTake;
     public GameObject[] closePart;
+    public Collider[] colliders;
     private float _playerHealthValue;
     public float playerHealthValueCurrent;
     private float _playerHealthValueCurrentTemp;
@@ -61,6 +62,7 @@ public class PlayerController : MonoBehaviour
         currentHealth.text = (Mathf.Round(playerHealthValueCurrent)).ToString("0");
         GameEventHandler.current.OnPlayerUpgradeArea += OnPlayerUpgradeArea;
         DOTween.Init();
+        CameraChanger(0);
     }
 
     private void OnDestroy()
@@ -95,6 +97,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnPlayerTeleport(bool teleport)
     {
+        CameraChanger(0);
         _teleporting = teleport;
     }
 
@@ -141,40 +144,18 @@ public class PlayerController : MonoBehaviour
             else
             {
                 rb.isKinematic = true;
-                var colliders = GetComponents<Collider>();
-                foreach (var collider in colliders)
+                foreach (var variCollider in colliders)
                 {
-                    collider.enabled = false;
+                    variCollider.enabled = false;
                 }
                 playerCollisionHandler.enabled = false;
                 playerHealthValueCurrent = 0;
-                for (int i = 0; i < closePart.Length; i++)
+                foreach (var close in closePart)
                 {
-                    closePart[i].SetActive(false);
+                    close.SetActive(false);
                 }
                 playerDie = true;
             }
-
-            // if (Math.Abs(playerHealthValueCurrent - _playerHealthValue) > 0.3f)
-            // {
-            //     if (!_once)
-            //     {
-            //         _once = true;
-            //         damageTake.DOKill();
-            //         damageTake.DOFade(.3f, .5f).SetLoops(-1, LoopType.Yoyo);
-            //     }
-            //
-            //     //damageTake.enabled = true;
-            //
-            // }
-            // else
-            // {
-            //     damageTake.DOKill();
-            //     var imageColor = damageTake.color;
-            //     imageColor.a = 0;
-            //     damageTake.color = imageColor;
-            //     _once = false;
-            // }
         }
 
         if (healing)

@@ -38,7 +38,6 @@ public class Ball : MonoBehaviour
         BallChanger();
         //StartCoroutine(DelayKinematic());
         ballRb.isKinematic = false;
-        ballRb.interpolation = RigidbodyInterpolation.None;
         var speed = GameManager.current.playerSpeed;
         agent.speed = speed;
         if (_BallValue >= 128)
@@ -309,21 +308,6 @@ public class Ball : MonoBehaviour
         goTravel = false;
         
         go = true;
-        // if (!_once)
-        // {
-        //     _once = true;
-        //     transform.DOKill();
-        //     var pos = transform.position;
-        //     transform.DOJump(new Vector3(pos.x,pos.y,pos.z), 1, 1, 1.0f).SetEase(Ease.OutBounce)
-        //         .SetEase(Ease.OutBounce).OnComplete((() =>
-        //         {
-        //             go = true;
-        //             //_collider.isTrigger = true;
-        //             dustParticle.SetActive(true);
-        //             
-        //         }));
-        // }
-
     }
     
     public void SetGoMerge(GameObject target,float delay)
@@ -352,7 +336,6 @@ public class Ball : MonoBehaviour
                     _collider.isTrigger = false;
                     transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
                     StartCoroutine(DelayMergeTime(delay));
-                    //GetComponentInChildren<MeshRenderer>().enabled = false;
                 }));
         }
         else
@@ -433,7 +416,7 @@ public class Ball : MonoBehaviour
                 .OnComplete((() => other.transform.parent.transform.localScale = Vector3.one));
         }
 
-        if (other.CompareTag("Ground") || other.CompareTag("Player"))
+        if (other.CompareTag("Ground"))
         {
             dustParticle.SetActive(true);
             StartCoroutine(DelayKinematic());
@@ -478,7 +461,12 @@ public class Ball : MonoBehaviour
         }
     }
 
-    IEnumerator DelayKinematic()
+    public void StartDelay()
+    {
+        StartCoroutine(DelayKinematic());
+    }
+
+    private IEnumerator DelayKinematic()
     {
         //ballRb.useGravity = true;
         //agent.enabled = true;
