@@ -363,9 +363,9 @@ public class Ball : MonoBehaviour
 
     public void SetGoUnlock(Transform target)
     {
-        dustParticle.SetActive(false);
         ballAnimator.SetBool("Anim", false);
-        ballAnimator = null;
+        dustParticle.SetActive(false);
+        gameObject.tag = "UnlockBall";
         go = false;
         goMerge = false;
         goTravel = false;
@@ -375,24 +375,10 @@ public class Ball : MonoBehaviour
         triggerCollider.enabled = false;
         _collider.isTrigger = true;
         ballRb.isKinematic = false;
-        ballRb.interpolation = RigidbodyInterpolation.None;
-        gameObject.tag = "UnlockBall";
-        if (gameObject.activeInHierarchy)
+        if (goUnlock)
         {
-            transform.DOMove(target.position, 1.5f).SetEase(Ease.OutBounce)
-                .OnUpdate((() =>
-                {
-                    transform.localScale -= new Vector3(.3f, .3f, .3f) * Time.deltaTime;
-                })).OnComplete((() =>
-                {
-                    transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
-                    //target.gameObject.transform.DOPunchScale(new Vector3(0.5f, 0.5f, 0.5f), 0.5f).SetEase(Ease.OutBounce);
-                    goUnlock = false;
-                }));
-        }
-        else
-        {
-            transform.DOKill();
+            goUnlock = false;
+            transform.DOMove(target.position, 1.5f).SetEase(Ease.OutBounce);
         }
     }
     public void SetGoTravel()
@@ -452,6 +438,12 @@ public class Ball : MonoBehaviour
             dustParticle.SetActive(true);
             StartCoroutine(DelayKinematic());
         }
+
+        if (other.CompareTag("Player"))
+        {
+            agent.enabled = true;
+            StartCoroutine(DelayKinematic());
+        }
         
         if (other.CompareTag("BallUpgrade"))
         {
@@ -489,11 +481,16 @@ public class Ball : MonoBehaviour
     IEnumerator DelayKinematic()
     {
         //ballRb.useGravity = true;
-        agent.enabled = true;
+        //agent.enabled = true;
         yield return new WaitForSeconds(0.2f);
         if (targetObje == null)
         {
             gameObject.tag = "EmptyBall";
+            agent.enabled = false;
+        }
+        else
+        {
+            agent.enabled = true;
         }
         //_collider.enabled = true;
         triggerCollider.enabled = true;

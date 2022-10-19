@@ -101,6 +101,7 @@ public class EnemyController : MonoBehaviour
             _hitting = false;
         }
     }
+    
    
 
     private void HitTaken(float damage)
@@ -111,14 +112,17 @@ public class EnemyController : MonoBehaviour
         enemyAgent.enabled = false;
         _rb.isKinematic = false;
         var damageState = GameManager.current._damageState;
-        if (damageState > 0)
+        if (damageState == 1)
         {
-            damageState += 1;
-            _rb.AddForce(_playerTransform.forward*damageState,ForceMode.Impulse);
+            _rb.AddForce(-transform.forward*damageState,ForceMode.Impulse);
+        }
+        else if (damageState > 1)
+        {
+            _rb.AddForce(-transform.forward*damageState,ForceMode.Impulse);
         }
         else
         {
-            _rb.AddForce(_playerTransform.forward,ForceMode.Impulse);
+            _rb.AddForce(-transform.forward,ForceMode.Impulse);
         }
         _enemyHealthValueCurrentTemp = Mathf.Clamp(enemyHealthValueCurrent - _tempDamage, 0, enemyHealthValue);
         _getHitting = true;

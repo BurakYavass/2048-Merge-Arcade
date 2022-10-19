@@ -32,8 +32,7 @@ public class GameManager : MonoBehaviour
     public int _damageState = 0;
     [NonSerialized]
     public int _armorState;
-
-    private int playerMoney;
+    
 
     [SerializeField] private GameObject player;
     [SerializeField] private GameEventHandler gameEventHandler;
@@ -44,7 +43,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] public List<int> damageUpgradeState = new List<int>();
     [SerializeField] public List<int> armorUpgradeState = new List<int>();
     
-    private PlayerBallCounter _playerBallCounter;
     private UpgradableItem _playerUpgradableItems;
     private ParticlesController _playerParticles;
     private PlayerController _playerController;
@@ -57,7 +55,6 @@ public class GameManager : MonoBehaviour
             current = this;
         }
         
-        _playerBallCounter = player.GetComponent<PlayerBallCounter>();
         _playerUpgradableItems = player.GetComponent<UpgradableItem>();
         _playerParticles = player.GetComponent<ParticlesController>();
         _playerController = player.GetComponent<PlayerController>();
@@ -81,7 +78,7 @@ public class GameManager : MonoBehaviour
         {
             speedMax = true;
         }
-        if (_damageState == 2)
+        if (_damageState == 3)
         {
             damageMax = true;
         }
@@ -89,11 +86,6 @@ public class GameManager : MonoBehaviour
         _playerUpgradableItems.WeaponChanger(_damageState);
     }
     
-    void Start()
-    {
-        
-        
-    }
     private void OnDisable()
     {
         gameEventHandler.OnPlayerUpgradeArea -= OnPlayerUpgradeArea;
@@ -101,7 +93,6 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        playerMoney = _playerBallCounter.stackValue;
         if (_playerController.playerDie)
         {
             // if ("reklam izlersen vb.")
@@ -172,10 +163,10 @@ public class GameManager : MonoBehaviour
 
     public void PlayerArmor()
     {
-        if (_playerBallCounter.stackValue >=_armorUpgradeRequire)
+        if (upgradeMachine._totalValue >=_armorUpgradeRequire)
         {
-            _armorUpgradeRequire = armorUpgradeState[_armorState];
-            _playerBallCounter.stackValue -= _armorUpgradeRequire;
+            // _armorUpgradeRequire = armorUpgradeState[_armorState];
+            // upgradeMachine._totalValue -= _armorUpgradeRequire;
             _armorState++;
             if (_armorState==1)
             {
@@ -208,17 +199,16 @@ public class GameManager : MonoBehaviour
                 _playerController.playerHealthValueCurrent = _playerArmor;
                 PlayerPrefs.SetInt("ArmorState",_armorState);
                 armorMax = true;
-                Debug.Log("max");
             }
         }
     }
 
     public void PlayerSpeed()
     {
-        if (_playerBallCounter.stackValue >= _speedUpgradeRequire)
+        if (upgradeMachine._totalValue >= _speedUpgradeRequire)
         {
-            _speedUpgradeRequire = speedUpgradeState[_speedState];
-            _playerBallCounter.stackValue -= _speedUpgradeRequire;
+            // _speedUpgradeRequire = speedUpgradeState[_speedState];
+            // upgradeMachine._totalValue -= _speedUpgradeRequire;
             if (_speedState==0)
             {
                 playerSpeed += 2.0f;
@@ -244,42 +234,37 @@ public class GameManager : MonoBehaviour
                 upgradeMachine.UpgradeCalculate(_speedUpgradeRequire);
                 PlayerPrefs.SetFloat("PlayerSpeed",playerSpeed);
                 speedMax = true;
-                Debug.Log("max");
             }
-            Debug.Log("PlayerSpeedIncrease");
+           
         }
-        else
-        {
-            Debug.Log("Not Enoughf Money");
-        }
+      
     }
     
     public void PlayerDamage()
     {
-        if (_playerBallCounter.stackValue >= _damageUpgradeRequire)
+        if (upgradeMachine._totalValue >= _damageUpgradeRequire)
         {
-            _damageUpgradeRequire = damageUpgradeState[_damageState];
-            _playerBallCounter.stackValue -= _damageUpgradeRequire;
-            if (_damageState==0)
-            {
-                upgradeMachine.UpgradeCalculate(_damageUpgradeRequire);
-                playerDamage += 5.01f;
-                _playerParticles.PlayerUpgrade();
-                PlayerPrefs.SetFloat("PlayerDamage",playerDamage);
-                _damageState++;
-                PlayerPrefs.SetInt("damageState",_damageState);
-            }
-            else if (_damageState == 1)
+            
+            _damageState++;
+            if (_damageState==1)
             {
                 upgradeMachine.UpgradeCalculate(_damageUpgradeRequire);
                 playerDamage += 5.01f;
                 _playerParticles.PlayerUpgrade();
                 PlayerPrefs.SetFloat("PlayerDamage",playerDamage);
                 _playerUpgradableItems.WeaponChanger(_damageState);
-                _damageState++;
                 PlayerPrefs.SetInt("damageState",_damageState);
             }
-            else if(_damageState == 2)
+            else if (_damageState == 2)
+            {
+                upgradeMachine.UpgradeCalculate(_damageUpgradeRequire);
+                playerDamage += 5.01f;
+                _playerParticles.PlayerUpgrade();
+                PlayerPrefs.SetFloat("PlayerDamage",playerDamage);
+                _playerUpgradableItems.WeaponChanger(_damageState);
+                PlayerPrefs.SetInt("damageState",_damageState);
+            }
+            else if(_damageState == 3)
             {
                 upgradeMachine.UpgradeCalculate(_damageUpgradeRequire);
                 playerDamage += 5.01f;
@@ -287,14 +272,10 @@ public class GameManager : MonoBehaviour
                 PlayerPrefs.SetFloat("PlayerDamage",playerDamage);
                 _playerUpgradableItems.WeaponChanger(_damageState);
                 damageMax = true;
-                Debug.Log("MaxLevel");
             }
-            Debug.Log("PlayerDamageIncrease");
+           
         }
-        else
-        {
-            Debug.Log("Not Enoughf Money");
-        }
+       
         
     }
     

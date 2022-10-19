@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BallController : MonoBehaviour
@@ -144,9 +145,11 @@ public class BallController : MonoBehaviour
                     {
                         _waiter = true;
                         StartCoroutine(Delay());
-                        balls[i].GetComponent<Ball>().SetGoMerge(mergeBallPos,_delayMerge);
+                        var first = balls.FirstOrDefault();
+                        if (first) 
+                            first.GetComponent<Ball>().SetGoMerge(mergeBallPos,_delayMerge);
                         _delayMerge += .5f;
-                        balls.RemoveAt(i);
+                        balls.Remove(first);
                         _tempTimeMerge = 0;
                     }
                 }
@@ -168,8 +171,10 @@ public class BallController : MonoBehaviour
                     {
                         _waiter = true;
                         StartCoroutine(Delay());
-                        balls[i].GetComponent<Ball>().SetGoUnlock(_unlockWallPos);
-                        balls.RemoveAt(i);
+                            var first = balls.FirstOrDefault();
+                            if (first) 
+                                first.GetComponent<Ball>().SetGoUnlock(_unlockWallPos);
+                            balls.Remove(first);
                     }
                 }
             }
@@ -271,7 +276,7 @@ public class BallController : MonoBehaviour
     
     IEnumerator Delay()
     {
-        yield return new WaitForSeconds(.2f);
+        yield return new WaitForSeconds(.1f);
         _waiter = false;
     }
 
