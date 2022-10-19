@@ -319,7 +319,7 @@ MonoBehaviour:
   sliderValue: {fileID: 1050553260977818737}
   bloodParticle: {fileID: 4569423224706989419}
   _rb: {fileID: 4736879514929230163}
-  enemyDamage: 5
+  enemyDamage: 13
   creatValue: 0200000004000000
   creatCount: 2
   enemyHealthValue: 100
@@ -406,7 +406,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 118
   m_CollisionDetection: 1
 --- !u!1 &2108235053447172279
 GameObject:
