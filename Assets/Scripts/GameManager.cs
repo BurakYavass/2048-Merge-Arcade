@@ -206,8 +206,6 @@ public class GameManager : MonoBehaviour
     {
         if (upgradeMachine._totalValue >= _speedUpgradeRequire)
         {
-            // _speedUpgradeRequire = speedUpgradeState[_speedState];
-            // upgradeMachine._totalValue -= _speedUpgradeRequire;
             if (_speedState==0)
             {
                 playerSpeed += 2.0f;

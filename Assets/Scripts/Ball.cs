@@ -1,7 +1,5 @@
-using System;
 using System.Collections;
 using DG.Tweening;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
@@ -24,7 +22,6 @@ public class Ball : MonoBehaviour
 
     private float _delayMerge;
     private float _distance;
-    private bool _once = false;
     public bool go;
     public bool goMerge;
     public bool goUpgrade;
@@ -82,7 +79,6 @@ public class Ball : MonoBehaviour
                 
                 if (agent.isOnNavMesh)
                 {
-                    _once = false;
                     ballRb.isKinematic = true;
                     _collider.isTrigger = true;
                     agent.SetDestination(targetObjePos);

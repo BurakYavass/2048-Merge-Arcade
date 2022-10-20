@@ -1,16 +1,10 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using DG.Tweening;
 using UnityEngine;
 
 public class PlayerAnimationHandler : MonoBehaviour
 {
     [SerializeField] private Animator animator;
     [SerializeField] private PlayerController playerController;
-
-    private bool _once = false;
-
+    
 
     public void HitAnimation(bool hittable)
     {

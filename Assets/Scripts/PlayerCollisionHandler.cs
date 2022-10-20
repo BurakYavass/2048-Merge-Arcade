@@ -10,7 +10,6 @@ public class PlayerCollisionHandler : MonoBehaviour
     private PlayerBallCounter _playerBallCounter;
 
     private bool _active = false;
-    private bool _unlockArea = false;
     private int i = 0;
     [SerializeField] private PlayerController playerController;
 
@@ -29,18 +28,6 @@ public class PlayerCollisionHandler : MonoBehaviour
     private void OnDisable()
     {
         _active = false;
-    }
-
-    private void Update()
-    {
-        // if (_chestController != null)
-        // {
-        //     if (_chestController.chestHealthCurrent < 1)
-        //     {
-        //         animationHandler.HitAnimation(false);
-        //         _chestController = null;
-        //     }
-        // }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -80,7 +67,6 @@ public class PlayerCollisionHandler : MonoBehaviour
         {
             //gameEventHandler.PlayerLevelUnlockArea(false);
             _playerBallCounter.stackValue = 0;
-            _unlockArea = false;
         }
 
     }

@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +11,7 @@ public class TriggerArea : MonoBehaviour
         Merge,
         BaseRight,
         BaseLeft,
+        Ground,
     }
 
     public Area areaType;
@@ -26,42 +25,7 @@ public class TriggerArea : MonoBehaviour
     
     private bool _upgradeArea;
     private bool _mergeMachine;
-
-
-    private void Awake()
-    {
-        //_playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        switch (areaType)
-        {
-            case Area.Upgrade:
-                break;
-            case Area.Merge:
-                break;
-            case Area.BaseRight:
-                break;
-        }
-
-        //playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
-        //_playerBallCounter = _playerController.GetComponent<PlayerBallCounter>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    // Area Type(Area type)
-    // {
-    //     type = type == Area.Merge ? Area.Merge : Area.Upgrade;
-    //
-    //     return type;
-    // }
+    
 
     private void OnTriggerEnter(Collider other)
     {
@@ -73,7 +37,6 @@ public class TriggerArea : MonoBehaviour
             {
                 if (!_upgradeArea)
                 {
-                    //_playerBallCounter.BallCountCheck();
                     _upgradeTriggerDelay = StartCoroutine(UpgradeAreaDelay(true));
                 }
             }

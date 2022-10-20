@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 using DG.Tweening;
@@ -195,10 +194,7 @@ public class PlayerController : MonoBehaviour
             _currentMoveMultiplier = Mathf.Lerp(_currentMoveMultiplier, dot, acceleration * Time.fixedDeltaTime);
         
             var position = transform.position + transform.forward.normalized * (PlayerSpeed * dot * Time.fixedDeltaTime);
-            
-            //Vector3 temp = transform.position + transform.forward* (speed * Time.fixedDeltaTime);
-            //transform.position = position;
-            
+
             UnityEngine.AI.NavMeshHit hit;
             bool isvalid = UnityEngine.AI.NavMesh.SamplePosition(position, out hit, .3f, UnityEngine.AI.NavMesh.AllAreas);
             if (isvalid)

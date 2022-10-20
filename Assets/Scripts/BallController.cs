@@ -68,16 +68,6 @@ public class BallController : MonoBehaviour
             {
                 for (int i = 0; i < balls.Count; i++)
                 {
-                    // if (!_waiter)
-                    // {
-                    //     _waiter = true;
-                    //     StartCoroutine(Delay());
-                    //     balls[i].GetComponent<Ball>().SetGoUpgrade(upgradeBallPos);
-                    //     _delayMerge += .5f;
-                    //     balls.RemoveAt(i);
-                    //     _tempTimeMerge = 0;
-                    // }
-
                     var ballValue = balls[i].GetComponent<Ball>()._BallValue;
                     switch (ballValue)
                     {
@@ -191,10 +181,8 @@ public class BallController : MonoBehaviour
             {
                 for (int i = 0; i < balls.Count; i++)
                 {
-                    //_playerFollowerList.playerFollowPoints[i].clearList = true;
                     balls[i].GetComponent<Ball>().SetGoTravel();
                     balls[i].SetActive(false);
-                    // balls.RemoveAt(i);
                     PlayerPrefs.SetInt("BallSave" + i, (int)(balls[i].GetComponent<Ball>().GetValue()));
                     PlayerPrefs.SetInt("BallSaveCount", balls.Count);
                     PlayerPrefs.Save();

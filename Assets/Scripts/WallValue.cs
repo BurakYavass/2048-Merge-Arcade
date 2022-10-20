@@ -23,10 +23,8 @@ public class WallValue : MonoBehaviour
     
 
     public int _totalValue;
-    private bool unlockWall;
     private bool _playerWallArea = false;
     private bool _once = false;
-    private bool _on = false;
     private int _dicreaseValue;
     private int j;
     private Vector3 _scale;
@@ -64,7 +62,6 @@ public class WallValue : MonoBehaviour
     {
         if (_totalValue == 0)
         {
-            unlockWall = false;
             gameObject.GetComponent<Collider>().enabled = false;
             if (!_once)
             {
