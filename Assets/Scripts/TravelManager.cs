@@ -1,7 +1,5 @@
-using System;
 using System.Collections;
 using DG.Tweening;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,24 +9,30 @@ public class TravelManager : MonoBehaviour
     [SerializeField] private Transform yellowLevel;
     [SerializeField] private Transform greenLevel;
     [SerializeField] private Transform purpleLevel;
+    [SerializeField] private Transform homeStage;
     [SerializeField] private Image fillImage;
     [SerializeField] private GameObject[] openPart;
     [SerializeField] private GameObject firstTimePlay;
     [SerializeField] private BallController ballController;
     [SerializeField] private float travelDelay;
+    [SerializeField] private UIManager uiManagser;
+    [SerializeField] private PlayerController playerController;
+    [SerializeField] private GameObject homeTeleportCanvas;
 
     private Collider _collider;
     private Transform _travelPoint;
 
     public bool active;
     private bool _once = false;
-    private PlayerController _player;
+    public bool homeButtonActiveNow;
+    
     
 
     void Start()
     {
         PlayerPrefs.GetInt("yellow", 0);
         PlayerPrefs.GetInt("purple", 0);
+        PlayerPrefs.GetInt("homeButton", 0);
         _collider = GetComponent<Collider>();
         
         if (travelType == TravelType.YellowStage)
@@ -60,20 +64,42 @@ public class TravelManager : MonoBehaviour
                 active = false;
             }
         }
+        else if (travelType == TravelType.HomeStage)
+        {
+            _travelPoint = homeStage;
+            if (PlayerPrefs.GetInt("homeButton")==1)
+            {
+                active = false;
+                homeButtonActiveNow = true;
+            }
+            else
+            {
+                active = true;
+                homeButtonActiveNow = false;
+                
+            }
+        }
 
         if (active)
         {
             _collider.enabled = true;
-            foreach (var particle in openPart)
+            if (openPart.Length >0)
             {
-                particle.SetActive(true);
+                foreach (var particle in openPart)
+                {
+                    particle.SetActive(true);
+                }
             }
+            
         }
         else
         {
-            foreach (var particle in openPart)
+            if (openPart.Length > 0)
             {
-                particle.SetActive(false);
+                foreach (var particle in openPart)
+                {
+                    particle.SetActive(false);
+                }
             }
             _collider.enabled = false;
         }
@@ -102,24 +128,49 @@ public class TravelManager : MonoBehaviour
                 
             }
         }
+        else
+        {
+            if (travelType == TravelType.HomeStage)
+            {
+                _collider.enabled = false;
+                transform.GetChild(0).gameObject.SetActive(false);
+            }
+        }
+        
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            firstTimePlay.SetActive(true);
-            _player = other.GetComponent<PlayerController>();
-            _player.OnPlayerTeleport(true);
-            foreach (var closeObject in _player.closePart)
-            {
-                closeObject.SetActive(false);
-            }
-            StartCoroutine(TravelWaiter());
-            fillImage.DOFillAmount(1, travelDelay).OnComplete((() => fillImage.fillAmount = 0));
-            firstTimePlay.transform.DOLocalMoveY(0.43f,travelDelay);
+            playerController = other.GetComponent<PlayerController>();
             
+            if (travelType == TravelType.HomeStage)
+            {
+                homeTeleportCanvas.SetActive(true);
+                uiManagser.PlayerHomeTravelButton(true);
+                homeButtonActiveNow = true;
+                active = false;
+                PlayerPrefs.SetInt("homeButton",1);
+            }
+            else
+            {
+                firstTimePlay.SetActive(true);
+                playerController.OnPlayerTeleport(true);
+                foreach (var closePart in playerController.closePart)
+                {
+                    closePart.SetActive(false);
+                }
+                foreach (var variCollider in playerController.colliders)
+                {
+                    variCollider.enabled = false;
+                }
+                StartCoroutine(TravelWaiter());
+                fillImage.DOFillAmount(1, travelDelay).OnComplete((() => fillImage.fillAmount = 0));
+                firstTimePlay.transform.DOLocalMoveY(0.43f,travelDelay);
+            }
         }
+       
     }
 
     public enum TravelType
@@ -127,22 +178,47 @@ public class TravelManager : MonoBehaviour
         YellowStage,
         GreenStage,
         PurpleStage,
+        HomeStage,
+    }
+    
+    public void PlayerHomeTravel()
+    {
+        playerController.OnPlayerTeleport(true);
+        StartCoroutine(TravelWaiter());
+        foreach (var closePart in playerController.closePart)
+        {
+            closePart.SetActive(false);
+        }
+
+        foreach (var variCollider in playerController.colliders)
+        {
+            variCollider.enabled = false;
+        }
     }
 
     IEnumerator TravelWaiter()
     {
+        if (travelType != TravelType.HomeStage)
+        {
+            GameEventHandler.current.PlayerLeftArea(false);
+        }
         yield return new WaitForSeconds(travelDelay);
         var travelPos = _travelPoint.transform.position;
-        _player.gameObject.transform.DOMove(new Vector3(travelPos.x,travelPos.y+.5f,travelPos.z), 2.0f)
+        ballController.GoTravelPoint();
+        playerController.gameObject.transform.DOMove(new Vector3(travelPos.x,travelPos.y+.5f,travelPos.z), 1.5f)
             .OnComplete((() =>
             {
-                firstTimePlay.SetActive(false);
-                _player.transform.forward = Vector3.forward;
-                ballController.GoTravelPoint();
-                _player.OnPlayerTeleport(false);
-                foreach (var closeObject in _player.closePart)
+                if (firstTimePlay)
+                    firstTimePlay.SetActive(false);
+                playerController.transform.forward = Vector3.forward;
+                playerController.OnPlayerTeleport(false);
+                foreach (var variCollider in playerController.colliders)
                 {
-                    closeObject.SetActive(true);
+                    variCollider.enabled = true;
+                }
+                foreach (var closePart in playerController.closePart)
+                {
+                    closePart.SetActive(true);
                 }
             }));
         

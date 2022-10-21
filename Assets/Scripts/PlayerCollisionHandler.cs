@@ -1,18 +1,19 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class PlayerCollisionHandler : MonoBehaviour
 {
+    [SerializeField] private PlayerController playerController;
     [SerializeField] private BallController ballController;
+    [SerializeField] private TravelManager travelManager;
+    private PlayerBallCounter _playerBallCounter;
     private ChestController _chestController;
     public List<FollowerList> playerFollowPoints;
-
-    private PlayerBallCounter _playerBallCounter;
-
+    
     private bool _active = false;
     private int i = 0;
-    [SerializeField] private PlayerController playerController;
-
 
     private void Start()
     {
@@ -28,6 +29,23 @@ public class PlayerCollisionHandler : MonoBehaviour
     private void OnDisable()
     {
         _active = false;
+    }
+
+    private void Update()
+    {
+        NavMeshHit hit;
+        bool inBase = NavMesh.SamplePosition(transform.position, out hit, .3f, NavMesh.GetAreaFromName("Base"));
+        if (!inBase)
+        {
+            UIManager.current.PlayerHomeTravelButton(false);
+        }
+        else
+        {
+            if (travelManager.homeButtonActiveNow)
+            {
+                UIManager.current.PlayerHomeTravelButton(true);
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -49,14 +67,6 @@ public class PlayerCollisionHandler : MonoBehaviour
                     ballController.SetNewBall(other.gameObject);
                 }
             }
-        }
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.CompareTag("Ground"))
-        {
-            playerController.CameraChanger(0);
         }
     }
 

@@ -4,6 +4,7 @@ using Cinemachine;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UI;
 
 
@@ -15,7 +16,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public Rigidbody rb;
     [NonSerialized] public float PlayerSpeed;
     [SerializeField] private float acceleration;
-    [SerializeField] private List<CinemachineVirtualCamera> virtualCameras;
     [SerializeField] private Joystick joystick;
     [SerializeField] private RectTransform handle;
     [SerializeField] private CinemachineVirtualCamera _virtualCamera;
@@ -61,7 +61,6 @@ public class PlayerController : MonoBehaviour
         currentHealth.text = (Mathf.Round(playerHealthValueCurrent)).ToString("0");
         GameEventHandler.current.OnPlayerUpgradeArea += OnPlayerUpgradeArea;
         DOTween.Init();
-        CameraChanger(0);
     }
 
     private void OnDestroy()
@@ -96,7 +95,6 @@ public class PlayerController : MonoBehaviour
 
     public void OnPlayerTeleport(bool teleport)
     {
-        CameraChanger(0);
         _teleporting = teleport;
     }
 
@@ -118,7 +116,7 @@ public class PlayerController : MonoBehaviour
         _playerHealthValue = GameManager.current._playerArmor;
         if (Math.Abs(_playerHealthValue - playerHealthValueCurrent) > .1f )
         {
-            if (_upgradeArea)
+            if (_upgradeArea || _teleporting)
             {
                 healthBar.SetActive(false);
             }
@@ -167,17 +165,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void CameraChanger(int cam)
-    {
-        _virtualCamera = virtualCameras[0];
-    }
-
     private void Movement()
     {
         Vector3 inputVector = new Vector3(InputController.Joystick.x, 0f, InputController.Joystick.y);
 
         PlayerSpeed = GameManager.current.playerSpeed * inputVector.magnitude;
-        //PlayerSpeed = speed + inputVector.magnitude;
         if (inputVector != Vector3.zero)
         {
             var cameraTransform = _virtualCamera.transform;
@@ -194,9 +186,9 @@ public class PlayerController : MonoBehaviour
             _currentMoveMultiplier = Mathf.Lerp(_currentMoveMultiplier, dot, acceleration * Time.fixedDeltaTime);
         
             var position = transform.position + transform.forward.normalized * (PlayerSpeed * dot * Time.fixedDeltaTime);
-
-            UnityEngine.AI.NavMeshHit hit;
-            bool isvalid = UnityEngine.AI.NavMesh.SamplePosition(position, out hit, .3f, UnityEngine.AI.NavMesh.AllAreas);
+            
+           NavMeshHit hit;
+            bool isvalid = NavMesh.SamplePosition(position, out hit, .3f, NavMesh.AllAreas);
             if (isvalid)
             {
                 transform.position = position;
@@ -218,8 +210,6 @@ public class PlayerController : MonoBehaviour
         }
     }
     
-    
-
     public void HitTaken(float damage)
     {
         if (gameObject.activeInHierarchy && !playerDie)
