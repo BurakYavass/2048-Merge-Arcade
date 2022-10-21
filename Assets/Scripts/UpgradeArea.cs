@@ -18,7 +18,7 @@ public class UpgradeArea : MonoBehaviour
     public void UpgradeCalculate(int value)
     {
         _dicreaseValue = value;
-        _totalValue = Mathf.Clamp(_totalValue - _dicreaseValue, 0, 4096);
+        //_totalValue = Mathf.Clamp(_totalValue - _dicreaseValue, 0, 4096);
         blackSmithAnimator.SetBool("working",true);
     }
 

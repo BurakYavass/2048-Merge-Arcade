@@ -119,7 +119,10 @@ public class GameManager : MonoBehaviour
                 playerFollowerList[i].clearList = true;
             }
         }
-       
+        
+        _armorUpgradeRequire = armorUpgradeState[_armorState];
+        _speedUpgradeRequire = speedUpgradeState[_speedState];
+        _damageUpgradeRequire = damageUpgradeState[_damageState];
     }
     
     private IEnumerator ReviveDelay(float delay)
@@ -164,8 +167,7 @@ public class GameManager : MonoBehaviour
     {
         if (upgradeMachine._totalValue >=_armorUpgradeRequire)
         {
-            // _armorUpgradeRequire = armorUpgradeState[_armorState];
-            // upgradeMachine._totalValue -= _armorUpgradeRequire;
+            upgradeMachine._totalValue -= _armorUpgradeRequire;
             _armorState++;
             if (_armorState==1)
             {
@@ -206,6 +208,7 @@ public class GameManager : MonoBehaviour
     {
         if (upgradeMachine._totalValue >= _speedUpgradeRequire)
         {
+            upgradeMachine._totalValue -= _speedUpgradeRequire;
             if (_speedState==0)
             {
                 playerSpeed += 2.0f;
@@ -241,7 +244,7 @@ public class GameManager : MonoBehaviour
     {
         if (upgradeMachine._totalValue >= _damageUpgradeRequire)
         {
-            
+            upgradeMachine._totalValue -= _damageUpgradeRequire;
             _damageState++;
             if (_damageState==1)
             {
