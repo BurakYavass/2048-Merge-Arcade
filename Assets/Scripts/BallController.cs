@@ -20,7 +20,6 @@ public class BallController : MonoBehaviour
     private bool _goTravelPoint;
     private bool _waiter = false;
     private float _tempSpeed;
-    private float _tempTimeMerge;
     private float _delayMerge;
     private int j = 0;
 
@@ -69,47 +68,7 @@ public class BallController : MonoBehaviour
                 for (int i = 0; i < balls.Count; i++)
                 {
                     var ballValue = balls[i].GetComponent<Ball>()._BallValue;
-                    switch (ballValue)
-                    {
-                        case 2:
-                            _upgradeArea._totalValue += 2;
-                            break;
-                        case 4:
-                            _upgradeArea._totalValue += 4;
-                            break;
-                        case 8:
-                            _upgradeArea._totalValue += 8;
-                            break;
-                        case 16:
-                            _upgradeArea._totalValue += 16;
-                            break;
-                        case 32:
-                            _upgradeArea._totalValue += 32;
-                            break;
-                        case 64:
-                            _upgradeArea._totalValue += 64;
-                            break;
-                        case 128:
-                            _upgradeArea._totalValue += 128;
-                            break;
-                        case 256:
-                            _upgradeArea._totalValue += 256;
-                            break;
-                        case 512:
-                            _upgradeArea._totalValue += 512;
-                            break;
-                        case 1024:
-                            _upgradeArea._totalValue += 1024;
-
-                            break;
-                        case 2048:
-                            _upgradeArea._totalValue += 2048;
-
-                            break;
-                        case 4096:
-                            _upgradeArea._totalValue += 4096;
-                            break;
-                    }
+                    _upgradeArea._totalValue += ballValue;
                 }
 
                 foreach (var ball in balls)
@@ -121,13 +80,11 @@ public class BallController : MonoBehaviour
             else
             {
                 _goUpgrade = false;
-                _delayMerge = 0;
             }
         } 
         
         if (_goMerge)
         {
-            _tempTimeMerge += Time.deltaTime;
             if (balls.Count> 0)
             {
                 for (int i = 0; i < balls.Count; i++)
@@ -138,10 +95,10 @@ public class BallController : MonoBehaviour
                         StartCoroutine(Delay());
                         var first = balls.FirstOrDefault();
                         if (first) 
-                            first.GetComponent<Ball>().SetGoMerge(mergeBallPos,_delayMerge);
+                            first.GetComponent<Ball>().SetGoMerge(mergeBallPos);
                         _delayMerge += .5f;
                         balls.Remove(first);
-                        _tempTimeMerge = 0;
+                        
                     }
                 }
             }
@@ -271,7 +228,7 @@ public class BallController : MonoBehaviour
 
     IEnumerator Reload()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(2);
         ReloadGame();
     }
 

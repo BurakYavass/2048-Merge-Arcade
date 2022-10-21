@@ -11,7 +11,6 @@ public class TriggerArea : MonoBehaviour
         Merge,
         BaseRight,
         BaseLeft,
-        Ground,
     }
 
     public Area areaType;
@@ -55,12 +54,10 @@ public class TriggerArea : MonoBehaviour
             else if (areaType == Area.BaseRight)
             {
                 gameEventHandler.PlayerRightArea(true);
-                _playerController.CameraChanger(1);
             }
             else if (areaType == Area.BaseLeft)
             {
                 gameEventHandler.PlayerLeftArea(true);
-                _playerController.CameraChanger(2);
             }
             
         }
@@ -91,12 +88,10 @@ public class TriggerArea : MonoBehaviour
             else if (areaType == Area.BaseRight)
             {
                 gameEventHandler.PlayerRightArea(false);
-                _playerController.CameraChanger(0);
             }
             else if (areaType == Area.BaseLeft)
             {
                 gameEventHandler.PlayerLeftArea(false);
-                _playerController.CameraChanger(0);
             }
         }
     }
@@ -107,7 +102,6 @@ public class TriggerArea : MonoBehaviour
         _upgradeArea = false;
         StopCoroutine(_upgradeTriggerDelay);
         gameEventHandler.PlayerUpgradeArea(false);
-        _playerController.CameraChanger(0);
     }
     
     IEnumerator UpgradeAreaDelay(bool inOut)
@@ -118,7 +112,6 @@ public class TriggerArea : MonoBehaviour
         filledImage.DOFillAmount(1, 1f).OnComplete((() =>
         {
             ballController.GoUpgrade();
-            _playerController.CameraChanger(3);
             gameEventHandler.PlayerUpgradeArea(true);
         }));
     }

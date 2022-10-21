@@ -306,7 +306,7 @@ public class Ball : MonoBehaviour
         go = true;
     }
     
-    public void SetGoMerge(GameObject target,float delay)
+    public void SetGoMerge(GameObject target)
     {
         dustParticle.SetActive(false);
         agent.enabled = false;
@@ -331,7 +331,7 @@ public class Ball : MonoBehaviour
                 {
                     _collider.isTrigger = false;
                     transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
-                    StartCoroutine(DelayMergeTime(delay));
+                    StartCoroutine(DelayMergeTime());
                 }));
         }
         else
@@ -408,8 +408,8 @@ public class Ball : MonoBehaviour
                 wing.SetActive(false);
             }
             GameEventHandler.current.BallMergeArea(true);
-            other.transform.parent.transform.DOPunchScale(new Vector3(0.01f, 0.01f, 0.01f), 0.1f).SetEase(Ease.InBounce)
-                .OnComplete((() => other.transform.parent.transform.localScale = Vector3.one));
+            // other.transform.parent.transform.DOPunchScale(new Vector3(0.01f, 0.01f, 0.01f), 0.1f).SetEase(Ease.InBounce)
+            //     .OnComplete((() => other.transform.parent.transform.localScale = Vector3.one));
         }
 
         if (other.CompareTag("Ground"))
@@ -482,7 +482,7 @@ public class Ball : MonoBehaviour
         triggerCollider.center = Vector3.up;
 
     }
-    IEnumerator DelayMergeTime(float delay)
+    IEnumerator DelayMergeTime()
     {
         //triggerCollider.isTrigger = false;
         yield return new WaitForSeconds(.1f);

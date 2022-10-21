@@ -33,14 +33,10 @@ public class MergeController : MonoBehaviour
         {
             TotalValue();
         }
-        
     }
     private void OnBallMergeArea(bool enterExit)
     {
-        // if (enterExit)
-        // {
-        //     machineAnimator.SetBool("vibration" , true);
-        // }
+        machineAnimator.SetBool("vibration" , true);
     }
     
      void TotalValue()
@@ -81,6 +77,10 @@ public class MergeController : MonoBehaviour
                  _ballController.SetNewBall(go);
                  j++;
              }
+         }
+         if (totalValue == 0)
+         {
+             machineAnimator.SetBool("vibration" , false);
          }
          // _IsDone = 0;
          // if (_TotalValue >=4096)
@@ -212,52 +212,13 @@ public class MergeController : MonoBehaviour
      }
      private void OnTriggerEnter(Collider other)
     {
-        machineAnimator.SetBool("vibration" , true);
+        //machineAnimator.SetBool("vibration" , true);
         if (other.CompareTag("MergeBall"))
         {
             int tempvalue = other.GetComponent<Ball>().GetValue();
             totalValue += tempvalue;
             Destroy(other.gameObject);
-
-            // switch (tempvalue)
-            // {
-            //     case 2:
-            //         _TotalValue += 2;
-            //         break;
-            //     case 4:
-            //         _TotalValue += 4;
-            //         break;
-            //     case 8:
-            //         _TotalValue += 8;
-            //         break;
-            //     case 16:
-            //         _TotalValue += 16;
-            //         break;
-            //     case 32:
-            //         _TotalValue += 32;
-            //         break;
-            //     case 64:
-            //         _TotalValue += 64;
-            //         break;
-            //     case 128:
-            //         _TotalValue += 128;
-            //         break;
-            //     case 256:
-            //         _TotalValue += 256;
-            //         break;
-            //     case 512:
-            //         _TotalValue += 512;
-            //         break;
-            //     case 1024:
-            //         _TotalValue += 1022;
-            //         break;
-            //     case 2048:
-            //         _TotalValue += 2048;
-            //         break;
-            //     case 4096:
-            //         _TotalValue += 4096;
-            //         break;
-            // }
+            
         }
     }
 }

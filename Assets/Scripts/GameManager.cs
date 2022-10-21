@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
         {
             armorMax = true;
         }
-        if (_speedState == 2)
+        if (_speedState == 3)
         {
             speedMax = true;
         }
@@ -209,25 +209,24 @@ public class GameManager : MonoBehaviour
         if (upgradeMachine._totalValue >= _speedUpgradeRequire)
         {
             upgradeMachine._totalValue -= _speedUpgradeRequire;
-            if (_speedState==0)
+            _speedState++;
+            if (_speedState==1)
             {
                 playerSpeed += 2.0f;
                 _playerParticles.PlayerUpgrade();
                 upgradeMachine.UpgradeCalculate(_speedUpgradeRequire);
                 PlayerPrefs.SetFloat("PlayerSpeed",playerSpeed);
-                _speedState++;
-                PlayerPrefs.SetInt("SpeedState",_speedState);
-            }
-            else if (_speedState == 1)
-            {
-                playerSpeed += 2.0f;
-                _playerParticles.PlayerUpgrade();
-                upgradeMachine.UpgradeCalculate(_speedUpgradeRequire);
-                PlayerPrefs.SetFloat("PlayerSpeed",playerSpeed);
-                _speedState++;
                 PlayerPrefs.SetInt("SpeedState",_speedState);
             }
             else if (_speedState == 2)
+            {
+                playerSpeed += 2.0f;
+                _playerParticles.PlayerUpgrade();
+                upgradeMachine.UpgradeCalculate(_speedUpgradeRequire);
+                PlayerPrefs.SetFloat("PlayerSpeed",playerSpeed);
+                PlayerPrefs.SetInt("SpeedState",_speedState);
+            }
+            else if (_speedState == 3)
             {
                 playerSpeed += 2.0f;
                 _playerParticles.PlayerUpgrade();
