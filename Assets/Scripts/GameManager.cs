@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using GameAnalyticsSDK;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -85,7 +86,12 @@ public class GameManager : MonoBehaviour
         _playerUpgradableItems.ArmorChanger(_armorState);
         _playerUpgradableItems.WeaponChanger(_damageState);
     }
-    
+
+    private void Start()
+    {
+        GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, "1");
+    }
+
     private void OnDisable()
     {
         gameEventHandler.OnPlayerUpgradeArea -= OnPlayerUpgradeArea;
@@ -107,6 +113,7 @@ public class GameManager : MonoBehaviour
             if (!_once)
             {
                 _once = true;
+                GameAnalytics.NewProgressionEvent(GAProgressionStatus.Fail, "1");
                 StartCoroutine(ReviveDelay(playerReviveDelay));
                 uiManager.PlayerRevive(true,playerReviveDelay);
                 ballController.GoFree();

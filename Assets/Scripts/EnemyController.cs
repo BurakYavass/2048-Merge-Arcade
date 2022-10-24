@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using GameAnalyticsSDK;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -54,6 +55,7 @@ public class EnemyController : MonoBehaviour
     private bool _playerHit;
     private bool _skillActive = false;
     private bool _once = false;
+    private bool _bossDie;
 
     void Start()
     {
@@ -185,6 +187,11 @@ public class EnemyController : MonoBehaviour
                 if (boss)
                 {
                     enemyAnimator.SetBool("Dying",true);
+                    if (!_bossDie)
+                    {
+                        _bossDie = true;
+                        GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "Boss");
+                    }
                 }
                 else
                 {
@@ -342,9 +349,25 @@ public class EnemyController : MonoBehaviour
         return navHit.position;
     }
     
-
+    private void BossDying()
+    {
+        var colliders = GetComponents<Collider>();
+        foreach (var collider in colliders)
+        {
+            collider.enabled = false;
+        }
+        StartCoroutine(CloseDelay());
+        for (int i = 0; i < closePart.Length; i++)
+        {
+            closePart[i].transform.localScale = Vector3.Lerp(closePart[i].transform.localScale,Vector3.zero,.1f);
+          
+        } 
+        for (int i = 0; i < openPart.Length; i++)
+        {
+            openPart[i].SetActive(true);
+        } 
+    }
     
-
     IEnumerator CloseDelay()
     {
         yield return new WaitForSeconds(.1f);
@@ -392,24 +415,7 @@ public class EnemyController : MonoBehaviour
         dustParticle.Play();
     }
 
-    private void Dying()
-    {
-        var colliders = GetComponents<Collider>();
-        foreach (var collider in colliders)
-        {
-            collider.enabled = false;
-        }
-        StartCoroutine(CloseDelay());
-        for (int i = 0; i < closePart.Length; i++)
-        {
-            closePart[i].transform.localScale = Vector3.Lerp(closePart[i].transform.localScale,Vector3.zero,.1f);
-          
-        } 
-        for (int i = 0; i < openPart.Length; i++)
-        {
-            openPart[i].SetActive(true);
-        } 
-    }
+   
 
     IEnumerator SkillCooldown()
     {

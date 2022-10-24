@@ -1,5 +1,6 @@
 using System.Collections;
 using DG.Tweening;
+using GameAnalyticsSDK;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -111,6 +112,7 @@ public class TravelManager : MonoBehaviour
         {
             if (!_once)
             {
+                _once = true;
                 _collider.enabled = true;
                 foreach (var particle in openPart)
                 {
@@ -120,10 +122,12 @@ public class TravelManager : MonoBehaviour
                 if (travelType == TravelType.YellowStage)
                 {
                     PlayerPrefs.SetInt("yellow", 1);
+                    GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "Gate 1");
                 }
                 else if (travelType == TravelType.PurpleStage)
                 {
                     PlayerPrefs.SetInt("purple",1);
+                    GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "Gate 2");
                 }
                 
             }
