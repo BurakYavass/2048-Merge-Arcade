@@ -442,6 +442,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CupeCakeMonsterwithCandy_1
       objectReference: {fileID: 0}
+    - target: {fileID: 8424800387242867170, guid: ed3e718407e4d9b4b9d8e907ce4eb3a9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9196693470807286616, guid: ed3e718407e4d9b4b9d8e907ce4eb3a9, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -456,7 +460,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9196693470807286616, guid: ed3e718407e4d9b4b9d8e907ce4eb3a9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 288.3
+      value: 309.4
       objectReference: {fileID: 0}
     - target: {fileID: 9196693470807286616, guid: ed3e718407e4d9b4b9d8e907ce4eb3a9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2590,7 +2594,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9196693470807286616, guid: 39cb372fb89ab164aa7b30524d1ac36a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 271.46
+      value: 370.08
       objectReference: {fileID: 0}
     - target: {fileID: 9196693470807286616, guid: 39cb372fb89ab164aa7b30524d1ac36a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3765,6 +3769,10 @@ PrefabInstance:
     - target: {fileID: 7339560393192896080, guid: 28cd06dcc681fe0449fda4aff02d0251, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -4.4640822
+      objectReference: {fileID: 0}
+    - target: {fileID: 7658186204105898651, guid: 28cd06dcc681fe0449fda4aff02d0251, type: 3}
+      propertyPath: enemyHealthValue
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7836643324642912668, guid: 28cd06dcc681fe0449fda4aff02d0251, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -5374,7 +5382,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9196693470807286616, guid: 39cb372fb89ab164aa7b30524d1ac36a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 352.8
+      value: 422.58
       objectReference: {fileID: 0}
     - target: {fileID: 9196693470807286616, guid: 39cb372fb89ab164aa7b30524d1ac36a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5797,7 +5805,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9196693470807286616, guid: 39cb372fb89ab164aa7b30524d1ac36a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -11.7
+      value: -9.65
       objectReference: {fileID: 0}
     - target: {fileID: 9196693470807286616, guid: 39cb372fb89ab164aa7b30524d1ac36a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5805,7 +5813,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9196693470807286616, guid: 39cb372fb89ab164aa7b30524d1ac36a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 308.19
+      value: 403.1
       objectReference: {fileID: 0}
     - target: {fileID: 9196693470807286616, guid: 39cb372fb89ab164aa7b30524d1ac36a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -7140,6 +7148,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CupeCakeMonsterwithCandy_2
       objectReference: {fileID: 0}
+    - target: {fileID: 8424800387242867170, guid: ed3e718407e4d9b4b9d8e907ce4eb3a9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9196693470807286616, guid: ed3e718407e4d9b4b9d8e907ce4eb3a9, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -7154,7 +7166,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9196693470807286616, guid: ed3e718407e4d9b4b9d8e907ce4eb3a9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 327.6
+      value: 287.6
       objectReference: {fileID: 0}
     - target: {fileID: 9196693470807286616, guid: ed3e718407e4d9b4b9d8e907ce4eb3a9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -8982,7 +8994,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6482293435532754944, guid: ab754b435636e2e4883c824c55d64fab, type: 3}
       propertyPath: m_RootOrder
-      value: 26
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 6482293435532754944, guid: ab754b435636e2e4883c824c55d64fab, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9777,13 +9789,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: CupeCakeMonsterwithCandy_3
       objectReference: {fileID: 0}
+    - target: {fileID: 8424800387242867170, guid: ed3e718407e4d9b4b9d8e907ce4eb3a9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9196693470807286616, guid: ed3e718407e4d9b4b9d8e907ce4eb3a9, type: 3}
       propertyPath: m_RootOrder
       value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 9196693470807286616, guid: ed3e718407e4d9b4b9d8e907ce4eb3a9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.885147
+      value: 18.8
       objectReference: {fileID: 0}
     - target: {fileID: 9196693470807286616, guid: ed3e718407e4d9b4b9d8e907ce4eb3a9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -9791,7 +9807,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9196693470807286616, guid: ed3e718407e4d9b4b9d8e907ce4eb3a9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 379.2
+      value: 327.7
       objectReference: {fileID: 0}
     - target: {fileID: 9196693470807286616, guid: ed3e718407e4d9b4b9d8e907ce4eb3a9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -10566,7 +10582,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9196693470807286616, guid: 39cb372fb89ab164aa7b30524d1ac36a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 308.19
+      value: 399.02
       objectReference: {fileID: 0}
     - target: {fileID: 9196693470807286616, guid: 39cb372fb89ab164aa7b30524d1ac36a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -12035,7 +12051,8 @@ Transform:
   m_LocalPosition: {x: 17.35, y: 0.6, z: 11.43}
   m_LocalScale: {x: 10, y: 1, z: 18}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1940798980}
   m_Father: {fileID: 4053647277189909210}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -12840,7 +12857,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9196693470807286616, guid: 39cb372fb89ab164aa7b30524d1ac36a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 271.46
+      value: 380.62
       objectReference: {fileID: 0}
     - target: {fileID: 9196693470807286616, guid: 39cb372fb89ab164aa7b30524d1ac36a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -13903,6 +13920,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CupeCakeMonsterwithCandy_7
       objectReference: {fileID: 0}
+    - target: {fileID: 8424800387242867170, guid: ed3e718407e4d9b4b9d8e907ce4eb3a9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8465753197667909706, guid: ed3e718407e4d9b4b9d8e907ce4eb3a9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 69.9324
@@ -13941,7 +13962,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9196693470807286616, guid: ed3e718407e4d9b4b9d8e907ce4eb3a9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 442.05
+      value: 356.97998
       objectReference: {fileID: 0}
     - target: {fileID: 9196693470807286616, guid: ed3e718407e4d9b4b9d8e907ce4eb3a9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -15776,7 +15797,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9196693470807286616, guid: 39cb372fb89ab164aa7b30524d1ac36a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 347.4
+      value: 421.32
       objectReference: {fileID: 0}
     - target: {fileID: 9196693470807286616, guid: 39cb372fb89ab164aa7b30524d1ac36a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -15808,6 +15829,141 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39cb372fb89ab164aa7b30524d1ac36a, type: 3}
+--- !u!1 &1474035598
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1474035599}
+  - component: {fileID: 1474035601}
+  - component: {fileID: 1474035600}
+  m_Layer: 5
+  m_Name: Text (TMP)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1474035599
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1474035598}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1940798980}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1, y: 0.4}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1474035600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1474035598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: PORTALS
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8d446c671841bf74492187a67a8edea8, type: 2}
+  m_sharedMaterial: {fileID: 8204405983992496672, guid: 8d446c671841bf74492187a67a8edea8, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 0.16
+  m_fontSizeBase: 0.16
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 3.19
+  m_fontSizeMax: 72
+  m_fontStyle: 1
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1474035601
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1474035598}
+  m_CullTransparentMesh: 1
 --- !u!1001 &1482701902
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18487,6 +18643,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CupeCakeMonsterwithCandy_5
       objectReference: {fileID: 0}
+    - target: {fileID: 8424800387242867170, guid: ed3e718407e4d9b4b9d8e907ce4eb3a9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8465753197667909706, guid: ed3e718407e4d9b4b9d8e907ce4eb3a9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 70.48929
@@ -18517,7 +18677,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9196693470807286616, guid: ed3e718407e4d9b4b9d8e907ce4eb3a9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.3
+      value: -7.3
       objectReference: {fileID: 0}
     - target: {fileID: 9196693470807286616, guid: ed3e718407e4d9b4b9d8e907ce4eb3a9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -18525,7 +18685,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9196693470807286616, guid: ed3e718407e4d9b4b9d8e907ce4eb3a9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 378.7
+      value: 324.9
       objectReference: {fileID: 0}
     - target: {fileID: 9196693470807286616, guid: ed3e718407e4d9b4b9d8e907ce4eb3a9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -20607,13 +20767,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: CupeCakeMonsterwithCandy_6
       objectReference: {fileID: 0}
+    - target: {fileID: 8424800387242867170, guid: ed3e718407e4d9b4b9d8e907ce4eb3a9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9196693470807286616, guid: ed3e718407e4d9b4b9d8e907ce4eb3a9, type: 3}
       propertyPath: m_RootOrder
       value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 9196693470807286616, guid: ed3e718407e4d9b4b9d8e907ce4eb3a9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.914853
+      value: -8.6
       objectReference: {fileID: 0}
     - target: {fileID: 9196693470807286616, guid: ed3e718407e4d9b4b9d8e907ce4eb3a9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -20621,7 +20785,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9196693470807286616, guid: ed3e718407e4d9b4b9d8e907ce4eb3a9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 394.69998
+      value: 342.3
       objectReference: {fileID: 0}
     - target: {fileID: 9196693470807286616, guid: ed3e718407e4d9b4b9d8e907ce4eb3a9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -20953,6 +21117,107 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1691915430641780088, guid: 52ff561b7b652304281cddfcf4fd692f, type: 3}
   m_PrefabInstance: {fileID: 503490836}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1940798979
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1940798980}
+  - component: {fileID: 1940798983}
+  - component: {fileID: 1940798982}
+  - component: {fileID: 1940798981}
+  m_Layer: 5
+  m_Name: Canvas
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1940798980
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1940798979}
+  m_LocalRotation: {x: 0.5, y: 0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 0, y: 0, z: -0.34924364}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1474035599}
+  m_Father: {fileID: 1152066303}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: -90}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1.02, y: 1.08}
+  m_Pivot: {x: 1, y: 1}
+--- !u!114 &1940798981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1940798979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!114 &1940798982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1940798979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UiScaleMode: 0
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 800, y: 600}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 1
+--- !u!223 &1940798983
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1940798979}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 25
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
 --- !u!4 &1944340481 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9196693470807286616, guid: ed3e718407e4d9b4b9d8e907ce4eb3a9, type: 3}
@@ -21456,6 +21721,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CupeCakeMonsterwithCandy_4
       objectReference: {fileID: 0}
+    - target: {fileID: 8424800387242867170, guid: ed3e718407e4d9b4b9d8e907ce4eb3a9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9196693470807286616, guid: ed3e718407e4d9b4b9d8e907ce4eb3a9, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -21470,7 +21739,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9196693470807286616, guid: ed3e718407e4d9b4b9d8e907ce4eb3a9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 422.00003
+      value: 359.2
       objectReference: {fileID: 0}
     - target: {fileID: 9196693470807286616, guid: ed3e718407e4d9b4b9d8e907ce4eb3a9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -24305,7 +24574,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5724743012027968684, guid: 5f5c1d499e756d34fb4f373f423cf1f2, type: 3}
       propertyPath: m_RootOrder
-      value: 21
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 5724743012027968684, guid: 5f5c1d499e756d34fb4f373f423cf1f2, type: 3}
       propertyPath: m_LocalScale.x
@@ -24374,7 +24643,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5724743012027968684, guid: 5f5c1d499e756d34fb4f373f423cf1f2, type: 3}
       propertyPath: m_RootOrder
-      value: 19
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 5724743012027968684, guid: 5f5c1d499e756d34fb4f373f423cf1f2, type: 3}
       propertyPath: m_LocalScale.x
@@ -24938,7 +25207,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6482293435532754944, guid: ab754b435636e2e4883c824c55d64fab, type: 3}
       propertyPath: m_RootOrder
-      value: 24
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 6482293435532754944, guid: ab754b435636e2e4883c824c55d64fab, type: 3}
       propertyPath: m_LocalPosition.x
@@ -24995,7 +25264,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6482293435532754944, guid: ab754b435636e2e4883c824c55d64fab, type: 3}
       propertyPath: m_RootOrder
-      value: 23
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6482293435532754944, guid: ab754b435636e2e4883c824c55d64fab, type: 3}
       propertyPath: m_LocalPosition.x
@@ -28502,6 +28771,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CupeCakeMonsterwithCandy
       objectReference: {fileID: 0}
+    - target: {fileID: 8424800387242867170, guid: ed3e718407e4d9b4b9d8e907ce4eb3a9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8465753197667909706, guid: ed3e718407e4d9b4b9d8e907ce4eb3a9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 76.94849
@@ -28540,7 +28813,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9196693470807286616, guid: ed3e718407e4d9b4b9d8e907ce4eb3a9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 331.6
+      value: 264.93
       objectReference: {fileID: 0}
     - target: {fileID: 9196693470807286616, guid: ed3e718407e4d9b4b9d8e907ce4eb3a9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -30526,15 +30799,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5724743012027968684, guid: 3bca17f2eb94bd8439894210e0124250, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -11.997814
+      value: -11.997807
       objectReference: {fileID: 0}
     - target: {fileID: 5724743012027968684, guid: 3bca17f2eb94bd8439894210e0124250, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.8681772
+      value: 2.8681467
       objectReference: {fileID: 0}
     - target: {fileID: 5724743012027968684, guid: 3bca17f2eb94bd8439894210e0124250, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 125.49437
+      value: 125.49446
       objectReference: {fileID: 0}
     - target: {fileID: 5724743012027968684, guid: 3bca17f2eb94bd8439894210e0124250, type: 3}
       propertyPath: m_LocalRotation.w
@@ -30579,7 +30852,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2287741638534487717, guid: c38f483626c4a164a82a449bb7decfa0, type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 2287741638534487717, guid: c38f483626c4a164a82a449bb7decfa0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -30678,7 +30951,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2287741638534487717, guid: c38f483626c4a164a82a449bb7decfa0, type: 3}
       propertyPath: m_RootOrder
-      value: 16
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2287741638534487717, guid: c38f483626c4a164a82a449bb7decfa0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -30739,7 +31012,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2287741638534487717, guid: c38f483626c4a164a82a449bb7decfa0, type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 2287741638534487717, guid: c38f483626c4a164a82a449bb7decfa0, type: 3}
       propertyPath: m_LocalScale.x
@@ -30852,7 +31125,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5724743012027968684, guid: 5f5c1d499e756d34fb4f373f423cf1f2, type: 3}
       propertyPath: m_RootOrder
-      value: 18
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 5724743012027968684, guid: 5f5c1d499e756d34fb4f373f423cf1f2, type: 3}
       propertyPath: m_LocalScale.x
@@ -30921,7 +31194,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5724743012027968684, guid: 5f5c1d499e756d34fb4f373f423cf1f2, type: 3}
       propertyPath: m_RootOrder
-      value: 17
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 5724743012027968684, guid: 5f5c1d499e756d34fb4f373f423cf1f2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -32071,7 +32344,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4146638029568668569, guid: 55979b1646b4a504fab81863dd22dff4, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4146638029568668569, guid: 55979b1646b4a504fab81863dd22dff4, type: 3}
       propertyPath: m_LocalPosition.x
