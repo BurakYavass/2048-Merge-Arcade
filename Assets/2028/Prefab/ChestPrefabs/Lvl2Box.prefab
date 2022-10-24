@@ -125,7 +125,7 @@ MonoBehaviour:
   _SliderValue: {fileID: 2169486628295661659}
   _CreatValue: 04000000
   _CreatCount: 2
-  _ChestHealthValue: 20
+  _ChestHealthValue: 30
   chestHealthCurrent: 0
 --- !u!95 &1413927957
 Animator:

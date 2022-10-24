@@ -1494,12 +1494,16 @@ MonoBehaviour:
   enemyDamage: 5
   creatValue: 0200000004000000
   creatCount: 2
-  enemyHealthValue: 10
+  enemyHealthValue: 15
   enemyHealthValueCurrent: 0
   wanderRadius: 15
   wanderTimer: 6
   waitTime: 0
   boss: 0
+  bossJumpArea: {fileID: 0}
+  bossSkillCooldown: 0
+  fillImage: {fileID: 0}
+  dustParticle: {fileID: 0}
 --- !u!195 &9070912439594515791
 NavMeshAgent:
   m_ObjectHideFlags: 0

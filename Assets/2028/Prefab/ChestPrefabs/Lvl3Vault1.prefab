@@ -114,7 +114,7 @@ MonoBehaviour:
   _SliderValue: {fileID: 7199918364889956052}
   _CreatValue: 0400000008000000
   _CreatCount: 4
-  _ChestHealthValue: 50
+  _ChestHealthValue: 70
   chestHealthCurrent: 0
 --- !u!65 &8237917836032764395
 BoxCollider:

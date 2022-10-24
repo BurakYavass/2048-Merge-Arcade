@@ -2006,15 +2006,19 @@ MonoBehaviour:
   sliderValue: {fileID: 7372255687936485969}
   bloodParticle: {fileID: 6319124035371064139}
   _rb: {fileID: 2983376576975394675}
-  enemyDamage: 7
+  enemyDamage: 10
   creatValue: 0200000004000000
   creatCount: 2
-  enemyHealthValue: 100
+  enemyHealthValue: 40
   enemyHealthValueCurrent: 0
   wanderRadius: 15
   wanderTimer: 6
   waitTime: 0
   boss: 0
+  bossJumpArea: {fileID: 0}
+  bossSkillCooldown: 0
+  fillImage: {fileID: 0}
+  dustParticle: {fileID: 0}
 --- !u!195 &6248799919506027730
 NavMeshAgent:
   m_ObjectHideFlags: 0

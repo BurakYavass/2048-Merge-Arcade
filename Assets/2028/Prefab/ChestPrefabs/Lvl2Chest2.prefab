@@ -175,7 +175,7 @@ MonoBehaviour:
   _SliderValue: {fileID: 5845133849394620840}
   _CreatValue: 0400000008000000
   _CreatCount: 3
-  _ChestHealthValue: 30
+  _ChestHealthValue: 40
   chestHealthCurrent: 0
 --- !u!1 &8335021468148914725
 GameObject:

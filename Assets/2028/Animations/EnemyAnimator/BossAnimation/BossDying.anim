@@ -72540,7 +72540,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 3.3666666
-    functionName: Dying
+    functionName: BossDying
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

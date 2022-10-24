@@ -113,7 +113,7 @@ MonoBehaviour:
   _CurrentHealth: {fileID: 8020547642934721421}
   _SliderValue: {fileID: 7199918364889956052}
   _CreatValue: 0400000008000000
-  _CreatCount: 4
+  _CreatCount: 2
   _ChestHealthValue: 50
   chestHealthCurrent: 0
 --- !u!65 &8237917836032764395
