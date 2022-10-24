@@ -31,6 +31,7 @@ public class TriggerArea : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             _playerController = other.GetComponent<PlayerController>();
+            _playerController.playerCollisionHandler.inBossArea = false;
             _playerBallCounter = _playerController.GetComponent<PlayerBallCounter>();
             if (areaType == Area.Upgrade)
             {

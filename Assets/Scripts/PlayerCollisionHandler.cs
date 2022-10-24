@@ -12,8 +12,10 @@ public class PlayerCollisionHandler : MonoBehaviour
     private ChestController _chestController;
     public List<FollowerList> playerFollowPoints;
     
+    public bool inBossArea ;
     private bool _active = false;
     private int i = 0;
+    
 
     private void Start()
     {
@@ -34,10 +36,13 @@ public class PlayerCollisionHandler : MonoBehaviour
     private void Update()
     {
         NavMeshHit hit;
-        bool inBase = NavMesh.SamplePosition(transform.position, out hit, .3f, NavMesh.GetAreaFromName("Base"));
+        var position = transform.position;
+        bool inBase = NavMesh.SamplePosition(position, out hit, .3f, NavMesh.GetAreaFromName("Base"));
+        //bool bossArea = NavMesh.SamplePosition(position, out hit, .3f, NavMesh.GetAreaFromName("BossArea"));
         if (!inBase)
         {
             UIManager.current.PlayerHomeTravelButton(false);
+            
         }
         else
         {
@@ -68,6 +73,11 @@ public class PlayerCollisionHandler : MonoBehaviour
                 }
             }
         }
+
+        if (other.CompareTag("BossArea"))
+        {
+            inBossArea = true;
+        }
     }
 
 
@@ -77,6 +87,11 @@ public class PlayerCollisionHandler : MonoBehaviour
         {
             //gameEventHandler.PlayerLevelUnlockArea(false);
             _playerBallCounter.stackValue = 0;
+        }
+        
+        if (other.CompareTag("BossArea"))
+        {
+            inBossArea = false;
         }
 
     }

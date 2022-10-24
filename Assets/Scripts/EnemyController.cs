@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -35,25 +38,35 @@ public class EnemyController : MonoBehaviour
     public float wanderTimer;
     public float waitTime;
     
+    [Header("Boss")]
     public bool boss;
-    
+    private bool _bossActive;
+    [SerializeField] private GameObject bossJumpArea;
+    [SerializeField] private float bossSkillCooldown;
+    [SerializeField] private RectTransform fillImage;
+    [SerializeField] private ParticleSystem dustParticle;
+
     private float _enemyHealthValueCurrentTemp;
     private float _tempDamage;
     private float _timer;
     private bool _getHitting;
-    private bool _hitting = false;
     private bool _hittable;
     private bool _playerHit;
-    
+    private bool _skillActive = false;
+    private bool _once = false;
+
     void Start()
     {
         enemyHealthValueCurrent = enemyHealthValue;
         fullHealth.text = (Mathf.Round(enemyHealthValue)).ToString();
         currentHealth.text = (Mathf.Round(enemyHealthValueCurrent)).ToString("0");
         wanderTimer = Random.Range(5, 15);
-        _playerTransform = PlayerController.Current.transform;
         _timer = wanderTimer;
-        
+        _playerController = PlayerController.Current;
+        if (boss)
+        {
+            StartCoroutine(SkillCooldown());
+        }
     }
 
     private void OnDisable()
@@ -76,12 +89,19 @@ public class EnemyController : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             _playerController = other.GetComponent<PlayerController>();
-            var playerTransform = other.transform.position;
-            enemyAgent.transform.LookAt(playerTransform,Vector3.up);
-            enemyAnimator.SetBool("Walking",false);
-            enemyAnimator.SetBool("Idle",false);
-            enemyAnimator.SetBool("Attack",true);
+            if (!boss)
+            {
+                enemyAnimator.SetBool("Walking",false);
+                enemyAnimator.SetBool("Idle",false);
+                enemyAnimator.SetBool("Attack",true);
+                _hittable = true;
+            }
+            else
+            {
+                _hittable = true;
+            }
         }
+        
     }
 
     private void OnTriggerExit(Collider other)
@@ -93,34 +113,42 @@ public class EnemyController : MonoBehaviour
         }
         if (other.CompareTag("Player"))
         {
-            _playerController = null;
-            enemyAgent.updateRotation = true;
-            enemyAnimator.SetBool("Attack",false);
-            _hitting = false;
+            if (!boss)
+            {
+                enemyAgent.updateRotation = true;
+                enemyAnimator.SetBool("Attack",false);
+                _hittable = false;
+            }
+            else
+            {
+                _hittable = false;
+            }
+           
         }
     }
     
-   
-
     private void HitTaken(float damage)
     {
         _tempDamage = damage;
         bloodParticle.Play();
-        enemyAgent.updatePosition = false;
-        enemyAgent.enabled = false;
-        _rb.isKinematic = false;
-        var damageState = GameManager.current._damageState;
-        if (damageState == 1)
+        if (!boss)
         {
-            _rb.AddForce(-transform.forward*damageState,ForceMode.Impulse);
-        }
-        else if (damageState > 1)
-        {
-            _rb.AddForce(-transform.forward*damageState,ForceMode.Impulse);
-        }
-        else
-        {
-            _rb.AddForce(-transform.forward,ForceMode.Impulse);
+            enemyAgent.updatePosition = false;
+            enemyAgent.enabled = false;
+            _rb.isKinematic = false;
+            var damageState = GameManager.current._damageState;
+            if (damageState == 1)
+            {
+                _rb.AddForce(-transform.forward*damageState,ForceMode.Impulse);
+            }
+            else if (damageState > 1)
+            {
+                _rb.AddForce(-transform.forward*damageState,ForceMode.Impulse);
+            }
+            else
+            {
+                _rb.AddForce(-transform.forward,ForceMode.Impulse);
+            }
         }
         _enemyHealthValueCurrentTemp = Mathf.Clamp(enemyHealthValueCurrent - _tempDamage, 0, enemyHealthValue);
         _getHitting = true;
@@ -128,9 +156,12 @@ public class EnemyController : MonoBehaviour
         var monsterScale = transform.lossyScale;
         transform.DOPunchScale(new Vector3(0.1f, 0.1f, 0.1f), 0.5f).SetEase(Ease.InBounce).OnComplete((() =>
         {
-            _rb.isKinematic = true;
-            enemyAgent.enabled = true;
-            enemyAgent.updatePosition = true;
+            if (!boss)
+            {
+                _rb.isKinematic = true;
+                enemyAgent.enabled = true;
+                enemyAgent.updatePosition = true;
+            }
             transform.localScale = monsterScale;
         }));
         
@@ -151,32 +182,121 @@ public class EnemyController : MonoBehaviour
             }
             else
             {
-                var colliders = GetComponents<Collider>();
-                foreach (var collider in colliders)
+                if (boss)
                 {
-                    collider.enabled = false;
+                    enemyAnimator.SetBool("Dying",true);
                 }
-                StartCoroutine(CloseDelay());
-                transform.DOScale(Vector3.zero, 0.5f);
-                for (int i = 0; i < closePart.Length; i++)
+                else
                 {
-                    closePart[i].transform.localScale = Vector3.Lerp(closePart[i].transform.localScale,Vector3.zero,.1f);
+                    var colliders = GetComponents<Collider>();
+                    foreach (var collider in colliders)
+                    {
+                        collider.enabled = false;
+                    }
+                    StartCoroutine(CloseDelay());
+                    transform.DOScale(Vector3.zero, 0.5f);
+                    for (int i = 0; i < closePart.Length; i++)
+                    {
+                        closePart[i].transform.localScale = Vector3.Lerp(closePart[i].transform.localScale,Vector3.zero,.1f);
           
-                } 
-                for (int i = 0; i < openPart.Length; i++)
-                {
-                    openPart[i].SetActive(true);
+                    } 
+                    for (int i = 0; i < openPart.Length; i++)
+                    {
+                        openPart[i].SetActive(true);
+                    } 
                 }
+                
             }
         }
 
-        if (enemyAgent.enabled)
+        if (boss)
         {
-            var distance = Vector3.Distance(transform.position, _playerTransform.position);
-            if (distance < 15.0f && !_hitting)
+            if (_playerController.playerCollisionHandler.inBossArea)
+            {
+                enemyAnimator.SetBool("BossArea",true);
+                //var playerPosition = _playerTransform.position;
+                
+                var anim = enemyAnimator.GetAnimatorTransitionInfo(0).IsUserName("walking");
+                healthBar.SetActive(true);
+                if (anim)
+                {
+                    _bossActive = true;
+                }
+                
+                if (_bossActive)
+                {
+                    
+                    var distance = Vector3.Distance(transform.position, _playerController.transform.position);
+                    if (!_skillActive)
+                    {
+                        enemyAgent.enabled = true;
+                        if (enemyAgent.enabled)
+                        {
+                            enemyAgent.destination = _playerController.transform.position;
+                        }
+                        
+                        fillImage.transform.DOKill();
+                        transform.DOKill();
+
+                        if (_hittable)
+                        {
+                            enemyAnimator.SetBool("Attack", true);
+                            enemyAgent.enabled = false;
+                        }
+                        else
+                        {
+                            enemyAgent.enabled = true;
+                            enemyAnimator.SetBool("Attack", false);
+                        }
+                    }
+                    else
+                    {
+                        enemyAgent.enabled = false;
+                        enemyAnimator.SetBool("Attack", false);
+                        if (!_once)
+                        {
+                            _once = true;
+                            transform.LookAt(_playerController.transform.position);
+                            enemyAnimator.SetTrigger("JumpAttack");
+                            var playerPosition = _playerController.transform.position;
+                            bossJumpArea.transform.position = new Vector3(playerPosition.x,.6f,playerPosition.z);
+                            bossJumpArea.SetActive(true);
+                            fillImage.transform.DOKill();
+                            transform.DOKill();
+                            fillImage.DOScale(1, 3.0f);
+                            transform.DOMove(playerPosition, 3.0f)
+                                .OnComplete((() =>
+                                {
+                                    fillImage.localScale = Vector3.zero;
+                                    bossJumpArea.SetActive(false);
+                                    enemyAgent.enabled = true;
+                                    StartCoroutine(SkillCooldown());
+                                    _skillActive = false;
+                                }));
+                        }
+                    }
+                }
+            }
+            else
+            {
+                fillImage.localScale = Vector3.zero;
+                _bossActive = false;
+                enemyAgent.enabled = false;
+                healthBar.SetActive(false);
+                bossJumpArea.SetActive(false);
+                enemyAnimator.SetBool("BossArea",false);
+                enemyAnimator.SetBool("Attack", false);
+            }
+        }
+
+        if (enemyAgent.enabled && !boss)
+        {
+            var playerPosition = _playerController.gameObject.transform.position;
+            var distance = Vector3.Distance(transform.position, playerPosition);
+            if (distance < 15.0f)
             {
                 healthBar.SetActive(true);
-                enemyAgent.destination = _playerTransform.position;
+                enemyAgent.destination = playerPosition;
                 enemyAnimator.SetBool("Walking",true);
                 enemyAnimator.SetBool("Idle",false);
             }
@@ -185,11 +305,8 @@ public class EnemyController : MonoBehaviour
                 healthBar.SetActive(false);
                 if (_timer >= wanderTimer)
                 {
-                    if (!boss)
-                    {
-                        _newPos = RandomNavSphere(transform.position, Random.Range(5f,wanderRadius), -1);
-                        enemyAgent.SetDestination(_newPos);
-                    }
+                    _newPos = RandomNavSphere(transform.position, Random.Range(5f,wanderRadius), -1);
+                    enemyAgent.SetDestination(_newPos);
                     _timer = 0;
                 }
             
@@ -202,16 +319,8 @@ public class EnemyController : MonoBehaviour
                 }
                 else
                 {
-                    if (!boss)
-                    {
-                        enemyAnimator.SetBool("Walking",true);
-                        enemyAnimator.SetBool("Idle", false);
-                    }
-                    else
-                    {
-                        enemyAnimator.SetBool("Walking",false);
-                        enemyAnimator.SetBool("Idle", true);
-                    }
+                    enemyAnimator.SetBool("Walking",true);
+                    enemyAnimator.SetBool("Idle", false);
                 }
             }
         }
@@ -272,9 +381,42 @@ public class EnemyController : MonoBehaviour
 
     private void EnemyHit()
     {
-        if (_playerController != null)
+        if (_hittable)
         {
             _playerController.HitTaken(enemyDamage);
         }
+    }
+
+    private void ParticlePlay()
+    {
+        dustParticle.Play();
+    }
+
+    private void Dying()
+    {
+        var colliders = GetComponents<Collider>();
+        foreach (var collider in colliders)
+        {
+            collider.enabled = false;
+        }
+        StartCoroutine(CloseDelay());
+        for (int i = 0; i < closePart.Length; i++)
+        {
+            closePart[i].transform.localScale = Vector3.Lerp(closePart[i].transform.localScale,Vector3.zero,.1f);
+          
+        } 
+        for (int i = 0; i < openPart.Length; i++)
+        {
+            openPart[i].SetActive(true);
+        } 
+    }
+
+    IEnumerator SkillCooldown()
+    {
+        fillImage.transform.DOKill();
+        transform.DOKill();
+        yield return new WaitForSeconds(bossSkillCooldown);
+        _skillActive = true;
+        _once = false;
     }
 }
