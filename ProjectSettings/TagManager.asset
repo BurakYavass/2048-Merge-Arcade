@@ -35,6 +35,7 @@ TagManager:
   - Sword
   - PlayerHitPoint
   - BossArea
+  - Boss
   layers:
   - Default
   - TransparentFX

@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class BallController : MonoBehaviour
 {
-    [SerializeField] public List<GameObject> balls=new List<GameObject>();
-    [SerializeField] private GameObject creatBall;
+    [SerializeField] public List<Ball> balls=new List<Ball>();
+    [SerializeField] private Ball creatBall;
     [SerializeField] private PlayerCollisionHandler _playerFollowerList;
     [SerializeField] private GameObject mergeBallPos;
     [SerializeField] private GameObject upgradeBallPos;
@@ -22,6 +22,7 @@ public class BallController : MonoBehaviour
     private float _tempSpeed;
     private float _delayMerge;
     private int j = 0;
+    private int _ballValue;
 
     void Start()
     {
@@ -43,7 +44,7 @@ public class BallController : MonoBehaviour
                     var follower = _playerFollowerList.playerFollowPoints[j];
                     var last = follower.ReturnLast();
                     var lastPosition = last.transform.position;
-                    GameObject go = Instantiate(creatBall, new Vector3(lastPosition.x,lastPosition.y,lastPosition.z-3), Quaternion.identity,gameObject.transform);
+                    var go = Instantiate(creatBall, new Vector3(lastPosition.x,lastPosition.y,lastPosition.z-3), Quaternion.identity,gameObject.transform);
                     go.tag = "StackBall";
                     var ball = go.GetComponent<Ball>();
                     ball.SetValue(PlayerPrefs.GetInt("BallSave" + (i)));
@@ -87,48 +88,21 @@ public class BallController : MonoBehaviour
         {
             if (balls.Count> 0)
             {
-                for (int i = 0; i < balls.Count; i++)
+                if (!_waiter)
                 {
-                    if (!_waiter)
-                    {
-                        _waiter = true;
-                        StartCoroutine(Delay());
-                        var first = balls.FirstOrDefault();
-                        if (first) 
-                            first.GetComponent<Ball>().SetGoMerge(mergeBallPos);
-                        _delayMerge += .5f;
-                        balls.Remove(first);
-                        
-                    }
+                    _waiter = true;
+                    StartCoroutine(Delay());
+                    var first = balls.FirstOrDefault();
+                    if (first) 
+                        first.GetComponent<Ball>().SetGoMerge(mergeBallPos);
+                    _delayMerge += .5f;
+                    balls.Remove(first);
                 }
             }
             else
             {
                 _goMerge = false;
                 _delayMerge = 0;
-            }
-        }
-
-        if (_goUnlock)
-        {
-            if (balls.Count > 0)
-            {
-                for (int i = 0; i < balls.Count; i++)
-                {
-                    if (!_waiter)
-                    {
-                        _waiter = true;
-                        StartCoroutine(Delay());
-                            var first = balls.FirstOrDefault();
-                            if (first) 
-                                first.GetComponent<Ball>().SetGoUnlock(_unlockWallPos);
-                            balls.Remove(first);
-                    }
-                }
-            }
-            else
-            {
-                _goUnlock = false;
             }
         }
 
@@ -139,7 +113,7 @@ public class BallController : MonoBehaviour
                 for (int i = 0; i < balls.Count; i++)
                 {
                     balls[i].GetComponent<Ball>().SetGoTravel();
-                    balls[i].SetActive(false);
+                    balls[i].gameObject.SetActive(false);
                     PlayerPrefs.SetInt("BallSave" + i, (int)(balls[i].GetComponent<Ball>().GetValue()));
                     PlayerPrefs.SetInt("BallSaveCount", balls.Count);
                     PlayerPrefs.Save();
@@ -170,17 +144,12 @@ public class BallController : MonoBehaviour
             }
         }
     }
-
-    public void GoUnlock(Transform target , bool go)
-    {
-        _unlockWallPos = target;
-        _goUnlock = go;
-    }
+    
     public GameObject LastObje()
     {
-        return balls[balls.Count - 1];
+        return balls[balls.Count - 1].gameObject;
     }
-    public void SetNewBall(GameObject ball)
+    public void SetNewBall(Ball ball)
     {
         balls.Add(ball);
     }
@@ -192,6 +161,23 @@ public class BallController : MonoBehaviour
     public void GoUpgrade()
     {
         _goUpgrade = true;
+    }
+
+    public void GoUnlock(Transform target, int value)
+    {
+        // for (int i = 0; i < balls.Count; i++)
+        // {
+        //     if (balls[i].GetValue() == value)
+        //     {
+        //         balls[i].GetComponent<Ball>().SetGoUnlock(target);
+        //         balls.Remove(balls[i]);
+        //         break;
+        //     }
+        //     else
+        //     {
+        //         value *= 2;
+        //     }
+        // }
     }
 
     public void GoTravelPoint()

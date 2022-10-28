@@ -51,6 +51,11 @@ public class PlayerCollisionHandler : MonoBehaviour
                 UIManager.current.PlayerHomeTravelButton(true);
             }
         }
+
+        if (playerController.playerDie)
+        {
+            inBossArea = false;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -69,7 +74,7 @@ public class PlayerCollisionHandler : MonoBehaviour
                     other.gameObject.GetComponent<Ball>().SetGoTarget(playerFollowPoints[i].ReturnLast().transform);
                     playerFollowPoints[i].SaveBall(other.gameObject);
                     i++;
-                    ballController.SetNewBall(other.gameObject);
+                    ballController.SetNewBall(other.GetComponent<Ball>());
                 }
             }
         }

@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 637949407474519127, guid: 3517534986b878f4e8ccf19e9431df77, type: 3}
+  - {fileID: 2100000, guid: bd23507c641c08d4aa42098b6d381595, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -127,6 +127,7 @@ MonoBehaviour:
   _CreatCount: 2
   _ChestHealthValue: 30
   chestHealthCurrent: 0
+  chestClose: 0
 --- !u!95 &1413927957
 Animator:
   serializedVersion: 4

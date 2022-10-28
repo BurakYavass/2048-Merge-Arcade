@@ -1,5 +1,6 @@
 using System.Collections;
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,7 @@ public class TriggerArea : MonoBehaviour
         Merge,
         BaseRight,
         BaseLeft,
+        BossArea,
     }
 
     public Area areaType;
@@ -18,12 +20,15 @@ public class TriggerArea : MonoBehaviour
     [SerializeField] private Image filledImage;
     [SerializeField] private GameEventHandler gameEventHandler;
     [SerializeField] private BallController ballController;
+    [SerializeField] private GameObject bossAreaWall;
     private PlayerBallCounter _playerBallCounter;
     private Coroutine _upgradeTriggerDelay;
     private Coroutine _mergeTriggerDelay;
     
     private bool _upgradeArea;
     private bool _mergeMachine;
+    public bool tutorial;
+    [SerializeField] private TutorialStage tutorialStage;
     
 
     private void OnTriggerEnter(Collider other)
@@ -35,6 +40,7 @@ public class TriggerArea : MonoBehaviour
             _playerBallCounter = _playerController.GetComponent<PlayerBallCounter>();
             if (areaType == Area.Upgrade)
             {
+                TutorialControl.Instance.CompleteStage(tutorialStage);
                 if (!_upgradeArea)
                 {
                     _upgradeTriggerDelay = StartCoroutine(UpgradeAreaDelay(true));
@@ -60,7 +66,7 @@ public class TriggerArea : MonoBehaviour
             {
                 gameEventHandler.PlayerLeftArea(true);
             }
-            
+
         }
     }
 

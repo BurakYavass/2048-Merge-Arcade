@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
-using GameAnalyticsSDK;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -25,7 +24,6 @@ public class GameManager : MonoBehaviour
     public bool damageMax =false;
 
     private bool _once = false;
-    
 
     [NonSerialized]
     public int _speedState = 0;
@@ -89,7 +87,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, "1");
+        //GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, "1");
     }
 
     private void OnDisable()
@@ -113,7 +111,7 @@ public class GameManager : MonoBehaviour
             if (!_once)
             {
                 _once = true;
-                GameAnalytics.NewProgressionEvent(GAProgressionStatus.Fail, "1");
+                //GameAnalytics.NewProgressionEvent(GAProgressionStatus.Fail, "1");
                 StartCoroutine(ReviveDelay(playerReviveDelay));
                 uiManager.PlayerRevive(true,playerReviveDelay);
                 ballController.GoFree();

@@ -40,6 +40,9 @@ public class PlayerController : MonoBehaviour
     public bool healing = false;
     public bool playerDie;
     
+    [Header("Tutorial")]
+    [SerializeField] private bool outline;
+    [SerializeField] private GameObject[] charVertex;
     
     
     private void Awake()
@@ -55,6 +58,16 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        if (outline)
+        {
+            charVertex[0].SetActive(false);
+            charVertex[1].SetActive(true);
+        }
+        else
+        {
+            charVertex[0].SetActive(true);
+            charVertex[1].SetActive(false);
+        }
         _playerHealthValue = _gameManager._playerArmor;
         playerHealthValueCurrent = _playerHealthValue;
         fullHealth.text = (Mathf.Round(_playerHealthValue)).ToString();

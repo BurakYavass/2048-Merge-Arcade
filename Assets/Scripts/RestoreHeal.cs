@@ -1,10 +1,13 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class RestoreHeal : MonoBehaviour
 {
+    [SerializeField] private TutorialStage tutorialStage;
     [SerializeField] private PlayerController playerController;
     [SerializeField] private float healTemp;
+    public bool tutorial;
 
     private void Update()
     {
@@ -25,6 +28,14 @@ public class RestoreHeal : MonoBehaviour
                 StopCoroutine(Delay());
             }
             
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            TutorialControl.Instance.CompleteStage(tutorialStage);
         }
     }
 

@@ -63,10 +63,10 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 725804396391725484, guid: 3517534986b878f4e8ccf19e9431df77, type: 3}
-  - {fileID: -5605289326131794027, guid: 3517534986b878f4e8ccf19e9431df77, type: 3}
-  - {fileID: 99656467281103303, guid: 3517534986b878f4e8ccf19e9431df77, type: 3}
-  - {fileID: -8693172909504858975, guid: 3517534986b878f4e8ccf19e9431df77, type: 3}
+  - {fileID: 2100000, guid: 7a0577033e5c273488357c2d05603f39, type: 2}
+  - {fileID: 2100000, guid: 37756f2870cdbc2468dbdb0112356c5f, type: 2}
+  - {fileID: -4246479402191905792, guid: d746126ee5b4d2645958f8b88040ff38, type: 3}
+  - {fileID: 2100000, guid: a04a0b8250e515443b8566fd09d845c1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -112,10 +112,11 @@ MonoBehaviour:
   _FullHealth: {fileID: 5089751835017539068}
   _CurrentHealth: {fileID: 8020547642934721421}
   _SliderValue: {fileID: 7199918364889956052}
-  _CreatValue: 0400000008000000
-  _CreatCount: 4
+  _CreatValue: 08000000
+  _CreatCount: 3
   _ChestHealthValue: 60
   chestHealthCurrent: 0
+  chestClose: 0
 --- !u!65 &8237917836032764395
 BoxCollider:
   m_ObjectHideFlags: 0

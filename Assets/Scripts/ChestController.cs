@@ -9,6 +9,7 @@ using Random = UnityEngine.Random;
 public class ChestController : MonoBehaviour
 {
     private Transform _playerTransform;
+    [SerializeField] private TutorialStage tutorialStage;
     [SerializeField] private GameObject _MainObje;
     [SerializeField] private GameObject _CreatBall;
     [SerializeField] private GameObject[] _ClosePart; 
@@ -24,9 +25,11 @@ public class ChestController : MonoBehaviour
     public float chestHealthCurrent;
     private float _chestHealthValueCurrentTemp;
     private float _tempDamage;
-    
+
+    public bool chestClose = false;
     private bool _hitTake;
     private bool _playerHit;
+    public bool tutorial;
     void Start()
     {
         chestHealthCurrent = _ChestHealthValue;
@@ -76,18 +79,23 @@ public class ChestController : MonoBehaviour
             }
             else
             {
+                if (tutorial)
+                {
+                    tutorial = false;
+                    TutorialControl.Instance.CompleteStage(tutorialStage);
+                }
+                chestClose = true;
                 var collider = GetComponent<Collider>();
                 collider.isTrigger = false;
                 StartCoroutine(CloseDelay());
                 transform.DOScale(Vector3.zero, 0.5f);
-                for (int i = 0; i < _ClosePart.Length; i++)
+                foreach (var close in _ClosePart)
                 {
-                    _ClosePart[i].transform.localScale = Vector3.Lerp(_ClosePart[i].transform.localScale,Vector3.zero,.1f);
-          
+                    close.transform.localScale = Vector3.Lerp(close.transform.localScale,Vector3.zero,.1f);
                 } 
-                for (int i = 0; i < _OpenPart.Length; i++)
+                foreach (var open in _OpenPart)
                 {
-                    _OpenPart[i].SetActive(true);
+                    open.SetActive(true);
                 }
             }
         }

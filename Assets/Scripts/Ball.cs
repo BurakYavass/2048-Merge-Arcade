@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using DG.Tweening;
 using UnityEngine;
@@ -16,10 +17,12 @@ public class Ball : MonoBehaviour
     [SerializeField] private GameObject dustParticle;
     [SerializeField] private GameObject wing;
     [SerializeField] private MeshRenderer closePart;
+    private PlayerCollisionHandler _playerFollowerList;
     public NavMeshAgent agent;
     public GameObject targetObje;
     public Rigidbody ballRb;
-
+    public GameObject targetTarget;
+    
     private float _delayMerge;
     private float _distance;
     public bool go;
@@ -28,9 +31,11 @@ public class Ball : MonoBehaviour
     public bool goUnlock;
     public bool goTravel;
     public bool goFree;
+   
 
     void Start()
     {
+        _playerFollowerList = PlayerController.Current.playerCollisionHandler;
         ballController = GameObject.FindGameObjectWithTag("BallController").GetComponent<BallController>();
         BallChanger();
         //StartCoroutine(DelayKinematic());
@@ -54,46 +59,57 @@ public class Ball : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (go && targetObje != null && agent.enabled)
+        if (go && agent.enabled)
         {
-            var targetObjePos = targetObje.transform.position;
-            var distance = Vector3.Distance(transform.position , targetObjePos);
-            if (Mathf.Abs(agent.stoppingDistance - distance) > 3.0f)
+            if (targetObje != null)
             {
-                var speed = GameManager.current.playerSpeed;
-                if (distance > 6.0f)
+                if (targetObje.GetComponent<Ball>())
                 {
-                    agent.speed = Mathf.Clamp(agent.speed + 0.5f* Time.fixedDeltaTime,speed,50);
+                    targetTarget = targetObje.GetComponent<Ball>().targetObje;
+                }
+                var targetObjePos = targetObje.transform.position;
+                var distance = Vector3.Distance(transform.position , targetObjePos);
+                if (Mathf.Abs(agent.stoppingDistance - distance) > 3.0f)
+                {
+                    var speed = GameManager.current.playerSpeed;
+                    if (distance > 6.0f)
+                    {
+                        agent.speed = Mathf.Clamp(agent.speed + 0.5f* Time.fixedDeltaTime,speed,50);
+                    }
+                    else
+                    {
+                        agent.speed = Mathf.Clamp(agent.speed - 0.5f* Time.fixedDeltaTime,speed,50);
+                    }
+                
+                    if (ballAnimator!=null)
+                    {
+                        ballAnimator.SetBool("Anim", true);
+                    }
+                
+                    var currentVelocity = Vector3.zero;
+                
+                    if (agent.isOnNavMesh)
+                    {
+                        ballRb.isKinematic = true;
+                        _collider.isTrigger = true;
+                        agent.SetDestination(targetObjePos);
+                        transform.position = Vector3.SmoothDamp(transform.position,agent.nextPosition, ref currentVelocity, 0.1f);
+                        //agent.destination = Vector3.SmoothDamp(transform.position,targetObjePos, ref currentVelocity,.1f);
+                    }
+                
                 }
                 else
                 {
-                    agent.speed = Mathf.Clamp(agent.speed - 0.5f* Time.fixedDeltaTime,speed,50);
+                    if (ballAnimator!=null)
+                    {
+                        ballAnimator.SetBool("Anim", false);
+                    }
+                    agent.speed = GameManager.current.playerSpeed;
                 }
-                
-                if (ballAnimator!=null)
-                {
-                    ballAnimator.SetBool("Anim", true);
-                }
-                
-                var currentVelocity = Vector3.zero;
-                
-                if (agent.isOnNavMesh)
-                {
-                    ballRb.isKinematic = true;
-                    _collider.isTrigger = true;
-                    agent.SetDestination(targetObjePos);
-                    transform.position = Vector3.SmoothDamp(transform.position,agent.nextPosition, ref currentVelocity, 0.1f);
-                    //agent.destination = Vector3.SmoothDamp(transform.position,targetObjePos, ref currentVelocity,.1f);
-                }
-                
             }
             else
             {
-                if (ballAnimator!=null)
-                {
-                    ballAnimator.SetBool("Anim", false);
-                }
-                agent.speed = GameManager.current.playerSpeed;
+                targetObje = targetTarget;
             }
         }
     }
@@ -408,8 +424,6 @@ public class Ball : MonoBehaviour
                 wing.SetActive(false);
             }
             GameEventHandler.current.BallMergeArea(true);
-            // other.transform.parent.transform.DOPunchScale(new Vector3(0.01f, 0.01f, 0.01f), 0.1f).SetEase(Ease.InBounce)
-            //     .OnComplete((() => other.transform.parent.transform.localScale = Vector3.one));
         }
 
         if (other.CompareTag("Ground"))

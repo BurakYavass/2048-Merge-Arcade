@@ -20,13 +20,17 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button damageButton;
     [SerializeField] private Button speedButton;
     [SerializeField] private Button armorButton;
+    [SerializeField] private Button resumeButton;
     [SerializeField] private GameObject closeButton;
-    [SerializeField] private GameObject homeTravelButton;
     [SerializeField] private float delay;
 
     [SerializeField] private List<GameObject> armorLevelImage;
     [SerializeField] private List<GameObject> damageLevelImage;
     [SerializeField] private List<GameObject> speedLevelImage;
+    
+    [Header("Home Teleport")]
+    [SerializeField] private GameObject homeTravelPanel;
+    [SerializeField] private Button homeTravelButton;
     
 
     [Header("Revive Canvas")] 
@@ -37,12 +41,27 @@ public class UIManager : MonoBehaviour
 
 
     private bool _once = false;
+    public bool tutorial;
 
     private void Awake()
     {
         if (current == null)
         {
             current = this;
+        }
+    }
+
+    private void Start()
+    {
+        PlayerPrefs.GetInt("uITutorial", 0);
+        
+        if (PlayerPrefs.GetInt("uITutorial") == 1)
+        {
+            tutorial = false;
+        }
+        else
+        {
+            tutorial = true;
         }
     }
 
@@ -172,6 +191,12 @@ public class UIManager : MonoBehaviour
         {
             upgradePanel.SetActive(true);
             upgradePanel.transform.DOScale(Vector3.one, 0.5f);
+            if (tutorial)
+            {
+                tutorial = false;
+                PlayerPrefs.SetInt("uITutorial",1);
+                armorButton.transform.DOPunchScale(new Vector3(0.1f,0.1f,0.1f), 0.5f).SetLoops(-1);
+            }
             StartCoroutine(CloseButtonDelay());
         }
         else
@@ -226,27 +251,33 @@ public class UIManager : MonoBehaviour
     {
         if (openClose)
         {
-            homeTravelButton.SetActive(true);
+            homeTravelPanel.SetActive(true);
             if (!_once)
             {
                 _once = true;
-                transform.DOKill();
-                homeTravelButton.transform.DOMoveX(0, 1f).SetEase(Ease.OutBounce);
+                homeTravelPanel.transform.DOKill();
+                homeTravelPanel.transform.DOMoveX(0, 1f).SetEase(Ease.OutBounce)
+                                            .OnComplete((() => homeTravelButton.enabled = true));
             }
         }
         else
         {
+            homeTravelButton.enabled = false;
             if (_once)
             {
                 _once = false;
-                transform.DOKill();
-                homeTravelButton.transform.DOMoveX(-240f, 1f)
-                    .OnComplete((() => homeTravelButton.SetActive(false)));
+                homeTravelPanel.transform.DOKill();
+                homeTravelPanel.transform.DOMoveX(-240f, .5f).SetEase(Ease.Flash)
+                    .OnComplete((() => homeTravelPanel.SetActive(false)));
             }
             
         }
     }
-    
-    
-    
+
+    public void ArmorTutorial()
+    {
+        armorButton.transform.DOKill();
+        TutorialControl.Instance.CompleteStage(TutorialStage.Upgrade);
+    }
+
 }

@@ -1,6 +1,5 @@
 using System.Collections;
 using DG.Tweening;
-using GameAnalyticsSDK;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,14 +18,16 @@ public class TravelManager : MonoBehaviour
     [SerializeField] private UIManager uiManagser;
     [SerializeField] private PlayerController playerController;
     [SerializeField] private GameObject homeTeleportCanvas;
+    [SerializeField] private TutorialStage tutorialStage;
 
     private Collider _collider;
     private Transform _travelPoint;
 
     public bool active;
     private bool _once = false;
+    private bool _teleport = false;
     public bool homeButtonActiveNow;
-    
+    public bool tutorial;
     
 
     void Start()
@@ -122,12 +123,12 @@ public class TravelManager : MonoBehaviour
                 if (travelType == TravelType.YellowStage)
                 {
                     PlayerPrefs.SetInt("yellow", 1);
-                    GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "Gate 1");
+                    //GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "Gate 1");
                 }
                 else if (travelType == TravelType.PurpleStage)
                 {
                     PlayerPrefs.SetInt("purple",1);
-                    GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "Gate 2");
+                    //GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "Gate 2");
                 }
                 
             }
@@ -159,6 +160,11 @@ public class TravelManager : MonoBehaviour
             }
             else
             {
+                if (tutorial)
+                {
+                    tutorial = false;
+                    TutorialControl.Instance.CompleteStage(tutorialStage);
+                }
                 firstTimePlay.SetActive(true);
                 playerController.OnPlayerTeleport(true);
                 foreach (var closePart in playerController.closePart)
@@ -187,16 +193,20 @@ public class TravelManager : MonoBehaviour
     
     public void PlayerHomeTravel()
     {
-        playerController.OnPlayerTeleport(true);
-        StartCoroutine(TravelWaiter());
-        foreach (var closePart in playerController.closePart)
+        if (!_teleport)
         {
-            closePart.SetActive(false);
-        }
+            _teleport = true;
+            playerController.OnPlayerTeleport(true);
+            StartCoroutine(TravelWaiter());
+            foreach (var closePart in playerController.closePart)
+            {
+                closePart.SetActive(false);
+            }
 
-        foreach (var variCollider in playerController.colliders)
-        {
-            variCollider.enabled = false;
+            foreach (var variCollider in playerController.colliders)
+            {
+                variCollider.enabled = false;
+            }
         }
     }
 
@@ -212,6 +222,7 @@ public class TravelManager : MonoBehaviour
         playerController.gameObject.transform.DOMove(new Vector3(travelPos.x,travelPos.y+.5f,travelPos.z), 1.5f)
             .OnComplete((() =>
             {
+                _teleport = false;
                 if (firstTimePlay)
                     firstTimePlay.SetActive(false);
                 playerController.transform.forward = Vector3.forward;

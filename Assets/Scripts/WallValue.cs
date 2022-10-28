@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,7 +11,7 @@ public class WallValue : MonoBehaviour
     public int unlockRequireCurrent;
     [SerializeField] private float playerWaitTime;
     [SerializeField] private float wallUnlockDelay;
-    [SerializeField] private GameObject ballPrefab;
+    [SerializeField] private Ball ballPrefab;
     [SerializeField] private Image wallValueTexture;
     [SerializeField] private TravelManager openGameObject;
     [SerializeField] private GameObject mainObject;
@@ -18,7 +19,6 @@ public class WallValue : MonoBehaviour
     [SerializeField] private Image filledImage;
     [SerializeField] private Image triggerFilled;
     private PlayerCollisionHandler _playerFollowerList;
-    private PlayerBallCounter _playerBallCounter;
     private BallController _ballController;
     
 
@@ -28,6 +28,8 @@ public class WallValue : MonoBehaviour
     private int _dicreaseValue;
     private int j;
     private Vector3 _scale;
+    private bool _warningAnim;
+    [SerializeField] private Image notEnoughImage;
 
     private void Start()
     {
@@ -41,28 +43,43 @@ public class WallValue : MonoBehaviour
 
     public void UnlockCalculate(bool unlock)
     {
-        _ballController.GoUnlock(transform,true);
+        _ballController.GoUnlock(transform,unlockRequire);
+        var value = unlockRequire;
+
+        var sort = _ballController.balls.OrderBy(y => y.GetValue());
+        var ball = sort.FirstOrDefault((x => x.GetValue() >= value));
+        if (ball)
+        {
+            ball.GetComponent<Ball>().SetGoUnlock(transform);
+            _ballController.balls.Remove(ball);
+        }
+        else
+        {
+            if (!_warningAnim)
+            {
+                _warningAnim = true;
+                notEnoughImage.enabled = true;
+                notEnoughImage.DOColor(Color.white, .2f)
+                    .OnComplete((() => notEnoughImage.DOColor(Color.red, 0.2f)));
+            }
+        }
     }
 
     private void Update()
     {
-        if (_ballController.balls.Count == 0)
-        {
-            _ballController.GoUnlock(null,false);
-        }
         if (unlockRequireCurrent == 0 && GameObject.FindGameObjectsWithTag("UnlockBall").Length<1)
         {
             _totalValue = Mathf.Clamp(_totalValue - unlockRequire, 0, 4096);
+            gameObject.GetComponent<Collider>().enabled = false;
             TotalValue();
+            
         }
-        
     }
 
     void TotalValue()
     {
         if (_totalValue == 0)
         {
-            gameObject.GetComponent<Collider>().enabled = false;
             if (!_once)
             {
                 _once = true;
@@ -74,7 +91,6 @@ public class WallValue : MonoBehaviour
         var sayi = 4096;
         while (_totalValue > 0)
         {
-
             if (sayi > _totalValue)
             {
                 sayi /= 2;
@@ -90,7 +106,7 @@ public class WallValue : MonoBehaviour
                 var follower = _playerFollowerList.playerFollowPoints[j];
                 var last = follower.ReturnLast();
                 var lastPosition = last.transform.position;
-                GameObject go = Instantiate(ballPrefab, new Vector3(lastPosition.x, lastPosition.y, lastPosition.z - 3),
+                var go = Instantiate(ballPrefab, new Vector3(lastPosition.x, lastPosition.y, lastPosition.z - 3),
                     Quaternion.identity,
                     _ballController.transform);
                 go.tag = "StackBall";
@@ -104,6 +120,15 @@ public class WallValue : MonoBehaviour
                 j++;
             }
         }
+
+        if (_totalValue == 0)
+        {
+            if (!_once)
+            {
+                _once = true;
+                StartCoroutine(WallDelay());
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -114,13 +139,13 @@ public class WallValue : MonoBehaviour
             {
                 _playerWallArea = true;
                 _playerFollowerList = other.GetComponent<PlayerCollisionHandler>();
-                _playerBallCounter = other.GetComponent<PlayerBallCounter>();
                 triggerFilled.DOKill();
                 triggerFilled.DOFillAmount(1, playerWaitTime).OnComplete((() =>
                 {
                     UnlockCalculate(true);
                     triggerFilled.fillAmount = 0;
                 }));
+                notEnoughImage.DOKill();
             }
         }
         
@@ -145,19 +170,21 @@ public class WallValue : MonoBehaviour
         {
             triggerFilled.DOKill();
             triggerFilled.fillAmount = 0;
-            UnlockCalculate(false);
+            //UnlockCalculate(false);
             _playerWallArea = false;
+            notEnoughImage.DOKill();
+            notEnoughImage.enabled = false;
+            _warningAnim = false;
         }
     }
 
     IEnumerator WallDelay()
     {
         yield return new WaitForSeconds(wallUnlockDelay);
-        transform.parent.transform.DOMoveY(-10f, 2f).SetEase(Ease.OutBounce).
-                            OnComplete((() =>
+        transform.parent.transform.DOMoveY(-10f, 2f).SetEase(Ease.OutBounce)
+                            .OnComplete((() =>
                             {
                                 gameObject.GetComponent<MeshRenderer>().enabled = false;
-                                
                                 openGameObject.active = true;
                                 mainObject.GetComponent<CloseDelay>().CloseObje();
                             }));

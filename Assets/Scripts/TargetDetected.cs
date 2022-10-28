@@ -4,25 +4,43 @@ using UnityEngine;
 public class TargetDetected : MonoBehaviour
 {
     public bool targetEnterExit;
-    [SerializeField] private PlayerCollisionHandler playerCollisionHandler;
-    [SerializeField] private PlayerAnimationHandler playerAnimationHandler;
-    [SerializeField] private ChestController chestController;
+    [SerializeField] private PlayerController playerController;
+    [SerializeField] public PlayerAnimationHandler playerAnimationHandler;
+    //[SerializeField] private ChestController chestController;
     
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.CompareTag("Chest"))
+        if (!playerController.playerDie)
         {
-            //chestController = other.GetComponent<ChestController>();
-            playerAnimationHandler.HitAnimation(true);
-            targetEnterExit = true;
-        }
+            if (other.gameObject.CompareTag("Chest"))
+            {
+                if (!other.GetComponent<ChestController>().chestClose)
+                {
+                    playerAnimationHandler.HitAnimation(true);
+                    targetEnterExit = true;
+                }
+            }
 
-        if (other.gameObject.CompareTag("Enemy"))
+            if (other.gameObject.CompareTag("Enemy"))
+            {
+                if (!other.GetComponent<EnemyController>().enemyDie)
+                {
+                    playerAnimationHandler.HitAnimation(true);
+                    targetEnterExit = true;
+                }
+            }
+
+            if (other.gameObject.CompareTag("Boss"))
+            {
+                playerAnimationHandler.HitAnimation(true);
+                targetEnterExit = true;
+            }
+        }
+        else
         {
-            //playerCollisionHandler.enemyController = other.GetComponent<EnemyController>();
-            playerAnimationHandler.HitAnimation(true);
-            targetEnterExit = true;
+            playerAnimationHandler.HitAnimation(false);
+            targetEnterExit = false;
         }
         
     }
@@ -31,15 +49,13 @@ public class TargetDetected : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Chest"))
         {
-            //chestController = null;
             playerAnimationHandler.HitAnimation(false);
             targetEnterExit = false;
         }
 
         if (other.gameObject.CompareTag("Enemy"))
         {
-           //playerCollisionHandler.enemyController = null;
-           playerAnimationHandler.HitAnimation(false);
+            playerAnimationHandler.HitAnimation(false);
             targetEnterExit = false;
         }
     }

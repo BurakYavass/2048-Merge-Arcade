@@ -173,10 +173,11 @@ MonoBehaviour:
   _FullHealth: {fileID: 8383247900339632768}
   _CurrentHealth: {fileID: 6754163905329425649}
   _SliderValue: {fileID: 5845133849394620840}
-  _CreatValue: 0400000008000000
+  _CreatValue: 100000002000000040000000
   _CreatCount: 3
   _ChestHealthValue: 95
   chestHealthCurrent: 0
+  chestClose: 0
 --- !u!1 &8335021468148914725
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,7 +309,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6363530414472190774, guid: 9b1adda6c447de24a83feb8f6c6f0bbf, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6363530414472190775, guid: 9b1adda6c447de24a83feb8f6c6f0bbf, type: 3}
       propertyPath: m_Pivot.x
@@ -393,6 +394,10 @@ PrefabInstance:
     - target: {fileID: 6363530414472190775, guid: 9b1adda6c447de24a83feb8f6c6f0bbf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6363530414472190775, guid: 9b1adda6c447de24a83feb8f6c6f0bbf, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6363530414472190778, guid: 9b1adda6c447de24a83feb8f6c6f0bbf, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag

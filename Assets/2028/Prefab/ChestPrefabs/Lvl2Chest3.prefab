@@ -64,9 +64,9 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 3016479151454471876, guid: 3517534986b878f4e8ccf19e9431df77, type: 3}
+  - {fileID: 2100000, guid: 06fccde6d353b1a45aab920ade618826, type: 2}
   - {fileID: -6922793697723135513, guid: 3517534986b878f4e8ccf19e9431df77, type: 3}
-  - {fileID: -6478536213147159724, guid: 3517534986b878f4e8ccf19e9431df77, type: 3}
+  - {fileID: 2100000, guid: bd23507c641c08d4aa42098b6d381595, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -149,6 +149,7 @@ MonoBehaviour:
   _CreatCount: 3
   _ChestHealthValue: 85
   chestHealthCurrent: 0
+  chestClose: 0
 --- !u!1 &2149391328739699599
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,7 +16,6 @@ public class GameEventHandler : MonoBehaviour
     public event Action<bool> OnPlayerRightArea;
     public event Action<bool> OnPlayerLeftArea;
     public event Action<bool> OnBallMergeArea;
-
     public event Action<float> OnPlayerHit; 
 
     public void BallMergeArea(bool enterExit)

@@ -123,10 +123,11 @@ MonoBehaviour:
   _FullHealth: {fileID: 4274691549940058995}
   _CurrentHealth: {fileID: 1350546166024903938}
   _SliderValue: {fileID: 2169486628295661659}
-  _CreatValue: 04000000
+  _CreatValue: 08000000
   _CreatCount: 2
   _ChestHealthValue: 40
   chestHealthCurrent: 0
+  chestClose: 0
 --- !u!95 &1413927957
 Animator:
   serializedVersion: 4
