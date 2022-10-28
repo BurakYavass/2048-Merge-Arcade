@@ -72,3 +72,4 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 .idea
 2048_MergeArcade_BackUpThisFolder_ButDontShipItWithYourGame
+*.keystore
